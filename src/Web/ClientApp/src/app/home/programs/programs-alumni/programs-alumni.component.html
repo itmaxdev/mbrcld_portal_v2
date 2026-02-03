@@ -1,0 +1,39 @@
+<div class="pb-8 border rounded-lg border-gray-400  bg-white p-4">
+  <div class="mb-4 grid gap-2">
+    <h1 class="text-2xl font-bold" i18n>Program - Leadership program</h1>
+  </div>
+  <div class="card">
+    <p-tabView (onChange)="handleChange($event)">
+      <p-tabPanel header="Completed Programs" [selected]="true" i18n-header>
+        <div *ngIf="ready; else loadingCompleted" class="grid gap-4">
+          <app-program-cohort-card *ngFor="let item of completedProgram" [data]="item"></app-program-cohort-card>
+        </div>
+        <ng-template #loadingCompleted>
+          <app-progress-spinner></app-progress-spinner>
+        </ng-template>
+      </p-tabPanel>
+      <p-tabPanel header="In Progress Programs" i18n-header>
+        <div>
+          <div *ngIf="ready; else loading" class="grid gap-4">
+            <app-enrolled-card *ngFor="let item of inprogressProgram" [id]="item.id" [role]="role"
+              [caption]="locale == 'ar' ? item.name_AR : item.name" [url]="item.pictureUrl" [content]="locale == 'ar' ? item.description_AR : item.description"
+              [progressValue]="item.completed" [visibleBtn]="false"></app-enrolled-card>
+          </div>
+          <ng-template #loading>
+            <app-progress-spinner></app-progress-spinner>
+          </ng-template>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="New Programs" i18n-header>
+        <div *ngIf="ready; else loadingSuggested" class="grid gap-4">
+          <app-program-suggested-view *ngFor="let item of suggestedProgram" [data]="item"
+            [incompleteProfile]="incompleteProfile" [alreadyEnrolled]="alreadyEnrolled"
+            [isActiveProgramID]="isActiveProgramID"></app-program-suggested-view>
+        </div>
+        <ng-template #loadingSuggested>
+          <app-progress-spinner></app-progress-spinner>
+        </ng-template>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>

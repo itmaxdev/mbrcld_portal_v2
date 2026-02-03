@@ -1,0 +1,194 @@
+<ng-container *ngIf="ready; else loading">
+  <app-card sectionTitle="Professional Experience"
+    sectionSubTitle="This section requires you to provide your career history (minimum 1 and maximum 3 job posts)."
+    i18n-sectionTitle i18n-sectionSubTitle class="flex-grow">
+    <div role="actions">
+      <button [disabled]="professionalExperiences.length >= 3" pButton icon="pi pi-plus" label="Add" i18n-label
+        (click)="openProfessionalExperienceDialog()"></button>
+    </div>
+
+    <div class="p-grid">
+      <div *ngIf="professionalExperiences.length === 0" class="p-col-12 py-8 text-center">
+        <span class="text-sm text-gray-700" i18n>You haven't added any professional experiences yet.</span>
+      </div>
+      <div class="p-col-12" *ngFor="let professionalExperience of professionalExperiences; let index = index">
+        <app-profile-section-info-card [highLight]="!professionalExperience.completed" (onEdit)="openProfessionalExperienceDialogForEditing(professionalExperience)"
+          (onDelete)="removeProfessionalExperience(professionalExperience)">
+          <div class="flex flex-col justify-center">
+            <div class="text-lg font-semibold pb-2">
+              {{ professionalExperience | lang: 'jobTitle' }}
+            </div>
+            <div class="text-gray-600 pb-1">
+              {{ professionalExperience | lang: 'organizationName' }}
+            </div>
+            <div class="text-gray-600 pb-1">
+              <ng-container *ngIf="professionalExperience.to">
+                {{ professionalExperience.from | date }} - {{ professionalExperience.to | date }}
+              </ng-container>
+              <ng-container *ngIf="!professionalExperience.to">
+                {{ professionalExperience.from | date }} - <ng-container i18n>Present</ng-container>
+              </ng-container>
+            </div>
+            <div class="text-gray-600 pb-1">
+              <ng-container i18n>Sector</ng-container>:
+              {{ getSectorLabel(professionalExperience.sector) }}
+            </div>
+            <div *ngIf="professionalExperience.otherSector" class="text-gray-600 pb-1">
+              {{ professionalExperience.otherSector }}
+            </div>
+            <div class="text-gray-600 pb-1">
+              <ng-container i18n>Industry</ng-container>:
+              {{ getIndustryLabel(professionalExperience.industry) }}
+            </div>
+            <div *ngIf="professionalExperience.otherIndustry" class="text-gray-600 pb-1">
+              {{ professionalExperience.otherIndustry }}
+            </div>
+          </div>
+        </app-profile-section-info-card>
+      </div>
+
+      <div class="p-field p-col-12 mt-8">
+        <label class="pb-2" i18n>CV Copy <span class="text-red-500">*</span></label>
+        <app-document-upload identifier="curriculum-vitae" accept=".pdf,.doc,.docx">
+        </app-document-upload>
+      </div>
+
+
+    </div>
+  </app-card>
+  <div class="p-col-12 mt-6 flex justify-end">
+    <button class="w-32" pButton type="button" (click)="goToNextForm()" label="Next" i18n-label></button>
+  </div>
+</ng-container>
+
+<p-dialog header="Add Professional Experience" i18n-header [(visible)]="showProfessionalExperienceDialog" [modal]="true"
+  [focusTrap]="true" [focusOnShow]="true" [draggable]="false" styleClass="w-full max-w-sm md:max-w-xl">
+  <form [formGroup]="professionalExperienceForm" (ngSubmit)="
+      editingProfessionalExperience.id
+        ? updateProfessionalExperience()
+        : addProfessionalExperience()
+    ">
+    <div class="p-grid p-formgrid p-fluid">
+      <div class="p-col-6">
+        <div class="p-field">
+          <label for="jobTitle">Job Title <span class="text-red-500">*</span></label>
+          <input pInputText formControlName="jobTitle" type="text" id="jobTitle" placeholder="Enter Job" />
+          <small appControlValidationError controlName="jobTitle" class="p-invalid"></small>
+        </div>
+        <div class="p-field">
+          <label for="organizationName">Organization Name <span class="text-red-500">*</span></label>
+          <input pInputText formControlName="organizationName" type="text" id="organizationName"
+                 placeholder="Enter Organization Name" />
+          <small appControlValidationError controlName="organizationName" class="p-invalid"></small>
+        </div>
+        <div class="p-field">
+          <label for="organizationSize" i18n>Organization Size <span class="text-red-500">*</span></label>
+          <p-dropdown appendTo="body" [options]="organizationSizeOptions" formControlName="organizationSize"
+                      inputId="degree" placeholder="Select the organization size" i18n-placeholder></p-dropdown>
+          <small appControlValidationError controlName="organizationSize" class="p-invalid"></small>
+        </div>
+      </div>
+      <div class="p-col-6" dir="rtl">
+        <div class="p-field">
+          <label for="jobTitle_AR">المسمى الوظيفي <span class="text-red-500">*</span></label>
+          <input pInputText formControlName="jobTitle_AR" type="text" id="jobTitle_AR"
+                 placeholder="أدخل المسمى الوظيفي" />
+          <small appControlValidationError controlName="jobTitle_AR" class="p-invalid"></small>
+        </div>
+        <div class="p-field">
+          <label for="organizationName_AR">اسم الجهة <span class="text-red-500">*</span></label>
+          <input pInputText formControlName="organizationName_AR" type="text" id="organizationName_AR"
+                 placeholder="أدخل اسم الجهة" />
+          <small appControlValidationError controlName="organizationName_AR" class="p-invalid"></small>
+        </div>
+      </div>
+      <div class="p-field p-col-12">
+        <label for="present" i18n></label>
+        <p-checkbox #present id="present" formControlName="present" [binary]="true" label="I am currently working there"
+                    i18n-label (onChange)="present.checked && clearToDateField()"></p-checkbox>
+      </div>
+      <div class="p-field p-col-12 p-lg-6">
+        <label for="from" i18n>From <span class="text-red-500">*</span></label>
+        <p-calendar appUseDateRange="pastDate" appUseUtc appPrimeNGi18n appendTo="body" formControlName="from"
+                    inputId="from" placeholder="From" i18n-placeholder [monthNavigator]="true"
+                    [yearNavigator]="true"></p-calendar>
+        <small appControlValidationError controlName="from" class="p-invalid"></small>
+      </div>
+      <div class="p-field p-col-12 p-lg-6">
+        <label for="to" i18n>To</label>
+        <ng-container *ngIf="!present.checked; else presentLabel">
+          <p-calendar appUseDateRange="freeDate" appUseUtc appPrimeNGi18n appendTo="body" formControlName="to"
+                      inputId="to" placeholder="To" i18n-placeholder [monthNavigator]="true" [yearNavigator]="true"
+                      [minDate]="fromDateValue" yearRange="1900:2020"></p-calendar>
+          <small appControlValidationError controlName="to" class="p-invalid"></small>
+        </ng-container>
+        <ng-template #presentLabel>
+          <div class="p-component p-inputtext" i18n>
+            <span>Present</span>
+          </div>
+        </ng-template>
+      </div>
+      <div class="p-field p-col-12 p-lg-6">
+        <label for="sector" i18n>Sector <span class="text-red-500">*</span></label>
+        <p-dropdown appendTo="body" placeholder="Select a Sector" i18n-placeholder [options]="sectorOptions"
+                    formControlName="sector" inputId="sector"></p-dropdown>
+        <small appControlValidationError controlName="sector" class="p-invalid"></small>
+      </div>
+      <div class="p-field p-col-12 p-lg-6">
+        <label for="industry" i18n>Industry <span class="text-red-500">*</span></label>
+        <p-dropdown appendTo="body" placeholder="Select an Industry" i18n-placeholder [options]="industryOptions"
+                    formControlName="industry" inputId="industry">
+        </p-dropdown>
+        <small appControlValidationError controlName="industry" class="p-invalid"></small>
+      </div>
+      <div *ngIf="isOtherSectorOptionSelected" class="p-field p-col-12 p-lg-6">
+        <label for="otherSector" i18n>Other Sector *</label>
+        <input pInputText formControlName="otherSector" type="text" id="otherSector" placeholder="Enter Other"
+               i18n-placeholder />
+        <small appControlValidationError controlName="otherSector" class="p-invalid"></small>
+      </div>
+      <div *ngIf="isOtherIndustryOptionSelected" class="p-field p-col-12 p-lg-6">
+        <label for="otherIndustry" i18n>Other Industry *</label>
+        <input pInputText formControlName="otherIndustry" type="text" id="otherIndustry" placeholder="Enter Other"
+               i18n-placeholder />
+        <small appControlValidationError controlName="otherIndustry" class="p-invalid"></small>
+      </div>
+
+      <div class="p-field p-col-12 p-lg-6">
+        <label for="positionLevel" i18n>Position level<span class="text-red-500">*</span></label>
+        <p-dropdown appendTo="body" placeholder="Select the Position Level" i18n-placeholder [options]="positionLevel"
+                    formControlName="positionLevel" inputId="positionLevel"></p-dropdown>
+        <small appControlValidationError controlName="positionLevel" class="p-invalid"></small>
+      </div>
+
+      <div class="p-field p-col-12 p-lg-6">
+        <label for="organizationLevel" i18n>organization level<span class="text-red-500">*</span></label>
+        <p-dropdown appendTo="body" placeholder="Select the Organization Level" i18n-placeholder [options]="organizationLevel"
+                    formControlName="organizationLevel" inputId="organizationLevel"></p-dropdown>
+        <small appControlValidationError controlName="organizationLevel" class="p-invalid"></small>
+      </div>
+
+      <div class="p-col-12 mb-5"></div>
+
+      <div class="p-col-6 flex items-center">
+        <span *ngIf="professionalExperienceForm.errors?.singleCurrentJob" class="p-invalid" i18n>
+          You have 1 other
+          current position
+        </span>
+      </div>
+      <div class="p-col-6 flex justify-end">
+        <p-button [disabled]="professionalExperienceForm.invalid || isFormSubmitting" class="p-button-md"
+                  icon="pi pi-check" type="submit" label="Save" i18n-label>
+        </p-button>
+      </div>
+    </div>
+  </form>
+</p-dialog>
+
+<p-confirmDialog appPrimeNGi18n header="Confirmation" i18n-header icon="pi pi-exclamation-triangle"
+  styleClass="w-full max-w-sm">
+</p-confirmDialog>
+
+<ng-template #loading>
+  <app-progress-spinner></app-progress-spinner>
+</ng-template>

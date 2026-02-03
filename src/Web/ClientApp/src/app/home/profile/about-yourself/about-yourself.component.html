@@ -1,0 +1,37 @@
+<ng-container *ngIf="ready; else loading">
+  <app-card
+    sectionTitle="About Yourself"
+    sectionSubTitle="This section requires you to provide an introduction about yourself"
+    i18n-sectionTitle
+    i18n-sectionSubTitle
+    class="flex-grow"
+  >
+    <div>
+      <textarea
+        pInputTextarea
+        class="w-full"
+        [rows]="10"
+        [(ngModel)]="textYourself"
+        [autoResize]="false"
+      ></textarea>
+    </div>
+    <div>
+      <div class="p-col-12 mt-3 flex justify-end">
+        <button
+          pButton
+          type="submit"
+          label="Next"
+          i18n-label
+          class="w-32"
+          (click)="goToNextPage()"
+        ></button>
+      </div>
+    </div>
+  </app-card>
+</ng-container>
+
+<ng-template #loading>
+  <div class="flex flex-grow justify-center items-center py-8">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>

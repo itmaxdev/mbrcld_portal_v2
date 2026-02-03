@@ -1,0 +1,225 @@
+<ng-container *ngIf="ready; else loading">
+  <form
+  [formGroup]="contactDetailsForm"
+  class="p-fluid p-formgrid p-grid profile-form p-5"
+  (ngSubmit)="onSubmit()"
+>
+  <app-card
+    sectionTitle="Contact Details"
+    sectionSubTitle="This section requires you to provide your contact details so we may ensure communication with you."
+    i18n-sectionTitle
+    i18n-sectionSubTitle
+    class="flex-grow flex-shrink"
+  >
+   <div  class="p-grid">
+    <div class="p-col-12 p-xl-6">
+      <div class="p-field">
+        <label for="email" i18n>Personal Email <span class="text-red-500">*</span></label>
+        <span class="relative">
+          <input
+            pInputText
+            formControlName="email"
+            type="email"
+            id="email"
+            placeholder="Enter email"
+            i18n-placeholder
+          />
+          <div class="absolute end-0 top-0 bottom-0 flex items-center">
+            <button
+              pButton
+              type="button"
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-text"
+              title="Change Email"
+              i18n-title
+              [routerLink]="emailUrl"
+            ></button>
+          </div>
+        </span>
+        <small appControlValidationError controlName="email" class="p-invalid"></small>
+      </div>
+      <div class="p-field">
+        <label for="businessEmail" i18n>Work Email <span class="text-red-500">*</span></label>
+        <input
+          pInputText
+          formControlName="businessEmail"
+          type="email"
+          id="businessEmail"
+          placeholder="Enter business email"
+          i18n-placeholder
+        />
+        <small appControlValidationError controlName="businessEmail" class="p-invalid"></small>
+      </div>
+      <div class="p-field">
+        <label for="mobilePhone" i18n>Mobile <span class="text-red-500">*</span></label>
+        <app-phone-number
+          appValidatePhoneNumber
+          formControlName="mobilePhone"
+          inputId="mobilePhone"
+        ></app-phone-number>
+        <small appControlValidationError controlName="mobilePhone" class="p-invalid"></small>
+      </div>
+      <div class="p-field">
+        <label for="mobilePhone2" i18n>Second Mobile</label>
+        <app-phone-number
+          appValidatePhoneNumber
+          formControlName="mobilePhone2"
+          inputId="mobilePhone2"
+        ></app-phone-number>
+        <small appControlValidationError controlName="mobilePhone2" class="p-invalid"></small>
+      </div>
+      <div class="p-field">
+        <label for="telephone" i18n>Landline</label>
+        <input
+          pInputText
+          formControlName="telephone"
+          type="text"
+          pKeyFilter="num"
+          id="telephone"
+          placeholder="Enter Telephone"
+          i18n-placeholder
+        />
+        <small appControlValidationError controlName="telephone" class="p-invalid"></small>
+      </div>
+    </div>
+
+    <div class="p-col-12 p-xl-6">
+      <div class="p-field">
+        <label for="residenceCountry" i18n
+          >Residence Country <span class="text-red-500">*</span></label
+        >
+        <app-nationality-dropdown
+          controlName="residenceCountry"
+          inputId="residenceCountry"
+          placeholder="Enter country of residence"
+          i18n-placeholder
+        >
+        </app-nationality-dropdown>
+        <small appControlValidationError controlName="residenceCountry" class="p-invalid"></small>
+      </div>
+      <div class="p-field">
+        <label for="city" i18n>City <span class="text-red-500">*</span></label>
+        <p-dropdown
+          *ngIf="showDropDown"
+          appendTo="body"
+          [options]="cityOptions"
+          formControlName="city"
+          id="city"
+          inputId="degree"
+          placeholder="Select City"
+          i18n-placeholder
+        ></p-dropdown>
+        <input
+          *ngIf="!showDropDown"
+          pInputText
+          formControlName="city"
+          type="text"
+          id="city"
+          placeholder="Enter City"
+          i18n-placeholder
+        />
+        <small appControlValidationError controlName="city" class="p-invalid"></small>
+      </div>
+      <div class="p-field">
+        <label for="address" i18n>Address <span class="text-red-500">*</span></label>
+        <input
+          pInputText
+          formControlName="address"
+          type="text"
+          id="address"
+          placeholder="Enter Address"
+          i18n-placeholder
+        />
+        <small appControlValidationError controlName="address" class="p-invalid"></small>
+      </div>
+      <div class="p-field">
+        <label for="postOfficeBox" i18n>P.O. Box</label>
+        <input
+          pInputText
+          formControlName="postOfficeBox"
+          type="text"
+          id="postOfficeBox"
+          placeholder="Enter P.O. Box"
+          i18n-placeholder
+        />
+        <small appControlValidationError controlName="postOfficeBox" class="p-invalid"></small>
+      </div>
+    </div>
+
+    <div class="p-col-12 my-4">
+      <h2 class="text-xl font-semibold" i18n>Social Media Accounts</h2>
+      <p class="text-sm text-gray-700" i18n>This section requires you to provide your social media accounts on three major platforms (namely LinkedIn, Instagram and Twitter) which you are active on.</p>
+    </div>
+
+    <div class="p-col-12 p-xl-6">
+      <div class="p-field">
+        <label for="linkedInUrl" i18n>LinkedIn</label>
+        <input
+          pInputText
+          formControlName="linkedInUrl"
+          type="url"
+          id="linkedInUrl"
+          placeholder="Enter linkedIn"
+          i18n-placeholder
+        />
+        <small appControlValidationError controlName="linkedInUrl" class="p-invalid"></small>
+      </div>
+    </div>
+
+    <div class="p-col-12 p-xl-6">
+      <div class="p-field">
+        <label for="twitterUrl" i18n>Twitter</label>
+        <input
+          pInputText
+          formControlName="twitterUrl"
+          type="url"
+          id="twitterUrl"
+          placeholder="Enter twitter"
+          i18n-placeholder
+        />
+        <small appControlValidationError controlName="twitterUrl" class="p-invalid"></small>
+      </div>
+    </div>
+
+    <div class="p-col-12 p-xl-6">
+      <div class="p-field">
+        <label for="instagramUrl" i18n>Instagram</label>
+        <input
+          pInputText
+          formControlName="instagramUrl"
+          type="url"
+          id="instagramUrl"
+          placeholder="Enter instagram"
+          i18n-placeholder
+        />
+        <small appControlValidationError controlName="instagramUrl" class="p-invalid"></small>
+      </div>
+    </div>
+
+    <div *ngIf="contactDetailsForm.errors?.social" class="p-col-12">
+      <span class="p-error text-sm" i18n>You must provide at least 1 social media account</span>
+    </div>
+
+  
+   </div>
+  </app-card>
+    <div class="p-field p-col-12 mt-6 flex justify-end">
+      <div class="w-32">
+        <button
+          [disabled]="contactDetailsForm.invalid || isFormSubmitting"
+          pButton
+          type="submit"
+          label="Next"
+          i18n-label
+          class="w-full"
+        ></button>
+      </div>
+    </div>
+ </form>
+</ng-container>
+
+<ng-template #loading>
+  <div class="flex flex-grow justify-center items-center py-8">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>

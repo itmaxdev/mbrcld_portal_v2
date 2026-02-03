@@ -1,0 +1,16 @@
+<div class="card">
+  <img *ngIf="image" [src]="image" class="cardImage" />
+  <div class="flex col-gap-3">
+    <div *ngIf="date">
+      <p class="text-gray-600 font-semibold">{{date | date:'MMM'}}</p>
+      <p class="date">{{date | date:'d'}}</p>
+    </div>
+    <div>
+      <h4 *ngIf="title" class="font-semibold text-lg">
+        {{title}}
+      </h4>
+      <p *ngIf="description" [innerHtml]="description" class="text-content text-gray-700 text-sm">
+      </p>
+    </div>
+  </div>
+</div>

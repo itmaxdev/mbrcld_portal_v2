@@ -1,0 +1,69 @@
+.header {
+  background: #003e78;
+  padding-left: 40%;
+}
+.social {
+  transform: translateY(-38%);
+  .header-small {
+    display: none;
+  }
+  .profileImage {
+    min-width: 15rem;
+    max-width: 15rem;
+  }
+}
+.socialArabic{
+  padding-right: 14px;
+}
+.headerArabic{
+  display: flex;
+  justify-content: flex-end;
+  padding-left: 36%;
+}
+.aboutArabic{
+  padding-right: 7%;
+}
+.about {
+  padding-left: 7%;
+
+  .about_caption > .for-border {
+    position: relative;
+    bottom: 6px;
+  }
+}
+
+@media (max-width: 640px) {
+  .header-content {
+    visibility: hidden;
+  }
+  .about {
+    padding-left: 0;
+    transform: translateY(-38%);
+  }
+  .social {
+    width: 100%;
+    transform: translateY(-33%);
+    .header-mobile {
+      display: flex;
+      align-items: center;
+      .header-small {
+        display: block;
+      }
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .profile-pic {
+    min-width: 10rem !important;
+  }
+
+  .content-cont {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .info-container {
+    flex-direction: column;
+  }
+}

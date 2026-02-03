@@ -1,0 +1,9 @@
+::ng-deep {
+  .progress-bar .p-progressbar {
+    border-radius: 20px !important;
+    height: 0.8rem !important;
+  }
+  .progress-bar .p-progressbar .p-progressbar-value {
+    background: #0a991b !important;
+  }
+}

@@ -1,0 +1,84 @@
+<ng-container *ngIf="ready; else loading">
+  <app-card sectionTitle="Training Courses"
+    sectionSubTitle="This sections requires you to provide any additional training you have taken (maximum of 3 most recent training programs)."
+    i18n-sectionTitle i18n-sectionSubTitle class="flex-grow">
+    <div role="actions">
+      <button [disabled]="trainingCourses.length >= 3" pButton icon="pi pi-plus" label="Add" i18n-label (click)="openAddTrainingCourseDialog()"></button>
+    </div>
+    <div class="p-grid">
+      <div *ngIf="trainingCourses.length === 0" class="p-col-12 py-8 text-center">
+        <span class="text-sm text-gray-700" i18n>You haven't added any training courses yet.</span>
+      </div>
+      <div *ngFor="let trainingCourse of trainingCourses" class="p-col-12">
+        <app-profile-section-info-card (onEdit)="openTrainingCoursesDialogForEditing(trainingCourse)"
+          (onDelete)="removeTrainingCourse( trainingCourse.id )">
+          <div class="flex flex-col justify-around">
+            <div class="text-lg font-semibold pb-2">{{ trainingCourse.name }}</div>
+            <div class="text-gray-600 pb-1">{{ trainingCourse.provider }}</div>
+            <div class="text-gray-600">
+              <ng-container i18n>Country</ng-container>: {{ getCountryName(trainingCourse.country) }}
+            </div>
+            <div class="text-gray-600">
+              <ng-container i18n>Graduation Date</ng-container>: {{ trainingCourse.graduationDate | date }}
+            </div>
+          </div>
+        </app-profile-section-info-card>
+      </div>
+     
+    </div>
+  </app-card>
+  <div class="p-col-12 flex justify-end mt-8">
+    <button class="w-32" type="button" (click)="goToNextForm()" label="Next" pButton i18n-label></button>
+  </div>
+</ng-container>
+
+<p-dialog header="Add Training Course" i18n-header [(visible)]="showAddTrainingCourseDialog" [modal]="true"
+  [focusTrap]="true" [focusOnShow]="true" [draggable]="false"
+  styleClass="w-full max-w-sm md:max-w-xl">
+  <form [formGroup]="trainingCourseForm"
+    (ngSubmit)="editingTrainingCourse.id ? updateTrainingCourse() : addTrainingCourse()">
+    <div class="p-grid p-formgrid p-fluid">
+      <div class="p-field p-col-12 p-lg-6">
+        <label for="name" i18n>Course Name <span class="text-red-500">*</span></label>
+        <input pInputText formControlName="name" type="text" id="name" placeholder="Enter Course Name" i18n-placeholder>
+        <small appControlValidationError controlName="name" class="p-invalid"></small>
+      </div>
+      <div class="p-field p-col-12 p-lg-6">
+        <label for="provider" i18n>Provider <span class="text-red-500">*</span></label>
+        <input pInputText formControlName="provider" type="text" id="provider" placeholder="Enter Course Provider Name" i18n-placeholder>
+        <small appControlValidationError controlName="provider" class="p-invalid"></small>
+      </div>
+      <div class="p-field p-col-12 p-lg-6">
+        <label for="country" i18n>Country <span class="text-red-500">*</span></label>
+        <app-nationality-dropdown controlName="country" appendTo="body" placeholder="Select a country" i18n-placeholder>
+        </app-nationality-dropdown>
+        <small appControlValidationError controlName="country" class="p-invalid"></small>
+      </div>
+      <div class="p-field p-col-12 p-lg-6">
+        <label for="graduationDate" i18n>Date <span class="text-red-500">*</span></label>
+        <p-calendar appUseDateRange="freeDate" appUseUtc appPrimeNGi18n formControlName="graduationDate" inputId="graduationDate" appendTo="body"
+          placeholder="Enter Date" i18n-placeholder [monthNavigator]="true" [yearNavigator]="true"></p-calendar>
+        <small appControlValidationError controlName="graduationDate" class="p-invalid"></small>
+      </div>
+      <div class="mt-5 p-col-12 flex justify-end">
+        <p-button [disabled]="trainingCourseForm.invalid || isFormSubmitting" class="p-button-md" type="submit"
+          icon="pi pi-check" label="Save" i18n-label></p-button>
+      </div>
+    </div>
+  </form>
+</p-dialog>
+
+<p-confirmDialog
+  appPrimeNGi18n
+  header="Confirmation"
+  i18n-header
+  icon="pi pi-exclamation-triangle"
+  styleClass="w-full max-w-sm"
+>
+</p-confirmDialog>
+
+<ng-template #loading>
+  <div class="flex flex-grow justify-center items-center py-8">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>

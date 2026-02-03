@@ -1,0 +1,25 @@
+::ng-deep {
+  .searchInput {
+    width: 100%;
+    padding: 12px 5px 12px 30px;
+  }
+
+  .searchIcon {
+    position: relative;
+    top: 32px;
+    left: 8px;
+  }
+}
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  .textContainer {
+    display: flex;
+    align-items: center;
+    width: 180px;
+    .text {
+      text-align: start;
+    }
+  }
+}

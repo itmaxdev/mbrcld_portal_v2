@@ -1,0 +1,29 @@
+<p-tabView (onChange)="handleChange($event)">
+  <p-tabPanel
+    header="Elite Communication"
+    [selected]="individaulMembershipTabs === '0'"
+    i18n-header
+  >
+    <div class="grid gap-4">
+      <app-elite-communication></app-elite-communication>
+    </div>
+  </p-tabPanel>
+  <p-tabPanel
+    header="Designing and applying special projects"
+    [selected]="individaulMembershipTabs === '1'"
+    i18n-header
+  >
+    <div class="grid gap-4">
+      <app-special-projects></app-special-projects>
+    </div>
+  </p-tabPanel>
+  <p-tabPanel
+    header="Mentor by Dubai leaders"
+    [selected]="individaulMembershipTabs === '2'"
+    i18n-header
+  >
+    <div class="grid gap-4">
+      <app-mentor-sessions></app-mentor-sessions>
+    </div>
+  </p-tabPanel>
+</p-tabView>

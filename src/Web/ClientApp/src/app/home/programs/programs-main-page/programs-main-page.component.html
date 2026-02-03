@@ -1,0 +1,17 @@
+<div [ngSwitch]="role" class="p-4">
+  <div *ngSwitchCase="1">
+    <app-programs-list></app-programs-list>
+  </div>
+  <div *ngSwitchCase="2">
+    <app-programs-leadership></app-programs-leadership>
+  </div>
+  <div *ngSwitchCase="3">
+    <app-programs-alumni></app-programs-alumni>
+  </div>
+  <div *ngSwitchCase="4">
+    <app-programs-list3></app-programs-list3>
+  </div>
+  <div *ngSwitchCase="6">
+    <app-programs-admin></app-programs-admin>
+  </div>
+</div>

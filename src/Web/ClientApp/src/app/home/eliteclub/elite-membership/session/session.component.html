@@ -1,0 +1,42 @@
+<div class="flex cont">
+  <div
+    class="border border-gray-500 rounded-l-lg p-4 text-center w-32 grid items-center content-center date-cont"
+  >
+    <p class="uppercase text-blue-500 font-bold">{{ fromMonth }} - {{ toMonth }}</p>
+  </div>
+  <div
+    class="descriptionSection border border-l-0 border-gray-500 rounded-r-lg p-4 flex justify-between w-full items-center content"
+  >
+    <div>
+      <p class="font-bold text-black">{{ name }}</p>
+      <div class="content-of-projects">
+        <p class="content-of-projects-text text-gray-500 h-6">{{ description }}</p>
+        <p class="content-of-projects-text text-gray-500 h-6">
+          <span i18n>
+            Status
+          </span>
+          <span>:</span>
+          <span [ngStyle]="{ color: '#0071be' }" class="ml-1">
+            {{ sessionStatusPrint }}
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="button-container">
+      <button
+        pButton
+        label="Decline"
+        i18n-label
+        class="h-12 p-button-primary"
+        (click)="attend()"
+      ></button>
+      <button
+        pButton
+        label="Accept"
+        i18n-label
+        class="h-12 p-button-primary"
+        (click)="attend(true)"
+      ></button>
+    </div>
+  </div>
+</div>

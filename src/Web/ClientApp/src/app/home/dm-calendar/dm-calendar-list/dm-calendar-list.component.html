@@ -1,0 +1,47 @@
+<div *ngIf="isReady; else loading">
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+    <app-class-member-item-small
+      *ngFor="let item of products"
+      [data]="item"
+      (selectApplicant)="onApplicantSelect($event)"
+    ></app-class-member-item-small>
+  </div>
+
+  <div>
+    <div *ngIf="!selectedProduct; else calendarData" class="p-col-12 py-8 text-center">
+      <span class="text-sm text-gray-700" i18n>You haven't selected applicant yet</span>
+    </div>
+    <ng-template #calendarData>
+      <div *ngIf="isReadyCalendarData; else loadingCalendar" class="mt-4">
+        <full-calendar *ngIf="true" [options]="calendarOptions"></full-calendar>
+      </div>
+      <ng-template #loadingCalendar>
+        <app-progress-spinner></app-progress-spinner>
+      </ng-template>
+      <div class="mt-6">
+        <div *ngIf="clickedOnEvent">
+          <div
+            *ngIf="readyEventInfo; else loadingEvent"
+            class="p-6 header border border-gray-400 rounded-lg"
+          >
+            <div class="flex justify-between">
+              <div class="grid gap-4">
+                <h1 class="text-2xl text-black">{{ title }}</h1>
+              </div>
+              <div class="grid gap-4">
+                <p class="text-lg text-blue-600">Duration: {{ duration }} Mins</p>
+                <p class="text-lg text-gray-600">Date: {{ startDate }}, (GMT+4)</p>
+              </div>
+            </div>
+          </div>
+          <ng-template #loadingEvent>
+            <app-progress-spinner></app-progress-spinner>
+          </ng-template>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
+<ng-template #loading>
+  <app-progress-spinner></app-progress-spinner>
+</ng-template>

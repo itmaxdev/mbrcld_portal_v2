@@ -1,0 +1,52 @@
+.descriptionSection {
+  border-color: #a0aec0 !important;
+}
+
+.button-container {
+  display: flex;
+  column-gap: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  // .p-button {
+  //   .p-button-label {
+  //     font-size: 8px;
+  //   }
+  // }
+  .content {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 435px) {
+  // .p-button {   
+  //   .p-button-label {
+  //     font-size: 8px;
+  //   }
+  // }
+  .button-container {
+    display: flex;
+  }
+
+  .cont {
+    flex-direction: column;
+  }
+
+  .date-cont {
+    width: 100%;
+    border-radius: 0.5rem;
+    border-bottom: none;
+  }
+
+  .content {
+    border-left-width: 1px;
+    border-radius: 0.5rem;
+  }
+
+  ::ng-deep {
+    .p-button {
+      font-size: 12px;
+    }
+  }
+}

@@ -1,0 +1,36 @@
+trigger: none
+
+pool:
+  vmImage: 'windows-2019'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    version: '3.1.x'
+    packageType: sdk
+  displayName: 'Install dotnet core SDK'
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '12.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install -g @angular/cli@10
+  displayName: 'Install Node dependencies'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: publish
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish build artifacts'
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+    artifactName: 'mbrcld_$(Build.BuildId)'

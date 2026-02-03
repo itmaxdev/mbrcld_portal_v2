@@ -1,0 +1,75 @@
+<div *ngIf="!showDisclaimer; else disclaimer" class=" border rounded-lg border-gray-400  bg-white p-4">
+  <div *ngIf="ready; else loading" class="grid gap-4 pb-4">
+    <div class="grid gap-4 items-center w-full sm:flex sm:justify-between">
+      <h1 class="text-2xl text-center sm:text-left" i18n *ngIf="locale === 'en'">
+        {{ isMyArticles ? 'My Article' : 'All Articles' }}
+      </h1>
+      <h1 class="text-2xl text-center sm:text-left" i18n *ngIf="locale === 'ar'">
+        {{ isMyArticles ? 'مقالاتي' : 'جميع المقالات' }}
+      </h1>
+      <div *ngIf="role != '1'" class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <p-toggleButton
+          [(ngModel)]="myArticles"
+          [onLabel]="articleOnLabel"
+          [offLabel]="articleOffLabel"
+          [style]="{ width: '100%' }"
+          (onChange)="filterMyArticles()"
+        ></p-toggleButton>
+        <p-button
+          label="Add New Article"
+          [styleClass]="'w-full'"
+          [routerLink]="['create']"
+          i18n-label
+        ></p-button>
+      </div>
+    </div>
+    <div class="mb-8">
+      <form>
+        <img class="searchIcon" src="assets/images/ico-search.svg" />
+        <input
+          pInputText
+          class="searchInput rounded-lg"
+          type="text"
+          id="search"
+          name="search"
+          placeholder="Search"
+          i18n-placeholder
+          (keyup.enter)="searchArticle($event)"
+        />
+      </form>
+    </div>
+
+    <div class="grid gap-6" *ngIf="searching; else loadingArticles">
+      <app-posts-card
+        *ngFor="let card of articleData"
+        [id]="card.id"
+        [name]="card.name"
+        [liked]="card.liked"
+        [writtenByName]="card.writtenByName"
+        [date]="card.fromDate"
+        [description]="card.description"
+        [profileImage]="card.profilePictureUrl"
+        [imgUrl]="card.pictureUrl"
+        [likes]="card.likes"
+        [isMyArticles]="isMyArticles"
+        [articleStatus]="isMyArticles ? card.articleStatus : null"
+        [postType]="card.postType"
+        [videoUrl]="card.videoUrl"
+      ></app-posts-card>
+    </div>
+    <ng-template #loadingArticles>
+      <app-progress-spinner></app-progress-spinner>
+    </ng-template>
+  </div>
+  <ng-template #loading>
+    <app-progress-spinner></app-progress-spinner>
+  </ng-template>
+</div>
+<ng-template #disclaimer>
+  <app-disclaimer
+    [disclaimerText]="getLocale()"
+    [isVisible]="showDisclaimer"
+    [disclaimerType]="1"
+    (onApprove)="handleDiclaimerApprove()"
+  ></app-disclaimer>
+</ng-template>

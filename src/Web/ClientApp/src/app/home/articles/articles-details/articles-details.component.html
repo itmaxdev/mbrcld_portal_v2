@@ -1,0 +1,110 @@
+<div class="">
+  <div *ngIf="ready; else loading">
+  <div class="flex justify-between mb-4">
+    <div class="inline-flex items-center cursor-pointer contents" (click)="goBack()">
+      <img src="assets/images/ico-arrow-left.svg" class="w-6 h-6" alt="" />
+      <p class="text-lg ml-2 text-gray-700" i18n>
+        Go Back
+      </p>
+    </div>
+  </div>
+  <div class="m-0 p-8 border border-gray-400 rounded-t-lg flex justify-center items-center bg-white">
+    <h1 class="text-2xl">{{ caption }}</h1>
+  </div>
+  <div class="m-0 p-8 border border-t-0 border-gray-400 rounded-b-lg bg-white">
+    <form class="p-fluid p-formgrid p-grid profile-form gap-6">
+      <div class="w-full">
+        <div class="p-field">
+          <label for="articleName" i18n>Article Name</label>
+          <input
+            pInputText
+            id="articleName"
+            name="articleName"
+            type="text"
+            class="text-lg"
+            placeholder="Enter the article name here"
+            [(ngModel)]="name"
+            i18n-placeholder
+          />
+          <small controlName="articleName" class="p-invalid"></small>
+        </div>
+      </div>
+      <div class="w-full">
+        <div class="p-field">
+          <label for="articleDescription" i18n>Article Description</label>
+          <input
+            pInputText
+            id="articleDescription"
+            name="articleDescription"
+            type="text"
+            class="text-lg"
+            placeholder="Enter the description of the articel"
+            [(ngModel)]="description"
+            i18n-placeholder
+          />
+          <small controlName="articleDescription" class="p-invalid"></small>
+        </div>
+      </div>
+      <div class="w-full grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-16">
+        <app-image-upload
+          inputLabel="Article Photo"
+          inputId="coverPhoto"
+          inputPlaceholder="Enter the article photo"
+          buttonLabel="Upload"
+          [imgName]="imgUrl1"
+          (onUploadImage)="getUploadedFile($event)"
+          i18n-inputLabel
+          i18n-inputPlaceholder
+          i18n-buttonLabel
+        ></app-image-upload>
+        
+        <app-image-upload
+          inputLabel="Article Thumbnail Photo"
+          inputId="smallPhoto"
+          inputPlaceholder="Enter the article small photo"
+          buttonLabel="Upload"
+          [imgName]="imgUrl2"
+          (onUploadImage)="getUploadedThumbnail($event)"
+          i18n-inputLabel
+          i18n-inputPlaceholder
+          i18n-buttonLabel
+        ></app-image-upload>
+      </div>
+      <div class="w-full">
+        <p-editor [(ngModel)]="text" name="text" [style]="{ height: '250px' }"></p-editor>
+      </div>
+      <div class="w-full flex flex-row-reverse">
+        <div class="flex align-center"></div>
+      </div>
+    </form>
+    <div class="flex flex-row-reverse">
+      <p-confirmDialog [style]="{ width: '50vw' }" [baseZIndex]="10000"></p-confirmDialog>
+      <p-button
+        label="Save as Draft"
+        (click)="articleStatus == 3 ? confirm(1) : saveAsDraft()"
+        i18n-label
+      ></p-button>
+      <p-button
+        label="Send for Approval"
+        class="mx-2"
+        (click)="articleStatus == 3 ? confirm(2) : sendForApproval()"
+        i18n-label
+      ></p-button>
+      <span *ngIf="onUpdate" class="flex align-center"
+        ><p-progressSpinner
+          [style]="{ width: '20px', height: '20px' }"
+          class="custom-spinner"
+          styleClass="custom-spinner"
+          strokeWidth="6"
+          fill="white"
+          animationDuration=".5s"
+        ></p-progressSpinner
+      ></span>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <app-progress-spinner></app-progress-spinner>
+</ng-template>
+
+</div>

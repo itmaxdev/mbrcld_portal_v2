@@ -1,0 +1,27 @@
+<div *ngIf="ready; else loading" class="grid gap-6 bg-white border rounded-lg border-gray-400 ">
+  <div>
+    <div class="inline-flex items-center cursor-pointer contents p-4" (click)="goBack()">
+      <img src="assets/images/ico-arrow-left.svg" class="w-6 h-6" alt="" />
+      <p class="text-lg ml-2 text-gray-700">
+        Go Back
+      </p>
+    </div>
+  </div>
+  <div class="p-4">
+    <div class="flex justify-between items-center">
+      <div class="profile-info col-span-3">
+        <h1 class="text-2xl">{{ data.name }}</h1>
+        <p class="text-gray-500">{{ data.date }}</p>
+      </div>
+    </div>
+    <div>
+      <p class="text-gray-500 text-lg ql-editor" [innerHtml]="data.description"></p>
+    </div>
+  </div>
+  <div>
+    <img class="article-image w-full object-cover" [src]="data.pictureUrl" alt="" />
+  </div>
+</div>
+<ng-template #loading>
+  <app-progress-spinner></app-progress-spinner>
+</ng-template>

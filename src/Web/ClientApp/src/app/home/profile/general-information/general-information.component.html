@@ -1,0 +1,204 @@
+<ng-container *ngIf="ready; else loading">
+  <form
+      [formGroup]="generalInformationForm"
+      class="p-fluid p-formgrid p-grid profile-form p-5"
+      (ngSubmit)="onSubmit()"
+    >
+    <app-card
+    sectionTitle="General Information"
+    sectionSubTitle="This section requires you to provide general information about the university."
+    i18n-sectionTitle
+    i18n-sectionSubTitle
+    class="flex-grow flex-shrink"
+  >
+      <div class="p-grid">
+        <div class="p-field p-col-12">
+          <label for="name" i18n>Name <span class="text-red-500">*</span></label>
+          <input
+            pInputText
+            formControlName="name"
+            type="text"
+            id="name"
+            placeholder="Enter name"
+            i18n-placeholder
+          />
+          <small appControlValidationError controlName="name" class="p-invalid"></small>
+        </div>
+  
+        <div class="p-field p-col-12">
+          <label for="aboutUniversity" i18n
+            >About University <span class="text-red-500">*</span></label
+          >
+          <textarea
+            pInputTextarea
+            formControlName="aboutUniversity"
+            type="text"
+            id="aboutUniversity"
+            placeholder="About University"
+            i18n-placeholder
+          ></textarea>
+          <small appControlValidationError controlName="aboutUniversity" class="p-invalid"></small>
+        </div>
+  
+        <div class="p-field p-col-12">
+          <label for="email" i18n>Email <span class="text-red-500">*</span></label>
+          <input
+            pInputText
+            formControlName="email"
+            type="text"
+            id="email"
+            placeholder="Enter email"
+            i18n-placeholder
+          />
+          <small appControlValidationError controlName="email" class="p-invalid"></small>
+        </div>
+  
+        <div class="p-field p-col-12">
+          <label for="country" i18n>Country <span class="text-red-500">*</span></label>
+          <app-nationality-dropdown
+            controlName="country"
+            inputId="country"
+          ></app-nationality-dropdown>
+          <small appControlValidationError controlName="country" class="p-invalid"></small>
+        </div>
+  
+        <div class="p-field p-col-12">
+          <label for="city" i18n>City <span class="text-red-500">*</span></label>
+          <input
+            pInputText
+            formControlName="city"
+            type="text"
+            id="city"
+            placeholder="Enter city"
+            i18n-placeholder
+          />
+          <small appControlValidationError controlName="city" class="p-invalid"></small>
+        </div>
+  
+        <div class="p-field p-col-12">
+          <label for="address" i18n>Address <span class="text-red-500">*</span></label>
+          <input
+            pInputText
+            formControlName="address"
+            type="text"
+            id="address"
+            placeholder="Enter address"
+            i18n-placeholder
+          />
+          <small appControlValidationError controlName="address" class="p-invalid"></small>
+        </div>
+  
+        <div class="p-field p-col-12">
+          <label for="phone" i18n>Phone <span class="text-red-500">*</span></label>
+          <p-inputNumber
+            [useGrouping]="false"
+            mode="decimal"
+            formControlName="phone"
+            id="phone"
+            placeholder="Enter phone number"
+            i18n-placeholder
+          ></p-inputNumber>
+          <small appControlValidationError controlName="phone" class="p-invalid"></small>
+        </div>
+  
+        <div class="p-field p-col-12">
+          <label for="pobox" i18n>POBOX <span class="text-red-500">*</span></label>
+          <input
+            pInputText
+            formControlName="pobox"
+            type="text"
+            id="pobox"
+            placeholder="Enter post office box"
+            i18n-placeholder
+          />
+          <small appControlValidationError controlName="pobox" class="p-invalid"></small>
+        </div>
+  
+        <div class="p-field p-col-12">
+          <label for="linkedIn" i18n>LinkedIn <span class="text-red-500">*</span></label>
+          <input
+            pInputText
+            formControlName="linkedIn"
+            type="text"
+            id="linkedIn"
+            placeholder="Enter linkedIn url"
+            i18n-placeholder
+          />
+          <small appControlValidationError controlName="linkedIn" class="p-invalid"></small>
+        </div>
+  
+        <div class="p-field p-col-12">
+          <label for="twitter" i18n>Twitter <span class="text-red-500">*</span></label>
+          <input
+            pInputText
+            formControlName="twitter"
+            type="text"
+            id="twitter"
+            placeholder="Enter twitter url"
+            i18n-placeholder
+          />
+          <small appControlValidationError controlName="twitter" class="p-invalid"></small>
+        </div>
+  
+        <div class="p-field p-col-12">
+          <label for="instagram" i18n>Instagram <span class="text-red-500">*</span></label>
+          <input
+            pInputText
+            formControlName="instagram"
+            type="text"
+            id="instagram"
+            placeholder="Enter instagram url"
+            i18n-placeholder
+          />
+          <small appControlValidationError controlName="instagram" class="p-invalid"></small>
+        </div>
+  
+        <div class="p-field p-col-12">
+          <label for="website" i18n>Website URL <span class="text-red-500">*</span></label>
+          <input
+            pInputText
+            formControlName="website"
+            type="text"
+            id="website"
+            placeholder="Enter website url"
+            i18n-placeholder
+          />
+          <small appControlValidationError controlName="website" class="p-invalid"></small>
+        </div>
+  
+       
+      </div>
+   
+  </app-card>
+  <div class="p-field p-col-12 mt-5 flex justify-end">
+    <div class="w-32">
+      <button
+        [disabled]="generalInformationForm.invalid || isFormSubmitting"
+        pButton
+        type="submit"
+        label="Save"
+        i18n-label
+      ></button>
+    </div>
+  </div>
+ </form>
+</ng-container>
+
+<ng-template #loading>
+  <div class="flex flex-grow justify-center items-center py-8">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>
+
+<p-dialog
+  header="Profile Avatar"
+  i18n-header
+  [(visible)]="profilePicRequiredPopup"
+  styleClass="w-full max-w-sm"
+  [baseZIndex]="10000"
+>
+  <p i18n>Profile photo is required.</p>
+  <ng-template pTemplate="footer">
+    <p-button (click)="profilePicRequiredPopup = false" i18n-label label="Ok"></p-button>
+  </ng-template>
+</p-dialog>

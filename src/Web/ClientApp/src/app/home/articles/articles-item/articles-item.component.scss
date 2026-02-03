@@ -1,0 +1,14 @@
+::ng-deep {
+  .articleContent ol,
+  ul {
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    padding-inline-start: 40px;
+  }
+  .articleContent ol {
+    list-style: decimal !important;
+  }
+  .articleContent ul {
+    list-style: disc !important;
+  }
+}

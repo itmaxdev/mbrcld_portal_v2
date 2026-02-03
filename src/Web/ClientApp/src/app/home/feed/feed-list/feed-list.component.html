@@ -1,0 +1,49 @@
+<div class="pb-4">
+  <div class="p-grid">
+    <div class="p-col-12 fullMobile" style="width:70%">
+      <div class="mb-8">
+        <form>
+          <img class="searchIcon" src="assets/images/ico-search.svg" />
+          <input
+            pInputText
+            class="searchInput rounded-lg"
+            type="text"
+            id="search"
+            name="search"
+            placeholder="Search"
+            (keyup.enter)="searchPosts($event)"
+            i18n-placeholder
+          />
+        </form>
+      </div>
+      <!-- <div *ngIf="role !== 5">
+        <app-profile-information></app-profile-information>
+      </div> -->
+      <div *ngIf="ready; else loading" class="grid gap-6">
+        <app-posts-card
+          *ngFor="let card of postsData"
+          [id]="card.id"
+          [name]="card.name"
+          [liked]="card.liked"
+          [date]="postsDates[card.id]"
+          [writtenByName]="card.writtenByName"
+          [description]="card.description"
+          [imgUrl]="card.pictureUrl"
+          [profileImage]="card.profilePictureUrl"
+          [likes]="card.likes"
+          [isMyArticles]="false"
+          [type]="card.type"
+          [postType]="card.postType"
+          [videoUrl]="card.videoUrl"
+        ></app-posts-card>
+      </div>
+    </div>
+    <div class="p-col-12 pt-6 hideMobile" style="width:30%">
+      <app-slide-panel ></app-slide-panel>
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <app-progress-spinner></app-progress-spinner>
+  </ng-template>
+</div>

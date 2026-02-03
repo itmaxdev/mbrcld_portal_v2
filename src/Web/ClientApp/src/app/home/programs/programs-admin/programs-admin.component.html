@@ -1,0 +1,23 @@
+<div class="pb-8">
+  <div class="ml-4 mb-4 grid gap-2">
+    <h1 class="text-2xl font-bold" i18n>Programs</h1>
+  </div>
+
+  <div *ngIf="ready; else loading" class="card">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <app-suggested-card
+        *ngFor="let item of programsList"
+        [role]="userRole"
+        [caption]="item.name"
+        [imageUrl]="item.pictureUrl"
+        [content]="item.description"
+        [url]="item.id"
+        [isExistRating]="false"
+        [isExistBtn]="false"
+      ></app-suggested-card>
+    </div>
+  </div>
+  <ng-template #loading>
+    <app-progress-spinner></app-progress-spinner>
+  </ng-template>
+</div>

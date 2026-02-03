@@ -1,0 +1,58 @@
+<div class="card border rounded-lg border-gray-400  bg-white p-4">
+  <form class="mb-6">
+    <img class="searchIcon" src="assets/images/ico-search.svg" />
+    <input pInputText class="searchInput" type="text" id="search" placeholder="Search" i18n-placeholder />
+  </form>
+  <p-tabView (onChange)="handleChangeTab($event)">
+    <p-tabPanel header="Events" i18n-header>
+      <div *ngIf="eventListReady; else loading" class="cardContainer">
+        <div *ngIf="test; else noEvents">
+          <a style="display: inline-block;margin:15px" class="card-cont" *ngFor="let event of events"
+            [routerLink]="event.id">
+            <app-event-card [image]="event.pictureUrl" [title]="event.name" [description]="event.description"
+              [date]="event.fromDate"></app-event-card>
+          </a>
+        </div>
+        <ng-template #noEvents>
+          <div class="flex justify-center w-full">
+            <div class="grid gap-6 w-14 textContainer">
+              <h1 class="text-3xl text-center text" i18n *ngIf="locale == 'en'">
+                Coming Soon
+              </h1>
+              <h1 class="text-3xl text-center text" i18n *ngIf="locale == 'ar'">
+                قريبا
+              </h1>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+      <ng-template #loading>
+        <app-progress-spinner></app-progress-spinner>
+      </ng-template>
+    </p-tabPanel>
+
+    <p-tabPanel header="Event Registration" i18n-header="@@EventRegistration">
+      <div *ngIf="eventRegistrationReady; else loading" class="grid gap-4">
+        <app-leadership-projects
+              *ngFor="let item of eventsRegistration"
+              [id]="item.eventId"
+              [caption]="item.name"
+              [status]="item.statusCode"
+              [endDate]="item.endDate"
+              [disableRouterLink]="true"
+              [withoutDueCaption]="true"
+            >
+            </app-leadership-projects>
+      </div>
+      <ng-template #loading>
+        <app-progress-spinner></app-progress-spinner>
+      </ng-template>
+    </p-tabPanel>
+
+  </p-tabView>
+
+
+
+
+
+</div>

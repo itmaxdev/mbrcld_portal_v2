@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 384" width="384" height="384">
+	<defs>
+		<image width="384" height="278" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYAAAAEWCAMAAABYJrDTAAAAAXNSR0IB2cksfwAAANJQTFRFAAAA////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////hovIawAAAEZ0Uk5TAAxZlsbn/P8vnf2OLc088ClFU1VQPR1quPbpqlwDg/Xqekja1W5td2Mwur4nb6jS9/763bdB3gjmYJm0ropGT60HRHKSpi2naEQAAANjSURBVHic7dpZVhphFEXhCxQIKhqCmkQMkcSIfd8CKjbMf0oBXQgIvgXOw9nfCPa6BRRV/414l0pnkmxuDlOVyyaZdCrG5Qvz6jYf84X8x/kvqJvcLIyMf7Go7vFTXBzMf2lZXeNoeen988/8JZb73wF+f0SK3H/FXu/EeXWFs96/0YI6wlmh+/zL85fQfCrS6gZv6cioE7xlIlEneEsiq07wlg3eP0vluABaOX6CtLLchLUS/oZqZXgQ00rzKkJqPsXLOKkCr6O18hzISC1wJClV5FBe6v1QnrUUicFaCotZCsOLWdyJZ290NZHl3NmasJwbrKfPxqfr6QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATMGX0tcypmplde2T4ae+ff8xhxlYr2yMj/9n9Ze6y8lm7cP8f/9RJ7nZKg3P/686x9H2YP51dYunen/+O+oSVztv899Vd/jafb0Ae+oMX3u9+ZfVFc7K3Quwr45wth9xoG7wdhCH6gRvh3GkTvB2FMfqBG/HcaJO8HYSp+oEb6dxpk7wdhbn6gRv53GhTvB2EVV1grdqXKoTvF1GXKkbnF1FRE0d4ax3Nn99o67wdXPdOxC4VWf4un07k2yoO1w1+qfyTXWJp+ZgL6WlbnHUGt7MulPX+Lkb3U28T9RBXpL7sfXch3ZOXeUi134YX4/uenx6fum0mhVMTbPVeXl+epw4fgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/rfHp+eXTqtZwdQ0W52X56fHieN/aOfmMBO59sPY+O8TdZWX5H50/nfqID93w/NvqWsctQbzb6pbPDX782+oS1w13uZ/q+7wddub//WNOsPXzXX3AtTUFc5q3QtwpY5wdhVxqW7wdhlVdYK3alyoE7xdxLk6wdt5nKkTvJ3FqTrB22mcqBO8ncSxOsHbcRypE7wdxaE6wdthHKgTvB1E7KsbnO1HRFkd4azcOxDYU1f42ns9EdtVZ/jafTuT3FF3uNrpn8rX1SWe6oO9lG11i6Pt4c2s0pY6x81W6cNyaG1TneRkszZhPXqjsq7u8rBe2Zgw/ldrqytlTNXK6trIyP8BrcxpiS4i1AUAAAAASUVORK5CYII="/>
+	</defs>
+	<style>
+		tspan { white-space:pre }
+		.shp0 { fill: #000000 } 
+	</style>
+	<path id="Layer" class="shp0" d="M368 207.67L16 207.67C7.17 207.67 0 200.5 0 191.67C0 182.84 7.17 175.67 16 175.67L368 175.67C376.83 175.67 384 182.84 384 191.67C384 200.5 376.83 207.67 368 207.67Z" />
+	<path id="Layer" class="shp0" d="M368 85L16 85C7.17 85 0 77.83 0 69C0 60.17 7.17 53 16 53L368 53C376.83 53 384 60.17 384 69C384 77.83 376.83 85 368 85Z" />
+	<path id="Layer" class="shp0" d="M368 330.33L16 330.33C7.17 330.33 0 323.16 0 314.33C0 305.5 7.17 298.33 16 298.33L368 298.33C376.83 298.33 384 305.5 384 314.33C384 323.16 376.83 330.33 368 330.33Z" />
+	<use id="Layer 1" href="#img1" x="0" y="53" />
+</svg>

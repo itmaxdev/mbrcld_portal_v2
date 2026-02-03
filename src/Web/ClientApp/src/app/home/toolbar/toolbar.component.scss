@@ -1,0 +1,17 @@
+:host {
+  @apply flex;
+  @apply h-20;
+  @apply overflow-hidden;
+  @apply absolute;
+  @apply top-0;
+  @apply left-0;
+  @apply right-0;
+  @apply box-border;
+  @apply z-10;
+  @apply bg-white;
+  @apply shadow;
+  @screen lg{
+    background-color: #00000000;
+    box-shadow: none;
+  }
+}

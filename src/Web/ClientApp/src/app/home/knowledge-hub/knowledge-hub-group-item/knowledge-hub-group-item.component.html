@@ -1,0 +1,29 @@
+<div class="grid gap-8 pb-2">
+  <div>
+    <form>
+      <img class="searchIcon" src="assets/images/ico-search.svg" />
+      <input
+        pInputText
+        class="searchInput"
+        type="text"
+        id="search"
+        placeholder="Search"
+        i18n-placeholder
+      />
+    </form>
+  </div>
+  <div class="pl-2">
+    <h1 class="text-2xl text-black font-semibold">{{ knowledgeData.caption }}</h1>
+  </div>
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <app-suggested-card
+      *ngFor="let item of knowledgeData.data"
+      [caption]="item.caption"
+      [imageUrl]="item.url"
+      [content]="item.content"
+      [ratingCount]="item.ratingCount"
+      [isExistBtn]="false"
+      btnName="Read More"
+    ></app-suggested-card>
+  </div>
+</div>

@@ -1,0 +1,152 @@
+<p-toast position="top-right" key="tr"></p-toast>
+<div *ngIf="ready; else loading" class="grid gap-4">
+  <div class="flex justify-between">
+    <div class="inline-flex items-center cursor-pointer contents" (click)="goBack()">
+      <img src="assets/images/ico-arrow-left.svg" class="w-6 h-6" alt="" />
+      <p class="text-lg ml-2 text-gray-700">
+        Go Back
+      </p>
+    </div>
+  </div>
+  <div class="grid gap-2">
+    <h1 class="text-2xl">{{ projectData.applicantName }}</h1>
+    <p class="text-lg">{{ projectData.description }}</p>
+  </div>
+  <div class="flex flex-row-reverse">
+    <div class="grid gap-4 text-gray-700">
+      <div>
+        <p class="font-semibold" i18n>
+          Start Date: <span class="font-normal">{{ startDate }}</span>
+        </p>
+        <p class="font-semibold">
+          End Date: <span class="font-normal">{{ endDate }}</span>
+        </p>
+      </div>
+      <div class="flex flex-row-reverse">
+        <div class="flex gap-2">
+          <div class="grid gap-2 grid-cols-2">
+            <button
+              pButton
+              pRipple
+              label="Send For Review"
+              class="p-button-danger button-text"
+              (click)="rejectProject()"
+            ></button>
+            <button
+              pButton
+              pRipple
+              label="Approve"
+              class="p-button-success button-text"
+              (click)="openApproveDialog()"
+            ></button>
+          </div>
+          <a [href]="projectData.attachmentUrl">
+            <button
+              pButton
+              pRipple
+              label="Download Attachement"
+              (click)="(null)"
+              class="button-text"
+            ></button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Approve Project -->
+<p-dialog
+  class="modal"
+  [header]="modalHeaderApprove"
+  [(visible)]="isOpenedDialogApprove"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+>
+  <div>
+    <textarea
+      [(ngModel)]="rejectText"
+      id="rejectText"
+      rows="5"
+      cols="30"
+      pInputTextarea
+      class="w-full"
+    ></textarea>
+  </div>
+  <ng-template pTemplate="footer">
+    <div class="flex flex-row-reverse">
+      <p-button (click)="approveProject()" label="Save" i18n-label></p-button>
+      <span *ngIf="onSend" class="flex items-center"
+        ><p-progressSpinner
+          [style]="{ width: '20px', height: '20px' }"
+          class="custom-spinner flex align-center"
+          styleClass="custom-spinner"
+          strokeWidth="6"
+          fill="white"
+          animationDuration=".5s"
+        ></p-progressSpinner
+      ></span>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<!-- Reject Dialog -->
+<p-dialog
+  class="modal"
+  [header]="modalHeader"
+  [(visible)]="isOpenedDialog"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+>
+  <div class="reject-dialog">
+    <form [formGroup]="rejectForm">
+      <div>
+        <label for="approveText"><span class="text-red-500">*</span></label>
+        <textarea
+          [(ngModel)]="approveText"
+          formControlName="approveText"
+          id="approveText"
+          rows="5"
+          cols="30"
+          pInputTextarea
+          class="w-full"
+        ></textarea>
+      </div>
+    </form>
+
+    <p-fileUpload
+      name="file"
+      url="./upload.php"
+      (onSelect)="onSelect($event)"
+      maxFileSize="1000000"
+      ngDefaultControl
+      [showUploadButton]="false"
+      [showCancelButton]="false"
+    >
+      <ng-template pTemplate="content"> </ng-template>
+    </p-fileUpload>
+  </div>
+  <ng-template pTemplate="footer">
+    <div class="flex flex-row-reverse">
+      <p-button
+        (click)="sendAttachment()"
+        [disabled]="uploadedFile && rejectForm.valid ? false : true"
+        label="Save"
+        i18n-label
+      ></p-button>
+      <span *ngIf="onSend" class="flex items-center"
+        ><p-progressSpinner
+          [style]="{ width: '20px', height: '20px' }"
+          class="custom-spinner flex align-center"
+          styleClass="custom-spinner"
+          strokeWidth="6"
+          fill="white"
+          animationDuration=".5s"
+        ></p-progressSpinner
+      ></span>
+    </div>
+  </ng-template>
+</p-dialog>
+<ng-template #loading>
+  <app-progress-spinner></app-progress-spinner>
+</ng-template>

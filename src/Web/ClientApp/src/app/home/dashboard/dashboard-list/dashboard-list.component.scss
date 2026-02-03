@@ -1,0 +1,44 @@
+::ng-deep {
+  .p-tabview-nav {
+    border: 1px solid #dee2e6 !important;
+    border-radius: 8px !important;
+    padding-left: 20px !important;
+  }
+
+  .p-tabview-panels {
+    padding: 1rem 0 !important;
+  }
+
+  .p-ripple {
+    box-shadow: none !important;
+  }
+}
+
+.dashboard {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+  font-size: 30px;
+  margin-left: 25px;
+}
+
+.card {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0071BE;
+  height: 105px;
+  width: 150px;
+  border: none;
+  border-radius: 8px;
+  margin: 25px;
+}
+
+.dashboardCards {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: auto;
+}

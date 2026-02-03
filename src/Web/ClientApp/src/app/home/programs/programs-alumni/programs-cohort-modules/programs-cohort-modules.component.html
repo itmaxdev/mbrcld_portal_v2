@@ -1,0 +1,22 @@
+<div class="grid gap-4 border rounded-lg border-gray-400  bg-white p-4">
+  <div class="inline-flex items-center cursor-pointer contents" (click)="goBack()">
+    <img src="assets/images/ico-arrow-left.svg" class="w-6 h-6" alt="" />
+    <p class="text-lg ml-2 text-gray-700" i18n>
+      Back to Modules
+    </p>
+  </div>
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+    <app-materials-card
+      *ngFor="let item of materialsData"
+      [id]="item.id"
+      [completed]="item.completed"
+      [name]="item.name"
+      [order]="item.order"
+      [materialUrl]="item.id"
+      [duration]="item.duration"
+      [startDate]="item.startDate"
+      [description]="item.description"
+      [isModules]="true"
+    ></app-materials-card>
+  </div>
+</div>

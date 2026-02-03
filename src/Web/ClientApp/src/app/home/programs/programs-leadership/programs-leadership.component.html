@@ -1,0 +1,10 @@
+<div>
+  <h1 class="text-3xl text-center" i18n>Enrolled Programs</h1>
+  <div class="mb-4 grid gap-2">
+    <div class="grid gap-4">
+      <app-enrolled-card *ngFor="let item of inprogressProgram" [id]="item.id" [role]="userRole" [caption]="item.name"
+        [url]="item.pictureUrl" [content]="item.description" [progressValue]="item.completed" [visibleBtn]="false">
+      </app-enrolled-card>
+    </div>
+  </div>
+</div>

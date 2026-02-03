@@ -1,0 +1,56 @@
+.meeting-hub {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+  font-size: 30px;
+}
+
+.header-content {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.meeting-rooms {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+::ng-deep {
+  .p-tabview-nav {
+    border: 1px solid #dee2e6 !important;
+    border-radius: 8px !important;
+    padding-left: 20px !important;
+  }
+
+  .p-tabview-panels {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .dropdown-container {
+    width: 70%;
+  }
+
+  .input-container {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+  }
+
+  ::ng-deep {
+    .dropdown-container {
+      .p-dropdown {
+        width: 100%;
+      }
+    }
+
+    .meeting-rooms {
+      .hubs-container {
+        width: 100%;
+      }
+    }
+  }
+}

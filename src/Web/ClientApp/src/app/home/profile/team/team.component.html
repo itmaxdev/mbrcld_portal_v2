@@ -1,0 +1,320 @@
+<ng-container *ngIf="ready; else loading">
+  <app-card
+    sectionTitle="Module Team"
+    sectionSubTitle="This section requires you to add the Module Team members."
+    i18n-sectionTitle
+    i18n-sectionSubTitle
+    class="flex-grow flex-shrink"
+  >
+  <div role="actions">
+    <p-button (click)="addMember = true" label="Add Member" i18n-label></p-button>
+  </div>
+  <div class="grid gap-4">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <app-member-card
+        *ngFor="let item of members"
+        [data]="item"
+        (clickedId)="deleteItem($event)"
+        (clickedMember)="teamMember($event)"
+      ></app-member-card>
+    </div>
+  </div>
+  </app-card>
+</ng-container>
+
+<ng-template #loading>
+  <div class="flex flex-grow justify-center items-center py-8">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>
+
+
+
+<p-dialog
+  header="Add Team Member"
+  [(visible)]="addMember"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+>
+  <form
+    [formGroup]="teamForm"
+    class="p-fluid p-formgrid p-grid profile-form"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="p-field p-col-12">
+      <label for="firstName" i18n>First Name <span class="text-red-500">*</span></label>
+      <input
+        pInputText
+        formControlName="firstName"
+        type="text"
+        id="firstName"
+        placeholder="Enter First Name"
+        i18n-placeholder
+      />
+      <small appControlValidationError controlName="firstName" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="lastName" i18n>Last Name <span class="text-red-500">*</span></label>
+      <input
+        pInputText
+        formControlName="lastName"
+        type="text"
+        id="lastName"
+        placeholder="Enter Last Name"
+        i18n-placeholder
+      />
+      <small appControlValidationError controlName="lastName" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="jobPosition" i18n>Job Position <span class="text-red-500">*</span></label>
+      <textarea
+        pInputTextarea
+        formControlName="jobPosition"
+        type="text"
+        id="jobPosition"
+        placeholder="Enter Job Position"
+        i18n-placeholder
+      ></textarea>
+      <small appControlValidationError controlName="jobPosition" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="education" i18n>Education <span class="text-red-500">*</span></label>
+      <textarea
+        pInputTextarea
+        formControlName="education"
+        type="text"
+        id="education"
+        placeholder="Education"
+        i18n-placeholder
+      ></textarea>
+      <small appControlValidationError controlName="education" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="email">Email <span class="text-red-500">*</span></label>
+      <input pInputText formControlName="email" type="text" id="email" placeholder="Enter email" />
+      <small appControlValidationError controlName="email" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="linkedIn" i18n>LinkedIn</label>
+      <input
+        pInputText
+        formControlName="linkedIn"
+        type="text"
+        id="linkedIn"
+        placeholder="LinkedIn"
+        i18n-placeholder
+      />
+      <small appControlValidationError controlName="linkedIn" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="residenceCountry" i18n
+        >Residence country <span class="text-red-500">*</span></label
+      >
+      <app-nationality-dropdown
+        controlName="residenceCountry"
+        inputId="residenceCountry"
+      ></app-nationality-dropdown>
+      <small appControlValidationError controlName="residenceCountry" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="nationality" i18n>Nationality <span class="text-red-500">*</span></label>
+      <app-nationality-dropdown
+        controlName="nationality"
+        inputId="nationality"
+      ></app-nationality-dropdown>
+      <small appControlValidationError controlName="nationality" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label i18n>Image <span class="text-red-500">*</span></label>
+      <p-fileUpload
+        (onSelect)="onSelect($event)"
+        id="image"
+        url="./upload.php"
+        maxFileSize="1000000"
+        accept="image/*"
+        [showUploadButton]="false"
+        [showCancelButton]="false"
+      >
+        <ng-template pTemplate="content"> </ng-template>
+      </p-fileUpload>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="aboutMember" i18n>About Member</label>
+      <textarea
+        pInputTextarea
+        formControlName="aboutMember"
+        id="aboutMember"
+        placeholder="About Member"
+        i18n-placeholder
+      ></textarea>
+      <small appControlValidationError controlName="aboutMember" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12 mt-3 flex justify-end">
+      <div class="w-32">
+        <button
+          [disabled]="teamForm.invalid || !uploadedFile"
+          pButton
+          type="submit"
+          label="Add"
+          i18n-label
+        ></button>
+      </div>
+    </div>
+  </form>
+</p-dialog>
+
+<p-dialog
+  header="Edit Team Member"
+  [(visible)]="editMember"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+>
+  <form [formGroup]="editForm" class="p-fluid p-formgrid p-grid profile-form" (ngSubmit)="onSave()">
+    <div class="p-field p-col-12">
+      <label for="firstName" i18n>First Name <span class="text-red-500">*</span></label>
+      <input
+        pInputText
+        formControlName="firstName"
+        type="text"
+        id="firstName"
+        placeholder="Enter First Name"
+        i18n-placeholder
+      />
+      <small appControlValidationError controlName="firstName" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="lastName" i18n>Last Name <span class="text-red-500">*</span></label>
+      <input
+        pInputText
+        formControlName="lastName"
+        type="text"
+        id="lastName"
+        placeholder="Enter Last Name"
+        i18n-placeholder
+      />
+      <small appControlValidationError controlName="lastName" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="jobPosition" i18n>Job Position <span class="text-red-500">*</span></label>
+      <textarea
+        pInputTextarea
+        formControlName="jobPosition"
+        type="text"
+        id="jobPosition"
+        placeholder="Enter Job Position"
+        i18n-placeholder
+      ></textarea>
+      <small appControlValidationError controlName="jobPosition" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="education" i18n>Education <span class="text-red-500">*</span></label>
+      <textarea
+        pInputTextarea
+        formControlName="education"
+        type="text"
+        id="education"
+        placeholder="Education"
+        i18n-placeholder
+      ></textarea>
+      <small appControlValidationError controlName="education" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="email" i18n>Email <span class="text-red-500">*</span></label>
+      <input
+        pInputText
+        formControlName="email"
+        type="text"
+        id="email"
+        placeholder="Enter email"
+        i18n-placeholder
+      />
+      <small appControlValidationError controlName="email" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="linkedIn" i18n>LinkedIn</label>
+      <input
+        pInputText
+        formControlName="linkedIn"
+        type="text"
+        id="linkedIn"
+        placeholder="LinkedIn"
+        i18n-placeholder
+      />
+      <small appControlValidationError controlName="linkedIn" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="residenceCountry" i18n
+        >Residence country <span class="text-red-500">*</span></label
+      >
+      <app-nationality-dropdown
+        controlName="residenceCountry"
+        inputId="residenceCountry"
+      ></app-nationality-dropdown>
+      <small appControlValidationError controlName="residenceCountry" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="nationality" i18n>Nationality <span class="text-red-500">*</span></label>
+      <app-nationality-dropdown
+        controlName="nationality"
+        inputId="nationality"
+      ></app-nationality-dropdown>
+      <small appControlValidationError controlName="nationality" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label i18n>Image</label>
+      <p-fileUpload
+        (onSelect)="onSelect($event)"
+        id="image"
+        url="./upload.php"
+        maxFileSize="1000000"
+        accept="image/*"
+        [showUploadButton]="false"
+        [showCancelButton]="false"
+      >
+        <ng-template pTemplate="content"> </ng-template>
+      </p-fileUpload>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="aboutMember" i18n>About Member</label>
+      <textarea
+        pInputTextarea
+        formControlName="aboutMember"
+        id="aboutMember"
+        placeholder="About Member"
+        i18n-placeholder
+      ></textarea>
+      <small appControlValidationError controlName="aboutMember" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12 mt-3 flex justify-end">
+      <div class="w-32">
+        <button
+          [disabled]="editForm.invalid"
+          pButton
+          type="submit"
+          label="Save"
+          i18n-label
+        ></button>
+      </div>
+    </div>
+  </form>
+</p-dialog>

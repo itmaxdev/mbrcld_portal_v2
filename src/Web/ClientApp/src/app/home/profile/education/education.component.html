@@ -1,0 +1,112 @@
+<ng-container *ngIf="ready; else loading">
+  <app-card sectionTitle="Education"
+    sectionSubTitle="This section requires you to provide your educational qualifications (maximum of 3 most recent academic qualifications)."
+    i18n-sectionTitle i18n-sectionSubTitle class="flex-grow">
+    <div role="actions">
+      <button [disabled]="educationQualifications.length >= 3" pButton icon="pi pi-plus" label="Add" i18n-label (click)="openAddEducationQualificationDialog()"></button>
+    </div>
+
+    <div *ngIf="educationQualifications.length === 0" class="p-col-12 py-8 text-center">
+      <span class="text-sm text-gray-700" i18n>You haven't added any education yet.</span>
+    </div>
+
+    <div class="p-grid">
+      <div *ngFor="let education of educationQualifications" class="p-col-12">
+        <app-profile-section-info-card (onEdit)="openEducationDialogForEditing(education)"
+          (onDelete)="removeEducation(education)">
+          <div class="flex flex-col justify-around">
+            <div class="text-lg font-semibold pb-2">{{ education | lang:'university' }}</div>
+            <div class="text-gray-600 pb-1" i18n="Degree in specialization|">
+              {{ getDegreeLabel(education.degree) }} in {{ education | lang:'specialization' }}
+            </div>
+            <div class="text-gray-600">{{ education.graduationDate | date:'yyyy' }}</div>
+          </div>
+        </app-profile-section-info-card>
+      </div>
+
+      <div class="p-field p-col-12 mt-8">
+        <label class="pb-2" i18n>Last Education Certificate Copy <span class="text-red-500">*</span></label>
+        <app-document-upload identifier="education-certificate">
+        </app-document-upload>
+      </div>
+    </div>
+  </app-card>
+  <div class="p-col-12 mt-6 flex justify-end">
+    <button pButton type="submit" label="Next" i18n-label class="w-32" (click)="goToNextPage()"></button>
+  </div>
+</ng-container>
+
+<p-dialog header="Add Education" i18n-header [(visible)]="showAddLanguageDialog" [modal]="true" [focusTrap]="true"
+  [focusOnShow]="true" [draggable]="false" styleClass="w-full max-w-sm lg:max-w-screen-md">
+  <form [formGroup]="educationQualificationForm" class="p-fluid p-formgrid p-grid"
+    (ngSubmit)="editingEducationQualification.id ? updateEducation() : addEducation()">
+    <div class="p-field p-col-12 p-lg-6">
+      <label for="degree" i18n>Degree <span class="text-red-500">*</span></label>
+      <p-dropdown appendTo="body" [options]="degreeOptions" formControlName="degree" inputId="degree"
+        placeholder="Select degree" i18n-placeholder></p-dropdown>
+      <small appControlValidationError controlName="degree" class="p-invalid"></small>
+    </div>
+    <div class="p-field p-col-12 p-lg-6">
+      <label for="graduationDate" i18n>Graduation Date <span class="text-red-500">*</span></label>
+      <p-calendar appUseDateRange="freeDate" appUseUtc appPrimeNGi18n formControlName="graduationDate" inputId="graduationDate"
+        placeholder="Enter the Graduation date" i18n-placeholder appendTo="body" [monthNavigator]="true"
+        [yearNavigator]="true" yearRange="1900:2020"></p-calendar>
+      <small appControlValidationError controlName="graduationDate" class="p-invalid"></small>
+    </div>
+    <div class="p-field p-col-12 p-lg-6">
+      <label for="country" i18n>Country <span class="text-red-500">*</span></label>
+      <app-nationality-dropdown appendTo="body" controlName="country" inputId="country" placeholder="Select a country" i18n-placeholder>
+      </app-nationality-dropdown>
+      <small appControlValidationError controlName="country" class="p-invalid"></small>
+    </div>
+    <div class="p-field p-col-12 p-lg-6">
+      <label for="city" i18n>City <span *ngIf="showDropDown" class="text-red-500">*</span></label>
+      <p-dropdown *ngIf="showDropDown" appendTo="body" [options]="cityOptions" formControlName="city" id="city"
+        inputId="degree" placeholder="Select City" i18n-placeholder></p-dropdown>
+      <input *ngIf="!showDropDown" pInputText formControlName="city" type="text" id="city" placeholder="Enter City" i18n-placeholder>
+      <small appControlValidationError controlName="city" class="p-invalid"></small>
+    </div>
+    <div class="p-field p-col-6 p-lg-6">
+      <label for="specialization">Specialization <span class="text-red-500">*</span></label>
+      <input pInputText formControlName="specialization" type="text" id="specialization"
+        placeholder="Enter Specialization">
+      <small appControlValidationError controlName="specialization" class="p-invalid"></small>
+    </div>
+    <div class="p-field p-col-6 p-lg-6" dir="rtl">
+      <label for="specialization_AR">تخصص <span class="text-red-500">*</span></label>
+      <input pInputText formControlName="specialization_AR" type="text" id="specialization_AR"
+        placeholder="أدخل التخصص">
+      <small appControlValidationError controlName="specialization_AR" class="p-invalid"></small>
+    </div>
+    <div class="p-field p-col-6 p-lg-6">
+      <label for="university">University <span class="text-red-500">*</span></label>
+      <input pInputText formControlName="university" type="text" id="university" placeholder="Enter University Name">
+      <small appControlValidationError controlName="university" class="p-invalid"></small>
+    </div>
+    <div class="p-field p-col-6 p-lg-6" dir="rtl">
+      <label for="university_AR">جامعة <span class="text-red-500">*</span></label>
+      <input pInputText formControlName="university_AR" type="text" id="university_AR" placeholder="أدخل اسم الجامعة">
+      <small appControlValidationError controlName="university_AR" class="p-invalid"></small>
+    </div>
+    <div class="mt-5 p-col-12 flex justify-end">
+      <p-button [disabled]="educationQualificationForm.invalid || isFormSubmitting" class="p-button-md"
+        icon="pi pi-check" type="submit" label="Save" i18n-label>
+      </p-button>
+    </div>
+  </form>
+</p-dialog>
+
+<p-confirmDialog
+  appPrimeNGi18n
+  header="Confirmation"
+  i18n-header
+  icon="pi pi-exclamation-triangle"
+  styleClass="w-full max-w-sm"
+>
+</p-confirmDialog>
+
+<ng-template #loading>
+  <div class="flex flex-grow justify-center items-center py-8">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>

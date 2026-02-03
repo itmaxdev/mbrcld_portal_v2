@@ -1,0 +1,119 @@
+::ng-deep {
+  .sectionTabs .p-tabview-nav {
+    border: none !important;
+  }
+
+  .sectionTabs .p-tabview-panels {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .sectionTabs .p-tabview-nav li.ng-star-inserted {
+    margin-right: 10px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .sectionTabs .p-tabview-nav .p-highlight {
+    width: 50px;
+    height: 50px;
+  }
+
+  .sectionTabs .p-tabview-nav .p-tabview-nav-link {
+    border: 1px solid #e2e2e2 !important;
+    background: #ececec !important;
+    border-radius: 100% !important;
+    box-shadow: none !important;
+    display: flex;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+  }
+
+  .sectionTabs .p-tabview-nav .p-tabview-nav-link .p-tabview-title {
+    font-weight: 100;
+    color: #a8b4ae;
+  }
+
+  .sectionTabs .p-tabview-nav .p-highlight .p-tabview-nav-link {
+    background: #0071be !important;
+    border: 1px solid #0071be !important;
+  }
+
+  .sectionTabs .p-tabview-nav .finished .p-tabview-nav-link {
+    background: #029ea7 !important;
+    border: 1px solid #029ea7 !important;
+    span {
+      display: none;
+      color: white !important;
+    }
+  }
+  .sectionTabs .p-tabview-nav .finished .p-tabview-nav-link:after {
+    content: '\2713';
+    color: white !important;
+    font-size: 22px;
+  }
+
+  .sectionTabs .p-tabview-nav .p-highlight .p-tabview-nav-link .p-tabview-title {
+    color: white;
+  }
+
+  .p-steps .p-steps-item {
+    width: 25%;
+  }
+
+  .p-steps.steps-custom {
+    margin-bottom: 30px;
+  }
+
+  .p-steps .p-steps-item .p-menuitem-link {
+    cursor: pointer;
+  }
+
+  .p-steps.steps-custom .p-steps-item .p-menuitem-link {
+    padding: 0 1em;
+    overflow: visible;
+  }
+
+  .p-steps.steps-custom .p-steps-item .p-steps-number {
+    background-color: #0081c2;
+    color: #ffffff;
+    display: inline-block;
+    width: 36px;
+    border-radius: 50%;
+    margin-top: -14px;
+    margin-bottom: 10px;
+  }
+
+  .p-steps.steps-custom .p-steps-item .p-steps-title {
+    color: #555555;
+  }
+
+  .p-button.p-button-rounded .p-button-label {
+    display: none;
+  }
+
+  .unread,
+  .review,
+  .done {
+    position: relative;
+  }
+
+  .unread {
+    left: 4px;
+  }
+  .review {
+    right: 5px;
+  }
+  .done {
+    right: 10px;
+  }
+
+  .statusText {
+    position: relative;
+    bottom: 11px;
+  }
+
+  .backSections {
+    color: #4a5568;
+  }
+}

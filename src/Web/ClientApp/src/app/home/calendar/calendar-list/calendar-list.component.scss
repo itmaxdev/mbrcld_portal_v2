@@ -1,0 +1,27 @@
+::ng-deep {
+  .fc-toolbar-chunk {
+    display: inline-flex;
+  }
+  @media screen and (max-width: 520px) {
+    .fc {
+      .fc-header-toolbar {
+        flex-direction: column;
+        row-gap: 12px;
+
+        .fc-toolbar-chunk:nth-child(1) {
+          order: 1;
+          flex-direction: row-reverse;
+          column-gap: 10px;
+        }
+
+        .fc-toolbar-chunk:nth-child(2) {
+          order: -1;
+        }
+      }
+
+      .fc-daygrid-day-events {
+        top: 0;
+      }
+    }
+  }
+}

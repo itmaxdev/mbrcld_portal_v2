@@ -1,0 +1,39 @@
+<div class="grid gap-4">
+  <div class="inline-flex items-center mb-8 cursor-pointer contents" (click)="goToPreviewPage()">
+    <img src="assets/images/ico-arrow-left.svg" class="w-6 h-6" alt="" />
+    <p class="text-lg ml-2 text-gray-700" i18n>Go back</p>
+  </div>
+  <p></p>
+  <div>
+    <div class="p-8 border border-gray-400 rounded-t-lg bg-white">
+      <div class="grid gap-4 items-center sm:flex sm:justify-between sm:gap-0">
+        <div>
+          <p class="text-center text-2xl sm:text-left" i18n>Add Newsfeed Content</p>
+        </div>
+        <div class="grid grid-cols-2 text-xl">
+          <p-splitButton label="Add" [model]="items" i18n-label></p-splitButton>
+        </div>
+      </div>
+    </div>
+    <div
+      name="section"
+      ngDefaultControl
+      class="m-0 p-8 border border-t-0 border-gray-400 rounded-b-lg bg-white"
+    >
+      <div *ngIf="ready; else loading" class="grid gap-2">
+        <app-program-newsfeed-content-card
+          *ngFor="let item of newsFeedList"
+          [id]="item.id"
+          [cardTitle]="item.name"
+          [iconUrl]="icons[item.type - 1]"
+          [number]="item.order"
+          [type]="typeNames[item.type - 1]"
+        ></app-program-newsfeed-content-card>
+      </div>
+      <ng-template #loading>
+        <app-progress-spinner></app-progress-spinner>
+      </ng-template>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,108 @@
+<ng-container *ngIf="ready; else loading">
+  <form [formGroup]="identityForm" class="p-fluid p-formgrid p-grid profile-form p-5" (ngSubmit)="onSubmit()">
+  <app-card sectionTitle="Identity"
+    sectionSubTitle="This section requires you to provide all official documents related to your identity."
+    i18n-sectionTitle i18n-sectionSubTitle  class="flex-grow flex-shrink">
+   <div class="p-grid">
+    <div class="p-field p-col-12 p-xl-6">
+      <label for="emiratesId" i18n>Emirates ID <ng-container *ngIf="isEmiratyCitizen"><span class="text-red-500">*</span></ng-container></label>
+      <p-inputMask formControlName="emiratesId" inputId="emiratesId" mask="999-9999-9999999-9"
+        placeholder="123-1234-1234567-1" [autocomplete]="false"></p-inputMask>
+      <small appControlValidationError controlName="emiratesId" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12 p-xl-6">
+      <label for="emiratesIdExpiryDate" i18n>
+        Emirates ID Expiry Date <ng-container *ngIf="isEmiratyCitizen"><span class="text-red-500">*</span></ng-container>
+      </label>
+      <p-calendar appUseUtc appUseDateRange="futureDate" appPrimeNGi18n appendTo="body" formControlName="emiratesIdExpiryDate"
+        inputId="emiratesIdExpiryDate" placeholder="Enter your Emirates ID expiry date" i18n-placeholder
+        [monthNavigator]="true" [yearNavigator]="true"></p-calendar>
+      <small appControlValidationError controlName="emiratesIdExpiryDate" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12 p-xl-6">
+      <label for="passportNumber" i18n>Passport Number <span class="text-red-500">*</span></label>
+      <input pInputText formControlName="passportNumber" type="text" id="passportNumber"
+        placeholder="Enter passport number" i18n-placeholder>
+      <small appControlValidationError controlName="passportNumber" class="p-invalid"></small>
+    </div>
+
+    <div class="p-field p-col-12 p-xl-6">
+      <label for="passportExpiryDate" i18n>Passport Expiry Date <span class="text-red-500">*</span></label>
+      <p-calendar appUseUtc appUseDateRange="futureDate" appPrimeNGi18n appendTo="body" formControlName="passportExpiryDate"
+        inputId="passportExpiryDate" placeholder="Enter your passport expiry date" i18n-placeholder
+        [monthNavigator]="true" [yearNavigator]="true"></p-calendar>
+      <small appControlValidationError controlName="passportExpiryDate" class="p-invalid"></small>
+    </div>
+
+    <div *ngIf="isEmiratyCitizen" class="p-field p-col-12 p-xl-6">
+      <label for="gender" i18n>
+        Passport Issuing Authority <span class="text-red-500">*</span>
+      </label>
+      <p-dropdown formControlName="passportIssuingAuthority" placeholder="Select your passport issuing authority" i18n-placeholder
+        [options]="passportIssuingAuthorityOptions"></p-dropdown>
+      <small appControlValidationError controlName="passportIssuingAuthority" class="p-invalid"></small>
+    </div>
+
+    <div class="p-col-12">
+      <h2 class="text-xl font-semibold my-4" i18n>Documents</h2>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label class="pb-2" i18n>Identity Front and Back Page <span class="text-red-500">*</span></label>
+      <app-document-upload identifier="identity-front-page">
+      </app-document-upload>
+    </div>
+
+    <!-- <div class="p-field p-col-12">
+      <label class="pb-2" i18n>Identity Back Page <span class="text-red-500">*</span></label>
+      <app-document-upload identifier="identity-back-page">
+      </app-document-upload>
+    </div> -->
+
+    <div class="p-field p-col-12">
+      <label class="pb-2" i18n>Passport Front and Back Page <span class="text-red-500">*</span></label>
+      <app-document-upload identifier="passport-front-page">
+      </app-document-upload>
+    </div>
+
+    <!-- <div class="p-field p-col-12">
+      <label class="pb-2" i18n>Passport Back Page <span class="text-red-500">*</span></label>
+      <app-document-upload identifier="passport-back-page">
+      </app-document-upload>
+    </div> -->
+
+    <div class="p-field p-col-12">
+      <label class="pb-2" i18n>Family Book <span class="text-red-500">*</span></label>
+      <app-document-upload identifier="family-front-page">
+      </app-document-upload>
+    </div>
+
+    <!-- <div class="p-field p-col-12">
+      <label class="pb-2" i18n>Family Book Back Page <span class="text-red-500">*</span></label>
+      <app-document-upload identifier="family-back-page">
+      </app-document-upload>
+    </div> -->
+
+  
+   </div>
+
+     
+    
+  </app-card>
+  <div class="p-field p-col-12 mt-5 flex justify-end">
+    <div class="w-32">
+      <button [disabled]="identityForm.invalid || isFormSubmitting" pButton type="submit" label="Next"
+        i18n-label></button>
+    </div>
+  </div>
+</form>
+</ng-container>
+
+<ng-template #loading>
+  <div class="flex flex-grow justify-center items-center py-8">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>
+<p-toast [preventOpenDuplicates]="true"></p-toast>

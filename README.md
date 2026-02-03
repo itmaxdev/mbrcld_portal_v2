@@ -1,59 +1,85 @@
-# Mbrcld
+# MBRCLD
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.8.
+## Install global dependencies
 
-## Development server
-
-To start a local development server, run:
+Angular CLI version 10
 
 ```bash
-ng serve
+npm install -g @angular/cli@10
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Install project dependencies
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Restore nuget packages for dotnet sever
 
 ```bash
-ng generate component component-name
+dotnet restore
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Restore npm packages for client app
 
 ```bash
-ng generate --help
+cd src/Web/ClientApp/
+npm install
 ```
 
-## Building
+## Build
 
-To build the project run:
+### Building the server
+
+Debug build
 
 ```bash
-ng build
+cd src/Web/
+dotnet build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Release build
 
 ```bash
-ng test
+cd src/Web/
+dotnet build --configuration Release
 ```
 
-## Running end-to-end tests
+### Building the client app
 
-For end-to-end (e2e) testing, run:
+Debug build
 
 ```bash
-ng e2e
+cd src/Web/ClientApp/
+npm install
+npm run build
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Production build
 
-## Additional Resources
+```bash
+cd src/Web/ClientApp/
+npm install
+npm run build:prod
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Run
+
+First run the Angular dev server
+
+```bash
+cd src/Web/ClientApp/
+npm start
+```
+
+Then in a new terminal window run the dotnet server
+
+```bash
+cd src/Web/
+dotnet run
+```
+
+## Deploy
+
+Publish the server code with the client app for deployment
+
+```bash
+cd src/Web/
+dotnet publish --configuration Release
+```

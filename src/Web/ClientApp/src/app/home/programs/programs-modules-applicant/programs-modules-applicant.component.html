@@ -1,0 +1,398 @@
+<div class="mb-8">
+  <div class="flex justify-between mb-4 items-center">
+    <div class="inline-flex items-center cursor-pointer contents" (click)="goBack()">
+      <img src="assets/images/ico-arrow-left.svg" class="w-6 h-6" alt="" />
+      <p class="text-lg ml-2 text-gray-700" i18n>
+        Back to Modules
+      </p>
+    </div>
+    <div *ngIf="role !== '3'" class="open-chat-block flex">
+      <a [routerLink]="['chat/' + roomId]">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-comment"
+          class="open-chat-button p-button-rounded"
+        ></button>
+      </a>
+    </div>
+  </div>
+  <div class="flex justify-between mb-8">
+    <div>
+      <div *ngIf="isModuleNameReady && isProgramNameReady">
+        <h1 class="text-2xl text-gray-700">
+          {{ programName }}
+        </h1>
+        <h1 class="text-xl text-gray-700 ml-4">{{ moduleOrder }}. {{ moduleName }}</h1>
+      </div>
+    </div>
+    <div *ngIf="isInstructor">
+      <p-button (click)="showBasicDialog()" label="Add Material" i18n-label></p-button>
+    </div>
+  </div>
+</div>
+<p-tabView (onChange)="handleChange($event)" class="applicant-materials">
+  <p-tabPanel header="Newsfeed" [selected]="true" i18n-header>
+    <div *ngIf="isnewsFeedListReady; else loading">
+      <app-newsfeed *ngFor="let item of newsFeedList" [item]="item"></app-newsfeed>
+    </div>
+  </p-tabPanel>
+  <p-tabPanel header="Overview" i18n-header>
+    <div *ngIf="!isOverviewExist; else overview">
+      <p class="text-sm text-center text-gray-700" i18n>Overview is empty!</p>
+    </div>
+    <ng-template #overview>
+      <div class="overviewContent px-4" [innerHTML]="overviewText" dir="ltr"></div>
+    </ng-template>
+  </p-tabPanel>
+  <p-tabPanel header="Materials" i18n-header>
+    <div *ngIf="!isExistMaterials; else materials">
+      <p class="text-sm text-center text-gray-700" i18n>You haven’t add any materials yet</p>
+    </div>
+    <ng-template #materials>
+      <div *ngIf="ready; else loading" class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <app-materials-card
+          *ngFor="let item of materialsData"
+          [id]="item.id"
+          [role]="userRole"
+          [isModules]="true"
+          [name]="item.name"
+          [startDate]="item.startDate"
+          [description]="null"
+          [order]="item.order"
+          [materialUrl]="item.id"
+          [duration]="item.duration"
+          [isInstructor]="isInstructor"
+          [location]="item.location"
+          [completed]="item.completed"
+          (openDialog)="openDialog($event)"
+        ></app-materials-card>
+      </div>
+    </ng-template>
+
+    <ng-template #loading>
+      <app-progress-spinner></app-progress-spinner>
+    </ng-template>
+  </p-tabPanel>
+  <p-tabPanel header="University Profile" i18n-header>
+    <div *ngIf="isInstructorProfileReady; else loadingInstructorProfile">
+      <div class="short-info grid gap-2">
+        <div>
+          <span class="text-lg font-bold" i18n>University Name</span>
+          <span class="text-lg font-bold">:</span>
+          <span class="font-normal" dir="ltr">{{ universityData.name }}</span>
+        </div>
+        <div>
+          <span class="text-lg font-bold" i18n>About University</span>
+          <span class="text-lg font-bold">:</span>
+          <span class="font-normal" dir="ltr">{{ universityData.aboutUniversity }}</span>
+        </div>
+        <div>
+          <span class="text-lg font-bold" i18n>Instructor Name</span>
+          <span class="text-lg font-bold">:</span>
+          <span class="font-normal" dir="ltr">{{ universityData.accessInstructorName }}</span>
+        </div>
+        <div>
+          <span class="text-lg font-bold" i18n>Address</span>
+          <span class="text-lg font-bold">:</span>
+          <span class="font-normal" dir="ltr">{{ universityData.address }}</span>
+        </div>
+        <div>
+          <span class="text-lg font-bold" i18n>City</span>
+          <span class="text-lg font-bold">:</span>
+          <span class="font-normal" dir="ltr">{{ universityData.city }}</span>
+        </div>
+        <div>
+          <span class="text-lg font-bold" i18n>Instagram</span>
+          <span class="text-lg font-bold">:</span>
+          <span class="font-normal" dir="ltr">{{ universityData.instagram }}</span>
+        </div>
+        <div>
+          <span class="text-lg font-bold" i18n>LinkedIn</span>
+          <span class="text-lg font-bold">:</span>
+          <span class="font-normal" dir="ltr">{{ universityData.linkedIn }}</span>
+        </div>
+        <div>
+          <span class="text-lg font-bold" i18n>PoBox</span>
+          <span class="text-lg font-bold">:</span>
+          <span class="font-normal" dir="ltr">{{ universityData.poBox }}</span>
+        </div>
+        <div>
+          <span class="text-lg font-bold" i18n>Twitter</span>
+          <span class="text-lg font-bold">:</span>
+          <span class="font-normal" dir="ltr">{{ universityData.twitter }}</span>
+        </div>
+        <div>
+          <span class="text-lg font-bold" i18n>Website URL</span>
+          <span class="text-lg font-bold">:</span>
+          <span class="font-normal" dir="ltr">{{ universityData.website }}</span>
+        </div>
+      </div>
+      <!-- <app-instructor-profile [info]="instructorProfileInfo"></app-instructor-profile> -->
+    </div>
+    <ng-template #loadingInstructorProfile>
+      <app-progress-spinner></app-progress-spinner>
+    </ng-template>
+  </p-tabPanel>
+  <p-tabPanel header="Team" i18n-header>
+    <div *ngIf="isTeamReady; else loadingTeam">
+      <div class="grid gap-4">
+        <h1 class="text-gray-500 text-3xl" i18n>Module Team</h1>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <app-member-card
+            *ngFor="let item of members"
+            [data]="item"
+            [userRole]="role"
+            (clickedMember)="viewMember($event)"
+          ></app-member-card>
+        </div>
+      </div>
+    </div>
+    <ng-template #loadingTeam>
+      <app-progress-spinner></app-progress-spinner>
+    </ng-template>
+  </p-tabPanel>
+
+  <p-tabPanel header="Live Classes" i18n-header>
+    <div *ngIf="isCalendarReady; else loadingLiveClasses">
+      <app-live-classes-item
+        *ngFor="let item of liveClassesData"
+        [data]="item"
+      ></app-live-classes-item>
+    </div>
+    <ng-template #loadingLiveClasses>
+      <app-progress-spinner></app-progress-spinner>
+    </ng-template>
+  </p-tabPanel>
+
+  <p-tabPanel header="Class List" i18n-header>
+    <div *ngIf="isClassListReady; else loadingClassList" class="grid grid-cols-3 gap-3">
+      <div *ngFor="let item of classListData">
+        <app-class-member-item
+        
+        [data]="item"
+      ></app-class-member-item>
+      </div>      
+    </div>
+    <ng-template #loadingClassList>
+      <app-progress-spinner></app-progress-spinner>
+    </ng-template>
+  </p-tabPanel>
+</p-tabView>
+
+<p-dialog
+  [header]="modalHeader"
+  [(visible)]="displayBasic"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+>
+  <div>
+    <div class="m-0 p-8">
+      <form [formGroup]="materialForm" class="p-fluid p-formgrid p-grid profile-form gap-6">
+        <div class="w-full grid grid-cols-2 gap-8">
+          <div class="w-full">
+            <div class="p-field">
+              <label for="title" i18n>Topic <span class="text-red-500">*</span></label>
+              <input
+                pInputText
+                [(ngModel)]="topic"
+                formControlName="name"
+                id="name"
+                type="text"
+                class="text-lg"
+                placeholder="Enter Topic"
+                i18n-placeholder
+              />
+              <div *ngIf="materialForm.get('name').invalid && materialForm.get('name').touched">
+                <small
+                  *ngIf="materialForm.get('name').errors.required"
+                  controlName="enterName"
+                  class="p-invalid text-red-600"
+                  i18n
+                  >This field is required</small
+                >
+              </div>
+            </div>
+          </div>
+          <div class="w-full">
+            <div class="p-field" dir="rtl">
+              <label for="title">الموضوع</label>
+              <input
+                pInputText
+                [(ngModel)]="topic_ar"
+                formControlName="nameAr"
+                id="nameAr"
+                type="text"
+                class="text-lg"
+                placeholder="الموضوع"
+              />
+              <div *ngIf="materialForm.get('nameAr').invalid && materialForm.get('nameAr').touched">
+                <small
+                  *ngIf="materialForm.get('nameAr').errors.required"
+                  controlName="enterNameAr"
+                  class="p-invalid text-red-600"
+                  i18n
+                  >This field is required</small
+                >
+                <small
+                  *ngIf="
+                    !materialForm.get('nameAr').errors.required &&
+                    materialForm.get('nameAr').errors.language
+                  "
+                  controlName="enterName"
+                  class="p-invalid text-red-600"
+                  >Please provide input in the correct language</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full">
+          <div class="p-field">
+            <label for="title">Location <span class="text-red-500">*</span></label>
+            <input
+              pInputText
+              [(ngModel)]="location"
+              formControlName="location"
+              id="location"
+              type="text"
+              class="text-lg"
+              placeholder="Enter Location"
+            />
+            <div
+              *ngIf="materialForm.get('location').invalid && materialForm.get('location').touched"
+            >
+              <small
+                *ngIf="materialForm.get('location').errors.required"
+                controlName="enterLocation"
+                class="p-invalid text-red-600"
+                i18n
+                >This field is required</small
+              >
+            </div>
+          </div>
+        </div>
+        <div class="w-full">
+          <div class="p-field">
+            <label for="startDate" i18n>Start Date<span class="text-red-500">*</span></label>
+            <p-calendar
+              pInputText
+              [(ngModel)]="startDate"
+              formControlName="startDate"
+              id="startDate"
+              type="text"
+              class="text-lg"
+              placeholder="Start Date"
+              i18n-placeholder
+            ></p-calendar>
+            <div
+              *ngIf="materialForm.get('startDate').invalid && materialForm.get('startDate').touched"
+            >
+              <small
+                *ngIf="materialForm.get('startDate').errors.required"
+                controlName="startDate"
+                class="p-invalid text-red-600"
+                i18n
+                >This field is required</small
+              >
+            </div>
+          </div>
+        </div>
+        <div class="w-full">
+          <div class="p-field">
+            <label for="title" i18n>Duration (Minutes) <span class="text-red-500">*</span></label>
+            <p-inputNumber
+              pInputText
+              [(ngModel)]="duration"
+              formControlName="duration"
+              id="duration"
+              type="text"
+              class="text-lg"
+              placeholder="Enter Duration"
+              mode="decimal"
+              inputId="duration"
+              [useGrouping]="false"
+            >
+            </p-inputNumber>
+            <div
+              *ngIf="materialForm.get('duration').invalid && materialForm.get('duration').touched"
+            >
+              <small
+                *ngIf="materialForm.get('duration').errors.required"
+                controlName="enterDuration"
+                class="p-invalid text-red-600"
+                i18n
+                >This field is required</small
+              >
+            </div>
+          </div>
+        </div>
+        <div class="w-full">
+          <div class="p-field">
+            <label for="title">Order <span class="text-red-500">*</span></label>
+            <p-inputNumber
+              pInputText
+              [(ngModel)]="order"
+              formControlName="order"
+              id="order"
+              type="text"
+              class="text-lg"
+              placeholder="Enter Order"
+              mode="decimal"
+              inputId="order"
+              [useGrouping]="false"
+            >
+            </p-inputNumber>
+            <div *ngIf="materialForm.get('order').invalid && materialForm.get('order').touched">
+              <small
+                *ngIf="materialForm.get('order').errors.required"
+                controlName="enterOrder"
+                class="p-invalid text-red-600"
+                i18n
+                >This field is required</small
+              >
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <div class="flex flex-row-reverse">
+      <p-button
+        (click)="addMaterial()"
+        [disabled]="materialForm.valid ? null : true"
+        label="Save"
+        i18n-label
+      ></p-button>
+      <span *ngIf="onUpdate" class="flex items-center"
+        ><p-progressSpinner
+          [style]="{ width: '20px', height: '20px' }"
+          class="custom-spinner flex align-center"
+          styleClass="custom-spinner"
+          strokeWidth="6"
+          fill="white"
+          animationDuration=".5s"
+        ></p-progressSpinner
+      ></span>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<p-dialog
+  header="View Member"
+  [(visible)]="viewMemberDialog"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  class="memberDialog"
+>
+  <div *ngIf="viewMemberReady; else viewMemberSpin">
+    <app-instructor-profile [info]="viewMemberData"></app-instructor-profile>
+  </div>
+  <ng-template #viewMemberSpin>
+    <app-progress-spinner></app-progress-spinner>
+  </ng-template>
+</p-dialog>
+
+<router-outlet></router-outlet>

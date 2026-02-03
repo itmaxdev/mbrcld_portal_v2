@@ -1,0 +1,61 @@
+<ng-container *ngIf="ready; else loading">
+  <app-card sectionTitle="Skills & Hobbies"
+    sectionSubTitle="This sections requires you to provide your skills and hobbies." i18n-sectionTitle
+    i18n-sectionSubTitle>
+    <div role="actions">
+      <button pButton icon="pi pi-plus" label="Add" i18n-label (click)="openSkillAndInterestDialog()"></button>
+    </div>
+    <div class="p-grid">
+      <div *ngIf="skillsAndInterests.length === 0" class="p-col-12 py-8 text-center">
+        <span class="text-sm text-gray-700" i18n>You haven't added any skills or hobbies yet.</span>
+      </div>
+
+      <div class="p-col-12 p-lg-6" *ngFor="let skillAndInterest of skillsAndInterests; let index = index">
+        <app-profile-section-info-card [showEditButton]="false"
+          (onDelete)="removeSkillAndInterest( skillAndInterest.id )">
+          <div class="flex flex-col justify-center">
+            <div class="text-lg">{{ skillAndInterest.name }}</div>
+          </div>
+        </app-profile-section-info-card>
+      </div>
+
+     
+    </div>
+  </app-card>
+  <div class="p-col-12 flex justify-end mt-8">
+    <button pButton class="p-button-md w-32" type="button" (click)="goToNextPage()" label="Next"
+      i18n-label></button>
+  </div>
+</ng-container>
+
+<p-dialog header="Add Skill" i18n-header [(visible)]="showSkillAndInterestDialog" [modal]="true" [focusTrap]="true"
+  [focusOnShow]="true" [draggable]="false" styleClass="w-full max-w-sm md:max-w-xl">
+  <form [formGroup]="skillsAndInterestsForm" (ngSubmit)="addSkillAndInterest()">
+    <div class="p-grid p-formgrid p-fluid">
+      <div class="p-field p-col-12">
+        <label for="name" i18n>Name</label>
+        <input pInputText formControlName="name" type="text" id="name" placeholder="Enter Skill" i18n-placeholder>
+        <small appControlValidationError controlName="name" class="p-invalid"></small>
+      </div>
+      <div class="mt-5 p-col-12 flex justify-end">
+        <p-button [disabled]="skillsAndInterestsForm.invalid || isFormSubmitting" class="p-button-md" icon="pi pi-check"
+          type="submit" label="Add" i18n-label></p-button>
+      </div>
+    </div>
+  </form>
+</p-dialog>
+
+<p-confirmDialog
+  appPrimeNGi18n
+  header="Confirmation"
+  i18n-header
+  icon="pi pi-exclamation-triangle"
+  styleClass="w-full max-w-sm"
+>
+</p-confirmDialog>
+
+<ng-template #loading>
+  <div class="flex flex-grow justify-center items-center py-8">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>

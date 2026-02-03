@@ -1,0 +1,141 @@
+<ng-container *ngIf="ready; else loading">
+  <app-card
+            sectionTitle="Achievements"
+            sectionSubTitle="This section requires you to provide your top 3 career specific achievements within your career history."
+            i18n-sectionTitle
+            i18n-sectionSubTitle
+            class="flex-grow"
+  >
+    <div role="actions">
+      <button
+              [disabled]="achievements.length >= 3"
+              pButton
+              icon="pi pi-plus"
+              label="Add"
+              i18n-label
+              (click)="openAddAchievementDialog()">
+      </button>
+    </div>
+    <div class="p-grid">
+      <div *ngIf="achievements.length === 0" class="p-col-12 py-8 text-center">
+        <span class="text-sm text-gray-700" i18n>You haven't added any achievements yet</span>
+      </div>
+
+      <div class="p-col-12" *ngFor="let mainAchievement of achievements; let index = index">
+        <app-profile-section-info-card [highLight]="!mainAchievement.completed" (onEdit)="openAchievementDialogForEditing(mainAchievement)"
+                                       (onDelete)="removeAchievement(mainAchievement)">
+          <div class="flex flex-col justify-center">
+            <div class="text-lg font-semibold pb-2">
+              <ng-container i18n>Year Of Achievement</ng-container>: {{ mainAchievement.yearOfAchievement }}
+            </div>
+            <div class="text-gray-600 pb-1">
+              {{ mainAchievement | lang:'organization' }}
+            </div>
+            <div class="text-gray-600 pb-1">
+              {{ mainAchievement | lang:'summaryOfAchievement' }}
+            </div>
+          </div>
+
+        </app-profile-section-info-card>
+      </div>
+     
+    </div>
+  </app-card>
+  <div class="p-col-12 mt-6 flex justify-end">
+    <button class="w-32"
+            pButton
+            type="button"
+            (click)="goToNextForm()"
+            label="Next"
+            i18n-label></button>
+  </div>
+</ng-container>
+
+<p-dialog header="Add Achievement" i18n-header [(visible)]="showAchievementDialog" [modal]="true" [focusTrap]="true"
+  [focusOnShow]="true" [draggable]="false" styleClass="w-full max-w-sm lg:max-w-screen-md">
+  <form [formGroup]="achievementForm" class="p-fluid p-formgrid p-grid"
+  (ngSubmit)="editingAchievement.id ? updateAchievement() : addAchievement()">
+      <div class="p-field p-col-6">
+        <label for="description">Description <span class="text-red-500">*</span></label>
+        <textarea pInputTextarea formControlName="description" rows="5" type="text" id="description"
+          placeholder="Goal, Outcome, Role"></textarea>
+        <small appControlValidationError controlName="description" class="p-invalid"></small>
+      </div>
+      <div class="p-field p-col-6" dir="rtl">
+        <label for="description_AR">وصف الانجاز <span class="text-red-500">*</span></label>
+        <textarea pInputTextarea formControlName="description_AR" rows="5" type="text" id="description_AR"
+          placeholder="الهدف، النتيجة، الدور"></textarea>
+        <small appControlValidationError controlName="description_AR" class="p-invalid"></small>
+      </div>
+      <div class="p-field p-col-12 p-lg-6">
+        <label for="summaryOfAchievement">Summary of achievement <span class="text-red-500">*</span></label>
+        <input pInputText formControlName="summaryOfAchievement" type="text" id="summaryOfAchievement"
+          placeholder="Outcome of the achievementt">
+        <small appControlValidationError controlName="summaryOfAchievement" class="p-invalid"></small>
+      </div>
+      <div class="p-field p-col-12 p-lg-6" dir="rtl">
+        <label for="summaryOfAchievement_AR">ملخص الإنجاز <span class="text-red-500">*</span></label>
+        <input pInputText formControlName="summaryOfAchievement_AR" type="text" id="summaryOfAchievement_AR"
+          placeholder="أدخل ملخص الإنجاز">
+        <small appControlValidationError controlName="summaryOfAchievement_AR" class="p-invalid"></small>
+      </div>
+      <div class="p-field p-col-12 p-lg-6">
+        <label for="populationImpact" i18n>Population Impacted <span class="text-red-500">*</span></label>
+        <p-dropdown appendTo="body" [options]="populationImpactOptions" formControlName="populationImpact" id="populationImpact"
+        inputId="degree" placeholder="Select Population Impacted" i18n-placeholder></p-dropdown>
+        <small appControlValidationError controlName="populationImpact" class="p-invalid"></small>
+      </div>
+      <div class="p-field p-col-12 p-lg-6">
+        <label for="financialImpact" i18n>Financial Impact <span class="text-red-500">*</span></label>
+        <p-dropdown appendTo="body" [options]="financialImpactOptions" formControlName="financialImpact" id="financialImpact"
+        inputId="degree" placeholder="Select Financial Impact" i18n-placeholder></p-dropdown>
+        <small appControlValidationError controlName="financialImpact" class="p-invalid"></small>
+      </div>
+      <div class="p-field p-col-12 p-lg-6">
+        <label for="organization">Organization/Project/Situation <span class="text-red-500">*</span></label>
+        <input pInputText formControlName="organization" type="text" id="organization"
+          placeholder="Enter Organization/Project/Situation">
+        <small appControlValidationError controlName="organization" class="p-invalid"></small>
+      </div>
+      <div class="p-field p-col-12 p-lg-6" dir="rtl">
+        <label for="organization_AR">الجهة / المشروع / الحالة <span class="text-red-500">*</span></label>
+        <input pInputText formControlName="organization_AR" type="text" id="organization_AR"
+          placeholder="أدخل المنظمة/المشروع/الحالة">
+        <small appControlValidationError controlName="organization_AR" class="p-invalid"></small>
+      </div>
+      <div class="p-field p-col-12 p-lg-6">
+        <label for="yearOfAchievement" i18n>Year of achievement <span class="text-red-500">*</span></label>
+          <p-dropdown appendTo="body" [options]="yearOptions" formControlName="yearOfAchievement" id="yearOfAchievement"
+          inputId="degree" placeholder="Select Year Of Achievement" i18n-placeholder></p-dropdown>
+        <small appControlValidationError controlName="yearOfAchievement" class="p-invalid"></small>
+      </div>
+
+      <div class="p-field p-col-12 p-lg-6">
+        <label for="achievementImpact" i18n>Achievement Impacted <span class="text-red-500">*</span></label>
+        <p-dropdown appendTo="body" [options]="achievementImpactOptions" formControlName="achievementImpact" id="achievementImpact"
+        inputId="degree" placeholder="Select Achievement Impacted" i18n-placeholder></p-dropdown>
+        <small appControlValidationError controlName="achievementImpact" class="p-invalid"></small>
+      </div>
+
+      <div class="p-field p-col-12 p-lg-6"></div>
+      <div class="mt-5 p-col text-center">
+        <p-button [disabled]="achievementForm.invalid || isFormSubmitting" class="p-button-md" type="submit"
+          icon="pi pi-plus" label="Save" i18n-label></p-button>
+      </div>
+  </form>
+</p-dialog>
+
+<p-confirmDialog
+  appPrimeNGi18n
+  header="Confirmation"
+  i18n-header
+  icon="pi pi-exclamation-triangle"
+  styleClass="w-full max-w-sm"
+>
+</p-confirmDialog>
+
+<ng-template #loading>
+  <div class="flex flex-grow justify-center items-center py-8">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>

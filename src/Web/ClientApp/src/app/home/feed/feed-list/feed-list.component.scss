@@ -1,0 +1,25 @@
+::ng-deep {
+  .searchInput {
+    width: 100%;
+    padding: 12px 5px 12px 38px;
+  }
+
+  .searchIcon {
+    position: relative;
+    top: 32px;
+    left: 15px;
+  }
+  .p-togglebutton.p-button.p-highlight {
+    background: #0071be !important;
+    border-color: #0071be !important;
+    color: #ffffff;
+  }
+}
+@media(max-width:640px){
+  .hideMobile{
+    display: none;
+  }
+  .fullMobile{
+    width:100% !important;
+  }
+}

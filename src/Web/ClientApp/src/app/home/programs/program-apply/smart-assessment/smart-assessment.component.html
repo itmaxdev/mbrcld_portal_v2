@@ -1,0 +1,67 @@
+<div class="pb-8">
+  <h1 class="text-2xl font-bold" style="color: var(--primary-color)" i18n>Smart Assessment</h1>
+  <p class="p-text-secondary mb-8" i18n="@@smartAssessmentRecommendation">We recommend you dedicate 30 minutes to complete this assessment on your computer or phone (not a tablet). pymetrics is designed to be fun and simple, there is no right or wrong answer, and after you finish you will receive a personalized report with insight into your behaviors. For any technical questions relating to accessing pymetrics or completing the assessment, please reach out directly to the pymetrics Helpdesk at support@pymetrics.com.</p>
+    <p-card 
+      header="Please Note:" i18n-header 
+      styleClass="rounded-lg bg-card-light shadow-none" >
+      <p i18n class="text-lg">
+        - If you already have a pymetrics account under this email address for a different application or company, you should follow the link above, and login with your existing account. Please do not make a new account.<br>
+        - If you played pymetrics less than 330 days ago, you are not required to replay the exercises. Please login and follow the prompts to resubmit existing data, which will be re-assessed against the role profile to which you’ve applied.</p>
+      <div *ngIf="ready; else loading" class="p-grid">
+        <div class="p-col-12 flex justify-center items-center py-12">
+          <ng-container *ngIf="!!pymetricsUrl; else pending">
+            <button
+              pButton
+              type="button"
+              label="Start Assessment"
+              i18n-label
+              icon="pi pi-external-link"
+              iconPos="right"
+              class="p-button-success"
+              (click)="openPymetricsPage()"
+            ></button>
+          </ng-container>
+          <ng-template #pending>
+            <span class="text-sm text-gray-700" i18n>
+              We are working on it. Please try again in a few minutes.
+            </span>
+          </ng-template>
+        </div>
+        <div class="p-col-12 flex justify-center items-center" *ngIf="isAssessmentCompleted">
+          <span class="text-sm text-gray-700" i18n>
+            Please allow minimum of 5 minutes for the assessment results to be reflected on the
+            system.
+          </span>
+        </div>
+        
+      </div>
+    </p-card>
+
+  <div class="grid py-8">
+    <div class="p-col-12 flex justify-between">
+      <button
+        pButton
+        type="button"
+        label="Back"
+        i18n-label
+        class="w-32"
+        routerLink="../questions"
+      ></button>
+      <button
+        pButton
+        [disabled]="!isAssessmentCompleted"
+        type="button"
+        label="Next"
+        i18n-label
+        class="w-32"
+        routerLink="../upload-video"
+      ></button>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="flex flex-grow justify-center items-center py-8">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>

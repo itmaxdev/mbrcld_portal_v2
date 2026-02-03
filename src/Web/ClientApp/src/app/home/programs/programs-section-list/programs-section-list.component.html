@@ -1,0 +1,287 @@
+<div>
+  <div class="inline-flex items-center mb-8 cursor-pointer contents" (click)="goBack()">
+    <img src="assets/images/ico-arrow-left.svg" class="w-6 h-6" alt="" />
+    <p class="text-lg ml-2 text-gray-700" i18n>
+      Back to Materials
+    </p>
+  </div>
+  <div class="flex justify-between mb-8">
+    <div>
+      <div *ngIf="isModuleNameReady && isProgramNameReady && isMaterialNameReady">
+        <h1 class="text-2xl text-gray-700">
+          {{ programName }}
+        </h1>
+        <h1 class="text-xl text-gray-700 ml-4">{{ moduleOrder }}. {{ moduleName }}</h1>
+        <h1 class="text-lg text-gray-700 ml-8">{{ materialOrder }}. {{ materialName }}</h1>
+      </div>
+    </div>
+
+    <div *ngIf="isInstructor || isAdmin">
+      <p-button (click)="showBasicDialog()" label="Add Section" i18n-label></p-button>
+    </div>
+  </div>
+  <div *ngIf="isExistSections; else sections">
+    <p class="text-sm text-center text-gray-700" i18n>No SECTIONS Added</p>
+  </div>
+  <ng-template #sections>
+    <div *ngIf="ready; else loading" class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <app-sections-card
+        *ngFor="let item of sectionsList"
+        [id]="item.id"
+        [role]="userRole"
+        [order]="item.order"
+        [name]="item.name"
+        [startDate]="item.startDate"
+        [duration]="item.duration"
+        [status]="item.status"
+        [publishDate]="item.publishDate"
+        [sectionStatus]="item.sectionStatus"
+        [isInstructor]="isInstructor"
+        [materialUrl]="item.id"
+        (openModal)="openDialog($event)"
+      ></app-sections-card>
+    </div>
+  </ng-template>
+</div>
+
+<p-dialog
+  [header]="modalHeader"
+  [(visible)]="displayBasic"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+>
+  <div class="grid gap-4">
+    <div>
+      <div class="m-0 p-8">
+        <form [formGroup]="sectionForm" class="p-fluid p-formgrid p-grid profile-form gap-6">
+          <div class="w-full grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-16">
+            <div class="p-field">
+              <label for="sectionNumber" i18n>Topic <span class="text-red-500">*</span></label>
+              <input
+                pInputText
+                [(ngModel)]="topic"
+                id="name"
+                name="name"
+                type="text"
+                class="text-lg"
+                formControlName="name"
+                placeholder="Enter Topic"
+                i18n-placeholder
+              />
+              <div *ngIf="sectionForm.get('name').invalid && sectionForm.get('name').touched">
+                <small
+                  *ngIf="sectionForm.get('name').errors.required"
+                  controlName="name"
+                  class="p-invalid text-red-600"
+                  i18n
+                  >This field is required</small
+                >
+              </div>
+            </div>
+            <div class="p-field p-col-12" dir="rtl">
+              <label for="sectionTitle">الموضوع</label>
+              <input
+                pInputText
+                [(ngModel)]="topic_ar"
+                id="nameAr"
+                name="nameAr"
+                type="text"
+                class="text-lg"
+                formControlName="nameAr"
+                placeholder="الموضوع"
+              />
+              <div *ngIf="sectionForm.get('nameAr').invalid && sectionForm.get('nameAr').touched">
+                <small
+                  *ngIf="sectionForm.get('nameAr').errors.required"
+                  controlName="nameAr"
+                  class="p-invalid text-red-600"
+                  i18n
+                  >This field is required</small
+                >
+                <small
+                  *ngIf="
+                    !sectionForm.get('nameAr').errors.required &&
+                    sectionForm.get('nameAr').errors.language
+                  "
+                  controlName="nameAr"
+                  class="p-invalid text-red-600"
+                  >Please provide input in the correct language</small
+                >
+              </div>
+            </div>
+          </div>
+          <div class="w-full grid grid-cols-1 gap-6">
+            <div class="p-field">
+              <label for="startDate" i18n>Start Date<span class="text-red-500">*</span></label>
+              <p-calendar
+                pInputText
+                [(ngModel)]="startDate"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                appUseDateRange="freeDate"
+                appUseUtc
+                appPrimeNGi18n
+                appendTo="body"
+                inputId="from"
+                formControlName="startDate"
+                id="startDate"
+                type="text"
+                class="text-lg"
+                style="border:0;padding-left:0"
+                placeholder="Start Date"
+                i18n-placeholder
+              ></p-calendar>
+              <div
+                *ngIf="sectionForm.get('startDate').invalid && sectionForm.get('startDate').touched"
+              >
+                <small
+                  *ngIf="sectionForm.get('startDate').errors.required"
+                  controlName="startDate"
+                  class="p-invalid text-red-600"
+                  i18n
+                  >This field is required</small
+                >
+              </div>
+            </div>
+          </div>
+          <div *ngIf="isScheudledSelected" class="w-full">
+            <div class="p-field">
+              <label for="publishDate" i18n-placeholder>
+                Publish Date
+                <span class="text-red-500">*</span>
+              </label>
+              <p-calendar
+                [(ngModel)]="publishDate"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                appUseDateRange="freeDate"
+                appUseUtc
+                appPrimeNGi18n
+                appendTo="body"
+                inputId="publishDate"
+                formControlName="publishDate"
+                id="publishDate"
+                type="text"
+                class="text-lg"
+                placeholder="Publish Date"
+                i18n-placeholder
+              ></p-calendar>
+              <div
+                *ngIf="
+                  sectionForm.get('publishDate').invalid && sectionForm.get('publishDate').touched
+                "
+              >
+                <small
+                  *ngIf="sectionForm.get('publishDate').errors.required"
+                  controlName="publishDate"
+                  class="p-invalid text-red-600"
+                  i18n
+                  >This field is required</small
+                >
+              </div>
+            </div>
+          </div>
+          <div class="w-full">
+            <div class="p-field">
+              <label for="status" i18n>Status<span class="text-red-500">*</span></label>
+              <p-dropdown
+                formControlName="status"
+                id="status"
+                [(ngModel)]="status"
+                placeholder="Select a status"
+                [options]="sectionStatusOptions"
+                (ngModelChange)="onSelectType($event)"
+                i18n-placeholder
+              ></p-dropdown>
+              <div *ngIf="sectionForm.get('status').invalid && sectionForm.get('status').touched">
+                <small
+                  *ngIf="sectionForm.get('status').errors.required"
+                  controlName="status"
+                  class="p-invalid text-red-600"
+                  i18n
+                  >This field is required</small
+                >
+              </div>
+            </div>
+          </div>
+          <div class="w-full grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-16">
+            <div class="p-field">
+              <label for="sectionNumber" i18n
+                >Duration (Minutes) <span class="text-red-500">*</span></label
+              >
+              <p-inputNumber
+                pInputText
+                [(ngModel)]="duration"
+                id="duration"
+                name="duration"
+                type="text"
+                class="text-lg"
+                style="border:0;padding-left:0"
+                formControlName="duration"
+                placeholder="Enter the duration"
+                mode="decimal"
+                inputId="duration"
+                [useGrouping]="false"
+                i18n-placeholder
+              >
+              </p-inputNumber>
+              <div
+                *ngIf="sectionForm.get('duration').invalid && sectionForm.get('duration').touched"
+              >
+                <small
+                  *ngIf="sectionForm.get('duration').errors.required"
+                  controlName="duration"
+                  class="p-invalid text-red-600"
+                  i18n
+                  >This field is required</small
+                >
+              </div>
+            </div>
+            <div class="p-field p-col-12">
+              <label for="sectionTitle" i18n>Order <span class="text-red-500">*</span></label>
+              <p-inputNumber
+                pInputText
+                [(ngModel)]="order"
+                id="order"
+                name="order"
+                type="text"
+                class="text-lg"
+                style="border:0;padding-left:0"
+                formControlName="order"
+                placeholder="Enter the order"
+                mode="decimal"
+                inputId="order"
+                [useGrouping]="false"
+                i18n-placeholder
+              >
+              </p-inputNumber>
+              <div *ngIf="sectionForm.get('order').invalid && sectionForm.get('order').touched">
+                <small
+                  *ngIf="sectionForm.get('order').errors.required"
+                  controlName="order"
+                  class="p-invalid text-red-600"
+                  i18n
+                  >This field is required</small
+                >
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <div class="flex flex-row-reverse">
+      <p-button
+        (click)="saveSection()"
+        [disabled]="sectionForm.valid ? null : true"
+        label="Save"
+        i18n-label
+      ></p-button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<ng-template #loading>
+  <app-progress-spinner></app-progress-spinner>
+</ng-template>

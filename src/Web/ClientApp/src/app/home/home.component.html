@@ -1,0 +1,44 @@
+
+<app-nav-bar></app-nav-bar>
+<div class="content">
+  <app-toolbar></app-toolbar>
+  <div class="content-width">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="empty-area"></div>
+</div>
+<div
+  *ngIf="role === 3 && !isChatUrl"
+  class="chat-options-block flex"
+  [ngStyle]="{ left: locale === 'ar' ? '17px' : 'auto', right: locale === 'ar' ? 'auto' : '17px' }"
+>
+  <a
+    class="mr-4"
+    #openChat
+    [routerLink]="chatUrl ? chatUrl + '/chat/' + roomId : ['chat/' + roomId]"
+  >
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-comment"
+      class="chat-button p-button-rounded"
+    ></button>
+  </a>
+</div>
+
+<div *ngIf="role === 3 && !isChatUrl" class="flex toolbar-chat-icon">
+  <a
+    class="mr-4"
+    #openChat
+    [routerLink]="chatUrl ? chatUrl + '/chat/' + roomId : ['chat/' + roomId]"
+  >
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-comment"
+      class="chat-button-toolbar p-button-rounded"
+    ></button>
+  </a>
+</div>

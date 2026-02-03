@@ -1,0 +1,49 @@
+<div *ngIf="isReady; else loading">
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+    <app-class-member-item-small
+      *ngFor="let item of products"
+      [data]="item"
+      (selectApplicant)="onApplicantSelect($event)"
+    ></app-class-member-item-small>
+  </div>
+
+  <div class="mt-4">
+    <div *ngIf="!selectedProduct; else calendarData" class="p-col-12 py-8 text-center">
+      <span class="text-sm text-gray-700" i18n>You haven't selected applicant yet</span>
+    </div>
+    <ng-template #calendarData>
+      <div *ngIf="isReadyDashboardData; else loadingCalendar">
+        <div class="grid gap-4">
+          <div class="grid grid-cols-4 gap-4">
+            <app-courses-card
+              *ngFor="let card of KPIData"
+              [courseName]="card.name"
+              [assignmentsCount]="card.value"
+            ></app-courses-card>
+          </div>
+
+          <div class="dashboard" i18n>Dashboard</div>
+          <div class="dashboardCards">
+            <app-dashboard-card
+              *ngFor="let card of dashboardData"
+              [name]="card.name"
+              [name_AR]="card.name_AR"
+              [value]="card.value"
+              [details]="card.details"
+            >
+            </app-dashboard-card>
+          </div>
+        </div>
+        <ng-template #loading>
+          <app-progress-spinner></app-progress-spinner>
+        </ng-template>
+      </div>
+      <ng-template #loadingCalendar>
+        <app-progress-spinner></app-progress-spinner>
+      </ng-template>
+    </ng-template>
+  </div>
+</div>
+<ng-template #loading>
+  <app-progress-spinner></app-progress-spinner>
+</ng-template>

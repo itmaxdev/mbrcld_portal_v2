@@ -1,0 +1,40 @@
+<div *ngIf="!showDisclaimer; else disclaimer">
+  <div class="grid gap-4 items-center w-full sm:flex sm:justify-between">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <p-button
+        label="Add Special Project Idea"
+        [styleClass]="'w-full'"
+        [routerLink]="['create']"
+        i18n-label
+      ></p-button>
+    </div>
+  </div>
+
+  <div *ngIf="searchingIdeas; else loadingIdeas" class="w-full">
+    <div *ngIf="projectData.length > 0; else noIdeas" class="grid gap-4 mt-4 font-semibold">
+      <app-special-project-overview
+        *ngFor="let item of projectData"
+        [data]="item"
+        [isMyIdea]="true"
+      ></app-special-project-overview>
+    </div>
+    <div>
+      <ng-template #noIdeas>
+        <h1 class="text-2xl text-center">There is no matched idea!</h1>
+      </ng-template>
+    </div>
+  </div>
+  <div>
+    <ng-template #loadingIdeas>
+      <app-progress-spinner></app-progress-spinner>
+    </ng-template>
+  </div>
+</div>
+<ng-template #disclaimer>
+  <app-disclaimer
+    [disclaimerText]="getLocale()"
+    [isVisible]="showDisclaimer"
+    [disclaimerType]="3"
+    (onApprove)="handleDiclaimerApprove()"
+  ></app-disclaimer>
+</ng-template>

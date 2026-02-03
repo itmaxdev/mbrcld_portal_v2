@@ -1,0 +1,55 @@
+<div style="display: flex;margin-bottom: 10px;" class="inline-flex items-center cursor-pointer contents"
+  (click)="goBack()">
+  <img src="assets/images/ico-arrow-left.svg" class="w-6 h-6" alt="" style="display: inline-block;" />
+  <p class="text-lg ml-2 text-gray-700" i18n style="display: inline-block;">
+    Go Back
+  </p>
+</div>
+
+<app-card *ngIf="ready; else loading" [sectionTitle]="item?.name ? item.name : ''" sectionSubTitle="">
+  <div *ngIf="item; else errorFetch" class="grid gap-4 sm:flex sm:col-gap-3">
+
+    <div class="leftColumn">
+      <div *ngIf="fromDate" class="header">
+        <h4>{{ fromDate | date }}</h4>
+        <hr class="divider" />
+      </div>
+
+      <div class="timing">
+        <p>
+          <span i18n="@@toDate">To Date</span>
+          <span>: </span>
+          <span dir="ltr"> {{ toDate | date }}</span>
+        </p>
+      </div>
+
+      <div *ngIf="status" class="timing">
+        <p>
+          <span i18n>Status</span>
+          <span>: </span>
+          <span class="ml-1" [style]="'color:' + status.statusColor">{{status.statusName}}</span>
+        </p>
+      </div>
+
+      <button pButton type="submit"
+        [label]="busy ? '...' : (item.alreadyRegistered ? buttonLabels[1] : buttonLabels[0])" class="h-12"
+        [disabled]="busy || item.alreadyRegistered" (click)="registerUserToScholarshipt()" ></button>
+    </div>
+
+    <div class="rightColumn">
+      <img [src]="item.pictureUrl" />
+    </div>
+
+  </div>
+  <ng-template #errorFetch>
+    <div style="text-align: center;">
+      Unable to fetch data, please refresh the page!
+    </div>
+  </ng-template>
+</app-card>
+
+
+
+<ng-template #loading>
+  <app-progress-spinner></app-progress-spinner>
+</ng-template>

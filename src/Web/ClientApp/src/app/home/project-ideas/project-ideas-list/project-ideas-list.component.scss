@@ -1,0 +1,26 @@
+::ng-deep {
+  .searchInput {
+    width: 100%;
+    padding: 12px 5px 12px 38px;
+  }
+
+  .searchIcon {
+    position: relative;
+    top: 32px;
+    left: 15px;
+  }
+  .p-togglebutton.p-button.p-highlight {
+    background: #0071be !important;
+    border-color: #0071be !important;
+    color: #ffffff;
+  }
+}
+.container {
+  grid-template-columns: 1fr 1fr;
+}
+
+@media only screen and (max-width: 680px) {
+  .container {
+    grid-template-columns: auto;
+  }
+}

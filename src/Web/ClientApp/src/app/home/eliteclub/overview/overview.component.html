@@ -1,0 +1,8 @@
+<ng-container>
+  <ng-container *ngIf="!overview; else overviewExist">
+    <p class="text-sm text-center text-gray-700" i18n>Overview is empty!</p>
+  </ng-container>
+  <ng-template #overviewExist>
+    <p style="white-space: pre-wrap;">{{ overview }}</p>
+  </ng-template>
+</ng-container>

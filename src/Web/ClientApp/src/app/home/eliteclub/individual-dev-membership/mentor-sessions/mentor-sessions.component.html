@@ -1,0 +1,34 @@
+<div class="grid row-gap-4">
+  <div
+    *ngFor="let item of mentorSessions"
+    class="border border-gray-300 rounded-lg grid row-gap-6 p-4"
+  >
+    <div class="flex w-full">
+      <a (click)="goToMentor(item.mentorId)" class="flex items-center cursor-pointer col-gap-3">
+        <img
+          class="w-16 h-16 rounded-full"
+          [src]="item.mentorProfilePicture"
+          alt="profile picture"
+          onerror="this.src='assets/images/no-photo.png'"
+        />
+        <div class="text-xl">{{ item.mentorName }}</div>
+      </a>
+      <div class="text-3xl text-center w-2/3">{{ item.name }}</div>
+    </div>
+    <div class="text-lg">{{ item.formattedDate }}</div>
+    <div class="w-full flex justify-between">
+      <div>
+        <div class="text-xl" i18n>Please set the date and time of this session</div>
+        <p-calendar [(ngModel)]="item.newSessionDate" showTime="true" hourFormat="12"></p-calendar>
+      </div>
+      <button
+        pButton
+        *ngIf="item.date != item.newSessionDate"
+        label="Save"
+        i18n-label
+        class="h-10 mr-3"
+        (click)="setSessionDate(item.id, item.newSessionDate)"
+      ></button>
+    </div>
+  </div>
+</div>

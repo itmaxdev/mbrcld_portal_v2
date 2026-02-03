@@ -1,0 +1,567 @@
+<p-toast position="top-right" key="tr"></p-toast>
+<div class="module-block mb-8">
+  <div>
+    <div class="flex justify-between items-center">
+      <div class="inline-flex items-center mb-8 cursor-pointer contents" (click)="goBack()">
+        <img src="assets/images/ico-arrow-left.svg" class="w-6 h-6" alt="" />
+        <p class="text-lg ml-2 text-gray-700" i18n>
+          Back to Modules
+        </p>
+      </div>
+      <div class="chat-options-block flex">
+        <a class="mr-4" #openChat [routerLink]="['chat/' + roomId]">
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-comment"
+            class="chat-button p-button-rounded"
+          ></button>
+        </a>
+      </div>
+    </div>
+    <div class="flex justify-between mb-8">
+      <div>
+        <div *ngIf="isModuleNameReady && isProgramNameReady">
+          <h1 class="text-2xl text-gray-700">
+            {{ programName }}
+          </h1>
+          <h1 class="text-xl text-gray-700 ml-4">{{ moduleOrder }}. {{ moduleName }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-tabView class="module-tabs" (onChange)="handleChange($event)">
+  <p-tabPanel header="Newsfeed" [selected]="selectedTabs.newsFeed" i18n-header>
+    <div *ngIf="isInstructorOrAdmin" class="add-newsfeed-button">
+      <a [href]="'/' + locale + generatedURL + '/edit'">
+        <p-button label="Add Newsfeed" i18n-label></p-button>
+      </a>
+    </div>
+    <div *ngIf="isnewsFeedListReady; else loading">
+      <app-newsfeed *ngFor="let item of newsFeedList" [item]="item"></app-newsfeed>
+    </div>
+  </p-tabPanel>
+
+  <p-tabPanel header="Overview" [selected]="selectedTabs.overview" i18n-header>
+    <div class="grid gap-4">
+      <form [formGroup]="overviewForm">
+        <p-editor
+          [(ngModel)]="overviewText"
+          formControlName="overviewText"
+          id="overviewText"
+          [style]="{ height: '320px' }"
+        ></p-editor>
+        <div
+          *ngIf="
+            overviewForm.get('overviewText').invalid && overviewForm.get('overviewText').touched
+          "
+        >
+          <small controlName="topic" class="p-invalid" i18n>This field is required</small>
+        </div>
+      </form>
+    </div>
+    <div class="flex mt-2 flex-row-reverse">
+      <p-button
+        (click)="saveOverview()"
+        [disabled]="overviewForm.valid ? false : true"
+        label="Save Overview"
+        i18n-label
+      ></p-button>
+    </div>
+  </p-tabPanel>
+  <p-tabPanel header="Materials" [selected]="selectedTabs.materials" i18n-header>
+    <div *ngIf="isInstructorOrAdmin" class="flex flex-row-reverse mb-4">
+      <p-button (click)="showBasicDialog()" label="Add Material" i18n-label></p-button>
+    </div>
+    <div *ngIf="!isExistMaterials; else materials">
+      <p class="text-sm text-center text-gray-700" i18n>No MATERIALS Added</p>
+    </div>
+    <ng-template #materials>
+      <div *ngIf="ready; else loading" class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <app-materials-card
+          *ngFor="let item of materialsData"
+          [id]="item.id"
+          [role]="userRole"
+          [isModules]="true"
+          [name]="item.name"
+          [startDate]="item.startDate"
+          [description]="null"
+          [order]="item.order"
+          [materialUrl]="item.id"
+          [duration]="item.duration"
+          [publishDate]="item.publishDate"
+          [status]="item.status"
+          [isInstructor]="isInstructorOrAdmin"
+          [completed]="item.completed"
+          (openDialog)="openDialog($event)"
+        ></app-materials-card>
+      </div>
+    </ng-template>
+  </p-tabPanel>
+  
+  <p-tabPanel header="Class List" [selected]="selectedTabs.class" i18n-header>
+    <div *ngIf="isClassListReady; else loadingClassList" class="grid gap-2">
+      <app-class-member-item
+        *ngFor="let item of classListData"
+        [data]="item"
+      ></app-class-member-item>
+    </div>
+    <ng-template #loadingClassList>
+      <app-progress-spinner></app-progress-spinner>
+    </ng-template>
+  </p-tabPanel>
+</p-tabView>
+
+<ng-template #loading>
+  <app-progress-spinner></app-progress-spinner>
+</ng-template>
+
+<!-- Materials Dialog -->
+<p-dialog
+  class="modal"
+  [header]="modalHeader"
+  [style]="{ width: '50vw' }"
+  [(visible)]="displayBasic"
+  [baseZIndex]="10000"
+>
+  <div>
+    <div class="m-0 p-8">
+      <form [formGroup]="materialForm" class="p-fluid p-formgrid p-grid profile-form gap-6">
+        <div class="w-full grid grid-cols-2 gap-8">
+          <div class="w-full">
+            <div class="p-field">
+              <label for="title" i18n>Topic <span class="text-red-500">*</span></label>
+              <input
+                pInputText
+                [(ngModel)]="topic"
+                formControlName="name"
+                id="name"
+                type="text"
+                class="text-lg"
+                placeholder="Enter Topic"
+                i18n-placeholder
+              />
+              <div *ngIf="materialForm.get('name').invalid && materialForm.get('name').touched">
+                <small
+                  *ngIf="materialForm.get('name').errors.required"
+                  controlName="enterName"
+                  class="p-invalid text-red-600"
+                  i18n
+                  >This field is required</small
+                >
+              </div>
+            </div>
+          </div>
+          <div class="w-full">
+            <div class="p-field" dir="rtl">
+              <label for="title">الموضوع</label>
+              <input
+                pInputText
+                [(ngModel)]="topic_ar"
+                formControlName="nameAr"
+                id="nameAr"
+                type="text"
+                class="text-lg"
+                placeholder="الموضوع"
+              />
+              <div *ngIf="materialForm.get('nameAr').invalid && materialForm.get('nameAr').touched">
+                <small
+                  *ngIf="materialForm.get('nameAr').errors.required"
+                  controlName="enterNameAr"
+                  class="p-invalid text-red-600"
+                  i18n
+                  >This field is required</small
+                >
+                <small
+                  *ngIf="
+                    !materialForm.get('nameAr').errors.required &&
+                    materialForm.get('nameAr').errors.language
+                  "
+                  controlName="enterName"
+                  class="p-invalid text-red-600"
+                  >Please provide input in the correct language</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full">
+          <div class="p-field">
+            <label for="title" i18n>Location <span class="text-red-500">*</span></label>
+            <input
+              pInputText
+              [(ngModel)]="location"
+              formControlName="location"
+              id="location"
+              type="text"
+              class="text-lg"
+              placeholder="Enter Location"
+              i18n-placeholder
+            />
+            <div
+              *ngIf="materialForm.get('location').invalid && materialForm.get('location').touched"
+            >
+              <small
+                *ngIf="materialForm.get('location').errors.required"
+                controlName="enterLocation"
+                class="p-invalid text-red-600"
+                i18n
+                >This field is required</small
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full">
+          <div class="p-field">
+            <label for="startDate" i18n>Start Date<span class="text-red-500">*</span></label>
+            <p-calendar
+              [(ngModel)]="startDate"
+              [monthNavigator]="true"
+              [yearNavigator]="true"
+              appUseDateRange="freeDate"
+              appUseUtc
+              appPrimeNGi18n
+              appendTo="body"
+              inputId="from"
+              formControlName="startDate"
+              id="startDate"
+              type="text"
+              class="text-lg"
+              placeholder="Start Date"
+              i18n-placeholder
+            ></p-calendar>
+            <div
+              *ngIf="materialForm.get('startDate').invalid && materialForm.get('startDate').touched"
+            >
+              <small
+                *ngIf="materialForm.get('startDate').errors.required"
+                controlName="startDate"
+                class="p-invalid text-red-600"
+                i18n
+                >This field is required</small
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full">
+          <div class="p-field">
+            <label for="title" i18n>Duration (Minutes) <span class="text-red-500">*</span></label>
+            <p-inputNumber
+              pInputText
+              [(ngModel)]="duration"
+              formControlName="duration"
+              id="duration"
+              type="text"
+              class="text-lg"
+              placeholder="Enter Duration"
+              mode="decimal"
+              inputId="duration"
+              [useGrouping]="false"
+              i18n-placeholder
+            >
+            </p-inputNumber>
+            <div
+              *ngIf="materialForm.get('duration').invalid && materialForm.get('duration').touched"
+            >
+              <small
+                *ngIf="materialForm.get('duration').errors.required"
+                controlName="enterDuration"
+                class="p-invalid text-red-600"
+                i18n
+                >This field is required</small
+              >
+            </div>
+          </div>
+        </div>
+        <div class="w-full">
+          <div class="p-field">
+            <label for="title" i18n>Order <span class="text-red-500">*</span></label>
+            <p-inputNumber
+              pInputText
+              [(ngModel)]="order"
+              formControlName="order"
+              id="order"
+              type="text"
+              class="text-lg"
+              placeholder="Enter Order"
+              mode="decimal"
+              inputId="order"
+              [useGrouping]="false"
+              i18n-placeholder
+            >
+            </p-inputNumber>
+            <div *ngIf="materialForm.get('order').invalid && materialForm.get('order').touched">
+              <small
+                *ngIf="materialForm.get('order').errors.required"
+                controlName="enterOrder"
+                class="p-invalid text-red-600"
+                i18n
+                >This field is required</small
+              >
+            </div>
+          </div>
+        </div>
+        <div *ngIf="isScheudledSelected" class="w-full">
+          <div class="p-field">
+            <label for="publishDate" i18n-placeholder>
+              Publish Date<span class="text-red-500">*</span>
+            </label>
+            <p-calendar
+              [(ngModel)]="publishDate"
+              [monthNavigator]="true"
+              [yearNavigator]="true"
+              appUseDateRange="freeDate"
+              appUseUtc
+              appPrimeNGi18n
+              appendTo="body"
+              inputId="publishDate"
+              formControlName="publishDate"
+              id="publishDate"
+              type="text"
+              class="text-lg"
+              placeholder="Publish Date"
+              i18n-placeholder
+            ></p-calendar>
+            <div
+              *ngIf="
+                materialForm.get('publishDate').invalid && materialForm.get('publishDate').touched
+              "
+            >
+              <small
+                *ngIf="materialForm.get('publishDate').errors.required"
+                controlName="publishDate"
+                class="p-invalid text-red-600"
+                i18n
+              >
+                This field is required
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="w-full">
+          <div class="p-field">
+            <label for="status" i18n>Status<span class="text-red-500">*</span></label>
+            <p-dropdown
+              formControlName="status"
+              id="status"
+              placeholder="Select a status"
+              [(ngModel)]="status"
+              [options]="statusOptions"
+              (ngModelChange)="onSelectType($event)"
+              i18n-placeholder
+            ></p-dropdown>
+            <div *ngIf="materialForm.get('status').invalid && materialForm.get('status').touched">
+              <small
+                *ngIf="materialForm.get('status').errors.required"
+                controlName="status"
+                class="p-invalid text-red-600"
+                i18n
+              >This field is required</small>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <div class="flex flex-row-reverse">
+      <p-button
+        (click)="addMaterial()"
+        [disabled]="materialForm.valid ? null : true"
+        label="Save"
+        i18n-label
+      ></p-button>
+      <span *ngIf="onUpdate" class="flex items-center"
+        ><p-progressSpinner
+          [style]="{ width: '20px', height: '20px' }"
+          class="custom-spinner flex align-center"
+          styleClass="custom-spinner"
+          strokeWidth="6"
+          fill="white"
+          animationDuration=".5s"
+        ></p-progressSpinner
+      ></span>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<!-- Accelerated Projects -->
+<p-dialog
+  class="modal"
+  [header]="projectHeader"
+  [style]="{ width: '50vw' }"
+  [(visible)]="isOpenedAcceleratedModal"
+  [baseZIndex]="10000"
+>
+  <div>
+    <div class="m-0 p-8">
+      <form
+        [formGroup]="acceleratedProjectForm"
+        class="p-fluid p-formgrid p-grid profile-form gap-6"
+      >
+        <div class="w-full grid grid-cols-2 gap-8">
+          <div class="w-full">
+            <div class="p-field">
+              <label for="title">Topic <span class="text-red-500">*</span></label>
+              <input
+                pInputText
+                [(ngModel)]="topicAccelerated"
+                formControlName="topicAccelerated"
+                id="topicAccelerated"
+                type="text"
+                class="text-lg"
+                placeholder="Enter Topic"
+                i18n-placeholder
+              />
+              <div
+                *ngIf="
+                  acceleratedProjectForm.get('topicAccelerated').invalid &&
+                  acceleratedProjectForm.get('topicAccelerated').touched
+                "
+              >
+                <small
+                  *ngIf="acceleratedProjectForm.get('topicAccelerated').errors.required"
+                  controlName="topicAccelerated"
+                  class="p-invalid text-red-600"
+                  i18n
+                  >This field is required</small
+                >
+              </div>
+            </div>
+          </div>
+          <div class="w-full">
+            <div class="p-field" dir="rtl">
+              <label for="title">موضوع</label>
+              <input
+                pInputText
+                [(ngModel)]="topicAcceleratedAr"
+                formControlName="topicAcceleratedAr"
+                id="topicAcceleratedAr"
+                type="text"
+                class="text-lg"
+                placeholder="الموضوع"
+              />
+              <div
+                *ngIf="
+                  acceleratedProjectForm.get('topicAcceleratedAr').invalid &&
+                  acceleratedProjectForm.get('topicAcceleratedAr').touched
+                "
+              >
+                <small
+                  *ngIf="acceleratedProjectForm.get('topicAcceleratedAr').errors.required"
+                  controlName="topicAcceleratedAr"
+                  class="p-invalid text-red-600"
+                  i18n
+                  >This field is required</small
+                >
+                <small
+                  *ngIf="
+                    !acceleratedProjectForm.get('topicAcceleratedAr').errors.required &&
+                    acceleratedProjectForm.get('topicAcceleratedAr').errors.language
+                  "
+                  controlName="topicAcceleratedAr"
+                  class="p-invalid text-red-600"
+                  >Please provide input in the correct language</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full grid grid-cols-2 gap-8">
+          <div class="w-full">
+            <div class="p-field">
+              <label for="title">Description <span class="text-red-500">*</span></label>
+              <textarea
+                pInputTextarea
+                [(ngModel)]="descriptionAccelerated"
+                formControlName="descriptionAccelerated"
+                id="descriptionAccelerated"
+                type="text"
+                class="text-lg"
+                placeholder="Enter Description"
+              ></textarea>
+              <div
+                *ngIf="
+                  acceleratedProjectForm.get('descriptionAccelerated').invalid &&
+                  acceleratedProjectForm.get('descriptionAccelerated').touched
+                "
+              >
+                <small
+                  *ngIf="acceleratedProjectForm.get('descriptionAccelerated').errors.required"
+                  controlName="descriptionAccelerated"
+                  class="p-invalid text-red-600"
+                  i18n
+                  >This field is required</small
+                >
+              </div>
+            </div>
+          </div>
+          <div class="w-full">
+            <div class="p-field" dir="rtl">
+              <label for="title">وصف</label>
+              <textarea
+                pInputTextarea
+                [(ngModel)]="descriptionAcceleratedAr"
+                formControlName="descriptionAcceleratedAr"
+                id="descriptionAcceleratedAr"
+                type="text"
+                class="text-lg"
+                placeholder="الموضوع"
+              ></textarea>
+              <div
+                *ngIf="
+                  acceleratedProjectForm.get('descriptionAcceleratedAr').invalid &&
+                  acceleratedProjectForm.get('descriptionAcceleratedAr').touched
+                "
+              >
+                <small
+                  *ngIf="acceleratedProjectForm.get('descriptionAcceleratedAr').errors.required"
+                  controlName="descriptionAcceleratedAr"
+                  class="p-invalid text-red-600"
+                  i18n
+                  >This field is required</small
+                >
+                <small
+                  *ngIf="
+                    !acceleratedProjectForm.get('descriptionAcceleratedAr').errors.required &&
+                    acceleratedProjectForm.get('descriptionAcceleratedAr').errors.language
+                  "
+                  controlName="descriptionAcceleratedAr"
+                  class="p-invalid text-red-600"
+                  >Please provide input in the correct language</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <div class="flex flex-row-reverse">
+      <p-button
+        (click)="addAcceleratedProject()"
+        [disabled]="acceleratedProjectForm.valid ? null : true"
+        label="Save"
+        i18n-label
+      ></p-button>
+      <span *ngIf="onUpdate" class="flex items-center"
+        ><p-progressSpinner
+          [style]="{ width: '20px', height: '20px' }"
+          class="custom-spinner flex align-center"
+          styleClass="custom-spinner"
+          strokeWidth="6"
+          fill="white"
+          animationDuration=".5s"
+        ></p-progressSpinner
+      ></span>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<router-outlet></router-outlet>

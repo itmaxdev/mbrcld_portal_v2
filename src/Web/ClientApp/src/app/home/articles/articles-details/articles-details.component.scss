@@ -1,0 +1,30 @@
+::ng-deep {
+  .sizes {
+    .p-inputtext {
+      display: block;
+      margin-bottom: 0.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  .p-placeholder {
+    font-size: 1.125rem !important;
+  }
+  .p-button .p-button-icon-left {
+    display: none !important;
+  }
+  .uploadBtn {
+    bottom: 3rem;
+  }
+}
+
+.p-field * {
+  display: block;
+}
+
+.custom-spinner {
+  display: flex;
+  align-items: center;
+}

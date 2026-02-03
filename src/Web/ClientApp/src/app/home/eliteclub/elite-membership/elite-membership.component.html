@@ -1,0 +1,50 @@
+<p-tabView (onChange)="handleChange($event)">
+  <p-tabPanel header="Panel discussions" [selected]="true" i18n-header>
+    <div *ngIf="isTabReady; else loadingSuggested" class="grid gap-4">
+      <app-session
+        *ngFor="let item of panelDiscussions"
+        [id]="item.id"
+        [name]="item.name"
+        [fromDate]="item.fromDate"
+        [toDate]="item.toDate"
+        [description]="item.description"
+        [status]="item.attendanceStatus"
+      ></app-session>
+    </div>
+    <ng-template #loadingSuggested>
+      <app-progress-spinner></app-progress-spinner>
+    </ng-template>
+  </p-tabPanel>
+  <p-tabPanel header="Consulting forums and workshop" i18n-header>
+    <div *ngIf="isTabReady; else loadingSuggested" class="grid gap-4">
+      <app-session
+        *ngFor="let item of consultingForums"
+        [id]="item.id"
+        [name]="item.name"
+        [fromDate]="item.fromDate"
+        [toDate]="item.toDate"
+        [description]="item.description"
+        [status]="item.attendanceStatus"
+      ></app-session>
+    </div>
+    <ng-template #loadingSuggested>
+      <app-progress-spinner></app-progress-spinner>
+    </ng-template>
+  </p-tabPanel>
+  <p-tabPanel header="Idea Lab" i18n-header>
+    <div *ngIf="isTabReady; else loadingSuggested" class="grid gap-4">
+      <app-session
+        *ngFor="let item of ideaLab"
+        [id]="item.id"
+        [name]="item.name"
+        [fromDate]="item.fromDate"
+        [toDate]="item.toDate"
+        [description]="item.description"
+        [status]="item.attendanceStatus"
+      ></app-session>
+    </div>
+    <ng-template #loadingSuggested>
+      <app-progress-spinner></app-progress-spinner>
+    </ng-template>
+  </p-tabPanel>
+</p-tabView>

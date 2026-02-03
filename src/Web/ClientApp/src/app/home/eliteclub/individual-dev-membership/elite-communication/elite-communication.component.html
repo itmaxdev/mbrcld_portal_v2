@@ -1,0 +1,14 @@
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+  <app-materials-card
+    *ngFor="let item of modules"
+    [id]="item.id"
+    [completed]="item.completed"
+    [name]="item.name"
+    [name_AR]="item.name_AR"
+    [order]="item.order"
+    [materialUrl]="item.id"
+    [duration]="item.duration"
+    [startDate]="item.startDate"
+    [description]="item.description"
+  ></app-materials-card>
+</div>

@@ -1,0 +1,28 @@
+<div >
+  <div *ngIf="ready; else loading">
+    <div class="pb-8">
+      <h1 i18n class="program-section-title"><span class="text-blue">Active</span> Programs</h1>
+      <div class="grid gap-4 mt-10 programs-grid">
+        <app-programs-active-programs
+          *ngFor="let item of filterActivePrograms"
+          [data]="item"
+        ></app-programs-active-programs>
+      </div>
+    </div>
+
+    <div class="pb-8">
+      <h1 i18n class="program-section-title"><span class="text-blue">Previous</span> Programs</h1>
+      <div class="grid gap-4 mt-10 programs-grid">
+        <app-programs-active-programs
+          *ngFor="let item of filterOtherPrograms"
+          [data]="item"
+        ></app-programs-active-programs>
+      </div>
+    </div>
+  </div>
+  <div>
+    <ng-template #loading>
+      <app-progress-spinner></app-progress-spinner>
+    </ng-template>
+  </div>
+</div>

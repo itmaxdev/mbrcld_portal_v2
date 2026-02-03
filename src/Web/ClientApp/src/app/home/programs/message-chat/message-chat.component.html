@@ -1,0 +1,233 @@
+<p-toast position="top-right" key="tr"></p-toast>
+<div class="inline-flex items-center cursor-pointer contents" (click)="goBack()">
+  <img src="assets/images/ico-arrow-left.svg" class="w-6 h-6" alt="" />
+  <p class="text-lg ml-2 text-gray-700" i18n>
+    Go Back
+  </p>
+</div>
+<div *ngIf="ready; else loading" class="h-full grid grid-cols-8 border rounded-lg border-gray-400  bg-white p-4">
+  <div class="chat-content col-span-5 border-r pt-1">
+    <p-tabView>
+      <p-tabPanel header="All Messages" i18n-header>
+        <div class="grid gap-8">
+          <div
+            *ngIf="signalRService.noMessages; else allMessages"
+            class="no-message flex justify-center mt-4"
+          >
+            <p i18n>No messages yet</p>
+          </div>
+          <ng-template #allMessages>
+            <div *ngIf="messageReady; else messageLoading" class="messages p-4">
+              <div *ngFor="let item of signalRService.messages">
+                <div *ngIf="item.roomId == signalRService.currentRoomId">
+                  <div [ngSwitch]="item.userId">
+                    <div class="mb-2" *ngSwitchCase="userId">
+                      <app-chat-my-message
+                        [text]="item.text"
+                        [date]="item.time"
+                        [type]="item.messageType"
+                        [roomId]="this.signalRService.currentRoomId"
+                        [file]="item.messageType == 1 ? item.file : null"
+                      ></app-chat-my-message>
+                    </div>
+                    <div class="mb-2" *ngSwitchDefault>
+                      <app-chat-participant-message
+                        [text]="item.text"
+                        [date]="item.time"
+                        [userId]="item.userId"
+                        [type]="item.messageType"
+                        [roomId]="signalRService.currentRoomId"
+                        [allUsersData]="currentChatUsers"
+                        [file]="item.messageType == 1 ? item.file : null"
+                      ></app-chat-participant-message>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ng-template #messageLoading>
+              <app-progress-spinner class="messages"></app-progress-spinner>
+            </ng-template>
+          </ng-template>
+
+          <div class="input-message w-full">
+            <div class="flex items-center">
+              <p-fileUpload
+                #form
+                mode="basic"
+                name="demo[]"
+                chooseLabel=""
+                class="select-attachment"
+                chooseIcon="pi pi-paperclip"
+                accept=".docx,.doc,.jpeg,.png,.svg"
+                maxFileSize="1000000"
+                (onSelect)="onUpload($event, form)"
+              ></p-fileUpload>
+
+              <span class="p-input-icon-right w-full">
+                <div
+                  [ngClass]="
+                    text.length == 0 ? 'bg-gray-500' : 'bg-blue-600 hover-shadow cursor-pointer'
+                  "
+                  (click)="text.length == 0 ? null : sendMessage()"
+                  class="send-icon-block grid grid-cols-1 items-center sm:p-2 sm:grid-cols-2 sm:gap-1"
+                >
+                  <p class="send-button text-white text-sm" i18n>Send</p>
+                  <img class="w-5 h-5 sm:w-3 sm:h-3" src="assets/images/ico-send.svg" alt="" />
+                </div>
+                <input
+                  [(ngModel)]="text"
+                  (keyup.enter)="text.length == 0 ? null : sendMessage()"
+                  class="text-message-input w-full rounded-lg"
+                  type="text"
+                  placeholder="Write a message"
+                  i18n-placeholder
+                  pInputText
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Files" i18n-header>
+        <div *ngIf="signalRService.files.length == 0; else files" class="flex justify-center mt-4">
+          <p i18n>No attachments yet</p>
+        </div>
+        <ng-template #files>
+          <div class="files-block grid gap-4 p-4">
+            <app-chat-file-item
+              *ngFor="let item of signalRService.files"
+              [name]="item.file.fileName"
+              [path]="item.file.path"
+              [roomId]="signalRService.currentRoomId"
+            ></app-chat-file-item>
+          </div>
+        </ng-template>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+  <div class="chat-participants col-span-3 flex flex-col flex-reverse justify-between">
+    <div>
+      <app-chat-participant-item
+        *ngFor="let item of allChats"
+        [id]="item.id"
+        [url]="item.chatAvatar"
+        [name]="item.name"
+        [roomId]="item.lastMessage ? item.lastMessage.roomId : null"
+        [currentRoomId]="signalRService.currentRoomId"
+        [message]="
+          item.lastMessage ? signalRService.lastMessageOfRooms[item.lastMessage.roomId] : null
+        "
+        [date]="item.lastMessage ? item.lastMessage.time : null"
+        [active]="activeChat[item.id]"
+        [image]="item.image"
+        [unreadMessagesCount]="
+          item.lastMessage ? signalRService.unreadMessages[item.lastMessage.roomId] : null
+        "
+        (changeParticipant)="changeParticipant($event)"
+      ></app-chat-participant-item>
+    </div>
+    <div *ngIf="role === 2" class="flex justify-center mb-2">
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-plus-circle"
+        class="chat-button p-button-rounded p-button-success"
+        (click)="createRoomWithInstructor()"
+        pTooltip="Create Chat With Instructor"
+        i18n-pTooltip
+      ></button>
+    </div>
+    <div *ngIf="role === 4" class="flex justify-center mb-2">
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-plus-circle"
+        class="chat-button p-button-rounded p-button-success"
+        (click)="showDialog()"
+        pTooltip="Create New Chat"
+        i18n-pTooltip
+      ></button>
+    </div>
+    <div *ngIf="role === 3" class="flex justify-center mb-2 mt-2">
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-plus-circle"
+        class="chat-button p-button-rounded p-button-success"
+        (click)="isVisibleCreateGroupBtn ? createRoomWithInstructor() : showDialog()"
+        pTooltip="Create New Chat"
+        i18n-pTooltip
+      ></button>
+    </div>
+  </div>
+</div>
+<div class="h-6"></div>
+
+<p-dialog
+  header="List of Applicants"
+  class="create-room modal"
+  [(visible)]="applicantsDialog"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  i18n-header
+>
+  <div *ngIf="isApplicantsReady">
+    <input
+      [(ngModel)]="roomName"
+      type="text"
+      class="w-full mb-2"
+      pInputText
+      placeholder="Enter Room Name"
+      i18n-placeholder
+    />
+    <p-table [value]="applicantsList" [columns]="cols" [(selection)]="selectedRows">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>
+            <p-checkbox (click)="selectRow(e.checked)" #e></p-checkbox>
+          </th>
+          <th *ngFor="let col of columns">
+            {{ col.header }}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+          <td>
+            <p-tableCheckbox [value]="rowData"> </p-tableCheckbox>
+          </td>
+          <td class="applicant-avatar">
+            <img [src]="rowData.profilePictureUrl" alt="" />
+          </td>
+          <td>
+            {{ role === 4 ? rowData.name : rowData.fullName }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="selectedRows.length == 0 || roomName == '' ? null : createRoom()"
+      label="Create"
+      styleClass="p-button-text"
+      [disabled]="selectedRows.length == 0 || roomName == ''"
+      i18n-label
+    ></p-button>
+    <p-button
+      icon="pi pi-times"
+      (click)="applicantsDialog = false"
+      label="Cancel"
+      i18n-label
+    ></p-button>
+  </ng-template>
+</p-dialog>
+
+<ng-template #loading>
+  <app-progress-spinner></app-progress-spinner>
+</ng-template>

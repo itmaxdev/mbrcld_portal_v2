@@ -1,0 +1,27 @@
+<div>
+  <h1 class="text-3xl font-semibold">Courses</h1>
+  <div>
+    <form class="mb-6">
+      <img class="searchIcon" src="assets/images/ico-search.svg" />
+      <input
+        pInputText
+        class="searchInput rounded-lg"
+        type="text"
+        id="search"
+        placeholder="Search courses"
+        i18n-placeholder
+      />
+    </form>
+  </div>
+  <div class="courses grid gap-4">
+    <app-enrolled-card
+    *ngFor="let item of enrolledData"
+    [visibleBtn]="false"
+    [caption]="item.caption"
+    [url]="item.url"
+    [content]="item.content"
+    [progressValue]="item.progressValue"
+  ></app-enrolled-card>
+  </div>
+
+</div>

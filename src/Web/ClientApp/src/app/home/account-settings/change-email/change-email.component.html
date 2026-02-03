@@ -1,0 +1,30 @@
+<app-card sectionTitle="Change Email" i18n-sectionTitle class="flex-grow">
+  <div class="text-2xl text-center font-semibold mt-10 mb-10" *ngIf="isFormSubmitted" i18n>
+    We have sent you an email!
+  </div>
+  <form [formGroup]="changeEmailForm" (ngSubmit)="submitChangeEmail()" *ngIf="!isFormSubmitted">
+    <div class="p-grid p-fluid">
+      <div class="p-col-12 p-lg-6">
+        <div class="p-field">
+          <label for="newEmail" i18n>Email *</label>
+          <input pInputText formControlName="newEmail" type="newEmail" id="newEmail" placeholder="Enter Email" i18n-placeholder>
+          <small appControlValidationError controlName="newEmail" class="p-invalid"></small>
+        </div>
+      </div>
+      <div class="p-col-12 card">
+        <p-captcha siteKey="6LeL-MIZAAAAACMfX2kvpM3V6dCwcxgq4LisXQNF" (onResponse)="showCaptchaResponse($event)">
+        </p-captcha>
+      </div>
+      <div class="mt-5 p-col-12 flex justify-end">
+        <p-button [disabled]="changeEmailForm.invalid || isFormSubmitting" class="p-button-md" icon="pi pi-check"
+          type="submit" label="Submit" i18n-label></p-button>
+      </div>
+    </div>
+  </form>
+  <div *ngIf="isFormSubmitted" class="mt-5 p-col-12 flex justify-end">
+    <p-button (click)="goHome()" class="p-button-md" icon="pi pi-check" type="button" label="Go Home" i18n-label>
+    </p-button>
+  </div>
+</app-card>
+
+<p-toast [preventOpenDuplicates]="true"></p-toast>

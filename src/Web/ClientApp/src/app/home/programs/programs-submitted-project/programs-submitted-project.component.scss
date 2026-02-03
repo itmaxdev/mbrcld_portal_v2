@@ -1,0 +1,36 @@
+::ng-deep {
+  .reject-dialog {
+    .p-button-icon-only {
+      display: none;
+    }
+  }
+
+  .modal {
+    .p-fileupload-row {
+      display: block;
+    }
+
+    .p-fileupload-row > div {
+      padding: 0;
+      width: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 340px) {
+    .button-text {
+      .p-button-label {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@media (max-width: 550px) {
+  .modal {
+    ::ng-deep {
+      .p-dialog-resizable {
+        width: 85vw !important;
+      }
+    }
+  }
+}

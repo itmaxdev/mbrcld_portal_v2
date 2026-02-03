@@ -1,0 +1,26 @@
+.card {
+  @apply grid;
+  @apply row-gap-4;
+  max-width: 245px;
+}
+
+.date {
+  @apply font-semibold;
+  @apply text-center;
+  color: #0071be;
+}
+
+.cardImage {
+  width: 245px;
+  height: 153px;
+  border-radius: 12px 12px 0px 0px;
+}
+
+.text-content {
+  // height: 90px;
+  overflow: hidden;
+  width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}

@@ -1,0 +1,68 @@
+<div class="card border rounded-lg border-gray-400  bg-white p-4">
+  <p-tabView (onChange)="handleChangeTab($event)">
+
+    <p-tabPanel header="Scholarships" i18n-header="@@knowledgehub_scholarships">
+      <div *ngIf="scholarshipsListReady; else loading" class="cardContainer">
+        <div *ngIf="scholarships; else noScholarships">
+          <h1 style="padding: 10px 15px 0 15px;font-weight: 600;font-size: 16px;" i18n="@@knowledgehub_active">ACTIVE</h1>
+
+          <ng-container *ngFor="let item of scholarships">
+            <a *ngIf="item.openForRegistration" style="display: inline-block;margin:15px" class="card-cont"
+              [routerLink]="item.id">
+              <app-scholarship-card [image]="item.pictureUrl" [title]="item.name"
+                [date]="item.fromDate"></app-scholarship-card>
+            </a>
+          </ng-container>
+          <br>
+          <h1 style="padding: 10px 15px 0 15px;font-weight: 600;font-size: 16px;" i18n="@@knowledgehub_previous">PREVIOUS</h1>
+          <ng-container *ngFor="let item of scholarships">
+            <a *ngIf="!item.openForRegistration" style="display: inline-block;margin:15px" class="card-cont"
+              [routerLink]="item.id">
+              <app-scholarship-card [image]="item.pictureUrl" [title]="item.name"
+                [date]="item.fromDate"></app-scholarship-card>
+            </a>
+          </ng-container>
+
+        </div>
+        <ng-template #noScholarships>
+          <div class="flex justify-center w-full">
+            <div class="grid gap-6 w-14 textContainer">
+              <h1 class="text-3xl text-center text" i18n *ngIf="locale == 'en'">
+                Coming Soon
+              </h1>
+              <h1 class="text-3xl text-center text" i18n *ngIf="locale == 'ar'">
+                قريبا
+              </h1>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+      <ng-template #loading>
+        <app-progress-spinner></app-progress-spinner>
+      </ng-template>
+    </p-tabPanel>
+
+    <p-tabPanel header="Scholarship Registration Status" i18n-header="@@knowledgehub_registrationStatus">
+      <div *ngIf="scholarshipRegistrationListReady; else loading" class="grid gap-4">
+        <app-leadership-projects *ngFor="let item of scholarshipsRegistrations" [id]="item.scholarshipId"
+          [caption]="item.name" [status]="item.statusCode" [endDate]="" [disableRouterLink]="true"
+          [withoutDueCaption]="true">
+        </app-leadership-projects>
+      </div>
+      <ng-template #loading>
+        <app-progress-spinner></app-progress-spinner>
+      </ng-template>
+    </p-tabPanel>
+
+
+
+  </p-tabView>
+</div>
+
+<!-- <div class="container">
+  <div class="grid gap-6 w-14 textContainer">
+    <h1 class="text-3xl text-center text" i18n>
+      STAY TUNED <span style="font-weight: bold;"> NEW CONTENT AVAILABLE SHORTLY</span>
+    </h1>
+  </div>
+</div> -->

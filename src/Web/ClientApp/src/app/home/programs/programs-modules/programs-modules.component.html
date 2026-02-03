@@ -1,0 +1,14 @@
+<div [ngSwitch]="role" class="border rounded-lg border-gray-400  bg-white p-4">
+  <div *ngSwitchCase="6">
+    <app-programs-modules-admin></app-programs-modules-admin>
+  </div>
+  <div *ngSwitchCase="4">
+    <app-programs-modules-instructor></app-programs-modules-instructor>
+  </div>
+  <div *ngSwitchCase="3">
+    <app-programs-modules-applicant></app-programs-modules-applicant>
+  </div>
+  <div *ngSwitchCase="2">
+    <app-programs-modules-applicant></app-programs-modules-applicant>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div>
+  <div *ngIf="isApplicantsListReady; else loadingApplicants" class="grid gap-6">
+    <div>
+      <h1 class="text-2xl text-black flex justify-center" i18n>List of Related Users</h1>
+    </div>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
+      <app-class-member-item-small
+        *ngFor="let item of applicantsList"
+        [data]="item"
+        (selectApplicant)="onApplicantSelect($event)"
+      ></app-class-member-item-small>
+    </div>
+  </div>
+  <ng-template #loadingApplicants>
+    <app-progress-spinner></app-progress-spinner>
+  </ng-template>
+
+  <p-dialog
+    header="View Applicant"
+    i18n-header
+    [(visible)]="viewApplicant"
+    [style]="{ width: '50vw' }"
+    [baseZIndex]="10000"
+  >
+    <div *ngIf="viewApplicant">
+      <app-view-applicant-page
+        [applicantId]="clickedApplicant"
+        [activeBackBtn]="false"
+      ></app-view-applicant-page>
+    </div>
+  </p-dialog>
+</div>

@@ -1,0 +1,16 @@
+<div *ngIf="ready; else loading" class="grid gap-4 p-4">
+  <div class="dashboard" i18n >Dashboard</div>
+  <div *ngIf="role == 2 || role == 3" class="dashboardCards">
+    <app-dashboard-card
+      *ngFor="let card of data"
+      [name]="card.name"
+      [name_AR]="card.name_AR"
+      [value]="card.value"
+      [details]="card.details"
+    >
+    </app-dashboard-card>
+  </div>
+</div>
+<ng-template #loading>
+  <app-progress-spinner></app-progress-spinner>
+</ng-template>

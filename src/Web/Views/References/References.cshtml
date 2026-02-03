@@ -1,0 +1,330 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MBRCLD - References</title>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css"
+          integrity="sha256-aPeK/N8IHpHsvPBCf49iVKMdusfobKo2oxF8lRruWJg=" crossorigin="anonymous">
+    <style>
+        .label{
+            font-size: 14px;
+            font-weight: 100 !important;
+            font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+        }
+        :dir(rtl) {
+            font-family: "Helvetica Neue LT Arabic 55 Roman";
+        }
+                
+        div[dir], div[dir] input, div[dir] textarea, h1[dir],h2[dir],h3[dir],h4[dir],h5[dir],h6[dir],label[dir]  {
+            font-family: "Helvetica Neue LT Arabic 55 Roman" !important;
+        }
+        .button{
+            border-radius: 3px;
+            width: 8rem;
+            font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif !important;
+        }
+        h1{
+            font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif !important;
+        }
+        .navbar{
+            padding-top: 1rem;
+            width: 282px;
+            background-color: #0071be;
+            height: 100vh;
+        }
+        img{
+            margin: 30px 30px 20px 50px;
+            width: 67%;
+        }        
+        .hidden{
+            display: none;
+        }
+        .width-40{
+            width:40%
+        }
+        
+        #app{
+            width: 100%;
+        }
+        
+    </style>
+    <link href="~/reference.css" rel="stylesheet" />
+</head>
+<body>
+    <center>
+     <img class="width-40 is-hidden-tablet-only is-hidden-desktop-only is-hidden-widescreen-only is-hidden-fullhd pt-2 pl-2" src="~/MBRCLD_logo_Colored.png" />
+     </center>
+    <div class="columns">
+        <div class="navbar is-fixed-top is-hidden-mobile">
+            <div _ngcontent-unt-c89="" class="flex flex-row justify-center items-center p-8">
+                <img class="pt-2 pl-2" src="~/mbrcld_logo_white.png">
+            </div>
+        </div>
+        <div id="app">
+            <div class="section">
+                @if (ViewBag.HasNoValue == null && ViewBag.IsCompleted == null)
+                {
+                    <div v-show="showForm">
+                        <h1 dir="rtl" class="title is-4">يرجى صياغة الأجوبة في حدود 150-200 كلمة</h1>
+                        <h1 class="title is-4">
+                            Word limit of 150-200 words suggested to keep it
+                            sharp and concise.
+                        </h1>
+                        <br />
+                        <div class="columns">
+                            <div class="column">
+                                <form method="post" action="@Url.Action("SubmitReferenceForm", "References", FormMethod.Post)" v-on:submit.prevent="openConfirm">
+
+                                    <div class="field">
+                                        <label for="capacity" class="label" dir="rtl">
+                                            ما هي المدة الزمنية التي تعرف بها المرشح وفي أي سياق؟
+                                        </label>
+                                        <label for="capacity" class="label">
+                                            How long and in what capacity have you known the
+                                            applicant?
+                                        </label>
+                                        <div class="control">
+                                            <textarea style="height:10%" id="capacity" name="capacity" class="input"
+                                                      maxlength="2000" v-model="capacity" v-bind:class="{ 'is-danger': showValidation && !capacity }"></textarea>
+                                        </div>
+                                        <p v-show="showValidation && !capacity" class="help has-text-danger">
+                                            Answer is required
+                                        </p>
+                                    </div>
+                                    <div class="field mt-5">
+                                        <label for="areasOfImprovement" class="label" dir="rtl">
+                                            يرجى تقديم 3 كفاءات تتطلب تطوير لدى المرشح وتقديم
+                                            أمثلة لكل كفاءة وكيف قام المرشح بتحسينها أو تطويرها؟
+                                        </label>
+                                        <label for="areasOfImprovement" class="label">
+                                            In which three areas can the applicant improve?
+                                            Please provide an example of each. How has the
+                                            applicant worked to address these areas?
+                                        </label>
+                                        <div class="control">
+                                            <textarea style="height:10%" id="areasOfImprovement" name="areasOfImprovement" class="input"
+                                                      maxlength="2000" v-model="areasOfImprovement" v-bind:class="{ 'is-danger': showValidation && !areasOfImprovement }"></textarea>
+                                        </div>
+                                        <p v-show="showValidation && !areasOfImprovement" class="help has-text-danger">
+                                            Answer is required
+                                        </p>
+                                    </div>
+                                    <div class="field mt-5">
+                                        <label for="impact" class="label" dir="rtl">
+                                            يرجى تقديم مثال لأثر المرشح على الأفراد أو المجموعات أو
+                                            المؤسسة بشكل عام
+                                        </label>
+                                        <label for="impact" class="label">
+                                            Please give an example of the applicant’s impact on
+                                            a person, group, or organization.
+                                        </label>
+
+                                        <div class="control">
+                                            <textarea style="height:10%" id="impact" name="impact" class="input"
+                                                      maxlength="2000" v-model="impact" v-bind:class="{ 'is-danger': showValidation && !impact }"></textarea>
+                                        </div>
+                                        <p v-show="showValidation && !impact" class="help has-text-danger">
+                                            Answer is required
+                                        </p>
+                                    </div>
+                                    <div class="field mt-5">
+                                        <label for="strengths" class="label" dir="rtl">
+                                            ما هي الكفاءات الثلاث الأكثر فاعلية لدى المرشح؟ يرجى
+                                            تقديم مثال لكل كفاءة.
+                                        </label>
+                                        <label for="strengths" class="label">
+                                            What are the applicant’s three principal strengths?
+                                            Please provide an example of each.
+                                        </label>
+                                        <div class="control">
+                                            <textarea style="height:10%" id="strengths" name="strengths" class="input"
+                                                      maxlength="2000" v-model="strengths" v-bind:class="{ 'is-danger': showValidation && !strengths }"></textarea>
+                                        </div>
+                                        <p v-show="showValidation && !strengths" class="help has-text-danger">
+                                            Answer is required
+                                        </p>
+                                    </div>
+                                    <div class="field mt-5">
+                                        <label for="competency" class="label" dir="rtl">
+                                            يتمحور برنامج مركز محمد بن راشد لإعداد القادة حول تطوير القيادات التي تعايش القيم المؤسسية الخاصة بالمركز والتي تتمحور حول 4 كفاءات وهي: http://www.mbrcld.ae/Leadershipframework.aspx وإحداها في التفكير الريادي والإشراك.  يرجى تقديم ملاحظاتكم حول المرشح وأساليبه في معايشتها.
+                                        </label>
+                                        <label for="competency" class="label">
+                                            In the MBRCLD program, we develop leaders who embody our distinctive culture’s four key principles  https://mbrcld.ae/EN/Leadershipframework.aspx one of which is “include” or “disrupt.” Please comment on how the applicant reflects this competency.
+                                        </label>
+                                        <div class="control">
+                                            <textarea style="height:10%" id="competency" name="competency" class="input"
+                                                      maxlength="2000" v-model="competency" v-bind:class="{ 'is-danger': showValidation && !competency }"></textarea>
+                                        </div>
+                                        <p v-show="showValidation && !competency" class="help has-text-danger">
+                                            Answer is required
+                                        </p>
+                                    </div>
+                                    <div class="field mt-5">
+                                        <label for="additionalDetails" class="label" dir="rtl">
+                                            يرجى تقديم أية ملاحظات أخرى من شأنها سلط الضوء على
+                                            إمكانيات وقدرات المرشح
+                                        </label>
+                                        <label for="additionalDetails" class="label">
+                                            Please tell us anything else you think we should
+                                            know about this applicant.
+                                        </label>
+                                        <div class="control">
+                                            <textarea style="height:10%" id="additionalDetails" name="additionalDetails" class="input"
+                                                      maxlength="2000" v-model="additionalDetails" v-bind:class="{ 'is-danger': showValidation && !additionalDetails }"></textarea>
+                                        </div>
+                                        <p v-show="showValidation && !additionalDetails" class="help has-text-danger">
+                                            Answer is required
+                                        </p>
+                                    </div>
+
+                                    <div class="field">
+                                        <div class="control">
+                                            <button type="submit" class="button is-link" v-bind:disabled="isDisabled">Submit</button>
+                                        </div>
+                                    </div>
+
+
+                                    @Html.Hidden("Id", ViewBag.Id, new { })
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div v-show="error" class="help has-text-danger">
+                            <h1>{{errorNotification}}</h1>
+                        </div>
+                        <div v-show="success" class="has-text-success">
+                            <center><h3>Thank you for submitting.</h3></center>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    if (ViewBag.HasNoValue != null)
+                    {
+                        <center><h1>@ViewBag.HasNoValue</h1></center>
+                    }
+                    else if (ViewBag.IsCompleted != null)
+                    {
+                        <center>
+                            <h1>@ViewBag.IsCompleted</h1>
+                        </center>
+                    }
+                }
+            </div>
+            <div class="modal" v-bind:class="{'is-active':isActive}">
+                <div class="modal-background"></div>
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">Confirmation</p>
+                        <button class="delete" v-on:click="close"></button>
+                    </header>
+                    <section class="modal-card-body">
+                        <div class="pb-5">
+                            <h3>Are you sure you want to Submit?</h3>
+                        </div>
+                    </section>
+                    <footer class="is-pulled-right">
+                        <button class="button is-success" v-bind:disabled="isDisabled" v-on:click="onSubmit">Ok</button>
+                        <button class="button" v-on:click="close">Cancel</button>
+                    </footer>
+                </div>
+            </div>
+        </div>
+
+        @*<script src="https://cdn.jsdelivr.net/npm/vue"></script>*@
+        <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+        <script>
+        new Vue({
+            el: '#app',
+            data: {
+                id:'@ViewBag.Id',
+                strengths: '',
+                impact: '',
+                competency: '',
+                capacity:'',
+                areasOfImprovement: '',
+                additionalDetails: '',
+                error: false,
+                success: false,
+                errorNotification: '',
+                showValidation: false,
+                isDisabled:false,
+                isActive:false,
+                showForm:true
+            },
+            methods: {
+                    openConfirm: function() {
+                        this.showValidation = true;
+                        if (!this.isFormValid) {
+                            return
+                        }
+                        this.isActive = true;
+                    },
+                    close: function() {
+                        this.isActive = false;
+                    },
+                    onSubmit() {
+                    // this.showValidation = true;
+                    //if (!this.isFormValid) {
+                   //     return
+                    //}
+                    this.showValidation = false;
+                    this.isDisabled = true;
+                    axios.post('@Url.Action("SubmitReferenceForm", "References")', {
+                        id: this.id,
+                        strengths: this.strengths,
+                        impact: this.impact,
+                        competency: this.competency,
+                        capacity: this.capacity,
+                        areasOfImprovement: this.areasOfImprovement,
+                        additionalDetails: this.additionalDetails
+                    })
+                        .then(response => {
+
+                            response = response.data;
+                            this.showForm = false;
+                            if (response.hasNoValue) {
+                                this.error = response.hasNoValue;
+                                this.success = !response.hasNoValue;
+                                this.errorNotification = response.hasCompleted ? "Already Submitted" : "Invalid Request";
+                                this.isDisabled = false;
+                            }
+                            else if (response.hasCompleted) {
+                                this.error = !response.hasCompleted;
+                                this.success = response.hasCompleted;
+                                this.errorNotification = '';
+                            }
+                            else if (response.success) {
+                                this.error = !response.success;
+                                this.success = response.success;
+                            }
+                            this.isActive = false;
+                        })
+                    .catch(error => { });
+                    //event.target.submit()
+                }
+            },
+            computed: {
+                has500Characters() {
+                    return this.strengths.length >= 1 && this.strengths.length <= 2000 &&
+                        this.impact.length >= 1 && this.impact.length <= 2000 &&
+                        this.competency.length >= 1 && this.competency.length <= 2000 &&
+                        this.capacity.length >= 1 && this.capacity.length <= 2000 &&
+                        this.areasOfImprovement.length >= 1 && this.areasOfImprovement.length <= 2000 &&
+                        this.additionalDetails.length >= 1 && this.additionalDetails.length <= 2000;
+
+                },
+                isFormValid() {
+                    return this.has500Characters;
+                }
+            }
+        })
+        </script>
+    </div>
+</body>
+</html>

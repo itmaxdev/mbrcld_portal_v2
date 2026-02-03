@@ -1,0 +1,90 @@
+<div class="inline-flex items-center cursor-pointer contents" (click)="goBack()">
+  <img src="assets/images/ico-arrow-left.svg" class="w-6 h-6" alt="" />
+  <p class="text-lg ml-2 text-gray-700" i18n>
+    Go Back
+  </p>
+</div>
+<app-card *ngIf="ready; else loading" [sectionTitle]="eventItem.name" sectionSubTitle="">
+  <div class="grid gap-4 sm:flex sm:col-gap-3">
+    <div class="leftColumn">
+      <div *ngIf="fromDate" class="header">
+       <!-- <h4>{{ fromDate | date: 'MMM' }} {{ fromDate | date: 'd' }}</h4>-->
+        <!--<h4>{{ fromDate | date }}</h4>-->
+        <h4>{{ fromDate | date: 'MMM' }} {{ fromDate | date: 'yyyy' }}</h4>
+        <hr class="divider" />
+      <!--  <h4>{{ fromDate | date: 'd' }}</h4>-->
+      </div>
+      <!--<div class="timing">-->
+        <!--<img src="https://cdn6.aptoide.com/imgs/8/2/4/824064759abfd894037a0efb88e14879_icon.png" class="w-6 h-6" />-->
+        <!--<p>{{ fromDate | date: 'hh:mm a' }} - {{ toDate | date: 'hh:mm a' }}</p>
+      </div>-->
+      <!--<div class="timing">-->
+        <!--<img src="https://cdn6.aptoide.com/imgs/8/2/4/824064759abfd894037a0efb88e14879_icon.png" class="w-6 h-6" />-->
+        <!--<p>
+          <span i18n>Duration</span>
+          <span>:</span>
+          <span dir="ltr"> {{ duration }}</span>
+        </p>
+      </div>-->
+      <!--<div class="timing">-->
+        <!--<img src="https://cdn6.aptoide.com/imgs/8/2/4/824064759abfd894037a0efb88e14879_icon.png" class="w-6 h-6" />-->
+        <!--<div>
+          <p>
+            <span i18n>Start Date</span>
+            <span>: </span>
+            <span dir="rtl"> {{ fromDate | date }}</span>
+          </p>
+          <p>
+            <span i18n>End Date</span>
+            <span>: </span>
+            <span dir="rtl"> {{ toDate | date }}</span>
+          </p>
+        </div>
+      </div>-->
+      <button pButton *ngIf="!eventItem.hasQuestions" type="submit" label="Register" class="h-12"
+        [disabled]="eventItem.alreadyRegistered" (click)="registerUserToEvent()" i18n-label></button>
+      <button pButton *ngIf="eventItem.hasQuestions" type="submit" label="Register" class="h-12"
+        (click)="openQuestionnaire()" i18n-label></button>
+    </div>
+    <div class="rightColumn">
+      <img [src]="eventItem.pictureUrl" />
+      <!--<app-card [sectionSubTitle]="eventItem.description"></app-card>-->
+      <app-card class="text-lg ql-editor" [innerHtml]="eventItem.description"></app-card>
+    </div>
+  </div>
+</app-card>
+
+<p-dialog *ngIf="ready && eventItem.hasQuestions" header="Register" i18n-header styleClass="w-full max-w-3xl"
+  [(visible)]="showQuestionnaireDialog" [modal]="true" [focusTrap]="true" [focusOnShow]="true" [closable]="true"
+  [draggable]="false">
+  <!-- <div class="py-5"> -->
+  <form *ngIf="questions.length > 0" class="p-grid p-formgrid p-fluid" (ngSubmit)="submitQuestionnaire()">
+
+    <p class="p-text-secondary" i18n style="margin-bottom:20px;">This section requires you to answer specific questions for the program.</p>
+
+
+    <div *ngFor="let question of questions" class="p-field p-col-12">
+      <label [for]="question.id">{{ question.question }}</label>
+      <textarea [(ngModel)]="answers[question.id].answer" [ngModelOptions]="{standalone: true}" [readonly]="questionnaireStatus != 0" pInputTextarea [id]="question.id" [autoResize]="true" maxlength="1250"
+        rows="3"></textarea>
+      <!-- <small appControlValidationError [controlName]="question.id" class="p-invalid"></small> -->
+    </div>
+
+
+    <div class="p-col-12 flex justify-between" style="margin-top:30px">
+      <div>
+        
+      </div>
+      <div>
+        <button pButton type="submit" label="Submit" i18n-label [disabled]="questionnaireStatus != 0"></button>
+      </div>
+    </div>
+  </form>
+
+  <!-- </div> -->
+</p-dialog>
+
+
+<ng-template #loading>
+  <app-progress-spinner></app-progress-spinner>
+</ng-template>

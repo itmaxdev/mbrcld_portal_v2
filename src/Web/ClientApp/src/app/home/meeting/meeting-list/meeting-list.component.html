@@ -1,0 +1,91 @@
+<div *ngIf="ready; else loading" class=" border rounded-lg border-gray-400  bg-white p-4">
+  <div *ngIf="role === 3">
+    <div class="meeting-hub" i18n>Meeting Hub</div>
+    <div class="header-content" i18n>
+      This is where you can find groups of people who share your interests where you could discuss
+      your ideas with
+    </div>
+  </div>
+  <p-tabView (onChange)="handleChange($event)">
+    <p-tabPanel header="Topics" i18n-header [selected]="meetingTabs === '0'">
+      <div class="meeting-rooms flex col-gap-3 row-gap-3">
+        <div *ngFor="let room of meetingRooms">
+          <app-meeting-rooms [room]="room" [userId]="userId"></app-meeting-rooms>
+        </div>
+      </div>
+    </p-tabPanel>
+    <p-tabPanel header="Alumni Search" i18n-header [selected]="meetingTabs === '1'">
+      <div class="flex justify-between mt-5 input-container">
+        <div class="dropdown-container">
+          <p-dropdown
+            [options]="sectorOptions"
+            [(ngModel)]="selectedSector"
+            placeholder="Select a Sector"
+            optionLabel="label"
+            [showClear]="true"
+            inputId="sector"
+            i18n-placeholder
+          ></p-dropdown>
+        </div>
+        <div class="dropdown-container">
+          <p-dropdown
+            [options]="allPrograms"
+            [(ngModel)]="selectedProgram"
+            placeholder="Select a Program"
+            optionLabel="name"
+            [showClear]="true"
+            inputId="program"
+            (onChange)="getcohortYears($event)"
+            i18n-placeholder
+          ></p-dropdown>
+        </div>
+        <div class="dropdown-container">
+          <p-dropdown
+            [options]="cohortYears"
+            [(ngModel)]="selectedYear"
+            placeholder="Select a Cohort Year"
+            optionLabel="label"
+            [showClear]="true"
+            inputId="cohortYear"
+            i18n-placeholder
+          ></p-dropdown>
+        </div>
+        <div>
+          <button
+            pButton
+            type="button"
+            label="Search"
+            icon="pi pi-search"
+            (click)="searchMeeting()"
+            i18n-label
+          ></button>
+        </div>
+      </div>
+      <div>
+        <div *ngIf="isSearched; else noSearched">
+          <div *ngIf="isFindUserDone; else loadingClassList" class="mt-4 p-grid">
+            <div *ngIf="noUserFinded; else finded">
+              <h1 class="text-center mt-4">No User Finded!</h1>
+            </div>
+            <ng-template #finded>
+              <div class="p-col-4"  *ngFor="let item of findedUsers">
+                <app-class-member-item
+                [data]="item"
+              ></app-class-member-item>
+              </div>
+            </ng-template>
+          </div>
+          <ng-template #loadingClassList>
+            <app-progress-spinner></app-progress-spinner>
+          </ng-template>
+        </div>
+        <ng-template #noSearched>
+          <h1 class="text-center mt-4" i18n>No user searched yet!</h1>
+        </ng-template>
+      </div>
+    </p-tabPanel>
+  </p-tabView>
+</div>
+<ng-template #loading>
+  <app-progress-spinner></app-progress-spinner>
+</ng-template>

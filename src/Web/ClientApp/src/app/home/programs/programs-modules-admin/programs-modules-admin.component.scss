@@ -1,0 +1,77 @@
+::ng-deep {
+  .module-tabs .p-tabview-nav {
+    border: 1px solid #dee2e6 !important;
+    border-radius: 8px !important;
+    padding-left: 20px !important;
+  }
+  .p-datepicker.p-component {
+    z-index: 99999 !important;
+  }
+  .chat-button {
+    width: 4rem !important;
+    height: 4rem !important;
+    display: inline-flex !important;
+    span.p-button-icon {
+      font-size: 1.5rem;
+    }
+  }
+  .module-tabs .p-tabview-panels {
+    padding: 1rem 0 !important;
+  }
+
+  .create-room .p-dialog-mask .p-dialog {
+    width: 40%;
+  }
+
+  .create-room .p-dialog-footer button {
+    width: auto !important;
+  }
+}
+
+.applicant-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.chat-options-block {
+  position: fixed;
+  right: 17px;
+  bottom: 17px;
+}
+
+.add-newsfeed-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width: 640px) {
+  ::ng-deep {
+    .module-tabs .p-tabview-nav {
+      padding-bottom: 4px;
+    }
+    .module-tabs .p-tabview-nav .p-tabview-nav-link {
+      border-bottom: 0 !important;
+    }
+  }
+}
+
+.modal {
+  #duration {
+    padding-right: 0 !important;
+  }
+
+  #order {
+    padding-right: 0 !important;
+  }
+}
+
+@media (max-width: 550px) {
+  .modal {
+    ::ng-deep {
+      .p-dialog-resizable {
+        width: 85vw !important;
+      }
+    }
+  }
+}

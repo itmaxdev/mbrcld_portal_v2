@@ -1,0 +1,134 @@
+<div *ngIf="ready; else loading" class="mt-4">
+  <div class="inline-flex items-center mb-8 cursor-pointer contents" (click)="goBack()">
+    <img src="assets/images/ico-arrow-left.svg" class="w-6 h-6" alt="" />
+    <p class="backSections text-lg ml-2" i18n>
+      Back to Sections
+    </p>
+  </div>
+  <div *ngIf="!isExistSections; else sections" class="mt-12">
+    <p class="text-sm text-center text-gray-700" i18n>No SECTIONS Added</p>
+  </div>
+  <ng-template #sections>
+    <p-tabView class="sectionTabs" [(activeIndex)]="activeIndex" (onChange)="handleChange($event)">
+      <p-tabPanel *ngFor="let item of allSections" [header]="item.order">
+        <div *ngIf="contentReady" class="flex justify-between my-2">
+          <h1 class="text-2xl text-gray-700">{{ sectionOrder }}. {{ sectionName }}</h1>
+          <div *ngIf="isInstructor  || isAdmin">
+            <a [href]="'/'+ locale + generatedURL + '/edit'">
+              <p-button label="Add Content" i18n-label></p-button>
+            </a>
+          </div>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+    <div *ngIf="contentReady; else loadingContent">
+      <div class="grid gap-8">
+        <div class="flex flex-col sm:items-center sm:flex-row">
+          <div class="w-full sm:w-2/5">
+            <div *ngIf="ready && !isInstructor && !isAdmin" class="flex justify-between w-full items-center">
+              <button
+                pButton
+                pRipple
+                type="button"
+                class="p-button-rounded"
+                [ngClass]="{ 'p-button-outlined': statusBar.Unread }"
+                (click)="updateStatus('Unread')"
+              >
+                <img src="assets/images/Unread.svg" class="w-10 h-10" alt="" />
+              </button>
+              <p class="border-t-2 w-full border-gray-500" style="width: 41%;"></p>
+              <button
+                pButton
+                pRipple
+                type="button"
+                class="p-button-rounded"
+                [ngClass]="{ 'p-button-outlined': statusBar.Review }"
+                (click)="updateStatus('Review')"
+              >
+                <img src="assets/images/Review.svg" class="w-10 h-10" alt="" />
+              </button>
+              <p class="border-t-2 w-full border-gray-500" style="width: 41%;"></p>
+              <button
+                pButton
+                pRipple
+                type="button"
+                class="p-button-rounded"
+                [ngClass]="{ 'p-button-outlined': statusBar.Done }"
+                (click)="updateStatus('Done')"
+              >
+                <img src="assets/images/Done.svg" class="w-10 h-10" alt="" />
+              </button>
+            </div>
+            <div *ngIf="ready && !isInstructor && !isAdmin" class="flex justify-between">
+              <span
+                class="unread text-gray-600"
+                [ngClass]="{ 'text-blue-600': !statusBar.Unread }"
+                i18n
+                >Unread</span
+              >
+              <span
+                class="review text-gray-600"
+                [ngClass]="{ 'text-blue-600': !statusBar.Review }"
+                i18n
+                >Review</span
+              >
+              <span class="done text-gray-600" [ngClass]="{ 'text-blue-600': !statusBar.Done }" i18n
+                >Done</span
+              >
+            </div>
+          </div>
+          <div class="w-full mt-6 sm:w-3/5 sm:ml-8 sm:mt-0">
+            <p class="statusText text-gray-700 text-lg">{{ currentStatusText }}</p>
+          </div>
+        </div>
+
+        <div *ngFor="let item of sectionContents" class="pb-4" [ngSwitch]="item.type">
+          <div *ngSwitchCase="1">
+            <app-text-content [name]="item.name" [text]="item.text"></app-text-content>
+          </div>
+          <div *ngSwitchCase="2">
+            <app-video-content [name]="item.name" [videoUrl]="item.url"></app-video-content>
+          </div>
+          <div *ngSwitchCase="3">
+            <app-document-content
+              [name]="item.name"
+              [documentUrl]="item.documentUrl"
+            ></app-document-content>
+          </div>
+          <div *ngSwitchCase="4">
+            <app-meeting-content
+              [name]="item.name"
+              [link]="item.url"
+              [date]="item.startDate"
+            ></app-meeting-content>
+          </div>
+          <div *ngSwitchCase="5">
+            <div class="container">
+              <div class="relative flex justify-center ">
+                <img src="assets/images/stick-note.png" class="relative w-full z-0 stickImg " />
+                <div
+                  [innerHTML]="item.text"
+                  class="content-text content-block text-lg text z-1  absolute top-0 left-0  stickText ql-editor"
+                  dir="ltr"
+                  [ngStyle]="{ '-webkit-line-clamp': '15' }"
+                ></div>
+              </div>
+              <!-- <app-text-content [name]="item.name" [text]="item.text"></app-text-content -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #loadingContent>
+      <div class="flex flex-grow justify-center items-center py-8">
+        <p-progressSpinner></p-progressSpinner>
+      </div>
+    </ng-template>
+  </ng-template>
+</div>
+
+<ng-template #loading>
+  <div class="flex flex-grow justify-center items-center py-8">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>

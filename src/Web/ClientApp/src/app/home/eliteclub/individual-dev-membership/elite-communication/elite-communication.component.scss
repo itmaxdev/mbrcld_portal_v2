@@ -1,0 +1,35 @@
+.count {
+  width: 22px;
+}
+
+.caption {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.caption-text {
+  height: 92px;
+  overflow: hidden;
+  width: 140px;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.content {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.content-text {
+  overflow: hidden;
+  width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+
+.header-caption:hover .caption-text {
+  text-decoration: underline;
+}

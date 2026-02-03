@@ -1,0 +1,23 @@
+.app-title {
+  @apply text-2xl;
+  @apply text-white;
+  @apply font-bold;
+  @apply border-b-2;
+  @apply border-blue-500;
+  @apply pb-3;
+  @apply mb-5;
+  font-size: 40px;
+}
+
+.app-left-pane {
+  background-color: #0071BE;
+}
+
+
+.signup-content{
+  @apply text-white;
+  min-height: 100vh;
+  background: url('/en/assets/images/register-bg.png');
+  background-attachment: fixed;
+  background-size: cover;
+}

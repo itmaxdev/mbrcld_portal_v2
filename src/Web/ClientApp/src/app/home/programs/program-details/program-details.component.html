@@ -1,0 +1,37 @@
+<div class="py-8">
+  <div class="flex flex-col border rounded-lg bg-white p-8">
+    <h4 class="text-2xl font-semibold mb-8" i18n>Impactful Leaders Program</h4>
+    <div class="flex flex-col">
+      <p class="text-lg text-justify" i18n>
+        It is the vision of the Mohammed Bin Rashid Center for Leadership Development to create leaders
+        for tomorrow’s world. To achieve this vision, the Center is launching its flagship program first.
+        This program is designed to be an avant-garde experience that challenges leaders to move outside
+        their comfort zone. It is a journey rather than an event, which will leave the participants being
+        more effective at the end of the program. The curriculum is based on the Mohammed Bin Rashid Al
+        Maktoum Competency Model and is delivered by a consortium of the world’s leading providers of
+        executive education. The modules of the program have been carefully curated and contextualized to be
+        readily applicable to the local context.
+      </p>
+      <div class="mt-8">
+        <div *ngIf="galleryImages" class="p-grid">
+          <div *ngFor="let galleryImage of galleryImages; let index = index;" class="p-col-3" key="index">
+            <img [src]="galleryImage.medium" style="cursor: pointer" (click)="imageClick(index)" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-galleria [(value)]="galleryImages" [(visible)]="displayCustom" [(activeIndex)]="activeIndex"
+  [containerStyle]="{'max-width': '850px'}" [numVisible]="7" [circular]="true" [fullScreen]="true"
+  [showItemNavigators]="true" [showThumbnails]="false">
+  <ng-template pTemplate="item" let-item>
+    <img [src]="item.big" style="width: 100%; display: block;" />
+  </ng-template>
+  <ng-template pTemplate="thumbnail" let-item>
+    <div class="p-grid p-nogutter p-justify-center">
+      <img [src]="item.small" style="display: block;" />
+    </div>
+  </ng-template>
+</p-galleria>

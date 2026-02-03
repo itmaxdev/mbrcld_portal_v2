@@ -1,0 +1,44 @@
+<div class="flex justify-between mb-4">
+  <div class="inline-flex items-center cursor-pointer contents" (click)="shared.goBack()">
+    <img src="assets/images/ico-arrow-left.svg" class="w-6 h-6" alt="" />
+    <p class="text-lg ml-2 text-gray-700" i18n>
+      Go Back
+    </p>
+  </div>
+</div>
+
+<ng-container *ngIf="ready; else loading">
+  <ng-container *ngIf="!alreadyEnrolled; else goBack">
+    <div class="mb-8">
+      <p-steps
+        [model]="steps"
+        [(activeIndex)]="activeIndex"
+        [readonly]="true"
+        class="pointer-events-none"
+        styleClass="program-application-steps"
+      ></p-steps>
+    </div>
+    <router-outlet (activate)="stepperChanged($event)"></router-outlet>
+  </ng-container>
+</ng-container>
+
+<ng-template #goBack>
+  <p-dialog
+    [visible]="true"
+    [closable]="false"
+    [draggable]="false"
+    [resizable]="false"
+    [responsive]="true"
+  >
+    <h1 class="text-2xl" i18n>You are already enrolled in this program</h1>
+    <ng-template pTemplate="footer">
+      <button pButton label="Go Back" i18n-label routerLink=".."></button>
+    </ng-template>
+  </p-dialog>
+</ng-template>
+
+<ng-template #loading>
+  <div class="flex flex-grow justify-center items-center py-8">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>

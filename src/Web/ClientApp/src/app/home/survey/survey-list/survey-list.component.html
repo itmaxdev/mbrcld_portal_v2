@@ -1,0 +1,22 @@
+<div class="grid gap-6  border rounded-lg border-gray-400  bg-white p-4">
+  <h1 class="text-3xl text-center" i18n>Surveys List</h1>
+  <div *ngIf="ready; else loading" class="grid gap-4">
+    <div *ngIf="surveysData.length === 0; else listOfSurveys">
+      <p class="text-center" i18n>No Surveys yet!</p>
+    </div>
+    <ng-template #listOfSurveys>
+      <app-survey-card
+        *ngFor="let survey of surveysData"
+        [name]="survey.name"
+        [templateName]="survey.surveyTemplateName"
+        [url]="survey.surveyURL"
+        disabled={{false}}
+        (disabledItemClick)="disabledItemClick()"
+      ></app-survey-card>
+    </ng-template>
+  </div>
+  <ng-template #loading>
+    <app-progress-spinner></app-progress-spinner>
+  </ng-template>
+  <p-toast></p-toast>
+</div>

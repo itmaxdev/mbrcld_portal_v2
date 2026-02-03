@@ -1,0 +1,63 @@
+<ng-container *ngIf="ready; else loading">
+  <app-card sectionTitle="Languages" sectionSubTitle="This sections requires you to provide all your language skills."
+    i18n-sectionTitle i18n-sectionSubTitle class="flex-grow">
+    <ng-container role="actions">
+      <button pButton type="button" i18n-label label="Add" icon="pi pi-plus"
+        (click)="showAddLanguageDialog = true"></button>
+    </ng-container>
+    <div class="p-grid">
+      <div *ngIf="languages.length === 0" class="p-col-12 py-8 text-center">
+        <span class="text-sm text-gray-700" i18n>You haven't added any languages yet</span>
+      </div>
+
+      <div *ngFor="let lang of languages" class="p-col-12 p-lg-6">
+        <app-profile-section-info-card (onEdit)="openLanguageDialogForEditing(lang)" (onDelete)="removeLanguage(lang)">
+          <div class="flex flex-col justify-around">
+            <div class="text-lg">{{ getLanguageLabel(lang.languageId) }}</div>
+            <div class="text-gray-600">{{ getProficiencyLevelLabel(lang.level) }}</div>
+          </div>
+        </app-profile-section-info-card>
+      </div>
+
+
+    </div>
+  </app-card>
+  <div class="p-col-12 flex justify-end mt-8">
+    <button pButton type="submit" label="Next" i18n-label class="w-32" (click)="goToNextPage()"></button>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div class="flex flex-grow justify-center items-center py-8">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>
+
+<p-dialog header="Add Language" i18n-header [(visible)]="showAddLanguageDialog" [modal]="true" [focusTrap]="true"
+  [focusOnShow]="true" [closeOnEscape]="true" [draggable]="false" styleClass="w-full max-w-sm">
+  <form [formGroup]="addLanguageForm" id="add-language-form" class="p-fluid"
+    (ngSubmit)="editingLanguage.id ? updateLanguage() : addLanguage()">
+    <div class="p-field">
+      <label for="languageId" i18n>Language <span class="text-red-500">*</span></label>
+      <p-dropdown inputId="languageId" appendTo="body" placeholder="Select an option" i18n-placeholder
+        formControlName="languageId" [options]="languageOptions">
+      </p-dropdown>
+    </div>
+    <div class="p-field">
+      <label for="level" i18n>Proficiency <span class="text-red-500">*</span></label>
+      <p-dropdown inputId="level" appendTo="body" placeholder="Select an option" i18n-placeholder
+        [options]="proficiencyOptions" formControlName="level">
+      </p-dropdown>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <button pButton type="submit" form="add-language-form" label="Save" i18n-label icon="pi pi-check"
+      [disabled]="addLanguageForm.invalid || isFormSubmitting"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog appPrimeNGi18n header="Confirmation" i18n-header icon="pi pi-exclamation-triangle"
+  styleClass="w-full max-w-sm">
+</p-confirmDialog>
+
+<p-toast position="bottom-center" [preventOpenDuplicates]="true"></p-toast>

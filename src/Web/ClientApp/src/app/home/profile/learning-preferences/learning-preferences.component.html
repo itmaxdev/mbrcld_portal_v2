@@ -1,0 +1,23 @@
+<ng-container *ngIf="ready; else loading">
+  <app-card sectionTitle="Learning Preferences"
+    sectionSubTitle="This sections requires you to select your learning preferences." i18n-sectionTitle
+    i18n-sectionSubTitle>
+    <h1 class="text-lg mb-8" i18n>Select your learning preferences</h1>
+    <div class="p-grid">
+      <div *ngFor="let option of learningPreferencesOptions" class="p-field p-col-12 p-lg-6">
+        <p-checkbox [label]="option.label" [value]="option.value" [(ngModel)]="learningPreferences" (ngModelChange)="dirty = true"></p-checkbox>
+      </div>
+    </div>
+  </app-card>
+  <div class="p-col-12 flex justify-end mt-8">
+    <button pButton type="button" label="Next" i18n-label class="w-32" [disabled]="isSubmitting"
+      (click)="submitLearningPreferences()">
+    </button>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div class="flex flex-grow justify-center items-center py-8">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>

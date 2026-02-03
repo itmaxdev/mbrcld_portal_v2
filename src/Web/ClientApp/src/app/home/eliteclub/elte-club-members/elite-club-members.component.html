@@ -1,0 +1,8 @@
+<div class="mt-4 grid gap-2">
+  <app-class-member-item
+    *ngFor="let item of eliteclubMembers"
+    [data]="item"
+    [isEliteClub]="true"
+    [fullWidth]="true"
+  ></app-class-member-item>
+</div>

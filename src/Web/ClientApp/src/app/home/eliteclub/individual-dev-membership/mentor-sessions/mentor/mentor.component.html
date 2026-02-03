@@ -1,0 +1,49 @@
+<div>
+  <div class="inline-flex items-center mb-8 cursor-pointer contents" (click)="goBack()">
+    <img src="assets/images/ico-arrow-left.svg" class="w-6 h-6" alt="" />
+    <p class="text-lg ml-2 text-gray-700" i18n>
+      Back to Elite Club
+    </p>
+  </div>
+  <h1 class="font-bold text-2xl mb-4" i18n>Mentor information</h1>
+  <div class="flex flex-row items-center mb-6">
+    <div class="relative flex-shrink-0 flex-grow-0">
+      <img
+        class="w-32 h-32 rounded-full object-contain"
+        [src]="mentor.pictureUrl"
+        onerror="this.src= 'assets/images/no-photo.png'"
+        alt=""
+      />
+    </div>
+    <div class="ps-8">
+      <h3 class="font-semibold text-xl mb-4">{{ mentor.name }}</h3>
+      <p>{{ mentor.aboutMentor }}</p>
+    </div>
+  </div>
+  <div class="grid row-gap-8">
+    <div>
+      <div class="text-lg" i18n>Email</div>
+      <div>{{ mentor.email }}</div>
+    </div>
+    <div>
+      <div class="text-lg" i18n>Nationality</div>
+      <div>{{ mentor.nationalityName }}</div>
+    </div>
+    <div>
+      <div class="text-lg" i18n>Education</div>
+      <div>{{ mentor.education }}</div>
+    </div>
+    <div>
+      <div class="text-lg" i18n>Job Position</div>
+      <div>{{ mentor.jobPosition }}</div>
+    </div>
+    <div>
+      <div class="text-lg" i18n>Residence Country</div>
+      <div>{{ mentor.residenceCountryName }}</div>
+    </div>
+    <div>
+      <div class="text-lg" i18n>LinkedIn</div>
+      <a [href]="mentor.linkedIn" target="_blank">{{ mentor.linkedIn }}</a>
+    </div>
+  </div>
+</div>

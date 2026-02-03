@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>Mbrcld.SharedKernel</AssemblyName>
+    <RootNamespace>Mbrcld.SharedKernel</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dawn.Guard" Version="1.12.0" />
+  </ItemGroup>
+
+</Project>

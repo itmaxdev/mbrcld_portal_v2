@@ -1,0 +1,271 @@
+.send-icon-block {
+  justify-items: center;
+  position: absolute;
+  border-radius: 20px;
+  padding-left: 12px;
+  top: 4px;
+  right: 4px;
+  transition: all 0.3s;
+}
+.send-button {
+  padding-left: 12px;
+}
+
+.applicant-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.hover-shadow:hover {
+  box-shadow: 0px 0px 12px #0071be90;
+}
+
+.no-message {
+  height: 76vh;
+}
+
+.text-message-input {
+  height: 40px;
+  border-radius: 20px;
+  padding-right: 135px;
+  padding-left: 15px;
+}
+
+.chat-participants {
+  overflow: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.messages {
+  overflow: overlay;
+  height: 76vh;
+  // height: 65vh;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.files-block {
+  height: 85vh;
+  overflow: overlay;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.messages::-webkit-scrollbar,
+.chat-participants::-webkit-scrollbar,
+.files-block::-webkit-scrollbar {
+  display: none;
+}
+
+::ng-deep {
+  .chat-content .p-tabview .p-tabview-nav {
+    display: flex;
+    grid-column-gap: 2rem;
+    justify-content: center;
+    border: 0;
+    border-width: 0;
+  }
+
+  .chat-button {
+    width: 4rem !important;
+    height: 4rem !important;
+    font-size: 1.5rem !important;
+    display: inline-flex !important;
+    span.p-button-icon {
+      font-size: 1.5rem !important;
+    }
+  }
+
+  .select-attachment {
+    background-color: white;
+
+    .p-button.p-fileupload-choose {
+      background: white;
+      box-shadow: none;
+      border: 0;
+      padding: 0;
+    }
+    .p-button-icon.p-button-icon-left {
+      color: gray;
+      font-size: 1.5rem;
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .modal {
+    ::ng-deep {
+      .p-dialog-resizable {
+        width: 85vw !important;
+      }
+    }
+  }
+}
+
+@media (min-height: 1000px) and (max-height: 1100px) {
+  .chat-participants {
+    height: 95.8vh;
+  }
+
+  .messages {
+    height: 79vh;
+  }
+}
+@media (min-height: 940px) and (max-height: 999px) {
+  .messages {
+    height: 79vh;
+  }
+}
+@media (min-height: 900px) and (max-height: 939px) {
+  .chat-participants {
+    height: 91.8vh;
+  }
+
+  .messages {
+    height: 77vh;
+  }
+}
+@media (min-height: 860px) and (max-height: 899px) {
+  .messages {
+    height: 72vh;
+  }
+}
+@media (min-height: 820px) and (max-height: 859px) {
+  .messages {
+    height: 68vh;
+  }
+}
+@media (min-height: 770px) and (max-height: 819px) {
+  .messages {
+    height: 66vh;
+  }
+}
+@media (min-height: 731px) and (max-height: 769px) {
+  .messages {
+    height: 64vh;
+  }
+}
+@media (min-height: 667px) and (max-height: 730px) {
+  .messages {
+    height: 62vh;
+  }
+}
+@media (min-height: 640px) and (max-height: 666px) {
+  .messages {
+    height: 58vh;
+  }
+}
+@media (min-height: 600px) and (max-height: 639px) {
+  .messages {
+    height: 56vh;
+  }
+}
+@media (min-height: 568px) and (max-height: 599px) {
+  .messages {
+    height: 52vh;
+  }
+}
+@media (min-height: 531px) and (max-height: 567px) {
+  .messages {
+    height: 50vh;
+  }
+}
+@media (min-height: 500px) and (max-height: 530px) {
+  .messages {
+    height: 49vh;
+  }
+}
+@media (min-height: 476px) and (max-height: 499px) {
+  .messages {
+    height: 46vh;
+  }
+}
+@media (min-height: 460px) and (max-height: 475px) {
+  .messages {
+    height: 45vh;
+  }
+}
+@media (min-height: 426px) and (max-height: 459px) {
+  .chat-participants {
+    height: 74.8vh;
+  }
+
+  .messages {
+    height: 42vh;
+  }
+}
+@media (min-height: 400px) and (max-height: 425px) {
+  .chat-participants {
+    height: 74.8vh;
+  }
+
+  .messages {
+    height: 41vh;
+  }
+}
+@media (min-height: 376px) and (max-height: 399px) {
+  .chat-participants {
+    height: 74.8vh;
+  }
+
+  .messages {
+    height: 39vh;
+  }
+}
+@media (min-height: 350px) and (max-height: 375px) {
+  .chat-participants {
+    height: 74.8vh;
+  }
+
+  .messages {
+    height: 37vh;
+  }
+}
+@media (min-height: 300px) and (max-height: 349px) {
+  .chat-participants {
+    height: 74.8vh;
+  }
+
+  .messages {
+    height: 35vh;
+  }
+}
+@media (min-height: 250px) and (max-height: 299px) {
+  .chat-participants {
+    height: 74.8vh;
+  }
+
+  .messages {
+    height: 33vh;
+  }
+}
+@media (min-height: 200px) and (max-height: 249px) {
+  .chat-participants {
+    height: 72.8vh;
+  }
+
+  .messages {
+    height: 31vh;
+  }
+}
+@media (max-width: 640px) {
+  ::ng-deep {
+    .chat-content .p-tabview .p-tabview-nav {
+      grid-column-gap: 0;
+      font-size: 12px;
+    }
+  }
+  .send-button {
+    display: none;
+    visibility: hidden;
+  }
+  .send-icon-block {
+    padding: 0.5rem;
+  }
+  .text-message-input {
+    padding-right: 40px;
+  }
+}
