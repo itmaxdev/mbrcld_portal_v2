@@ -54,6 +54,7 @@
     "quill": "^1.3.7",
     "rxjs": "^6.5.3",
     "secure-ls": "^1.2.6",
+    "swiper": "^11.1.14",
     "tslib": "^2.0.0",
     "tus-js-client": "^2.2.0",
     "world-flags-sprite": "0.0.2",

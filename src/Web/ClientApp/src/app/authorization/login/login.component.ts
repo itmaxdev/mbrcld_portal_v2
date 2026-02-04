@@ -7,6 +7,8 @@ import { ProfileClient, RegisterClient } from 'src/app/shared/api.generated.clie
 import { environment } from '../../../environments/environment'
 import { RegisterService } from '../register/register.service'
 import { ChangeDetectorRef } from '@angular/core'
+import Swiper from 'swiper'
+import { Autoplay, EffectCreative } from 'swiper/modules'
 
 @Component({
   selector: 'app-login',
@@ -61,36 +63,37 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-     this.activatedRoute.queryParams.subscribe((params) => {
-       this.firstLoginParams = params.fLogin
-     })
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.firstLoginParams = params.fLogin
+    })
 
-     const uaeToken = localStorage.getItem('uaeCode')
-     if (uaeToken) {
-       this.isSubmitting = true
-       try {
-         this.register.token(uaeToken, this.redirectUrl).subscribe((data) => {
+    const uaeToken = localStorage.getItem('uaeCode')
+    if (uaeToken) {
+      this.isSubmitting = true
+      try {
+        this.register.token(uaeToken, this.redirectUrl).subscribe((data) => {
           //  console.log('Token Data: ' + data)
-           this.register.profile(data.access_token).subscribe((profileData) => {
+          this.register.profile(data.access_token).subscribe((profileData) => {
             //  console.log('Profile Data: ' + profileData)
             //  console.log('Email: ' + profileData.email)
             //  console.log('Access Token: ' + profileData.access_token)
-             this.loginUAE(profileData, profileData.email, data.access_token)
-           })
-         })
-       } catch (e) {
-         console.log('Error: ', e)
-       }
-     }
-     this.isSubmitting = false
+            this.loginUAE(profileData, profileData.email, data.access_token)
+          })
+        })
+      } catch (e) {
+        console.log('Error: ', e)
+      }
+    }
+    this.isSubmitting = false
   }
 
   ngAfterViewInit() {
-     if (localStorage.getItem('isUAE') && localStorage.getItem('isUAE') === 'false') {
-       this.userCancelMessage()
-       localStorage.removeItem('isUAE')
-     }
-     this.cdref.detectChanges()
+    if (localStorage.getItem('isUAE') && localStorage.getItem('isUAE') === 'false') {
+      this.userCancelMessage()
+      localStorage.removeItem('isUAE')
+    }
+    this.cdref.detectChanges()
+    this.runSwiper()
   }
 
   async removeLocal() {
@@ -210,6 +213,36 @@ export class LoginComponent implements OnInit {
       closable: true,
       summary: $localize`Login Failed`,
       detail: $localize`User cancelled the Login`,
+    })
+  }
+
+  runSwiper() {
+    new Swiper('[data-homeslider] .swiper', {
+      modules: [Autoplay, EffectCreative],
+
+      speed: 1000,
+      slidesPerView: 1,
+      // loop: true,
+      autoplay: {
+        delay: 4000,
+        disableOnInteraction: false,
+      },
+      effect: 'creative',
+      creativeEffect: {
+        limitProgress: 1,
+
+        prev: {
+          shadow: false,
+          translate: ['0%', '-100%', -400],
+          origin: 'left bottom',
+        },
+        next: {
+          shadow: false,
+          translate: ['115%', '15%', -400],
+          origin: 'left bottom',
+        },
+      },
+      on: {},
     })
   }
 }
