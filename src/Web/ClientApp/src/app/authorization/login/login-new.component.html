@@ -1,4 +1,132 @@
-<div class="login-content flex p-flex-column" [ngClass]="{'login-rtl' : locale ==='ar'}">
+<main>
+  <div class="homePage">
+    <div class="contentBox">
+      <div class="textArea">
+        <h1>Ready to Become a Leader?</h1>
+
+        <div class="textBox sm">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipi scing elit, sed do eiusmod tempor incididunt ut labore et
+            Lorem ipsum dolor sit amet, consectetur adipi scing elit, sed do eiusmod tempor incididunt ut labore et
+
+          </p>
+        </div>
+        <div class="metaInfoWrap" data-homeslider>
+          <div class="swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide keyInfo">
+                <div class="inner">
+                  <div class="mainCount">
+                    <div class="num">17</div>
+                    <div class="t">Director Generals</div>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide keyInfo">
+                <div class="inner">
+                  <div class="mainCount">
+                    <div class="num">10</div>
+                    <div class="t">CEO &amp; EVP</div>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide keyInfo">
+                <div class="inner">
+                  <div class="mainCount">
+                    <div class="num">89</div>
+                    <div class="t">Under Secretaries</div>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide keyInfo">
+                <div class="inner">
+                  <div class="mainCount">
+                    <div class="num">17</div>
+                    <div class="t">Director Generals</div>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide keyInfo">
+                <div class="inner">
+                  <div class="mainCount">
+                    <div class="num">10</div>
+                    <div class="t">CEO &amp; EVP</div>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide keyInfo">
+                <div class="inner">
+                  <div class="mainCount">
+                    <div class="num">89</div>
+                    <div class="t">Under Secretaries</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="imgBox">
+        <picture class="">
+          <source srcset="../../../assets/imagesNew/homeBanner.webp " type="image/webp" />
+          <source srcset="../../../assets/imagesNew/homeBanner.png " type="image/png" />
+          <img src="../../../assets/imagesNew/homeBanner.png" alt="" width="676" height="896" />
+        </picture>
+      </div>
+    </div>
+    <div class="loginSide">
+      <a href="./index.html" class="logoBox" title="">
+        <img src="../../../assets/imagesNew/logoColor.svg" class="mainLogo" alt="Logo" />
+      </a>
+      <div class="formBox">
+        <div class="title">Login</div>
+
+        <form [formGroup]="loginForm" class="form-v3" action="./reUserDashboard.html" (ngSubmit)="login()">
+
+          <div class="inputBox">
+            <div class="input-field full normal">
+              <label for="email" i18n>Email *</label>
+              <input pInputText type="email" id="email" formControlName="email" placeholder="Enter email"
+                i18n-placeholder class="h-12" [disabled]="disableForm" />
+              <small appControlValidationError controlName="email" class="p-invalid"></small>
+            </div>
+            <div class="input-field full normal">
+              <label for="password" i18n>Password *</label>
+              <input pPassword type="password" id="password" formControlName="password" placeholder="Enter password"
+                i18n-placeholder class="h-12" [feedback]="false" [disabled]="disableForm" />
+              <small appControlValidationError controlName="password" class="p-invalid"></small>
+
+            </div>
+            <div class="input-field full">
+              <a href="#" class="link forgotPassword">
+                <span>Forgot password?
+                </span>
+              </a>
+            </div>
+            <div class="input-field full buttonWrap">
+              <button type="submit" class="more" [disabled]="disableForm">
+                <span>Login</span>
+              </button>
+              <button type="button" [disabled]="disableForm" (click)="removeLocal()" class="uaePassBtn" style="background-color:transparent;cursor: pointer;">
+                <div class="iconBox">
+                  <img src="../../../assets/imagesNew/uaePass.svg" width="80" height="80" alt="uae pass" />
+                </div>
+                <span>Sign in with UAE Pass</span>
+              </button>
+            </div>
+          </div>
+
+        </form>
+        <p-toast></p-toast>
+      </div>
+      <div class="goBackLink">
+        <label>Dont have an account? </label><a href="./signUp.html" class="link"><span>Signup</span></a>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- <div class="login-content flex p-flex-column" [ngClass]="{'login-rtl' : locale ==='ar'}">
   <div class="p-grid">
     <div class="p-col-12">
       <div class="flex justify-between w-full">
@@ -18,7 +146,6 @@
       <div class="text-center">
         <h1 class="welcome-text " i18n>Welcome to MBRCLD</h1>
       <div class="text-blue-600 text-2xl mb-4" i18n>Creating <b>LEADERS</b> for Tomorrow.</div>
-      <!-- <p class="text-lg" i18n>Enroll in Programms <br>Review Articles <br> Register to Events</p> -->
       </div>
       <div class="login-form w-50 flex justify-center">
         <form [formGroup]="loginForm" class="block md:my-auto p-fluid p-8 w-full max-w-xl" (ngSubmit)="login()">
@@ -64,60 +191,5 @@
     </div>
     <div class="p-col-12 p-lg-6">
     </div>
-  </div>
-</div>
-
-<!-- <div class="flex items-center justify-center md:hidden mt-10">
-  <img src="assets/images/MBRCLD_Logo.jpg" alt="" class="w-40" />
-</div>
-<div class="flex flex-row md:h-screen">
-  <div class="hidden lg:flex w-1/2" *ngIf="locale == 'en'">
-    <img src="assets/images/mbrcld_logo.png" alt="" class="w-auto max-w-full h-full object-cover object-left-top" />
-  </div>
-  <div class="hidden lg:flex w-1/2" *ngIf="locale == 'ar'">
-    <img src="assets/images/mbrcld_logo_ar.png" alt="" class="w-auto max-w-full h-full object-cover object-left-top" />
-  </div>
-  <div class="flex flex-grow justify-center items-center md:h-screen overflow-y-auto">
-    <form [formGroup]="loginForm" class="block md:my-auto p-fluid p-8 w-full max-w-xl" (ngSubmit)="login()">
-      <h1 class="app-title" i18n>Login</h1>
-      <div class="p-field">
-        <label for="email" i18n>Email *</label>
-        <input pInputText type="email" id="email" formControlName="email" placeholder="Enter email" i18n-placeholder
-          class="h-12" [disabled]="disableForm" />
-        <small appControlValidationError controlName="email" class="p-invalid"></small>
-      </div>
-      <div class="p-field">
-        <label for="password" i18n>Password *</label>
-        <input pPassword type="password" id="password" formControlName="password" placeholder="Enter password"
-          i18n-placeholder class="h-12" [feedback]="false" [disabled]="disableForm" />
-        <small appControlValidationError controlName="password" class="p-invalid"></small>
-      </div>
-      <div class="pt-4">
-        <div class="p-field">
-          <button pButton type="submit" label="Login" i18n-label [disabled]="disableForm" class="h-12"></button>
-        </div>
-        <div class="p-field text-center">
-          <span i18n>Or</span>
-        </div>
-        <div class="p-field uae-block">
-          <button type="button" label="Sign in with UAE PASS"
-            class="p-button p-button-secondary flex justify-center h-12 uae-login" [disabled]="disableForm"
-            (click)="removeLocal()">
-            <img src="assets/images/ico-uae-pass.png" alt="" class="me-3 h-8 w-8" />
-            <span class="text-gray-900 text-xl font-semibold" i18n>Sign in with UAE PASS</span>
-          </button>
-        </div>
-        <div class="text-center" i18n>
-          Don't have an account? <a routerLink="../register" class="text-blue-600">Sign up</a>
-        </div>
-        <div class="text-center" i18n>
-          Forgot your password? <a routerLink="../password-reset" class="text-blue-600">Reset Password</a>
-        </div>
-      </div>
-      <div class="pt-6 flex justify-center">
-        <app-language-switcher></app-language-switcher>
-      </div>
-    </form>
-    <p-toast></p-toast>
   </div>
 </div> -->

@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "chrome": "open -n -a /Applications/Google\\ Chrome.app --args --user-data-dir=\"/Users/Shared/chrome_without_security_files\" --disable-web-security",
-    "start": "ng serve --configuration=en --port=4200 --serve-path=/ --base-href=/",
+    "start": "export NODE_OPTIONS=--openssl-legacy-provider && ng serve --configuration=en --port=4200 --serve-path=/ --base-href=/",
     "start:en": "ng serve --configuration=en --port=4200 --serve-path=/ --base-href=/en/",
     "start:ar": "ng serve --configuration=ar --port=4201 --serve-path=/ --base-href=/ar/",
     "build": "ng build",

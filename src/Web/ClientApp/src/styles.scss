@@ -1,6 +1,6 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+// @import 'tailwindcss/base';
+// @import 'tailwindcss/components';
+// @import 'tailwindcss/utilities';
 
 $navBarBgColor: #0071be;
 $buttonBgColor: #2d7bbb;
@@ -22,12 +22,12 @@ $buttonBgColor: #2d7bbb;
   font-family: 'Helvetica Neue LT Arabic 55 Roman', 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif !important;
 }
 
-html,
-body {
-  font-size: 14px;
-  color: #222;
-  @extend .mbrcld-font;
-}
+// html,
+// body {
+//   font-size: 14px;
+//   color: #222;
+//   @extend .mbrcld-font;
+// }
 
 .p-component,
 .p-inputtext {
