@@ -4,62 +4,28 @@ import { ListActiveProgramsViewModel } from 'src/app/shared/api.generated.client
 
 @Component({
   selector: 'app-programs-active-programs',
-  template: ` <a [routerLink]="programUrl" class="w-full">
-    <p-card
-      [styleClass]="data.openForRegistration ? 'program-card program-card-active' : 'program-card'"
-    >
-      <ng-template pTemplate="header">
-        <img alt="Card" [src]="data.pictureUrl" class="header-img" />
-      </ng-template>
-      <p class="text-xl">{{ language === 'en' ? data.name : data.name_AR }}</p>
-      <p class="info-text">{{ language === 'en' ? data.description : data.description_AR }}</p>
-    </p-card>
-
-    <!-- <div class="border rounded-lg border-gray-400 flex gap-2 p-2 programs-grid-element bg-white">
-      <div class="header-img mb-4 sm:mb-0">
-        <img
-          [style]="!data.openForRegistration ? 'filter: grayscale(100%)' : ''"
-          [src]="data.pictureUrl"
-          class="header-img rounded-lg"
-        />
+  template: `
+    <a [routerLink]="programUrl" class="inner">
+      <div class="imgBox">
+        <picture>
+          <img [src]="data.pictureUrl" alt="" width="442" height="242" loading="lazy" />
+        </picture>
       </div>
-      <div class="text-content grid content-around">
-        <h1 class="text-caption text-2xl pb-2 sm:text-xl sm:pb-0 text-black">
+
+      <div class="contentBox">
+        <div class="title">
           {{ language === 'en' ? data.name : data.name_AR }}
-        </h1>
-        <p class="info-text text-lg text-gray ">
-          {{ language === 'en' ? data.description : data.description_AR }}
-        </p>
-      </div>
-    </div> -->
-  </a>`,
-  styles: [
-    `
-      .header-img {
-        width: 100%;
-        height: 160px;
-        object-fit: cover;
-        min-width: 150px !important;
-      }
+        </div>
 
-      .programs-grid-element {
-        min-width: 240px;
-        min-height: 350px;
-        flex-direction: column;
-        max-width: 250px;
-      }
-      /* 
-      .info-text {
-        height: 70px;
-        width: 100%;
-        padding-top: 25px;
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-      } */
-    `,
-  ],
+        <div class="textBox sm">
+          <p>
+            {{ language === 'en' ? data.description : data.description_AR }}
+          </p>
+        </div>
+      </div>
+    </a>
+  `,
+
   encapsulation: ViewEncapsulation.None,
 })
 export class ProgramActiveProgramsComponent implements OnInit {

@@ -25,3 +25,15 @@ h1 {
     color:var(--primary-color);
   }
 }
+
+.no-programs-message {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-size: 1.1rem;
+  width: 100%;
+  
+  p {
+    margin: 0;
+  }
+}

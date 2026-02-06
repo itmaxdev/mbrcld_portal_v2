@@ -17,6 +17,7 @@ export class ProgramsListComponent implements OnInit {
   isActiveProgramID: string = undefined
   ready = false
   public allActivePrograms: ListActiveProgramsViewModel[] = []
+  activeTab: 'active' | 'previous' = 'active'
 
   constructor(
     private enrollmentsClient: EnrollmentsClient,
@@ -50,5 +51,9 @@ export class ProgramsListComponent implements OnInit {
 
   get filterOtherPrograms() {
     return this.allActivePrograms.filter((x) => x.openForRegistration === false)
+  }
+
+  setActiveTab(tab: 'active' | 'previous') {
+    this.activeTab = tab
   }
 }
