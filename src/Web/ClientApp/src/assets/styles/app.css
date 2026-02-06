@@ -5897,7 +5897,7 @@ body:not(.browserSafari) .form-v3 input[type=file]::file-selector-button {
     align-items: flex-start;
     grid-template-columns: calc(50% - 1rem) calc(50% - 1rem);
     position: relative;
-    gap: 2rem
+    gap: 1rem
 }
 
 @media only screen and (min-width: 64.0625rem) and (max-width: 85.625rem) and (min-height: 500px) and (max-height: 670px) {
@@ -5953,14 +5953,14 @@ body:not(.browserSafari) .form-v3 input[type=file]::file-selector-button {
     font-family: var(--fontFamily);
     background: transparent;
     color: inherit;
-    border: 1px solid hsl(from var(--black) h s l/.1);
+    /* border: 1px solid hsl(from var(--black) h s l/.1); */
     border-radius: 10px;
     outline: none;
-    height: var(--inputH);
+    /* height: var(--inputH); */
     width: 100%;
     margin: 0;
-    padding: 0;
-    padding-inline: 1rem;
+    /* padding: 0; */
+    /* padding-inline: 1rem; */
     box-shadow: none;
     box-sizing: border-box;
     transition: box-shadow .3s, border .3s;
@@ -6739,20 +6739,20 @@ body:not(.browserSafari) .form-v3 input[type=file]::file-selector-button {
     transform: translateY(-50%) scale(.5)
 }
 
-html {
+/* html {
     box-sizing: border-box;
     font-size: var(--font-size)
-}
+} */
 
-*,
+/* *,
 *:before,
 *:after {
     box-sizing: border-box
-}
+} */
 
 body {
     font-family: var(--fontFamily);
-    color: var(--text);
+    /* color: var(--text);
     font-size: var(--fontSize);
     font-size: calc(30 / var(--gfs) * 1rem);
     font-weight: 400;
@@ -6761,7 +6761,7 @@ body {
     padding: 0;
     margin: 0;
     line-height: 150%;
-    position: relative
+    position: relative */
 }
 
 @media only screen and (max-width: 47.9375rem) {
