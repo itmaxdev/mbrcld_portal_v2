@@ -41,7 +41,7 @@
               "node_modules/quill/dist/quill.snow.css",
               "src/styles.scss"
             ],
-            "scripts": ["node_modules/quill/dist/quill.js", "src/assets/scripts/app.js"]
+            "scripts": ["node_modules/quill/dist/quill.js"]
           },
           "configurations": {
             "production": {
@@ -109,7 +109,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": ["src/styles.scss"],
-            "scripts": ["src/assets/scripts/app.js"],
+            "scripts": [],
             "assets": ["src/assets"]
           }
         },
