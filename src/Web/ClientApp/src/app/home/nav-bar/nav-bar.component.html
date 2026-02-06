@@ -1,51 +1,116 @@
 <nav class="navbar" [class.closed]="!visibleOnMobile">
-  <div class="flex justify-between items-center lg:hidden">
+  <!-- <div class="flex justify-between items-center lg:hidden">
     <div class="ps-4">
       <app-language-switcher [alt]="true"></app-language-switcher>
     </div>
     <button class="p-6 focus:outline-none" (click)="close()">
       <img src="assets/images/white_menu.png" alt="Close Menu" class="h-4" />
     </button>
-  </div>
-  <div class="flex flex-row justify-center items-center p-8">
+  </div> -->
+  <!-- <div class="flex flex-row justify-center items-center p-8">
     <img
       src="assets/images/mbrcld_logo_white.png"
       alt="MBRCLD"
       class="h-20 lg:h-24 object-contain"
     />
-  </div>
-  <div *ngIf="role !== 5" class="flex flex-row justify-center items-center p-8">
+  </div> -->
+  <!-- <div *ngIf="role !== 5" class="flex flex-row justify-center items-center p-8">
     <app-profile-image [rolebadge]="role"></app-profile-image>
-  </div>
+  </div> -->
 
-
+  
+   
   <div class="flex flex-col justify-start flex-grow pb-8">
     <!-- Role 1 -->
-    <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 1">
-      <a routerLink="feed" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-home.svg" alt="" />
-        <span class="nav-item-text" i18n>Home</span>
-      </a>
-      <a routerLink="profile" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-profile.svg" alt="" />
-        <span class="nav-item-text" i18n>My Profile</span>
-      </a>
-      <a routerLink="calendar" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-event.svg" alt="" />
-        <span class="nav-item-text" i18n>Calendar</span>
-      </a>
-      <a routerLink="articles" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-article.svg" alt="" />
-        <span class="nav-item-text" i18n>Articles</span>
-      </a>
-      <a routerLink="events" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-event.svg" alt="" />
-        <span class="nav-item-text" i18n>Events</span>
-      </a>
-      <a routerLink="programs" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-training.svg" alt="" />
-        <span class="nav-item-text" i18n>Programs</span>
-      </a>
+    <ng-container *ngIf="urlFragments[1] !== 'profile' && role === 1">
+      <header id="header">
+        <div class="navWrapper">
+          <div class="navLogo">
+            <a routerLink="/feed" class="logoBox">
+              <img src="./assets/images/logo.svg" class="mainLogo" alt="Logo" />
+            </a>
+          </div>
+
+          <div class="menuWrap">
+            <nav>
+              <ul>
+                <li>
+                  <a routerLink="feed" routerLinkActive="active" class="navLink">
+                    <div class="iconBox">
+                      <img src="assets/images/iconHome.svg" width="30" height="30" />
+                    </div>
+                    <span i18n>Home</span>
+                  </a>
+                </li>
+
+                <li>
+                  <a routerLink="profile" routerLinkActive="active" class="navLink">
+                    <div class="iconBox">
+                      <img src="./assets/images/iconMyProfile.svg" width="30" height="30" />
+                    </div>
+                    <span i18n>My Profile</span>
+                  </a>
+                </li>
+
+                <li>
+                  <a routerLink="calendar" routerLinkActive="active" class="navLink">
+                    <div class="iconBox">
+                      <img src="./assets/images/iconCalendar.svg" width="30" height="30" />
+                    </div>
+                    <span i18n>Calendar</span>
+                  </a>
+                </li>
+
+                <li>
+                  <a routerLink="articles" routerLinkActive="active" class="navLink">
+                    <div class="iconBox">
+                      <img src="./assets/images/iconArticle.svg" width="30" height="30" />
+                    </div>
+                    <span i18n>Articles</span>
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    routerLink="events"
+                    routerLinkActive="active"
+                    class="navLink"
+                    [attr.data-count]="eventCount"
+                  >
+                    <div class="iconBox">
+                      <img src="./assets/images/iconEvents.svg" width="30" height="30" />
+                    </div>
+                    <span i18n>Events</span>
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    routerLink="programs"
+                    routerLinkActive="active"
+                    class="navLink"
+                    [attr.data-count]="programCount"
+                  >
+                    <div class="iconBox">
+                      <img src="./assets/images/iconPrograms.svg" width="30" height="30" />
+                    </div>
+                    <span i18n>Programs</span>
+                  </a>
+                </li>
+
+                <li class="logOutBox">
+                  <a routerLink="/" class="navLink">
+                    <div class="iconBox">
+                      <img src="./assets/images/iconlogOut.svg" width="30" height="30" />
+                    </div>
+                    <span i18n>Log Out</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
     </ng-container>
     <!-- Role 2 -->
     <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 2">
@@ -212,6 +277,9 @@
       </a>
     </ng-container>
   </div>
+
+         
+       
 </nav>
 <div class="bottom-menu-container" style="position: fixed; bottom: 0;">
   <div class="flex justify-between items-center lg:hidden">
@@ -395,7 +463,7 @@
           <span class="relative">
             <img class="logo" [src]="'assets/images/' + link.icon" alt="" />
             <span
-            *ngIf="isSectionIncomplete(link.route) && role !== (4 || 5)"
+              *ngIf="isSectionIncomplete(link.route) && role !== (4 || 5)"
               class="w-4 h-4 bg-orange-400 rounded-full start-0 bottom-0 absolute -ms-2 -mb-2"
             ></span>
           </span>
