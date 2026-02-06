@@ -1,6 +1,6 @@
 // @import 'tailwindcss/base';
 // @import 'tailwindcss/components';
-// @import 'tailwindcss/utilities';
+@import 'tailwindcss/utilities';
 
 $navBarBgColor: #0071be;
 $buttonBgColor: #2d7bbb;
@@ -136,6 +136,7 @@ $buttonBgColor: #2d7bbb;
 }
 .p-inputtext:not(.p-dropdown-filter),
 .p-dropdown{
+  display: flex !important;
   // border-radius: 0 !important;
   // border-top: none !important;
   // border-left: none !important;

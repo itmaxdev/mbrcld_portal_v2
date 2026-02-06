@@ -19,6 +19,7 @@ interface ListItem {
       [virtualScroll]="true"
       [itemSize]="30"
       [appendTo]="appendTo"
+      style="display:block"
     >
       <ng-template pTemplate="selectedItem" let-country>
         <div class="flex flex-row items-center f16">

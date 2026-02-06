@@ -1,4 +1,121 @@
-<div class="signup-content flex p-flex-column">
+<div class="signUpWrap">
+	<div class="imgBox" dir="ltr">
+		<picture class="">
+			<source srcset="assets/imagesNew/shakeImg.webp " type="image/webp" />
+			<source srcset="assets/imagesNew/shakeImg.png " type="image/png" />
+			<img src="assets/imagesNew/shakeImg.png" alt="" width="677" height="890" loading="lazy" />
+		</picture>
+	</div>
+
+	<div class="loginSide">
+		<div class="logoBox">
+			<img src="assets/imagesNew/logoColor.svg" class="mainLogo" alt="Logo" />
+		</div>
+
+		<div class="formBox">
+			<div class="title">Sign Up</div>
+
+			<form *ngIf="!hasRegisteredSuccessfully; else afterRegistration;" [formGroup]="registrationForm"
+				class="form-v3" (ngSubmit)="register()">
+
+				<div class="inputBox">
+					<div class="p-field">
+						<label for="nationality" i18n>Nationality *</label>
+						<app-nationality-dropdown inputId="nationality" controlName="nationality"></app-nationality-dropdown>
+						<small appControlValidationError controlName="nationality" class="p-invalid"></small>
+					</div>
+					<div class="p-field">
+						<label for="mobilePhone" i18n>Mobile Phone *</label>
+						<app-phone-number appValidatePhoneNumber formControlName="mobilePhone" inputId="mobilePhone">
+						</app-phone-number>
+						<small appControlValidationError controlName="mobilePhone" class="p-invalid"></small>
+					</div>
+					<div class="p-field">
+						<label for="firstName" i18n>First Name *</label>
+						<input pInputText formControlName="firstName" type="text" id="firstName"
+							placeholder="Enter the first name" i18n-placeholder>
+						<small appControlValidationError controlName="firstName" class="p-invalid"></small>
+					</div>
+					<div class="p-field">
+						<label for="lastName" i18n>Last Name *</label>
+						<input pInputText formControlName="lastName" type="text" id="lastName"
+							placeholder="Enter the first name here" i18n-placeholder>
+						<small appControlValidationError controlName="lastName" class="p-invalid"></small>
+					</div>
+					<div class="p-field relative">
+						<label for="password" i18n>Password *</label>
+						<input pPassword appPasswordValidator formControlName="password" type="password" id="password"
+							placeholder="Enter password here" i18n-placeholder [feedback]="false">
+						<small appControlValidationError controlName="password" class="p-invalid"
+							[messages]="{ '*': 'This password does not meet the requirements' }"></small>
+					</div>
+					<div class="p-field">
+						<label for="confirmPassword" i18n>Confirm Password *</label>
+						<input pPassword formControlName="confirmPassword" type="password" id="confirmPassword"
+							placeholder="Confirm password" i18n-placeholder [feedback]="false">
+						<small appControlValidationError controlName="confirmPassword" class="p-invalid"
+							[messages]="{ equalTo: 'Passwords do not match' }"></small>
+					</div>
+					<div class="p-field">
+						<label for="email" i18n>Email *</label>
+						<input pInputText formControlName="email" type="email" id="email" placeholder="Enter email here"
+							i18n-placeholder>
+						<small appControlValidationError controlName="email" class="p-invalid"></small>
+					</div>
+					<div class="p-field">
+						<label for="uaeId">
+							<ng-container i18n>Emirates ID Number</ng-container>
+							<ng-container *ngIf="isEmiratesIdRequired">&nbsp;*</ng-container>
+							<ng-container>
+								&nbsp;<small class="text-gray-600" *ngIf="!isEmiratesIdRequired" i18n>(Optional)</small>
+							</ng-container>
+						</label>
+						<p-inputMask formControlName="emiratesId" inputId="uaeId" mask="999-9999-9999999-9"
+							placeholder="123-1234-1234567-1" [autocomplete]="false"></p-inputMask>
+						<small appControlValidationError controlName="emiratesId" class="p-invalid"></small>
+					</div>
+					<div class="p-field">
+						<div class="card">
+							<p-captcha siteKey="6LeL-MIZAAAAACMfX2kvpM3V6dCwcxgq4LisXQNF"
+								(onResponse)="showCaptchaResponse($event)">
+							</p-captcha>
+						</div>
+						<small *ngIf="captchaValidation" class="p-invalid">Captcha is required</small>
+					</div>
+
+
+					<div class="input-field full buttonWrap">
+						<button pButton type="submit" label="Sign up" i18n-label class="more"
+							[disabled]="disableForm"></button>
+					</div>
+				</div>
+
+			</form>
+			<ng-template #afterRegistration>
+				<section class="max-w-screen-md p-8">
+					<h1 class="text-2xl font-semibold mb-8" i18n>Confirm your email</h1>
+					<p class="text-lg mb-8" i18n>We need to confirm your email address.</p>
+					<p class="text-lg" i18n>
+						To complete the registration process, you will receive a verification email to activate your
+						account.<br>
+						If you do not receive the verification email shortly, please contact <a href="mailto:info@mbrcld.ae"
+							class="text-blue-600">info@mbrcld.ae</a>
+					</p>
+				</section>
+			</ng-template>
+		</div>
+
+		<div class="goBackLink">
+			<label>Already have an account?</label><a href="./index.html" class="link"><span>Login</span></a>
+		</div>
+
+	</div>
+</div>
+
+
+<p-toast [preventOpenDuplicates]="true"></p-toast>
+
+<!-- <div class="signup-content flex p-flex-column">
   <div class="p-grid">
     <div class="p-col-12">
       <div class="flex justify-between w-full">
@@ -123,4 +240,4 @@
     </ng-template>
   </div>
 </div>
-<p-toast [preventOpenDuplicates]="true"></p-toast>
+ -->
