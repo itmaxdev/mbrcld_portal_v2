@@ -1,4 +1,4 @@
-<div *ngIf="!showDisclaimer; else disclaimer" class=" border rounded-lg border-gray-400  bg-white p-4">
+<!-- <div *ngIf="!showDisclaimer; else disclaimer" class=" border rounded-lg border-gray-400  bg-white p-4">
   <div *ngIf="ready; else loading" class="grid gap-4 pb-4">
     <div class="grid gap-4 items-center w-full sm:flex sm:justify-between">
       <h1 class="text-2xl text-center sm:text-left" i18n *ngIf="locale === 'en'">
@@ -72,4 +72,277 @@
     [disclaimerType]="1"
     (onApprove)="handleDiclaimerApprove()"
   ></app-disclaimer>
+</ng-template> -->
+
+<ng-template #disclaimer>
+  <app-disclaimer
+    [disclaimerText]="getLocale()"
+    [isVisible]="showDisclaimer"
+    [disclaimerType]="1"
+    (onApprove)="handleDiclaimerApprove()"
+  ></app-disclaimer>
 </ng-template>
+
+<ng-template #loading>
+  <app-progress-spinner></app-progress-spinner>
+</ng-template>
+
+<ng-container *ngIf="!showDisclaimer; else disclaimer">
+  <div class="mainContainer">
+    <div class="gridWrap">
+      <ng-container *ngIf="ready; else loading">
+        <div class="generalCard">
+          <div class="inner">
+            <div class="cardTitleWrap">
+              <!-- <div class="cardTitle">Article</div> -->
+              <div class="cardTitle" *ngIf="locale === 'en'">
+                {{ isMyArticles ? 'My Article' : 'All Articles' }}
+              </div>
+
+              <div class="cardTitle" *ngIf="locale === 'ar'">
+                {{ isMyArticles ? 'مقالاتي' : 'جميع المقالات' }}
+              </div>
+              <div class="cardTools">
+                <div class="searchBox">
+                  <form class="form-v3 filledColor">
+                    <div class="input-field">
+                      <input
+                        type="text"
+                        placeholder="Search"
+                        i18n-placeholder
+                        (keyup.enter)="searchArticle($event)"
+                      />
+                      <button class="iconBox">
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z"
+                            stroke="currentcolor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <path
+                            d="M21 20.9999L16.65 16.6499"
+                            stroke="currentcolor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="gridWrap border">
+              <div class="buttonGroup end">
+                <a *ngIf="role != '1'" class="more gray wAuto sm" (click)="filterMyArticles()">
+                  <span>My Articles</span>
+                </a>
+                <a *ngIf="role != '1'" class="more wAuto sm" [routerLink]="['create']">
+                  <span>Add New Article</span>
+                </a>
+              </div>
+
+              <div *ngFor="let article of articleData" class="articleCard border">
+                <div class="inner">
+                  <div class="topBox">
+                    <div class="imgBox">
+                      <picture>
+                        <img
+                          [src]="article.profilePictureUrl"
+                          alt=""
+                          width="100"
+                          height="100"
+                          loading="lazy"
+                        />
+                      </picture>
+                    </div>
+
+                    <a [routerLink]="['item/' + article.id, { type: article.postType }]" class="c">
+                      <div class="t">{{ article.name }}</div>
+                      <div class="s">
+                        {{ article.writtenByName }} {{ article.date | date: 'short' }}
+                      </div>
+                    </a>
+                  </div>
+
+                  <div class="textBox sm smLineHeight" style="--lineClamp: 2;">
+                    <p [innerHTML]="article.description"></p>
+                  </div>
+                  <a
+                    *ngIf="article.pictureUrl"
+                    [routerLink]="['item/' + article.id, { type: article.postType }]"
+                    class="articleImg"
+                  >
+                    <picture class="">
+                      <source [srcset]="article.pictureUrl" type="image/webp" />
+                      <source [srcset]="article.pictureUrl" type="image/jpeg" />
+                      <img
+                        [src]="article.pictureUrl"
+                        alt=""
+                        width="442"
+                        height="276"
+                        loading="lazy"
+                      />
+                    </picture>
+                  </a>
+
+                  <div class="articleTools">
+                    <div class="tool likeBox">
+                      <div class="iconBox">
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M20.8401 4.60999C20.3294 4.099 19.7229 3.69364 19.0555 3.41708C18.388 3.14052 17.6726 2.99817 16.9501 2.99817C16.2276 2.99817 15.5122 3.14052 14.8448 3.41708C14.1773 3.69364 13.5709 4.099 13.0601 4.60999L12.0001 5.66999L10.9401 4.60999C9.90843 3.5783 8.50915 2.9987 7.05012 2.9987C5.59109 2.9987 4.19181 3.5783 3.16012 4.60999C2.12843 5.64169 1.54883 7.04096 1.54883 8.49999C1.54883 9.95903 2.12843 11.3583 3.16012 12.39L4.22012 13.45L12.0001 21.23L19.7801 13.45L20.8401 12.39C21.3511 11.8792 21.7565 11.2728 22.033 10.6053C22.3096 9.93789 22.4519 9.22248 22.4519 8.49999C22.4519 7.77751 22.3096 7.0621 22.033 6.39464C21.7565 5.72718 21.3511 5.12075 20.8401 4.60999Z"
+                            fill="currentcolor"
+                          />
+                        </svg>
+                      </div>
+                      <span>{{ article.likesCount }} likes</span>
+                    </div>
+                    <a href="#commentPop" class="tool commentBox" data-fancyboxmodal>
+                      <div class="iconBox">
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <rect width="24" height="24" fill="white" />
+                          <path
+                            d="M21 11.5C21.0034 12.8199 20.6951 14.1219 20.1 15.3C19.3944 16.7118 18.3098 17.8992 16.9674 18.7293C15.6251 19.5594 14.0782 19.9994 12.5 20C11.1801 20.0035 9.87812 19.6951 8.7 19.1L3 21L4.9 15.3C4.30493 14.1219 3.99656 12.8199 4 11.5C4.00061 9.92179 4.44061 8.37488 5.27072 7.03258C6.10083 5.69028 7.28825 4.6056 8.7 3.90003C9.87812 3.30496 11.1801 2.99659 12.5 3.00003H13C15.0843 3.11502 17.053 3.99479 18.5291 5.47089C20.0052 6.94699 20.885 8.91568 21 11V11.5Z"
+                            fill="currentcolor"
+                          />
+                        </svg>
+                      </div>
+                      <span>{{ article.commentsCount }} Comments</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="sideBox">
+      <div class="inlineCalenderSmallCard">
+        <div class="inner">
+          <div class="inlineCalenderSmall" id="inlineCalenderSmall"></div>
+
+          <div class="articleList">
+            <div class="articleSmallCard">
+              <a href="#" class="inner">
+                <div class="articleImg">
+                  <picture class="">
+                    <source srcset="./assets/images/articleImg1.webp" type="image/webp" />
+                    <source srcset="./assets/images/articleImg1.jpg" type="image/jpeg" />
+                    <img
+                      src="./assets/images/articleImg1.jpg"
+                      alt=""
+                      width="80"
+                      height="57"
+                      loading="lazy"
+                    />
+                  </picture>
+                </div>
+
+                <div class="contentBox">
+                  <div class="date">27 June 2025</div>
+                  <div class="t">
+                    Lorem ipsum dolor sit amet, consec tetur adipiscing elit...
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="articleSmallCard">
+              <a href="#" class="inner">
+                <div class="articleImg">
+                  <picture class="">
+                    <source srcset="./assets/images/articleImg2.webp" type="image/webp" />
+                    <source srcset="./assets/images/articleImg2.jpg" type="image/jpeg" />
+                    <img
+                      src="./assets/images/articleImg2.jpg"
+                      alt=""
+                      width="80"
+                      height="57"
+                      loading="lazy"
+                    />
+                  </picture>
+                </div>
+
+                <div class="contentBox">
+                  <div class="date">27 June 2025</div>
+                  <div class="t">
+                    Lorem ipsum dolor sit amet, consec tetur adipiscing elit...
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="leadersHighlightCard">
+        <div class="imgBox">
+          <picture class="">
+            <source
+              srcset="
+                data:image/webp;base64,
+                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
+              "
+              type="image/webp"
+            />
+            <source srcset="./assets/images/leadersHighlightImg.jpg" type="image/jpeg" />
+            <img
+              src="./assets/images/leadersHighlightImg.jpg"
+              alt=""
+              width="314"
+              height="188"
+              loading="lazy"
+            />
+          </picture>
+        </div>
+        <div class="contentBox">
+          <div class="title">Leaders Highlights</div>
+
+          <div class="points">
+            <div class="p">
+              <div class="num" dir="ltr" data-animcount="700">
+                <i class="not-italic">700</i><sup>+</sup>
+              </div>
+              <span>MBRCLD Alumni</span>
+            </div>
+            <div class="p">
+              <div class="num" dir="ltr" data-animcount="40">
+                <i class="not-italic">40</i><sup>+</sup>
+              </div>
+              <span>Sectors</span>
+            </div>
+            <div class="p">
+              <div class="num" dir="ltr" data-animcount="1000">
+                <i class="not-italic">1000</i><sup>+</sup>
+              </div>
+              <span>Transformational ideas and projects</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

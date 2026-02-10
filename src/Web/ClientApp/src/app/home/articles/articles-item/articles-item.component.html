@@ -1,4 +1,4 @@
-<div *ngIf="ready" class="grid gap-6  border rounded-lg border-gray-400  bg-white p-4">
+<!-- <div *ngIf="ready" class="grid gap-6  border rounded-lg border-gray-400  bg-white p-4">
   <div>
     <div class="inline-flex items-center cursor-pointer contents" (click)="goBack()">
       <img src="assets/images/ico-arrow-left.svg" class="w-6 h-6" alt="" />
@@ -29,4 +29,265 @@
 </div>
 <ng-template #loading>
   <app-progress-spinner></app-progress-spinner>
+</ng-template> -->
+
+<ng-template #loading>
+  <app-progress-spinner></app-progress-spinner>
 </ng-template>
+
+<div class="mainContainer">
+  <div class="gridWrap">
+    <ng-container *ngIf="ready; else loading">
+      <div class="generalCard">
+        <div class="inner">
+          <div class="cardTitleWrap">
+            <div class="cardTitle">
+              {{ articleData.name }}
+            </div>
+            <div class="cardTools">
+              <a class="backBtn" (click)="goBack()">
+                <span>Back</span>
+                <div class="iconBox">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9 14L4 9L9 4"
+                      stroke="currentcolor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M20 20V13C20 11.9391 19.5786 10.9217 18.8284 10.1716C18.0783 9.42143 17.0609 9 16 9H4"
+                      stroke="currentcolor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="gridWrap border">
+            <div class="eventDetailsWrap">
+              <div class="side">
+                <div class="imgBox">
+                  <picture class="">
+                    <source srcset="{{ articleData.pictureUrl }}" type="image/webp" />
+                    <source srcset="{{ articleData.pictureUrl }}" type="image/jpeg" />
+                    <img
+                      src="{{ articleData.pictureUrl }}"
+                      alt=""
+                      width="442"
+                      height="242"
+                      loading="lazy"
+                    />
+                  </picture>
+                </div>
+
+                <div class="metaWrap">
+                  <div class="meta">
+                    <div class="iconBox">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z"
+                          stroke="currentcolor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M16 2V6"
+                          stroke="currentcolor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M8 2V6"
+                          stroke="currentcolor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M3 10H21"
+                          stroke="currentcolor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                    <span>{{ articleData.date | date: 'longDate' }}</span>
+                  </div>
+                  <div class="meta">
+                    <div class="iconBox">
+                      <svg
+                        width="23"
+                        height="21"
+                        viewBox="0 0 23 21"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M20.2913 2.61183C19.7805 2.10083 19.1741 1.69547 18.5066 1.41891C17.8392 1.14235 17.1238 1 16.4013 1C15.6788 1 14.9634 1.14235 14.2959 1.41891C13.6285 1.69547 13.022 2.10083 12.5113 2.61183L11.4513 3.67183L10.3913 2.61183C9.3596 1.58013 7.96032 1.00053 6.50129 1.00053C5.04226 1.00053 3.64298 1.58013 2.61129 2.61183C1.5796 3.64352 1 5.04279 1 6.50183C1 7.96086 1.5796 9.36013 2.61129 10.3918L3.67129 11.4518L11.4513 19.2318L19.2313 11.4518L20.2913 10.3918C20.8023 9.88107 21.2076 9.27464 21.4842 8.60718C21.7608 7.93972 21.9031 7.22431 21.9031 6.50183C21.9031 5.77934 21.7608 5.06393 21.4842 4.39647C21.2076 3.72901 20.8023 3.12258 20.2913 2.61183Z"
+                          stroke="currentcolor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                    <span>{{ articleData.likes }} Likes</span>
+                  </div>
+                  <div class="meta">
+                    <div class="iconBox">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M19 9.50003C19.0034 10.8199 18.6951 12.1219 18.1 13.3C17.3944 14.7118 16.3098 15.8992 14.9674 16.7293C13.6251 17.5594 12.0782 17.9994 10.5 18C9.18013 18.0035 7.87812 17.6951 6.7 17.1L1 19L2.9 13.3C2.30493 12.1219 1.99656 10.8199 2 9.50003C2.00061 7.92179 2.44061 6.37488 3.27072 5.03258C4.10083 3.69028 5.28825 2.6056 6.7 1.90003C7.87812 1.30496 9.18013 0.996587 10.5 1.00003H11C13.0843 1.11502 15.053 1.99479 16.5291 3.47089C18.0052 4.94699 18.885 6.91568 19 9.00003V9.50003Z"
+                          stroke="currentcolor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                    <!-- <span>{{ articleData.comments }} Comments</span> -->
+                  </div>
+                </div>
+              </div>
+              <div class="contentBox">
+                <div class="textBox sm ql-editor" [innerHTML]="articleData.description"></div>
+                <div class="articleContent ql-editor" [innerHTML]="articleData.theArticle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="sideBox">
+    <div class="inlineCalenderSmallCard">
+      <div class="inner">
+        <div class="inlineCalenderSmall" id="inlineCalenderSmall"></div>
+
+        <div class="articleList">
+          <div class="articleSmallCard">
+            <a href="#" class="inner">
+              <div class="articleImg">
+                <picture class="">
+                  <source srcset="./assets/images/articleImg1.webp" type="image/webp" />
+                  <source srcset="./assets/images/articleImg1.jpg" type="image/jpeg" />
+                  <img
+                    src="./assets/images/articleImg1.jpg"
+                    alt=""
+                    width="80"
+                    height="57"
+                    loading="lazy"
+                  />
+                </picture>
+              </div>
+
+              <div class="contentBox">
+                <div class="date">27 June 2025</div>
+                <div class="t">
+                  Lorem ipsum dolor sit amet, consec tetur adipiscing elit...
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="articleSmallCard">
+            <a href="#" class="inner">
+              <div class="articleImg">
+                <picture class="">
+                  <source srcset="./assets/images/articleImg2.webp" type="image/webp" />
+                  <source srcset="./assets/images/articleImg2.jpg" type="image/jpeg" />
+                  <img
+                    src="./assets/images/articleImg2.jpg"
+                    alt=""
+                    width="80"
+                    height="57"
+                    loading="lazy"
+                  />
+                </picture>
+              </div>
+
+              <div class="contentBox">
+                <div class="date">27 June 2025</div>
+                <div class="t">
+                  Lorem ipsum dolor sit amet, consec tetur adipiscing elit...
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="leadersHighlightCard">
+      <div class="imgBox">
+        <picture class="">
+          <source
+            srcset="
+              data:image/webp;base64,
+              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
+            "
+            type="image/webp"
+          />
+          <source srcset="./assets/images/leadersHighlightImg.jpg" type="image/jpeg" />
+          <img
+            src="./assets/images/leadersHighlightImg.jpg"
+            alt=""
+            width="314"
+            height="188"
+            loading="lazy"
+          />
+        </picture>
+      </div>
+      <div class="contentBox">
+        <div class="title">Leaders Highlights</div>
+
+        <div class="points">
+          <div class="p">
+            <div class="num" dir="ltr" data-animcount="700">
+              <i class="not-italic">700</i><sup>+</sup>
+            </div>
+            <span>MBRCLD Alumni</span>
+          </div>
+          <div class="p">
+            <div class="num" dir="ltr" data-animcount="40">
+              <i class="not-italic">40</i><sup>+</sup>
+            </div>
+            <span>Sectors</span>
+          </div>
+          <div class="p">
+            <div class="num" dir="ltr" data-animcount="1000">
+              <i class="not-italic">1000</i><sup>+</sup>
+            </div>
+            <span>Transformational ideas and projects</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
