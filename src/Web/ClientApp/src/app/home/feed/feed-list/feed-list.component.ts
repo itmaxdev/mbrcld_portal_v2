@@ -1,6 +1,10 @@
 import * as moment from 'moment'
 import { Component, OnInit } from '@angular/core'
-import { ListPostsViewModel, PostsClient, SearchArticlesViewModel } from 'src/app/shared/api.generated.clients'
+import {
+  ListPostsViewModel,
+  PostsClient,
+  SearchArticlesViewModel,
+} from 'src/app/shared/api.generated.clients'
 
 interface DatesOfPosts {
   id: string | null | undefined
@@ -17,8 +21,14 @@ export class FeedListComponent implements OnInit {
   postsData: ListPostsViewModel[]
   searchPostsData: SearchArticlesViewModel[]
   postsDates: DatesOfPosts[] = []
+  showAlert = true
+  alertMessage = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
 
   constructor(private posts: PostsClient) {}
+
+  closeAlert() {
+    this.showAlert = false
+  }
 
   getAllPosts() {
     this.ready = false
