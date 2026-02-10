@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core'
+import { Injectable, isDevMode } from '@angular/core'
 import { Router } from '@angular/router'
 import { OAuthEvent, OAuthInfoEvent, OAuthService, TokenResponse } from 'angular-oauth2-oidc'
 import { BehaviorSubject, from, Observable, of, ReplaySubject, throwError } from 'rxjs'
@@ -21,7 +21,7 @@ export class AuthorizationService {
     this.oauthService.configure({
       oidc: false,
       skipIssuerCheck: true,
-      // issuer: isDevMode() ? 'http://test.mbrcld.ae' : null,
+      // issuer: isDevMode() ? 'http://portal.mbrcld.ae' : null,
       clientId: 'dev',
       scope: 'openid profile offline_access',
       requireHttps: false,
