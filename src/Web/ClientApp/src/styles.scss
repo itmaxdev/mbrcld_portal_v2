@@ -1,11 +1,11 @@
 // @import 'tailwindcss/base';
 // @import 'tailwindcss/components';
-// @import 'tailwindcss/utilities';
+@import 'tailwindcss/utilities';
 
 $navBarBgColor: #0071be;
 $buttonBgColor: #2d7bbb;
 
-:root{
+:root {
   --primary-color: #0071be;
 
 }
@@ -64,7 +64,8 @@ $buttonBgColor: #2d7bbb;
     @apply me-2;
   }
 
-  .p-datepicker-prev-icon, .p-datepicker-next-icon {
+  .p-datepicker-prev-icon,
+  .p-datepicker-next-icon {
     transform: rotate(180deg);
   }
 
@@ -129,20 +130,22 @@ $buttonBgColor: #2d7bbb;
   input,
   .p-dropdown-label {
     font-weight: 500;
-  }  
+  }
 }
-.p-inputtext{
+
+.p-inputtext {
   @apply p-3;
 }
+
 .p-inputtext:not(.p-dropdown-filter),
-.p-dropdown{
+.p-dropdown {
   display: flex !important;
   // border-radius: 0 !important;
   // border-top: none !important;
   // border-left: none !important;
   // border-right: none !important;
   // padding-left: 0 !important;
-  border-radius : 12px;
+  border-radius: 12px;
   color: #222222;
 
   &:focus,
@@ -151,6 +154,7 @@ $buttonBgColor: #2d7bbb;
     box-shadow: none !important;
   }
 }
+
 body::-webkit-scrollbar {
   display: none !important;
   width: 0 !important;
@@ -160,6 +164,7 @@ body::-webkit-scrollbar {
   .p-steps-title {
     display: none !important;
   }
+
   .p-highlight .p-steps-title {
     display: block !important;
   }
@@ -179,18 +184,21 @@ body::-webkit-scrollbar {
   transform: rotate(180deg);
 }
 
-.program-card{
-  &.program-card-active{
+.program-card {
+  &.program-card-active {
     background-color: var(--primary-color);
     color: var(--primary-color-text);
   }
+
   overflow: hidden;
   border-radius: 10px;
-   .header-img {
+
+  .header-img {
     height: 150px;
     object-fit: cover;
     min-width: 150px !important;
   }
+
   .info-text {
     height: auto;
     overflow: hidden;
@@ -200,22 +208,32 @@ body::-webkit-scrollbar {
     -webkit-box-orient: vertical;
   }
 }
-.program-section-title{
+
+.program-section-title {
   font-size: 2em;
   font-weight: 600;
   @apply py-2;
   @apply my-4;
   border-bottom: 2px solid var(--primary-color);
-  @screen lg{
-   width: 50%;
+
+  @screen lg {
+    width: 50%;
   }
-  
+
 }
-.bg-card-light{
+
+.bg-card-light {
   background: #f1f0ee;
   border-radius: 1rem;
   border: 1px solid #c4c4c5;
 }
+
 // .text-blue{
 //     color:var(--primary-color);
 //   }
+
+.app-phone-input>.p-inputtext {
+  height: auto !important;
+  border-color: rgb(206, 212, 218) !important;
+
+}
