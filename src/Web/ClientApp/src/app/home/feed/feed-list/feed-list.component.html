@@ -1,26 +1,8 @@
-<main>
+<!-- <main>
   
   <div class="pb-4">
   <div class="p-grid">
     <div class="p-col-12 fullMobile" style="width:70%">
-      <!-- <div class="mb-8">
-        <form>
-          <img class="searchIcon" src="assets/images/ico-search.svg" />
-          <input
-            pInputText
-            class="searchInput rounded-lg"
-            type="text"
-            id="search"
-            name="search"
-            placeholder="Search"
-            (keyup.enter)="searchPosts($event)"
-            i18n-placeholder
-          />
-        </form>
-      </div> -->
-      <!-- <div *ngIf="role !== 5">
-        <app-profile-information></app-profile-information>
-      </div> -->
       <div *ngIf="ready; else loading" class="grid gap-6">
         <app-posts-card
           *ngFor="let card of postsData"
@@ -49,4 +31,404 @@
     <app-progress-spinner></app-progress-spinner>
   </ng-template>
 </div>
-</main>
+</main> -->
+
+<ng-template #loading>
+  <app-progress-spinner></app-progress-spinner>
+</ng-template>
+
+<div class="mainContainer">
+  <div *ngIf="ready; else loading" class="gridWrap">
+    <div class="alert alertDanger" *ngIf="showAlert">
+      <div class="textBox smLineHeight">
+        {{ alertMessage }}
+      </div>
+      <button type="button" class="closeBtn" data-alertclose (click)="closeAlert()">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M18 6L6 18"
+            stroke="currentcolor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M6 6L18 18"
+            stroke="currentcolor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
+    <div class="infoCard col1">
+      <a href="#" class="inner">
+        <div class="topBox">
+          <div class="num" data-animcount="9">
+            <i class="not-italic">9</i>
+          </div>
+          <div class="iconBox">
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 30 30"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M23.75 5H6.25C4.86929 5 3.75 6.11929 3.75 7.5V25C3.75 26.3807 4.86929 27.5 6.25 27.5H23.75C25.1307 27.5 26.25 26.3807 26.25 25V7.5C26.25 6.11929 25.1307 5 23.75 5Z"
+                stroke="currentcolor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M20 2.5V7.5"
+                stroke="currentcolor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M10 2.5V7.5"
+                stroke="currentcolor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M3.75 12.5H26.25"
+                stroke="currentcolor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="bottomBox">
+          <div class="t">Total Events</div>
+          <div class="arrowBox">
+            <svg
+              width="9"
+              height="16"
+              viewBox="0 0 9 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1 1L8 8L1 15"
+                stroke="currentcolor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="infoCard col1 colorBlack">
+      <a href="#" class="inner">
+        <div class="topBox">
+          <div class="num" data-animcount="24">
+            <i class="not-italic">24</i>
+          </div>
+          <div class="iconBox">
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 28 28"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M16.3332 2.33334H6.99984C6.381 2.33334 5.78751 2.57918 5.34992 3.01676C4.91234 3.45435 4.6665 4.04784 4.6665 4.66668V23.3333C4.6665 23.9522 4.91234 24.5457 5.34992 24.9833C5.78751 25.4208 6.381 25.6667 6.99984 25.6667H20.9998C21.6187 25.6667 22.2122 25.4208 22.6498 24.9833C23.0873 24.5457 23.3332 23.9522 23.3332 23.3333V9.33334L16.3332 2.33334Z"
+                stroke="currentcolor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M16.3335 2.33334V9.33334H23.3335"
+                stroke="currentcolor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M18.6668 15.1667H9.3335"
+                stroke="currentcolor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M18.6668 19.8333H9.3335"
+                stroke="currentcolor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M11.6668 10.5H10.5002H9.3335"
+                stroke="currentcolor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="bottomBox">
+          <div class="t">Total Articles</div>
+          <div class="arrowBox">
+            <svg
+              width="9"
+              height="16"
+              viewBox="0 0 9 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1 1L8 8L1 15"
+                stroke="currentcolor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="infoCard col1">
+      <a href="#" class="inner">
+        <div class="topBox">
+          <div class="num" data-animcount="2">
+            <i class="not-italic">2</i>
+          </div>
+          <div class="iconBox">
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 28 28"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5.8335 19.8333H4.66683C4.04799 19.8333 3.4545 19.5875 3.01691 19.1499C2.57933 18.7123 2.3335 18.1188 2.3335 17.5V5.83333C2.3335 5.21449 2.57933 4.621 3.01691 4.18342C3.4545 3.74583 4.04799 3.5 4.66683 3.5H23.3335C23.9523 3.5 24.5458 3.74583 24.9834 4.18342C25.421 4.621 25.6668 5.21449 25.6668 5.83333V17.5C25.6668 18.1188 25.421 18.7123 24.9834 19.1499C24.5458 19.5875 23.9523 19.8333 23.3335 19.8333H22.1668"
+                stroke="currentcolor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M13.9998 17.5L19.8332 24.5H8.1665L13.9998 17.5Z"
+                stroke="currentcolor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="bottomBox">
+          <div class="t">Total Programs</div>
+          <div class="arrowBox">
+            <svg
+              width="9"
+              height="16"
+              viewBox="0 0 9 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1 1L8 8L1 15"
+                stroke="currentcolor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="articleCard" *ngFor="let card of postsData">
+      <div class="inner">
+        <div class="topBox">
+          <div class="imgBox">
+            <picture class="">
+              <!-- <source
+                        srcset="./assets/images/avImg.jpg"
+                        type="image/jpeg"
+                        assets/images/program/Program_Home_page.jpg
+                      /> -->
+              <img
+                [src]="card.profilePictureUrl || 'assets/images/program/Program_Home_page.jpg'"
+                alt=""
+                width="100"
+                height="100"
+                loading="lazy"
+              />
+            </picture>
+          </div>
+
+          <a href="./reUserArticleDetails.html" class="c">
+            <div class="t">{{ card.name }}</div>
+            <div class="s">{{ card.writtenByName }} · {{ postsDates[card.id] }}</div>
+          </a>
+        </div>
+
+        <div class="textBox sm smLineHeight" style="--lineClamp: 2;">
+          <p>{{ card.description }}</p>
+        </div>
+        <!-- VIDEO POST -->
+        <div class="articleImg" *ngIf="card.videoUrl; else imageBlock">
+          <app-video-content [name]="card.name" [videoUrl]="card.videoUrl"></app-video-content>
+        </div>
+
+        <!-- IMAGE POST -->
+        <ng-template #imageBlock>
+          <a href="./reUserArticleDetails.html" class="articleImg">
+            <img [src]="card.pictureUrl" alt="" width="442" height="276" loading="lazy" />
+          </a>
+        </ng-template>
+
+        <div class="articleTools">
+          <app-social-panel
+            [id]="card.id"
+            [liked]="card.liked"
+            [likesCount]="card.likes"
+            [commentsCount]="card.commentsCount"
+            [sharesCount]="card.sharesCount"
+            [type]="2"
+          ></app-social-panel>
+          <!-- <a href="#commentPop" class="tool commentBox" data-fancyboxmodal>
+            <div class="iconBox">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect width="24" height="24" fill="white" />
+                <path
+                  d="M21 11.5C21.0034 12.8199 20.6951 14.1219 20.1 15.3C19.3944 16.7118 18.3098 17.8992 16.9674 18.7293C15.6251 19.5594 14.0782 19.9994 12.5 20C11.1801 20.0035 9.87812 19.6951 8.7 19.1L3 21L4.9 15.3C4.30493 14.1219 3.99656 12.8199 4 11.5C4.00061 9.92179 4.44061 8.37488 5.27072 7.03258C6.10083 5.69028 7.28825 4.6056 8.7 3.90003C9.87812 3.30496 11.1801 2.99659 12.5 3.00003H13C15.0843 3.11502 17.053 3.99479 18.5291 5.47089C20.0052 6.94699 20.885 8.91568 21 11V11.5Z"
+                  fill="currentcolor"
+                />
+              </svg>
+            </div>
+            <span>{{ card.commentsCount || 0 }} Comments</span>
+          </a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sideBox">
+    <div class="inlineCalenderSmallCard">
+      <div class="inner">
+        <div class="inlineCalenderSmall" id="inlineCalenderSmall"></div>
+
+        <div class="articleList">
+          <div class="articleSmallCard">
+            <a href="#" class="inner">
+              <div class="articleImg">
+                <picture class="">
+                  <source srcset="./assets/images/articleImg1.webp" type="image/webp" />
+                  <source srcset="./assets/images/articleImg1.jpg" type="image/jpeg" />
+                  <img
+                    src="./assets/images/articleImg1.jpg"
+                    alt=""
+                    width="80"
+                    height="57"
+                    loading="lazy"
+                  />
+                </picture>
+              </div>
+
+              <div class="contentBox">
+                <div class="date">27 June 2025</div>
+                <div class="t">
+                  Lorem ipsum dolor sit amet, consec tetur adipiscing elit...
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="articleSmallCard">
+            <a href="#" class="inner">
+              <div class="articleImg">
+                <picture class="">
+                  <source srcset="./assets/images/articleImg2.webp" type="image/webp" />
+                  <source srcset="./assets/images/articleImg2.jpg" type="image/jpeg" />
+                  <img
+                    src="./assets/images/articleImg2.jpg"
+                    alt=""
+                    width="80"
+                    height="57"
+                    loading="lazy"
+                  />
+                </picture>
+              </div>
+
+              <div class="contentBox">
+                <div class="date">27 June 2025</div>
+                <div class="t">
+                  Lorem ipsum dolor sit amet, consec tetur adipiscing elit...
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="leadersHighlightCard">
+      <div class="imgBox">
+        <picture class="">
+          <source srcset="./assets/images/leadersHighlightImg.jpg" type="image/jpeg" />
+          <img
+            src="./assets/images/leadersHighlightImg.jpg"
+            alt=""
+            width="314"
+            height="188"
+            loading="lazy"
+          />
+        </picture>
+      </div>
+      <div class="contentBox">
+        <div class="title">Leaders Highlights</div>
+
+        <div class="points">
+          <div class="p">
+            <div class="num" dir="ltr" data-animcount="700">
+              <i class="not-italic">700</i><sup>+</sup>
+            </div>
+            <span>MBRCLD Alumni</span>
+          </div>
+          <div class="p">
+            <div class="num" dir="ltr" data-animcount="40">
+              <i class="not-italic">40</i><sup>+</sup>
+            </div>
+            <span>Sectors</span>
+          </div>
+          <div class="p">
+            <div class="num" dir="ltr" data-animcount="1000">
+              <i class="not-italic">1000</i><sup>+</sup>
+            </div>
+            <span>Transformational ideas and projects</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
