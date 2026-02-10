@@ -50,6 +50,7 @@ export class ArticlesListComponent implements OnInit {
 
     return this.articles.userArticles().subscribe((data) => {
       this.articleData = data
+      console.log(this.articleData)
       this.articleData.map((data) => {
         data.profilePictureUrl = pictureUrl
       })
@@ -61,6 +62,7 @@ export class ArticlesListComponent implements OnInit {
   getAllArticlesList = () => {
     return this.articles.articlesGet().subscribe((data) => {
       this.articleData = data
+      console.log(this.articleData)
       this.ready = true
       this.searching = true
       this.isMyArticles = false
@@ -89,6 +91,7 @@ export class ArticlesListComponent implements OnInit {
       if (value !== '') {
         this.articles.search(value).subscribe((data) => {
           this.articleData = data
+          console.log(this.articleData)
           this.searching = true
         })
       } else {
