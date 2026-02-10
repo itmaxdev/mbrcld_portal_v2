@@ -49,7 +49,7 @@ import { PanHistoriesClient } from 'src/app/shared/api.generated.clients'
           </svg>
         </div>
         <div class="text-sm text-gray" i18n>{{ likesCount }} People liked this</div>
-        <button
+        <!-- <button
           pButton
           class="p-button-text p-button-secondary p-button-sm"
           [icon]="activeState ? 'pi pi-caret-up' : 'pi pi-caret-down'"
@@ -57,60 +57,131 @@ import { PanHistoriesClient } from 'src/app/shared/api.generated.clients'
           (click)="toggle()"
           i18n-label
           label="Read Comments"
-        ></button>
+        ></button> -->
       </div>
-      <p-accordion>
-        <p-accordionTab [(selected)]="addCommentState">
-          <div class="mb-2 flex items-center">
-            <input
-              pInputText
-              [(ngModel)]="newComment"
-              class="pl-2 w-full rounded-lg mr-2"
-              type="text"
-              name="newComment"
-              placeholder="Enter your comment"
-              i18n-placeholder
-            />
-            <p-button label="Add" (click)="addComment()" i18n-label></p-button>
+      <p-dialog
+        [(visible)]="addCommentState"
+        [modal]="true"
+        [style]="{ 'width': '600px', 'border-radius': '0.75rem', 'overflow': 'hidden' }"
+        [closable]="false"
+        styleClass="comment-dialog"
+      >
+        <ng-template pTemplate="header">
+          <div
+            class="topBox"
+            style="width: 100%; display: flex; justify-content: space-between; align-items: center;"
+          >
+            <div class="title" style="font-size: 1.25rem; font-weight: 600;">Comments</div>
+            <button
+              type="button"
+              class="plusBtn"
+              (click)="addCommentState = false"
+              style="background: none; border: none; cursor: pointer; padding: 0;"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M18 6L6 18"
+                  stroke="currentcolor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M6 6L18 18"
+                  stroke="currentcolor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
           </div>
-        </p-accordionTab>
-        <p-accordionTab [(selected)]="activeState">
-          <div class="grid gap-2">
-            <app-comment-section
-              *ngFor="let comment of commentsData"
-              [id]="comment.id"
-              [date]="comment.actionDate"
-              [userName]="comment.contactName"
-              [comment]="comment.comment"
-            ></app-comment-section>
-          </div>
-        </p-accordionTab>
-      </p-accordion>
+        </ng-template>
+
+        <div class="formBox">
+          <form class="form-v3 filledColor">
+            <div class="inputBox">
+              <div class="input-field normal full">
+                <label for="description">Your Comment</label>
+                <textarea
+                  class="materialize-textarea"
+                  [(ngModel)]="newComment"
+                  name="newComment"
+                  id="description"
+                  placeholder="Enter your comment"
+                  i18n-placeholder
+                ></textarea>
+              </div>
+              <div class="input-field normal full buttonWrap">
+                <button type="button" class="more wAuto" (click)="addComment()">
+                  <span>Save</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="grid gap-2" style="margin-top: 20px;" *ngIf="commentsData?.length > 0">
+          <app-comment-section
+            *ngFor="let comment of commentsData"
+            [id]="comment.id"
+            [date]="comment.actionDate"
+            [userName]="comment.contactName"
+            [comment]="comment.comment"
+          ></app-comment-section>
+        </div>
+      </p-dialog>
+
+      <button
+        *ngIf="activeState"
+        pButton
+        class="p-button-text p-button-secondary p-button-sm"
+        icon="pi pi-times"
+        (click)="toggle()"
+        i18n-label
+        label="Hide Comments"
+        style="margin-top: 10px;"
+      ></button>
+
+      <div *ngIf="activeState" class="grid gap-2" style="margin-top: 10px;">
+        <app-comment-section
+          *ngFor="let comment of commentsData"
+          [id]="comment.id"
+          [date]="comment.actionDate"
+          [userName]="comment.contactName"
+          [comment]="comment.comment"
+        ></app-comment-section>
+      </div>
     </div>
   `,
   styles: [
     `
-      .articleImg {
-        pointer-events: auto;
-      }
-      .articleImg * {
-        pointer-events: auto;
-      }
-      .p-accordion-header {
-        display: none;
-      }
-      .p-accordion-content {
-        border: 0 solid #dee2e6 !important;
-        border-radius: 0.5rem !important;
-      }
-      .icon {
-        max-width: unset;
-      }
       .likeIcon {
-        color: #ef4444; /* red when liked */
+        color: #ef4444;
       }
-      .p-accordion {
-        display: inline-block !important;
+      ::ng-deep .p-dialog .p-dialog-content {
+        border-bottom-left-radius: 0.75rem !important;
+        border-bottom-right-radius: 0.75rem !important;
+      }
+
+      ::ng-deep .p-dialog .p-dialog-header {
+        border-top-left-radius: 0.75rem !important;
+        border-top-right-radius: 0.75rem !important;
+      }
+
+      ::ng-deep .p-component-overlay {
+        border-radius: 0.75rem !important;
+      }
+
+      .buttonWrap {
+        display: flex;
+        justify-content: flex-end;
       }
     `,
   ],
