@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core'
-import { Datepicker } from 'vanillajs-datepicker'
+import Datepicker from 'vanillajs-datepicker/js/Datepicker'
 
 @Component({
   selector: 'app-side-box',
@@ -20,6 +20,8 @@ export class SideBoxComponent implements OnInit {
   ]
 
   constructor() {}
+
+  ngOnInit() {}
 
   ngAfterViewInit(): void {
     if (!this.calendarEl) return
