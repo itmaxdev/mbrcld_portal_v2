@@ -9,7 +9,9 @@ import {
 @Component({
   selector: 'app-program-active-programs',
   template: `
-    <!-- <div class="program-detail-container" *ngIf="programDetail">
+    <!-- 
+     old code:
+     <div class="program-detail-container" *ngIf="programDetail">
       <img
         class="program-image"
         [ngClass]="{ 'img-rtl': language == 'ar' }"
@@ -213,6 +215,8 @@ import {
   `,
   styles: [
     `
+      // old css:
+
       // :host {
       //   position: absolute;
       //   top: 0;
