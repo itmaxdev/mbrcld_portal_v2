@@ -44,7 +44,6 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner'
 import { LanguagePipe } from './pipes/language.pipe'
 import { FullCalendarModule } from '@fullcalendar/angular'
 import listPlugin from '@fullcalendar/list'
-import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { PostsCardComponent } from './components/posts-card.component'
@@ -81,8 +80,9 @@ import { VideoContentComponent } from '../home/programs/common/video-content.com
 import { DocumentContentComponent } from '../home/programs/common/document-content.component'
 import { MeetingContentComponent } from '../home/programs/common/meeting-content.component'
 import { NewsFeedSocialPanelComponent } from './components/newsfeed-social-panel.component'
+import { SideBoxComponent } from './components/sidebox/sideBox.component'
 
-FullCalendarModule.registerPlugins([dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin])
+FullCalendarModule.registerPlugins([interactionPlugin, timeGridPlugin, listPlugin])
 
 const PrimeNgModules = [
   CardModule,
@@ -111,6 +111,7 @@ const PrimeNgModules = [
 ]
 
 const Components = [
+  SideBoxComponent,
   CardComponent,
   VideoContentComponent,
   DocumentContentComponent,

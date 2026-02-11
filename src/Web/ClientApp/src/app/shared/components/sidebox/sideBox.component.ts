@@ -6,7 +6,7 @@ import Datepicker from 'vanillajs-datepicker/js/Datepicker'
   templateUrl: './sideBox.component.html',
   styleUrls: ['./sideBox.component.scss'],
 })
-export class SideBoxComponent implements OnInit {
+export class SideBoxComponent {
   @ViewChild('inlineCalenderSmall', { static: false })
   calendarEl!: ElementRef
 
