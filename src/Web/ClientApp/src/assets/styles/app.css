@@ -11403,36 +11403,43 @@ html[dir=rtl] .dom_loaded .progress.dote.animate:before {
     }
 }
 
-.fullCalendar.fc .fc-todaysDate-button {
+.fullCalendar.fc .fc-toolbar .fc-todaysDate-button {
     cursor: default
 }
 
-.fullCalendar.fc .fc-todaysDate-button,
-.fullCalendar.fc .fc-prev-button,
-.fullCalendar.fc .fc-next-button {
+.fullCalendar.fc .fc-toolbar .fc-todaysDate-button,
+.fullCalendar.fc .fc-toolbar .fc-prev-button,
+.fullCalendar.fc .fc-toolbar .fc-next-button {
     background: transparent;
     color: var(--text);
-    border: none;
-    padding: 0;
+    border: none !important;
+    padding: 0 !important;
     outline: none;
     box-shadow: none !important
 }
+.fullCalendar.fc .fc-toolbar .fc-prev-button > .fc-icon,
+.fullCalendar.fc .fc-toolbar .fc-next-button > .fc-icon{
+font-family: fcicons !important;
+}
 
-.fullCalendar.fc .fc-todaysDate-button:focus,
-.fullCalendar.fc .fc-todaysDate-button:active,
-.fullCalendar.fc .fc-prev-button:focus,
-.fullCalendar.fc .fc-prev-button:active,
-.fullCalendar.fc .fc-next-button:focus,
-.fullCalendar.fc .fc-next-button:active {
+.fullCalendar.fc .fc-toolbar .fc-todaysDate-button:focus,
+.fullCalendar.fc .fc-toolbar .fc-todaysDate-button:hover,
+.fullCalendar.fc .fc-toolbar .fc-todaysDate-button:active,
+.fullCalendar.fc .fc-toolbar .fc-prev-button:focus,
+.fullCalendar.fc .fc-toolbar .fc-prev-button:hover,
+.fullCalendar.fc .fc-toolbar .fc-prev-button:active,
+.fullCalendar.fc .fc-toolbar .fc-next-button:focus,
+.fullCalendar.fc .fc-toolbar .fc-next-button:hover,
+.fullCalendar.fc .fc-toolbar .fc-next-button:active {
     background: transparent;
     border: none;
     color: inherit;
     box-shadow: none !important
 }
 
-.fullCalendar.fc .fc-todaysDate-button .fc-icon,
-.fullCalendar.fc .fc-prev-button .fc-icon,
-.fullCalendar.fc .fc-next-button .fc-icon {
+.fullCalendar.fc .fc-toolbar .fc-todaysDate-button .fc-icon,
+.fullCalendar.fc .fc-toolbar .fc-prev-button .fc-icon,
+.fullCalendar.fc .fc-toolbar .fc-next-button .fc-icon {
     font-size: 1.4em
 }
 
@@ -16766,4 +16773,20 @@ footer .newsletterWrap {
 
 footer .newsletterWrap .form-v3 .input-field .iconBox {
     pointer-events: auto
+}
+
+.fullCalendar .fc-toolbar .fc-button {
+    -moz-user-select: none !important;
+    -webkit-user-select: none !important;
+    background-color: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: .25em !important;
+    display: inline-block !important;
+    font-size: 1em !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    padding: .4em .65em !important;
+    text-align: center !important;
+    user-select: none !important;
+    vertical-align: middle !important;
 }

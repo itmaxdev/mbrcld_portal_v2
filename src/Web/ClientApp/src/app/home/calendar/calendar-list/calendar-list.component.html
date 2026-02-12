@@ -1,9 +1,14 @@
-<div class="mainContainer">
+<div class="mainContainer" id="calendarContainer">
   <div class="gridWrap">
     <div class="generalCard">
       <div class="inner">
         <div class="cardTitle">Calendar</div>
-        <div class="fullCalendar" #calendarContainer></div>
+        <div *ngIf="ready; else loading" class="p-4 border border-gray-400 rounded-lg">
+          <full-calendar class="fullCalendar" *ngIf="calendarVisible" [options]="calendarOptions"></full-calendar>
+        </div>
+        <ng-template #loading>
+          <app-progress-spinner></app-progress-spinner>
+        </ng-template>
       </div>
     </div>
   </div>
