@@ -1,0 +1,60 @@
+ <div class="mainContainer">
+          <div class="gridWrap">
+            <div class="generalCard">
+              <div class="inner">
+                <div class="cardTitleWrap">
+                  <div class="cardTitle">My Profile</div>
+                  <div class="cardTools">
+                    <div class="progressWrap">
+                      <div class="pInfo">
+                        <span>75% Profile Completed </span>
+                        <span>Updated on 28 Jun </span>
+                      </div>
+                      <!-- color options available : [green , blue , red ]  -->
+                      <div
+                        class="progress"
+                        data-color="blue"
+                        style="--percentage: 75%"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="normalTab">
+                  <a routerLink="general-information" routerLinkActive="active" class="tabLink">
+                    <span>General Information</span>
+                  </a>
+                  <a routerLink="identity" routerLinkActive="active" class="tabLink">
+                    <span>Identity</span>
+                  </a>
+                  <a routerLink="experience" routerLinkActive="active" class="tabLink">
+                    <span>Experience</span>
+                  </a>
+                  <a routerLink="education" routerLinkActive="active" class="tabLink">
+                    <span>Education</span>
+                  </a>
+                  <a routerLink="training-courses" routerLinkActive="active" class="tabLink">
+                    <span>Training Courses</span>
+                  </a>
+                  <a routerLink="achievements" routerLinkActive="active" class="tabLink">
+                    <span>Achievements</span>
+                  </a>
+                  <a routerLink="preferences" routerLinkActive="active" class="tabLink">
+                    <span>Preferences</span>
+                  </a>
+                  <a routerLink="skills" routerLinkActive="active" class="tabLink">
+                    <span>Skills</span>
+                  </a>
+                  <a routerLink="module-team" routerLinkActive="active" class="tabLink">
+                    <span>Module Team</span>
+                  </a>
+                </div>
+                
+                <router-outlet></router-outlet>
+
+              </div>
+            </div>
+          </div>
+<app-side-box></app-side-box>
+         
+        </div>

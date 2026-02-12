@@ -97,9 +97,14 @@ export class ProfileFacade {
 
   loadUserDocuments(): Promise<IListUserDocumentsViewModel[]> {
     if (!this.cachedDocuments$) {
-      this.cachedDocuments$ = this.documentsClient.documentsGet().pipe(shareReplay())
+      this.cachedDocuments$ = this.documentsClient.documentsGet().pipe(shareReplay(1))
     }
     return this.cachedDocuments$.toPromise()
+  }
+
+  reloadUserDocuments(): Promise<IListUserDocumentsViewModel[]> {
+    this.cachedDocuments$ = null
+    return this.loadUserDocuments()
   }
 
   removeUserDocument(identifier: string): Promise<void> {

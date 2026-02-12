@@ -11,16 +11,9 @@ import { HomeSharedModule } from '../shared/home-shared.module'
 import { FeedListComponent } from './feed-list/feed-list.component'
 import { FeedDetailsComponent } from './feed-details/feed-details.component'
 import { SlidePanelComponent } from '../slide-panel/slide-panel.component'
-import { SideBoxComponent } from 'src/app/shared/components/sidebox/sideBox.component'
 
 @NgModule({
-  declarations: [
-    SideBoxComponent,
-    FeedComponent,
-    FeedListComponent,
-    FeedDetailsComponent,
-    SlidePanelComponent,
-  ],
+  declarations: [FeedComponent, FeedListComponent, FeedDetailsComponent, SlidePanelComponent],
   imports: [FeedRoutingModule, TabViewModule, SharedModule, HomeSharedModule],
   exports: [SlidePanelComponent],
 })

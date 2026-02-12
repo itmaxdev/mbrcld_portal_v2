@@ -1,0 +1,266 @@
+<ng-container *ngIf="ready; else loading">
+  <form [formGroup]="generalInformationForm" (ngSubmit)="onSubmit()" class="form-v3 filledColor formBlock">
+    <div class="formGroup">
+      <div class="input-field normal">
+        <div class="profileUpload">
+          <picture>
+            <img [src]="profilePicUrl || './assets/images/avImg.jpg'" alt="Profile Photo" width="100" height="100" />
+          </picture>
+          <a href="#formPop1" data-fancyboxModal class="uploadIcon" (click)="triggerProfileUpload()">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.3337 12.6667C15.3337 13.0203 15.1932 13.3594 14.9431 13.6095C14.6931 13.8595 14.3539 14 14.0003 14H2.00033C1.6467 14 1.30757 13.8595 1.05752 13.6095C0.807468 13.3594 0.666992 13.0203 0.666992 12.6667V5.33333C0.666992 4.97971 0.807468 4.64057 1.05752 4.39052C1.30757 4.14048 1.6467 4 2.00033 4H4.66699L6.00033 2H10.0003L11.3337 4H14.0003C14.3539 4 14.6931 4.14048 14.9431 4.39052C15.1932 4.64057 15.3337 4.97971 15.3337 5.33333V12.6667Z"
+                stroke="currentcolor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M7.99967 11.3333C9.47243 11.3333 10.6663 10.1394 10.6663 8.66667C10.6663 7.19391 9.47243 6 7.99967 6C6.52692 6 5.33301 7.19391 5.33301 8.66667C5.33301 10.1394 6.52692 11.3333 7.99967 11.3333Z"
+                stroke="currentcolor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CV Upload placeholder - can be wired later if needed -->
+    <div class="formGroup">
+      <div class="input-field normal">
+        <label i18n>Upload CV</label>
+        <app-registrant-document-upload identifier="cv-document"></app-registrant-document-upload>
+      </div>
+    </div>
+
+    <div class="formGroup">
+      <div class="grpInfo">
+        <div class="title" i18n>General Information</div>
+        <div class="textBox sm">
+          <p i18n>
+            This section requires you to provide general information about yourself.
+          </p>
+        </div>
+      </div>
+
+      <div class="inputBox">
+        <div class="input-field normal">
+          <label for="firstName" i18n>First Name <span class="text-red-500">*</span></label>
+          <input id="firstName" type="text" formControlName="firstName" />
+          <small appControlValidationError controlName="firstName" class="p-invalid"></small>
+        </div>
+        <div class="input-field normal">
+          <label for="firstName_AR" i18n>الاسم الأول <span class="text-red-500">*</span></label>
+          <input id="firstName_AR" type="text" formControlName="firstName_AR" />
+          <small appControlValidationError controlName="firstName_AR" class="p-invalid"></small>
+        </div>
+        <div class="input-field normal">
+          <label for="middleName" i18n>Middle Name</label>
+          <input id="middleName" type="text" formControlName="middleName" />
+          <small appControlValidationError controlName="middleName" class="p-invalid"></small>
+        </div>
+        <div class="input-field normal">
+          <label for="middleName_AR" i18n>الاسم الأوسط <span class="text-red-500">*</span></label>
+          <input id="middleName_AR" type="text" formControlName="middleName_AR" />
+          <small appControlValidationError controlName="middleName_AR" class="p-invalid"></small>
+        </div>
+        <div class="input-field normal">
+          <label for="lastName" i18n>Last Name <span class="text-red-500">*</span></label>
+          <input id="lastName" type="text" formControlName="lastName" />
+          <small appControlValidationError controlName="lastName" class="p-invalid"></small>
+        </div>
+        <div class="input-field normal">
+          <label for="lastName_AR" i18n>الاسم الأخير <span class="text-red-500">*</span></label>
+          <input id="lastName_AR" type="text" formControlName="lastName_AR" />
+          <small appControlValidationError controlName="lastName_AR" class="p-invalid"></small>
+        </div>
+        <div class="input-field normal">
+          <label i18n>Gender <span class="text-red-500">*</span></label>
+          <div class="checkboxWrap">
+            <label *ngFor="let option of genderOptions">
+              <input type="radio" [value]="option.value" formControlName="gender" />
+              <span>{{ option.label }}</span>
+            </label>
+          </div>
+          <small appControlValidationError controlName="gender" class="p-invalid"></small>
+        </div>
+        <div class="input-field normal">
+          <label i18n>Marital Status</label>
+          <div class="checkboxWrap">
+            <label *ngFor="let option of maritalStatusOptions">
+              <input type="radio" [value]="option.value" formControlName="maritalStatus" />
+              <span>{{ option.label }}</span>
+            </label>
+          </div>
+        </div>
+        <div class="input-field normal">
+          <label for="dateofBirth" i18n>Date of Birth <span class="text-red-500">*</span></label>
+          <input id="dateofBirth" type="date" formControlName="birthdate" />
+          <div class="iconBox">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z"
+                stroke="currentcolor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M16 2V6"
+                stroke="currentcolor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M8 2V6"
+                stroke="currentcolor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M3 10H21"
+                stroke="currentcolor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <small appControlValidationError controlName="birthdate" class="p-invalid"></small>
+        </div>
+        <div class="input-field normal">
+          <label for="nationality" i18n>Nationality <span class="text-red-500">*</span></label>
+          <app-nationality-dropdown controlName="nationality" inputId="nationality"></app-nationality-dropdown>
+          <small appControlValidationError controlName="nationality" class="p-invalid"></small>
+        </div>
+        <div class="input-field normal">
+          <label for="residenceCountry" i18n>Residence Country <span class="text-red-500">*</span></label>
+          <app-nationality-dropdown controlName="residenceCountry" inputId="residenceCountry"></app-nationality-dropdown>
+          <small appControlValidationError controlName="residenceCountry" class="p-invalid"></small>
+        </div>
+        <div class="input-field normal">
+          <label for="city" i18n>City <span class="text-red-500">*</span></label>
+          <p-dropdown
+            *ngIf="showDropDown"
+            appendTo="body"
+            [options]="cityOptions"
+            formControlName="city"
+            id="city"
+            placeholder="Select City"
+            i18n-placeholder
+            [autoDisplayFirst]="false"
+          ></p-dropdown>
+          <input
+            *ngIf="!showDropDown"
+            formControlName="city"
+            type="text"
+            id="city"
+            placeholder="Enter City"
+            i18n-placeholder
+          />
+          <small appControlValidationError controlName="city" class="p-invalid"></small>
+        </div>
+        <div class="input-field normal" [class.p-disabled]="true">
+          <label for="personalEmail" i18n>Personal Email <span class="text-red-500">*</span></label>
+          <input id="personalEmail" type="email" formControlName="email" />
+        </div>
+        <div class="input-field normal">
+          <label for="workEmail" i18n>Work Email <span class="text-red-500">*</span></label>
+          <input id="workEmail" type="email" formControlName="businessEmail" />
+          <small appControlValidationError controlName="businessEmail" class="p-invalid"></small>
+        </div>
+        <div class="input-field normal">
+          <label for="mobilePhone" i18n>Mobile <span class="text-red-500">*</span></label>
+          <input id="mobilePhone" type="text" formControlName="mobilePhone" placeholder="Enter mobile number" />
+          <small appControlValidationError controlName="mobilePhone" class="p-invalid"></small>
+        </div>
+        <div class="input-field normal">
+          <label for="secondMobile" i18n>Second Mobile</label>
+          <input id="secondMobile" type="text" formControlName="mobilePhone2" placeholder="Enter second mobile" />
+        </div>
+        <div class="input-field normal">
+          <label for="landline" i18n>Landline</label>
+          <input id="landline" type="text" formControlName="telephone" />
+        </div>
+
+        <div class="input-field normal">
+          <label for="POBox" i18n>P.O Box</label>
+          <input id="POBox" type="text" formControlName="postOfficeBox" />
+        </div>
+
+        <div class="input-field normal full">
+          <label for="address" i18n>Address <span class="text-red-500">*</span></label>
+          <textarea id="address" class="materialize-textarea" formControlName="address"></textarea>
+          <small appControlValidationError controlName="address" class="p-invalid"></small>
+        </div>
+      </div>
+    </div>
+
+    <div class="formGroup">
+      <div class="grpInfo">
+        <div class="title" i18n>Social Media Accounts</div>
+        <div class="textBox sm">
+          <p i18n>
+            This section requires you to provide your social media accounts.
+          </p>
+        </div>
+      </div>
+
+      <div class="inputBox">
+        <div class="input-field normal">
+          <label for="linkedIn" i18n>LinkedIn</label>
+          <input id="linkedIn" type="text" formControlName="linkedInUrl" />
+        </div>
+        <div class="input-field normal">
+          <label for="twitter" i18n>Twitter</label>
+          <input id="twitter" type="text" formControlName="twitterUrl" />
+        </div>
+        <div class="input-field normal">
+          <label for="instagram" i18n>Instagram</label>
+          <input id="instagram" type="text" formControlName="instagramUrl" />
+        </div>
+        <div class="input-field normal full buttonWrap">
+          <button type="submit" class="more wAuto" [disabled]="isFormSubmitting">
+            <span i18n>Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-container>
+
+<ng-template #loading>
+  <div class="flex flex-grow justify-center items-center py-8">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>
+
+<p-dialog
+  header="Profile Avatar"
+  i18n-header
+  [(visible)]="profilePicRequiredPopup"
+  styleClass="w-full max-w-sm"
+  [baseZIndex]="10000"
+>
+  <p i18n>Profile photo is required.</p>
+  <ng-template pTemplate="footer">
+    <p-button (click)="profilePicRequiredPopup = false" i18n-label label="Ok"></p-button>
+  </ng-template>
+</p-dialog>

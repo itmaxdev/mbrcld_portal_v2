@@ -1,0 +1,102 @@
+<ng-container *ngIf="ready; else loading">
+  <form [formGroup]="identityForm" (ngSubmit)="onSubmit()" class="form-v3 filledColor formBlock">
+    <div class="formGroup">
+      <div class="grpInfo">
+        <div class="title" i18n>Identity</div>
+        <div class="textBox sm">
+          <p i18n>
+            This section requires you to provide all official documents related to your identity.
+          </p>
+        </div>
+      </div>
+
+      <div class="inputBox">
+        <div class="input-field normal">
+          <label for="emiratesId" i18n>Emirates ID <ng-container *ngIf="isEmiratyCitizen"><span class="text-red-500">*</span></ng-container></label>
+          <input id="emiratesId" type="text" formControlName="emiratesId" placeholder="123-1234-1234567-1" />
+          <small appControlValidationError controlName="emiratesId" class="p-invalid"></small>
+        </div>
+        <div class="input-field normal">
+          <label for="emiratesIdExpiryDate" i18n>Emirates ID Expiry Date <ng-container *ngIf="isEmiratyCitizen"><span class="text-red-500">*</span></ng-container></label>
+          <input id="emiratesIdExpiryDate" type="date" formControlName="emiratesIdExpiryDate" />
+          <div class="iconBox">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M16 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M8 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M3 10H21" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <small appControlValidationError controlName="emiratesIdExpiryDate" class="p-invalid"></small>
+        </div>
+        <div class="input-field normal">
+          <label for="passportNumber" i18n>Passport Number <span class="text-red-500">*</span></label>
+          <input id="passportNumber" type="text" formControlName="passportNumber" placeholder="Enter passport number" />
+          <small appControlValidationError controlName="passportNumber" class="p-invalid"></small>
+        </div>
+
+        <div class="input-field normal">
+          <label for="passportIssuingAuthority" i18n>Passport Issued Authority <ng-container *ngIf="isEmiratyCitizen"><span class="text-red-500">*</span></ng-container></label>
+          <p-dropdown [options]="passportIssuingAuthorityOptions" formControlName="passportIssuingAuthority" 
+                      placeholder="Select authority" [autoDisplayFirst]="false" appendTo="body"></p-dropdown>
+          <small appControlValidationError controlName="passportIssuingAuthority" class="p-invalid"></small>
+        </div>
+
+        <div class="input-field normal">
+          <label for="passportExpiryDate" i18n>Passport Expiry Date <span class="text-red-500">*</span></label>
+          <input id="passportExpiryDate" type="date" formControlName="passportExpiryDate" />
+          <div class="iconBox">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M16 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M8 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M3 10H21" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <small appControlValidationError controlName="passportExpiryDate" class="p-invalid"></small>
+        </div>
+      </div>
+    </div>
+
+    <div class="formGroup">
+      <div class="input-field normal">
+        <div class="title" i18n>Documents</div>
+
+        <label for="identityFrontAndBack" i18n>Identity Front and Back Page <span class="text-red-500">*</span></label>
+        <app-registrant-document-upload identifier="identity-front-page"></app-registrant-document-upload>
+      </div>
+
+      <div class="input-field normal">
+        <label for="passportFrontAndBack" i18n>Passport Front and Back Page <span class="text-red-500">*</span></label>
+        <app-registrant-document-upload identifier="passport-front-page"></app-registrant-document-upload>
+      </div>
+
+      <div class="input-field normal" *ngIf="isEmiratyCitizen">
+        <label for="familyBook" i18n>Family Book <span class="text-red-500">*</span></label>
+        <app-registrant-document-upload identifier="family-front-page"></app-registrant-document-upload>
+      </div>
+    </div>
+
+    <div class="formGroup">
+      <div class="inputBox">
+        <div class="input-field normal full buttonWrap">
+          <button type="button" class="more wAuto gray" (click)="router.navigate(['../general-information'], { relativeTo: activatedRoute })">
+            <span i18n>Previous</span>
+          </button>
+
+          <button type="submit" class="more wAuto" [disabled]="isFormSubmitting">
+            <span i18n>Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-container>
+
+<ng-template #loading>
+  <div class="flex flex-grow justify-center items-center py-8">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>
+
+<p-toast></p-toast>

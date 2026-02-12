@@ -22,7 +22,7 @@
    
   <div class="flex flex-col justify-start flex-grow pb-0">
     <!-- Role 1 -->
-    <ng-container *ngIf="urlFragments[1] !== 'profile' && role === 1">
+    <ng-container *ngIf="role === 1">
       <header id="header">
         <div class="navWrapper">
           <div class="navLogo">
@@ -254,7 +254,7 @@
       </a>
     </ng-container>
 
-    <ng-container *ngIf="urlFragments[1] === 'profile'">
+    <ng-container *ngIf="urlFragments[1] === 'profile' && role !== 1">
       <a routerLink="feed" class="nav-item">
         <i class="pi pi-angle-left flip-dir"></i>
         <span class="nav-item-text ms-3" i18n>Back to main page</span>
@@ -285,7 +285,7 @@
   <div class="flex justify-between items-center lg:hidden">
     <div class="flex flex-col justify-start flex-grow icons-container">
       <!-- Role 1 -->
-      <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 1">
+      <ng-container *ngIf="role == 1">
         <a routerLink="feed" class="nav-item" routerLinkActive="active">
           <img class="logo" src="assets/images/ico-home.svg" alt="" />
           <span class="nav-item-text" i18n>Home</span>
@@ -448,7 +448,7 @@
           <span class="nav-item-text" i18n>Programs</span>
         </a>
       </ng-container>
-      <ng-container *ngIf="urlFragments[1] === 'profile'">
+      <ng-container *ngIf="urlFragments[1] === 'profile' && role !== 1">
         <a routerLink="feed" class="nav-item" style="justify-content: center;">
           <i class="pi pi-angle-left flip-dir"></i>
           <!-- <span class="nav-item-text ms-3" i18n>Back to main page</span> -->

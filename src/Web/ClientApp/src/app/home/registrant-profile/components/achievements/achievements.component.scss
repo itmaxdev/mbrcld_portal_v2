@@ -1,0 +1,142 @@
+// :ng-deep {
+//   .custom-popup-box {
+//     background: transparent !important;
+//     border: none !important;
+//     box-shadow: none !important;
+//     padding: 0 !important;
+//     overflow-y: auto !important;
+//     outline: none !important;
+
+//     .p-dialog-header {
+//       display: none !important;
+//     }
+
+//     .p-dialog-content {
+//       background: transparent !important;
+//       border: none !important;
+//       padding: 0 !important;
+//       overflow-y: auto !important;
+//       outline: none !important;
+//       box-shadow: none !important;
+//       border-radius: 20px !important;
+//     }
+
+//     // Remove the thick blue focus shade/outline that PrimeNG adds
+//     &.p-component, 
+//     &.p-dialog,
+//     .p-dialog-content,
+//     .p-dialog-header,
+//     .p-dialog-footer {
+//         outline: none !important;
+//         box-shadow: none !important;
+//         border: none !important;
+//     }
+//   }
+
+//   // Target the mask to ensure no weird artifacts
+//   .p-dialog-mask {
+//     outline: none !important;
+//     .p-dialog.custom-popup-box:focus {
+//       outline: none !important;
+//       box-shadow: none !important;
+//     }
+//   }
+// }
+
+// // These are for the internal popup structure
+// .popupBox {
+//   border-radius: 20px !important;
+//   overflow: hidden;
+//   background: #fff;
+//   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+//   margin: 0 !important;
+//   width: 100%;
+//   max-width: 800px;
+  
+//   .inner {
+//     border-radius: 20px !important;
+//     overflow: hidden;
+//     background: #fff;
+//     width: 100%;
+//   }
+
+//   .topBox {
+//      border-top-left-radius: 20px !important;
+//      border-top-right-radius: 20px !important;
+//   }
+
+//   .formBox {
+//     width: 100%;
+    
+//     form {
+//       width: 100%;
+//     }
+//   }
+// }
+
+// .no-shadow {
+//   box-shadow: none !important;
+// }
+
+// .no-margin {
+//   margin: 0 !important;
+// }
+
+// .date-wrapper {
+//   position: relative;
+// }
+
+// .date-wrapper input {
+//   padding-right: 40px; /* space for icon */
+// }
+
+// .date-wrapper .iconBox {
+//   position: absolute;
+//   right: 12px;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   pointer-events: none;
+// }
+
+// .input-field small {
+//   display: block;
+//   min-height: 18px;
+// }
+
+// // Achievement specific overrides for textareas
+// textarea {
+//   width: 100%;
+//   resize: vertical;
+//   min-height: 80px;
+// }
+
+// // Ensure dropdowns and inputs inside popup wrap correctly
+// :host ::ng-deep {
+//   .p-dropdown {
+//     width: 100% !important;
+//   }
+  
+//   .inputBox {
+//     width: 100% !important;
+//     padding: 0 30px 30px 30px !important;
+//     display: flex !important;
+//     flex-wrap: wrap !important;
+//     gap: 0 !important;
+    
+//     .input-field {
+//       padding: 10px 15px !important;
+//       margin: 0 !important;
+//       box-sizing: border-box !important;
+      
+//       &:not(.full) {
+//         flex: 0 0 50% !important;
+//         max-width: 50% !important;
+//       }
+      
+//       &.full {
+//         flex: 0 0 100% !important;
+//         max-width: 100% !important;
+//       }
+//     }
+//   }
+// }
