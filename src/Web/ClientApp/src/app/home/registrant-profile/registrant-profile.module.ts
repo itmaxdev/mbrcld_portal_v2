@@ -11,6 +11,7 @@ import { RegistrantAchievementsComponent } from './components/achievements/achie
 import { RegistrantPreferencesComponent } from './components/preferences/preferences.component'
 import { RegistrantSkillsComponent } from './components/skills/skills.component'
 import { RegistrantModuleTeamComponent } from './components/module-team/module-team.component'
+import { RegistrantDocumentUploadComponent } from './components/common/registrant-document-upload/registrant-document-upload.component'
 import { SharedModule } from 'src/app/shared/shared.module'
 
 const routes: Routes = [
@@ -75,6 +76,7 @@ const routes: Routes = [
     RegistrantPreferencesComponent,
     RegistrantSkillsComponent,
     RegistrantModuleTeamComponent,
+    RegistrantDocumentUploadComponent,
   ],
   imports: [SharedModule, CommonModule, RouterModule.forChild(routes)],
 })

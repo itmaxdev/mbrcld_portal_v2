@@ -1,369 +1,102 @@
- <form class="form-v3 filledColor formBlock">
-                  <div class="formGroup">
-                    <div class="grpInfo">
-                      <div class="title">Identity</div>
-                      <div class="textBox sm">
-                        <p>
-                          This section requires you to provide all official
-                          documents related to your identity.
-                        </p>
-                      </div>
-                    </div>
+<ng-container *ngIf="ready; else loading">
+  <form [formGroup]="identityForm" (ngSubmit)="onSubmit()" class="form-v3 filledColor formBlock">
+    <div class="formGroup">
+      <div class="grpInfo">
+        <div class="title" i18n>Identity</div>
+        <div class="textBox sm">
+          <p i18n>
+            This section requires you to provide all official documents related to your identity.
+          </p>
+        </div>
+      </div>
 
-                    <div class="inputBox">
-                      <div class="input-field normal">
-                        <label for="employeeID">Employee ID</label>
-                        <input id="employeeID" type="text" />
-                      </div>
-                      <div class="input-field normal">
-                        <label for="emiratesIDExpiryDate"
-                          >Emirates ID Expiry Date</label
-                        >
-                        <input id="emiratesIDExpiryDate" type="date" />
-                        <div class="iconBox">
-                          <svg
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z"
-                              stroke="currentcolor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              d="M16 2V6"
-                              stroke="currentcolor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              d="M8 2V6"
-                              stroke="currentcolor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              d="M3 10H21"
-                              stroke="currentcolor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                      <div class="input-field normal">
-                        <label for="passportNumber">Passport Number</label>
-                        <input id="passportNumber" type="text" />
-                      </div>
+      <div class="inputBox">
+        <div class="input-field normal">
+          <label for="emiratesId" i18n>Emirates ID <ng-container *ngIf="isEmiratyCitizen"><span class="text-red-500">*</span></ng-container></label>
+          <input id="emiratesId" type="text" formControlName="emiratesId" placeholder="123-1234-1234567-1" />
+          <small appControlValidationError controlName="emiratesId" class="p-invalid"></small>
+        </div>
+        <div class="input-field normal">
+          <label for="emiratesIdExpiryDate" i18n>Emirates ID Expiry Date <ng-container *ngIf="isEmiratyCitizen"><span class="text-red-500">*</span></ng-container></label>
+          <input id="emiratesIdExpiryDate" type="date" formControlName="emiratesIdExpiryDate" />
+          <div class="iconBox">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M16 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M8 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M3 10H21" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <small appControlValidationError controlName="emiratesIdExpiryDate" class="p-invalid"></small>
+        </div>
+        <div class="input-field normal">
+          <label for="passportNumber" i18n>Passport Number <span class="text-red-500">*</span></label>
+          <input id="passportNumber" type="text" formControlName="passportNumber" placeholder="Enter passport number" />
+          <small appControlValidationError controlName="passportNumber" class="p-invalid"></small>
+        </div>
 
-                      <div class="input-field normal">
-                        <label for="passportIssuedAuthority"
-                          >Passport Issued Authority </label
-                        >
-                        <input id="passportIssuedAuthority" type="text" />
-                      </div>
+        <div class="input-field normal">
+          <label for="passportIssuingAuthority" i18n>Passport Issued Authority <ng-container *ngIf="isEmiratyCitizen"><span class="text-red-500">*</span></ng-container></label>
+          <p-dropdown [options]="passportIssuingAuthorityOptions" formControlName="passportIssuingAuthority" 
+                      placeholder="Select authority" [autoDisplayFirst]="false" appendTo="body"></p-dropdown>
+          <small appControlValidationError controlName="passportIssuingAuthority" class="p-invalid"></small>
+        </div>
 
-                      <div class="input-field normal">
-                        <label for="passportExpiryDate"
-                          >Passport Expiry Date</label
-                        >
-                        <input id="passportExpiryDate" type="date" />
-                        <div class="iconBox">
-                          <svg
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z"
-                              stroke="currentcolor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              d="M16 2V6"
-                              stroke="currentcolor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              d="M8 2V6"
-                              stroke="currentcolor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              d="M3 10H21"
-                              stroke="currentcolor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+        <div class="input-field normal">
+          <label for="passportExpiryDate" i18n>Passport Expiry Date <span class="text-red-500">*</span></label>
+          <input id="passportExpiryDate" type="date" formControlName="passportExpiryDate" />
+          <div class="iconBox">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M16 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M8 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M3 10H21" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <small appControlValidationError controlName="passportExpiryDate" class="p-invalid"></small>
+        </div>
+      </div>
+    </div>
 
-                  <div class="formGroup">
-                    <div class="input-field normal">
-                      <div class="title">Documents</div>
+    <div class="formGroup">
+      <div class="input-field normal">
+        <div class="title" i18n>Documents</div>
 
-                      <label for="identityFrontandBackPage"
-                        >Identity Front and Back Page</label
-                      >
-                      <div class="dropZoneWrap">
-                        <div class="dropZone">
-                          <input type="file" id="file-input" accept="image/*" />
+        <label for="identityFrontAndBack" i18n>Identity Front and Back Page <span class="text-red-500">*</span></label>
+        <app-registrant-document-upload identifier="identity-front-page"></app-registrant-document-upload>
+      </div>
 
-                          <div class="iconBox">
-                            <svg
-                              width="30"
-                              height="30"
-                              viewBox="0 0 30 30"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M10.6567 22.6875C10.093 22.6875 9.62547 22.22 9.62547 21.6562V15.895L8.63547 16.885C8.23672 17.2837 7.57672 17.2837 7.17797 16.885C6.77922 16.4862 6.77922 15.8262 7.17797 15.4275L9.92797 12.6775C10.2167 12.3887 10.6705 12.2925 11.0555 12.4575C11.4405 12.6087 11.688 12.9937 11.688 13.4062V21.6562C11.688 22.22 11.2205 22.6875 10.6567 22.6875Z"
-                                fill="currentcolor"
-                              />
-                              <path
-                                d="M13.4067 17.1875C13.1455 17.1875 12.8842 17.0912 12.678 16.885L9.92797 14.135C9.52922 13.7362 9.52922 13.0762 9.92797 12.6775C10.3267 12.2787 10.9867 12.2787 11.3855 12.6775L14.1355 15.4275C14.5342 15.8262 14.5342 16.4862 14.1355 16.885C13.9292 17.0912 13.668 17.1875 13.4067 17.1875Z"
-                                fill="currentcolor"
-                              />
-                              <path
-                                d="M18.9063 29.5625H10.6563C3.19 29.5625 0 26.3725 0 18.9063V10.6563C0 3.19 3.19 0 10.6563 0H17.5313C18.095 0 18.5625 0.4675 18.5625 1.03125C18.5625 1.595 18.095 2.0625 17.5313 2.0625H10.6563C4.3175 2.0625 2.0625 4.3175 2.0625 10.6563V18.9063C2.0625 25.245 4.3175 27.5 10.6563 27.5H18.9063C25.245 27.5 27.5 25.245 27.5 18.9063V12.0313C27.5 11.4675 27.9675 11 28.5313 11C29.095 11 29.5625 11.4675 29.5625 12.0313V18.9063C29.5625 26.3725 26.3725 29.5625 18.9063 29.5625Z"
-                                fill="currentcolor"
-                              />
-                              <path
-                                d="M28.5313 13.0625H23.0313C18.3288 13.0625 16.5 11.2337 16.5 6.53123V1.03123C16.5 0.618734 16.7475 0.233734 17.1325 0.0824844C17.5175 -0.0825156 17.9575 0.0137346 18.26 0.302485L29.26 11.3025C29.4034 11.447 29.5009 11.6306 29.5402 11.8303C29.5795 12.03 29.559 12.2369 29.4811 12.4249C29.4032 12.613 29.2715 12.7738 29.1025 12.8873C28.9335 13.0007 28.7348 13.0617 28.5313 13.0625ZM18.5625 3.51998V6.53123C18.5625 10.0787 19.4838 11 23.0313 11H26.0425L18.5625 3.51998Z"
-                                fill="currentcolor"
-                              />
-                            </svg>
-                          </div>
-                          <div class="c">
-                            <div class="t">
-                              <strong>Click to upload</strong>or drag and drop
-                            </div>
-                            <div class="helpText">(Max. File size: 25 MB)</div>
-                          </div>
-                        </div>
+      <div class="input-field normal">
+        <label for="passportFrontAndBack" i18n>Passport Front and Back Page <span class="text-red-500">*</span></label>
+        <app-registrant-document-upload identifier="passport-front-page"></app-registrant-document-upload>
+      </div>
 
-                        <div class="dropItem">
-                          <div class="iconBox">
-                            <svg
-                              width="30"
-                              height="30"
-                              viewBox="0 0 30 30"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M18.9063 29.5625H10.6563C3.19 29.5625 0 26.3725 0 18.9063V10.6563C0 3.19 3.19 0 10.6563 0H17.5313C18.095 0 18.5625 0.4675 18.5625 1.03125C18.5625 1.595 18.095 2.0625 17.5313 2.0625H10.6563C4.3175 2.0625 2.0625 4.3175 2.0625 10.6563V18.9063C2.0625 25.245 4.3175 27.5 10.6563 27.5H18.9063C25.245 27.5 27.5 25.245 27.5 18.9063V12.0313C27.5 11.4675 27.9675 11 28.5313 11C29.095 11 29.5625 11.4675 29.5625 12.0313V18.9063C29.5625 26.3725 26.3725 29.5625 18.9063 29.5625Z"
-                                fill="currentcolor"
-                              />
-                              <path
-                                d="M28.5312 13.0625H23.0312C18.3287 13.0625 16.5 11.2337 16.5 6.53123V1.03123C16.5 0.618734 16.7475 0.233734 17.1325 0.0824844C17.5175 -0.0825156 17.9575 0.0137346 18.26 0.302485L29.26 11.3025C29.4034 11.447 29.5009 11.6306 29.5402 11.8303C29.5795 12.03 29.559 12.2369 29.4811 12.4249C29.4032 12.613 29.2715 12.7738 29.1025 12.8873C28.9335 13.0007 28.7348 13.0617 28.5312 13.0625ZM18.5625 3.51998V6.53123C18.5625 10.0787 19.4837 11 23.0312 11H26.0425L18.5625 3.51998ZM16.1562 17.1875H7.90625C7.3425 17.1875 6.875 16.72 6.875 16.1562C6.875 15.5925 7.3425 15.125 7.90625 15.125H16.1562C16.72 15.125 17.1875 15.5925 17.1875 16.1562C17.1875 16.72 16.72 17.1875 16.1562 17.1875ZM13.4062 22.6875H7.90625C7.3425 22.6875 6.875 22.22 6.875 21.6562C6.875 21.0925 7.3425 20.625 7.90625 20.625H13.4062C13.97 20.625 14.4375 21.0925 14.4375 21.6562C14.4375 22.22 13.97 22.6875 13.4062 22.6875Z"
-                                fill="currentcolor"
-                              />
-                            </svg>
-                          </div>
-                          <div class="nameBox">
-                            <div class="t">filename_0125.pdf</div>
-                            <div class="helpText">21 MB</div>
-                          </div>
-                          <div class="progressWrap">
-                            <!-- color options available : [green , blue , red ]  -->
-                            <div
-                              class="progress"
-                              data-color="blue"
-                              style="--percentage: 60%"
-                            ></div>
-                            <div class="percentage">60%</div>
-                          </div>
-                          <button type="button" class="iconBtn btnRed">
-                            <svg
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M3 6H5H21"
-                                stroke="currentcolor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6"
-                                stroke="currentcolor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M10 11V17"
-                                stroke="currentcolor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M14 11V17"
-                                stroke="currentcolor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="input-field normal">
-                      <label for="passportFrontandBackPage"
-                        >Passport Front and Back Page
-                      </label>
-                      <div class="dropZoneWrap">
-                        <div class="dropZone">
-                          <input type="file" id="file-input" accept="image/*" />
+      <div class="input-field normal" *ngIf="isEmiratyCitizen">
+        <label for="familyBook" i18n>Family Book <span class="text-red-500">*</span></label>
+        <app-registrant-document-upload identifier="family-front-page"></app-registrant-document-upload>
+      </div>
+    </div>
 
-                          <div class="iconBox">
-                            <svg
-                              width="30"
-                              height="30"
-                              viewBox="0 0 30 30"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M10.6567 22.6875C10.093 22.6875 9.62547 22.22 9.62547 21.6562V15.895L8.63547 16.885C8.23672 17.2837 7.57672 17.2837 7.17797 16.885C6.77922 16.4862 6.77922 15.8262 7.17797 15.4275L9.92797 12.6775C10.2167 12.3887 10.6705 12.2925 11.0555 12.4575C11.4405 12.6087 11.688 12.9937 11.688 13.4062V21.6562C11.688 22.22 11.2205 22.6875 10.6567 22.6875Z"
-                                fill="currentcolor"
-                              />
-                              <path
-                                d="M13.4067 17.1875C13.1455 17.1875 12.8842 17.0912 12.678 16.885L9.92797 14.135C9.52922 13.7362 9.52922 13.0762 9.92797 12.6775C10.3267 12.2787 10.9867 12.2787 11.3855 12.6775L14.1355 15.4275C14.5342 15.8262 14.5342 16.4862 14.1355 16.885C13.9292 17.0912 13.668 17.1875 13.4067 17.1875Z"
-                                fill="currentcolor"
-                              />
-                              <path
-                                d="M18.9063 29.5625H10.6563C3.19 29.5625 0 26.3725 0 18.9063V10.6563C0 3.19 3.19 0 10.6563 0H17.5313C18.095 0 18.5625 0.4675 18.5625 1.03125C18.5625 1.595 18.095 2.0625 17.5313 2.0625H10.6563C4.3175 2.0625 2.0625 4.3175 2.0625 10.6563V18.9063C2.0625 25.245 4.3175 27.5 10.6563 27.5H18.9063C25.245 27.5 27.5 25.245 27.5 18.9063V12.0313C27.5 11.4675 27.9675 11 28.5313 11C29.095 11 29.5625 11.4675 29.5625 12.0313V18.9063C29.5625 26.3725 26.3725 29.5625 18.9063 29.5625Z"
-                                fill="currentcolor"
-                              />
-                              <path
-                                d="M28.5313 13.0625H23.0313C18.3288 13.0625 16.5 11.2337 16.5 6.53123V1.03123C16.5 0.618734 16.7475 0.233734 17.1325 0.0824844C17.5175 -0.0825156 17.9575 0.0137346 18.26 0.302485L29.26 11.3025C29.4034 11.447 29.5009 11.6306 29.5402 11.8303C29.5795 12.03 29.559 12.2369 29.4811 12.4249C29.4032 12.613 29.2715 12.7738 29.1025 12.8873C28.9335 13.0007 28.7348 13.0617 28.5313 13.0625ZM18.5625 3.51998V6.53123C18.5625 10.0787 19.4838 11 23.0313 11H26.0425L18.5625 3.51998Z"
-                                fill="currentcolor"
-                              />
-                            </svg>
-                          </div>
-                          <div class="c">
-                            <div class="t">
-                              <strong>Click to upload</strong>or drag and drop
-                            </div>
-                            <div class="helpText">(Max. File size: 25 MB)</div>
-                          </div>
-                        </div>
+    <div class="formGroup">
+      <div class="inputBox">
+        <div class="input-field normal full buttonWrap">
+          <button type="button" class="more wAuto gray" (click)="router.navigate(['../general-information'], { relativeTo: activatedRoute })">
+            <span i18n>Previous</span>
+          </button>
 
-                        <div class="dropItem">
-                          <div class="iconBox">
-                            <svg
-                              width="30"
-                              height="30"
-                              viewBox="0 0 30 30"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M18.9063 29.5625H10.6563C3.19 29.5625 0 26.3725 0 18.9063V10.6563C0 3.19 3.19 0 10.6563 0H17.5313C18.095 0 18.5625 0.4675 18.5625 1.03125C18.5625 1.595 18.095 2.0625 17.5313 2.0625H10.6563C4.3175 2.0625 2.0625 4.3175 2.0625 10.6563V18.9063C2.0625 25.245 4.3175 27.5 10.6563 27.5H18.9063C25.245 27.5 27.5 25.245 27.5 18.9063V12.0313C27.5 11.4675 27.9675 11 28.5313 11C29.095 11 29.5625 11.4675 29.5625 12.0313V18.9063C29.5625 26.3725 26.3725 29.5625 18.9063 29.5625Z"
-                                fill="currentcolor"
-                              />
-                              <path
-                                d="M28.5312 13.0625H23.0312C18.3287 13.0625 16.5 11.2337 16.5 6.53123V1.03123C16.5 0.618734 16.7475 0.233734 17.1325 0.0824844C17.5175 -0.0825156 17.9575 0.0137346 18.26 0.302485L29.26 11.3025C29.4034 11.447 29.5009 11.6306 29.5402 11.8303C29.5795 12.03 29.559 12.2369 29.4811 12.4249C29.4032 12.613 29.2715 12.7738 29.1025 12.8873C28.9335 13.0007 28.7348 13.0617 28.5312 13.0625ZM18.5625 3.51998V6.53123C18.5625 10.0787 19.4837 11 23.0312 11H26.0425L18.5625 3.51998ZM16.1562 17.1875H7.90625C7.3425 17.1875 6.875 16.72 6.875 16.1562C6.875 15.5925 7.3425 15.125 7.90625 15.125H16.1562C16.72 15.125 17.1875 15.5925 17.1875 16.1562C17.1875 16.72 16.72 17.1875 16.1562 17.1875ZM13.4062 22.6875H7.90625C7.3425 22.6875 6.875 22.22 6.875 21.6562C6.875 21.0925 7.3425 20.625 7.90625 20.625H13.4062C13.97 20.625 14.4375 21.0925 14.4375 21.6562C14.4375 22.22 13.97 22.6875 13.4062 22.6875Z"
-                                fill="currentcolor"
-                              />
-                            </svg>
-                          </div>
-                          <div class="nameBox">
-                            <div class="t">filename_0125.pdf</div>
-                            <div class="helpText">21 MB</div>
-                          </div>
-                          <div class="progressWrap">
-                            <!-- color options available : [green , blue , red ]  -->
-                            <div
-                              class="progress"
-                              data-color="blue"
-                              style="--percentage: 30%"
-                            ></div>
-                            <div class="percentage">30%</div>
-                          </div>
-                          <button type="button" class="iconBtn btnRed">
-                            <svg
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M3 6H5H21"
-                                stroke="currentcolor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6"
-                                stroke="currentcolor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M10 11V17"
-                                stroke="currentcolor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M14 11V17"
-                                stroke="currentcolor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+          <button type="submit" class="more wAuto" [disabled]="isFormSubmitting">
+            <span i18n>Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-container>
 
-                  <div class="formGroup">
-                    <div class="inputBox">
-                      <div class="input-field normal full buttonWrap">
-                        <button type="button" class="more wAuto gray">
-                          <span>Previous</span>
-                        </button>
+<ng-template #loading>
+  <div class="flex flex-grow justify-center items-center py-8">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>
 
-                        <button type="submit" class="more wAuto">
-                          <span>Next</span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
+<p-toast></p-toast>
