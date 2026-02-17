@@ -1,66 +1,203 @@
-<div *ngIf="!showDisclaimer; else disclaimer" class=" border rounded-lg border-gray-400  bg-white p-4">
-  <div class="grid gap-4 items-center w-full sm:flex sm:justify-between">
-    <div>
-      <h1 class="text-2xl text-center sm:text-left" i18n *ngIf="locale === 'en'">
-        Idea Hub
-      </h1>
-      <h1 class="text-2xl text-center sm:text-left" i18n *ngIf="locale === 'ar'">
-        مختبر الأفكار
-      </h1>
+<div class="mainContainer" *ngIf="!showDisclaimer; else disclaimer">
+  <div class="gridWrap">
+    <div class="generalCard">
+      <div class="inner">
+        <div class="cardTitleWrap">
+          <div class="cardTitle" i18n>Idea Hub</div>
+          <div class="cardTools">
+            <div class="searchBox">
+              <form class="form-v3 filledColor">
+                <div class="input-field">
+                  <input
+                    #searchInput
+                    type="text"
+                    placeholder="Search"
+                    i18n-placeholder
+                    (keyup.enter)="searchIdeas(searchInput.value)"
+                  />
+                  <button
+                    class="iconBox"
+                    type="button"
+                    (click)="searchIdeas(searchInput.value)"
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z"
+                        stroke="currentcolor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M21 20.9999L16.65 16.6499"
+                        stroke="currentcolor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="gridWrap border">
+          <form class="form-v3 filledColor formBlock">
+            <div class="formGroup">
+              <div class="inputList col2">
+                <div class="addBtnWrap">
+                  <button
+                    type="button"
+                    class="more gray wAuto sm"
+                    (click)="myIdeas = !myIdeas; filterMyIdeas()"
+                    [class.active]="myIdeas"
+                  >
+                    <span>{{ myIdeas ? allIdeasLable : myIdeasLable }}</span>
+                  </button>
+                  <a [routerLink]="['create']" class="more wAuto sm">
+                    <span i18n>Add New Idea</span>
+                  </a>
+                </div>
+
+                <ng-container *ngIf="searchingIdeas; else loadingIdeas">
+                  <div class="inputItem" *ngFor="let item of projectData">
+                    <div class="inner">
+                      <div class="contentBox">
+                        <div class="t">
+                          <a
+                            [routerLink]="[item.id]"
+                            class="text-black no-underline hover:underline"
+                          >
+                            {{ item.name }}
+                          </a>
+                        </div>
+                        <div class="metaWrap">
+                          <div class="meta" *ngIf="item.description">
+                            <div class="st" i18n>Description</div>
+                            <div class="textBox sm">
+                              <p>{{ item.description }}</p>
+                            </div>
+                          </div>
+                          <div class="meta" *ngIf="item.budget">
+                            <div class="st" i18n>Estimated Budget</div>
+                            <div class="v">{{ item.budget | number }} AED</div>
+                          </div>
+                          <div class="meta" *ngIf="item['sector']">
+                            <div class="st" i18n>Sector</div>
+                            <div class="v">{{ item['sector'] }}</div>
+                          </div>
+                          <div class="meta" *ngIf="item['benchmark']">
+                            <div class="st" i18n>Benchmark</div>
+                            <div class="textBox sm">
+                              <p>{{ item['benchmark'] }}</p>
+                            </div>
+                          </div>
+                          <div class="meta" *ngIf="item.alumniName">
+                            <div class="st" i18n>Contributor</div>
+                            <div class="v">{{ item.alumniName }}</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tools" *ngIf="myIdeas">
+                        <button
+                          *ngIf="item?.projectIdeaStatus !== 2"
+                          type="button"
+                          class="iconBtn btnGreen"
+                          [routerLink]="['edit/' + item.id]"
+                        >
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12 20H21"
+                              stroke="currentcolor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M16.5 3.50001C16.8978 3.10219 17.4374 2.87869 18 2.87869C18.2786 2.87869 18.5544 2.93356 18.8118 3.04017C19.0692 3.14677 19.303 3.30303 19.5 3.50001C19.697 3.697 19.8532 3.93085 19.9598 4.18822C20.0665 4.44559 20.1213 4.72144 20.1213 5.00001C20.1213 5.27859 20.0665 5.55444 19.9598 5.81181C19.8532 6.06918 19.697 6.30303 19.5 6.50001L7 19L3 20L4 16L16.5 3.50001Z"
+                              stroke="currentcolor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </button>
+                        <button type="button" class="iconBtn btnRed">
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M3 6H5H21"
+                              stroke="currentcolor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6"
+                              stroke="currentcolor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M10 11V17"
+                              stroke="currentcolor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M14 11V17"
+                              stroke="currentcolor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="projectData.length === 0" class="w-full">
+                    <h1 class="text-2xl text-center p-4" i18n>There is no matched idea!</h1>
+                  </div>
+                </ng-container>
+
+                <ng-template #loadingIdeas>
+                  <div class="w-full h-40 flex items-center justify-center">
+                    <app-progress-spinner></app-progress-spinner>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-      <p-toggleButton
-        [(ngModel)]="myIdeas"
-        [onLabel]="allIdeasLable"
-        [offLabel]="myIdeasLable"
-        [style]="{ width: '100%' }"
-        (onChange)="filterMyIdeas()"
-        i18n-label
-      ></p-toggleButton>
-      <p-button
-        label="Add New Idea"
-        [styleClass]="'w-full'"
-        [routerLink]="['create']"
-        i18n-label
-      ></p-button>
-    </div>
-  </div>
-  <div class="mb-8">
-    <form>
-      <img class="searchIcon" src="assets/images/ico-search.svg" />
-      <input
-        pInputText
-        class="searchInput rounded-lg"
-        type="text"
-        id="search"
-        name="search"
-        placeholder="Search"
-        i18n-placeholder
-        (keyup.enter)="searchIdeas($event)"
-      />
-    </form>
   </div>
 
-  <div *ngIf="searchingIdeas; else loadingIdeas" class="w-full">
-    <div *ngIf="projectData.length > 0; else noIdeas" class="container grid gap-4 mt-4">
-      <app-project-ideas-view
-        *ngFor="let item of projectData"
-        [data]="item"
-        [isMyIdea]="myIdeas"
-      ></app-project-ideas-view>
-    </div>
-    <div>
-      <ng-template #noIdeas>
-        <h1 class="text-2xl text-center">There is no matched idea!</h1>
-      </ng-template>
-    </div>
-  </div>
-  <div>
-    <ng-template #loadingIdeas>
-      <app-progress-spinner></app-progress-spinner>
-    </ng-template>
-  </div>
+  <app-side-box></app-side-box>
 </div>
+
 <ng-template #disclaimer>
   <app-disclaimer
     [disclaimerText]="getLocale()"
@@ -69,3 +206,4 @@
     (onApprove)="handleDiclaimerApprove()"
   ></app-disclaimer>
 </ng-template>
+

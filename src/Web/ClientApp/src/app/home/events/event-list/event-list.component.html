@@ -106,7 +106,7 @@
             <div
               id="activeEvents"
               *ngIf="test; else noEvents"
-              [ngClass]="{ 'gridWrap border': eventListReady }"
+              [ngClass]="{ 'gridWrap': eventListReady }"
             >
               <div class="eventCard col2" *ngFor="let event of events">
                 <a class="inner" [routerLink]="event.id">

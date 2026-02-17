@@ -144,7 +144,11 @@
 
             <div class="gridWrap border">
               <div class="buttonGroup end">
-                <a *ngIf="role != '1'" class="more gray wAuto sm" (click)="filterMyArticles()">
+                <a
+                  *ngIf="role != '1'"
+                  class="more gray wAuto sm"
+                  (click)="myArticles = !myArticles; filterMyArticles()"
+                >
                   <span>My Articles</span>
                 </a>
                 <a *ngIf="role != '1'" class="more wAuto sm" [routerLink]="['create']">
@@ -197,8 +201,11 @@
                   </a>
 
                   <div class="articleTools">
-                    <div class="tool likeBox">
-                      <div class="iconBox">
+                    <div class="tool likeBox" (click)="toggleLike(article)">
+                      <div
+                        class="iconBox"
+                        [ngStyle]="{ color: article.liked ? 'red' : 'currentcolor' }"
+                      >
                         <svg
                           width="24"
                           height="24"
@@ -212,7 +219,7 @@
                           />
                         </svg>
                       </div>
-                      <span>{{ article.likesCount }} likes</span>
+                      <span>{{ article.likes }} likes</span>
                     </div>
                     <a href="#commentPop" class="tool commentBox" data-fancyboxmodal>
                       <div class="iconBox">

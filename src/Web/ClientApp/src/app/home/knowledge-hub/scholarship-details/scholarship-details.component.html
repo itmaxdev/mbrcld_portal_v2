@@ -1,55 +1,100 @@
-<div style="display: flex;margin-bottom: 10px;" class="inline-flex items-center cursor-pointer contents"
-  (click)="goBack()">
-  <img src="assets/images/ico-arrow-left.svg" class="w-6 h-6" alt="" style="display: inline-block;" />
-  <p class="text-lg ml-2 text-gray-700" i18n style="display: inline-block;">
-    Go Back
-  </p>
+<div class="mainContainer" *ngIf="ready; else loading">
+  <div class="gridWrap">
+    <div class="generalCard" *ngIf="item; else errorFetch">
+      <div class="inner">
+        <div class="cardTitleWrap">
+          <div class="cardTitle">Knowledge Hub</div>
+          <div class="cardTools">
+            <a href="javascript:void(0)" (click)="goBack()" class="backBtn">
+              <span>Back</span>
+              <div class="iconBox">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9 14L4 9L9 4"
+                    stroke="currentcolor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M20 20V13C20 11.9391 19.5786 10.9217 18.8284 10.1716C18.0783 9.42143 17.0609 9 16 9H4"
+                    stroke="currentcolor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="gridWrap border">
+          <div class="knowledgeHubDetailsWrap">
+            <div class="imgBox">
+              <picture>
+                <img
+                  [src]="item.pictureUrl"
+                  [alt]="item.name"
+                  width="543"
+                  height="912"
+                  loading="lazy"
+                />
+              </picture>
+            </div>
+            <div class="side">
+              <div class="dateBox" *ngIf="fromDate">{{ fromDate | date: 'dd MMMM yyyy' }}</div>
+              <div class="title">{{ item.name }}</div>
+
+              <div class="status" *ngIf="status">
+                <span>Status:</span>
+                <strong [style.color]="status.statusColor">{{ status.statusName }}</strong>
+              </div>
+
+              <a
+                href="javascript:void(0)"
+                class="more wAuto"
+                [class.disabled]="busy || item.alreadyRegistered"
+                (click)="registerUserToScholarshipt()"
+                style="display: inline-block; text-align: center;"
+              >
+                <span>{{
+                  busy ? '...' : item.alreadyRegistered ? buttonLabels[1] : buttonLabels[0]
+                }}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-side-box></app-side-box>
 </div>
 
-<app-card *ngIf="ready; else loading" [sectionTitle]="item?.name ? item.name : ''" sectionSubTitle="">
-  <div *ngIf="item; else errorFetch" class="grid gap-4 sm:flex sm:col-gap-3">
-
-    <div class="leftColumn">
-      <div *ngIf="fromDate" class="header">
-        <h4>{{ fromDate | date }}</h4>
-        <hr class="divider" />
-      </div>
-
-      <div class="timing">
-        <p>
-          <span i18n="@@toDate">To Date</span>
-          <span>: </span>
-          <span dir="ltr"> {{ toDate | date }}</span>
-        </p>
-      </div>
-
-      <div *ngIf="status" class="timing">
-        <p>
-          <span i18n>Status</span>
-          <span>: </span>
-          <span class="ml-1" [style]="'color:' + status.statusColor">{{status.statusName}}</span>
-        </p>
-      </div>
-
-      <button pButton type="submit"
-        [label]="busy ? '...' : (item.alreadyRegistered ? buttonLabels[1] : buttonLabels[0])" class="h-12"
-        [disabled]="busy || item.alreadyRegistered" (click)="registerUserToScholarshipt()" ></button>
-    </div>
-
-    <div class="rightColumn">
-      <img [src]="item.pictureUrl" />
-    </div>
-
+<ng-template #errorFetch>
+  <div style="text-align: center; padding: 20px;">
+    Unable to fetch data, please refresh the page!
   </div>
-  <ng-template #errorFetch>
-    <div style="text-align: center;">
-      Unable to fetch data, please refresh the page!
-    </div>
-  </ng-template>
-</app-card>
-
-
+</ng-template>
 
 <ng-template #loading>
-  <app-progress-spinner></app-progress-spinner>
+  <div style="display: flex; justify-content: center; padding: 20px;">
+    <app-progress-spinner></app-progress-spinner>
+  </div>
 </ng-template>
+
+<!-- Registration Popup -->
+<app-success-popup
+  [(visible)]="showPopup"
+  [title]="popupType === 'success' ? 'Thank you for registering' : 'Registration Failed'"
+  [message]="popupMessage"
+  [type]="popupType"
+></app-success-popup>
+

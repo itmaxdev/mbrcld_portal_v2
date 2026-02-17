@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core'
 import { ScholarshipsClient } from 'src/app/shared/api.generated.clients'
 import { ProgramActiveProgramComponent } from '../../programs/programs-registrant/programs-active-program.component'
 
@@ -56,7 +56,7 @@ export class KnowledgeHubListComponent implements OnInit {
   scholarships: Array<any>[]
   scholarshipsRegistrations: Array<any>
 
-  constructor(private client: ScholarshipsClient) {}
+  constructor(private client: ScholarshipsClient, @Inject(LOCALE_ID) public locale: string) {}
 
   ngOnInit(): void {
     this.fetchScholarshipsList()
@@ -91,8 +91,10 @@ export class KnowledgeHubListComponent implements OnInit {
     console.log(this.scholarshipsRegistrations)
   }
 
+  activeTab = 0
 
   handleChangeTab(event) {
+    this.activeTab = event.index
     switch (event.index) {
       case 0:
         this.fetchScholarshipsList()

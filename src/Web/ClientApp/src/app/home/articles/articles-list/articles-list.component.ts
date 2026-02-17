@@ -115,6 +115,19 @@ export class ArticlesListComponent implements OnInit {
     })
   }
 
+  toggleLike(article: any) {
+    article.liked = !article.liked
+
+    if (article.liked) {
+      article.likes++
+    } else {
+      article.likes--
+    }
+
+    // OPTIONAL: call backend like API here
+    // this.articles.likeArticle(article.id).subscribe()
+  }
+
   getLocale(): string {
     if (this.locale === 'ar') {
       return 'في حال تم اعتماد المقال، يحق للمركز نشره في جميع القنوات المتاحة'

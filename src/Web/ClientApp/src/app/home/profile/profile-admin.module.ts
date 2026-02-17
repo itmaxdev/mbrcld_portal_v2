@@ -4,7 +4,6 @@ import { ProfileAdminRoutingModule } from './profile-admin-routing.module'
 import { HomeSharedModule } from '../shared/home-shared.module'
 import { KeyFilterModule } from 'primeng/keyfilter'
 import { ProfileModule } from './profile.module'
-import { TeamComponent } from './team/team.component'
 
 @NgModule({
   imports: [
@@ -14,6 +13,6 @@ import { TeamComponent } from './team/team.component'
     HomeSharedModule,
     KeyFilterModule,
   ],
-  declarations: [TeamComponent],
+  declarations: [],
 })
 export class ProfileAdminModule {}

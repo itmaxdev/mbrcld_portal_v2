@@ -49,9 +49,9 @@ export class ProjectIdeasListComponent implements OnInit {
     }
   }
 
-  searchIdeas(searchedValue) {
+  searchIdeas(searchedValue: string) {
     this.searchingIdeas = false
-    const value = searchedValue.target.value ? searchedValue.target.value : ''
+    const value = searchedValue ? searchedValue : ''
 
     if (value !== '') {
       this.projectIdeas.search(value).subscribe((data) => {

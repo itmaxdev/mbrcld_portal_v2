@@ -23,9 +23,16 @@ const homeRoutes: Routes = [
         loadChildren: () =>
           import('./project-ideas/project-ideas.module').then((m) => m.ProjectIdeasModule),
       },
+      // {
+      //   path: 'profile',
+      //   loadChildren: () => import('./profile/profile.module').then((m) => m.ProfileModule),
+      // },
       {
         path: 'profile',
-        loadChildren: () => import('./profile/profile.module').then((m) => m.ProfileModule),
+        loadChildren: () =>
+          import('./registrant-profile/registrant-profile.module').then(
+            (m) => m.RegistrantProfileModule
+          ),
       },
       {
         path: 'dashboard',
