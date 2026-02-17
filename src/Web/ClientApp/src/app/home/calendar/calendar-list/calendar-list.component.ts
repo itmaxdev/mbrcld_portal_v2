@@ -11,6 +11,8 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import * as moment from 'moment'
 import { createEventId } from './event-utils'
 
+declare let SlimSelect: any
+
 @Component({
   selector: 'app-calendar-list',
   templateUrl: './calendar-list.component.html',
@@ -105,27 +107,40 @@ export class CalendarListComponent implements OnInit {
     if (!monthSelector) {
       monthSelector = document.createElement('select')
       monthSelector.id = 'month-selector'
-      monthSelector.style.padding = '5px 10px'
       monthSelector.style.outline = '0'
+      monthSelector.style.padding = '5px'
       this.monthNames.forEach((name, index) => {
         const option = document.createElement('option')
         option.value = index.toString()
         option.textContent = name
         monthSelector.appendChild(option)
       })
-
-      monthSelector.addEventListener('change', (e: any) => {
-        const selectedMonth = parseInt(e.target.value, 10)
-        const currentDate = calendarApi.getDate()
-        const targetDate = new Date(currentDate.getFullYear(), selectedMonth, 1)
-        calendarApi.gotoDate(targetDate)
-      })
-      toolbarCell.innerHTML = ''
-      toolbarCell.appendChild(monthSelector)
     }
-    const currentMonth = calendarApi.getDate().getMonth().toString()
-    if (monthSelector.value !== currentMonth) {
-      monthSelector.value = currentMonth
+    toolbarCell.innerHTML = ''
+    toolbarCell.appendChild(monthSelector)
+
+    monthSelector.value = calendarApi.getDate().getMonth().toString()
+
+    if (this.slimS != undefined) this.slimS.destroy()
+    this.slimS = new SlimSelect({
+      select: monthSelector,
+      settings: {
+        showSearch: true,
+        searchHighlight: true,
+      },
+      events: {
+        afterChange: (newVal) => {
+          const selectedMonth = parseInt(newVal[0].value, 10)
+          const currentYear = calendarApi.getDate().getFullYear()
+          const targetDate = new Date(currentYear, selectedMonth, 1)
+          calendarApi.gotoDate(targetDate)
+        },
+      },
+    })
+    if (this.slimS.render.content.main) {
+      this.slimS.render.content.main
+        .querySelector('.ss-list')
+        .setAttribute('data-lenis-prevent-wheel', 'true')
     }
   }
 
@@ -186,6 +201,8 @@ export class CalendarListComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.ready = true
+    return
     this.ready = false
     await Promise.all([
       this.calendar.calendar(undefined).subscribe((data) => {
