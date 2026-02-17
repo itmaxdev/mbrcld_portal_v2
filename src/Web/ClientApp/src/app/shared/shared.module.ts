@@ -81,6 +81,7 @@ import { DocumentContentComponent } from '../home/programs/common/document-conte
 import { MeetingContentComponent } from '../home/programs/common/meeting-content.component'
 import { NewsFeedSocialPanelComponent } from './components/newsfeed-social-panel.component'
 import { SideBoxComponent } from './components/sidebox/sideBox.component'
+import { SuccessPopupComponent } from './components/success-popup.component'
 
 FullCalendarModule.registerPlugins([interactionPlugin, timeGridPlugin, listPlugin])
 
@@ -112,6 +113,7 @@ const PrimeNgModules = [
 
 const Components = [
   SideBoxComponent,
+  SuccessPopupComponent,
   CardComponent,
   VideoContentComponent,
   DocumentContentComponent,

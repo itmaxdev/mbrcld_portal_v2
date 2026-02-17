@@ -36,12 +36,37 @@ export class ScholarshipDetailsComponent implements OnInit {
     this.fetchContent()
   }
 
+  showPopup = false
+  popupMessage = ''
+  popupType: 'success' | 'error' = 'success'
+
   async registerUserToScholarshipt() {
-    if (this.busy) return
+    if (this.busy || this.item?.alreadyRegistered) return
+
     this.busy = true
-    await this.client.registerScholarship(this.id)
-    await this.fetchContent()
-    this.busy = false
+    try {
+      const result = await this.client.registerScholarship(this.id)
+
+      // Success
+      this.popupMessage =
+        'You will receive a confirmation email shortly with all the details of the event.'
+      this.popupType = 'success'
+      this.showPopup = true
+
+      await this.fetchContent()
+    } catch (error) {
+      // Error
+      this.popupMessage = 'Unable to complete registration. Please try again later.'
+      this.popupType = 'error'
+      this.showPopup = true
+      console.error('Registration error:', error)
+    } finally {
+      this.busy = false
+    }
+  }
+
+  closePopup() {
+    this.showPopup = false
   }
 
   async fetchContent() {
@@ -57,13 +82,13 @@ export class ScholarshipDetailsComponent implements OnInit {
     switch (this.item.statusCode) {
       case 'UnderReview':
         this.status = { statusName: 'Under Review', statusColor: 'blue' }
-        break;
+        break
       case 'Accepted':
         this.status = { statusName: 'Accepted', statusColor: 'green' }
-        break;
+        break
       case 'Rejected':
         this.status = { statusName: 'Under Review', statusColor: 'red' }
-        break;
+        break
     }
   }
 }

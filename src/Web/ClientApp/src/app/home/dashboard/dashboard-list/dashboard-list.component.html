@@ -1,5 +1,5 @@
-<div *ngIf="ready; else loading" class="grid gap-4 p-4">
-  <div class="dashboard" i18n >Dashboard</div>
+<!-- <div *ngIf="ready; else loading" class="grid gap-4 p-4">
+  <div class="dashboard" i18n>Dashboard</div>
   <div *ngIf="role == 2 || role == 3" class="dashboardCards">
     <app-dashboard-card
       *ngFor="let card of data"
@@ -10,7 +10,140 @@
     >
     </app-dashboard-card>
   </div>
-</div>
+</div> -->
+
 <ng-template #loading>
   <app-progress-spinner></app-progress-spinner>
 </ng-template>
+
+<div class="mainContainer">
+  <div *ngIf="ready; else loading" class="gridWrap smallCustomOrder">
+    <div class="infoCard col1 row2" *ngIf="getItem('Sections') as item">
+      <div class="inner">
+        <div class="cardTitle">
+          <span>{{ item.name }}</span>
+        </div>
+
+        <div class="sectionList">
+          <div class="circleNum">
+            <span>{{ item.value }}</span>
+          </div>
+
+          <div class="progressList">
+            <div class="progressWrap" *ngFor="let detail of item.details">
+              <div class="pInfo">
+                <span>{{ detail.name }}</span>
+                <span>{{ detail.value }}</span>
+              </div>
+              <!-- color options available : [green , blue , red ]  -->
+              <div class="progress" data-color="blue" [style.--percentage]="getPercentage(detail.value, item.value) + '%'"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="infoCard col3" *ngIf="getItem('Projects') as item">
+      <div class="inner">
+        <div class="cardTitle">
+          <span>{{ item.name }}</span>
+        </div>
+
+        <div class="circleGroup">
+          <div class="circleNum">
+            <span>{{ item.value }}</span>
+          </div>
+
+          <div class="circleList">
+            <div class="circleItem" *ngFor="let detail of item.details">
+              <div class="circleNum">
+                <span>{{ detail.value }}</span>
+              </div>
+              <span>{{ detail.name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="infoCard col1" *ngIf="getItem('Surveys') as item">
+      <div class="inner">
+        <div class="cardTitle">
+          <span>{{ item.name }}</span>
+        </div>
+        <div class="num text-center aspect lg" [attr.data-animcount]="item.value">
+          <i class="not-italic">{{ item.value }}</i>
+        </div>
+      </div>
+    </div>
+    <div class="infoCard col1" *ngIf="getItem('Registered Events') as item">
+      <div class="inner">
+        <div class="cardTitle">
+          <span>{{ item.name }}</span>
+        </div>
+        <div class="num color text-center aspect lg" [attr.data-animcount]="item.value">
+          <i class="not-italic">{{ item.value }}</i>
+        </div>
+      </div>
+    </div>
+    <div class="infoCard col3" *ngIf="getItem('Articles') as item">
+      <div class="inner">
+        <div class="cardTitle">
+          <span>{{ item.name }}</span>
+        </div>
+
+        <div class="circleGroup">
+          <div class="circleNum">
+            <span>{{ item.value }}</span>
+          </div>
+
+          <div class="circleList">
+            <div class="circleItem" *ngFor="let detail of item.details">
+              <div class="circleNum">
+                <span>{{ detail.value }}</span>
+              </div>
+              <span>{{ detail.name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="infoCard col1" *ngIf="getItem('Module') as item">
+      <div class="inner">
+        <div class="cardTitle">
+          <span>{{ item.name }}</span>
+        </div>
+        <div class="num text-center aspect lg" [attr.data-animcount]="item.value">
+          <i class="not-italic">{{ item.value }}</i>
+        </div>
+      </div>
+    </div>
+    <div class="infoCard" *ngIf="getItem('Idea Hub') as item">
+      <div class="inner">
+        <div class="cardTitle">
+          <span>{{ item.name }}</span>
+        </div>
+
+        <div class="sectionList">
+          <div class="circleNum">
+            <span>{{ item.value }}</span>
+          </div>
+
+          <div class="progressList">
+            <div class="progressWrap" *ngFor="let detail of item.details">
+              <div class="pInfo">
+                <span>{{ detail.name }}</span>
+                <span>{{ detail.value }}</span>
+              </div>
+              <!-- color options available : [green , blue , red ]  -->
+              <div class="progress" data-color="blue" [style.--percentage]="getPercentage(detail.value, item.value) + '%'"></div>
+            </div>
+          </div>
+
+          <div class="imgBox">
+            <img src="./assets/images/ideaHubImg.svg" width="259" height="184" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-side-box></app-side-box>
+</div>

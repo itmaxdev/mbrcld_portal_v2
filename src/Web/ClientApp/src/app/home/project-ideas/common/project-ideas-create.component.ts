@@ -11,7 +11,7 @@ import { ISectorOption } from '../../profile/professional-experience/models'
 @Component({
   selector: 'app-project-ideas-create',
   template: `
-    <div class="inline-flex items-center mb-8 cursor-pointer contents" (click)="goBack()">
+    <!-- <div class="inline-flex items-center mb-8 cursor-pointer contents" (click)="goBack()">
       <img src="assets/images/ico-arrow-left.svg" class="w-6 h-6" alt="" />
       <p class="text-lg ml-2 text-gray-700" i18n>
         Go Back
@@ -150,6 +150,143 @@ import { ISectorOption } from '../../profile/professional-experience/models'
           i18n-label
         ></p-button>
       </div>
+    </div> -->
+
+    <div class="mainContainer">
+      <div class="gridWrap">
+        <div class="generalCard">
+          <div class="inner">
+            <div class="cardTitleWrap">
+              <div class="cardTitle" i18n>{{ isEditingMode ? 'Edit Idea' : 'Add New Idea' }}</div>
+              <div class="cardTools">
+                <a (click)="goBack()" class="backBtn" style="cursor: pointer;">
+                  <span>Back</span>
+                  <div class="iconBox">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9 14L4 9L9 4"
+                        stroke="currentcolor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M20 20V13C20 11.9391 19.5786 10.9217 18.8284 10.1716C18.0783 9.42143 17.0609 9 16 9H4"
+                        stroke="currentcolor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <div class="gridWrap border">
+              <form class="form-v3 filledColor formBlock" [formGroup]="ideaForm">
+                <div class="formGroup">
+                  <div class="inputList col2">
+                    <div class="input-field normal full">
+                      <label for="ideaTitle" i18n>Idea Title</label>
+                      <input id="ideaTitle" type="text" formControlName="name" />
+                    </div>
+                    <div class="input-field normal full">
+                      <label for="shortDescription" i18n>Short description</label>
+                      <textarea
+                        class="materialize-textarea"
+                        id="shortDescription"
+                        formControlName="description"
+                      ></textarea>
+                    </div>
+                    <div class="input-field normal full">
+                      <label for="description" i18n>Description</label>
+                      <textarea
+                        class="materialize-textarea"
+                        id="description"
+                        formControlName="body"
+                      ></textarea>
+                    </div>
+                    <div class="input-field normal">
+                      <label for="estimatedBudget" i18n>Estimated Budget</label>
+                      <input id="estimatedBudget" type="number" formControlName="budget" />
+                    </div>
+                    <div class="input-field normal">
+                      <label for="sector" i18n>Sector</label>
+                      <p-dropdown
+                        id="sector"
+                        [options]="sectorOptions"
+                        formControlName="selectedSector"
+                        placeholder="Select a Sector"
+                        i18n-placeholder
+                        optionLabel="label"
+                        (ngModelChange)="onSelectType($event)"
+                        [showClear]="true"
+                        appendTo="body"
+                      ></p-dropdown>
+                    </div>
+
+                    <div class="input-field normal full" *ngIf="isOtherSectorSelected">
+                      <label for="otherSector" i18n>Other Sector</label>
+                      <input id="otherSector" type="text" formControlName="otherSector" />
+                    </div>
+
+                    <div class="input-field normal full">
+                      <label for="benchmark" i18n>Benchmark</label>
+                      <textarea
+                        class="materialize-textarea"
+                        id="benchmark"
+                        formControlName="benchmark"
+                      ></textarea>
+                    </div>
+
+                    <div class="input-field normal full">
+                      <p-fileUpload
+                        name="myfile[]"
+                        i18n-chooseLabel
+                        [showUploadButton]="false"
+                        [showCancelButton]="false"
+                        (onRemove)="onFileClear()"
+                        (onSelect)="onFileUpload($event)"
+                        chooseLabel="Choose Attachment"
+                        appPrimeNGi18n
+                      ></p-fileUpload>
+                    </div>
+
+                    <div class="input-field normal full buttonWrap end">
+                      <button
+                        type="button"
+                        class="more wAuto gray"
+                        (click)="isEditingMode ? confirm(2) : saveIdea(2)"
+                        [disabled]="!ideaForm.valid || onSave"
+                      >
+                        <span i18n>Send for Approval</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="more wAuto"
+                        (click)="isEditingMode ? confirm(1) : saveIdea(1)"
+                        [disabled]="!ideaForm.valid || onSave"
+                      >
+                        <span i18n>Save as Draft</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <p-confirmDialog [style]="{ width: '50vw' }" [baseZIndex]="10000"></p-confirmDialog>
+          </div>
+        </div>
+      </div>
+
+      <app-side-box></app-side-box>
     </div>
   `,
   providers: [ConfirmationService],

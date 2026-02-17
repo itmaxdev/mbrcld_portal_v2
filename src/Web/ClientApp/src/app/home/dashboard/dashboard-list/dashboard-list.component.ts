@@ -60,6 +60,15 @@ export class DashboardListComponent implements OnInit {
     this.role = profileInfo.role
   }
 
+  getItem(name: string): DashboardViewModel | undefined {
+    return this.data?.find((x) => x.name === name)
+  }
+
+  getPercentage(value: number, total: number): number {
+    if (!total || total === 0) return 0
+    return (value / total) * 100
+  }
+
   ngOnInit() {
     this.ready = false
     this.checkLocalStorage()

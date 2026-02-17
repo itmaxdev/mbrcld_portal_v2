@@ -20,6 +20,7 @@ import { AboutYourselfComponent } from './about-yourself/about-yourself.componen
 import { AboutUniversityComponent } from './about-university/about-university.component'
 import { GeneralInformationApplicantComponent } from './general-information-applicant/general-information-applicant.component'
 import { ProfileAchievementsComponent } from './profile-achievements/profile-achievements.component'
+import { TeamComponent } from './team/team.component'
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ProfileAchievementsComponent } from './profile-achievements/profile-ach
     AboutYourselfComponent,
     AboutUniversityComponent,
     GeneralInformationApplicantComponent,
-    ProfileAchievementsComponent
+    ProfileAchievementsComponent,
+    TeamComponent,
   ],
   imports: [
     ProfileRoutingModule,
@@ -47,6 +49,6 @@ import { ProfileAchievementsComponent } from './profile-achievements/profile-ach
     KeyFilterModule,
     InputTextareaModule,
   ],
-  exports:[GeneralInformationComponent]
+  exports: [GeneralInformationComponent, TeamComponent],
 })
 export class ProfileModule {}

@@ -246,7 +246,7 @@
                     </span>
                   </div>
                 </div>
-                <a href="#" class="more wAuto">
+                <a href="javascript:void(0)" class="more wAuto" (click)="addToCalendar()">
                   <span>Add to Calendar</span>
                 </a>
               </div>
@@ -266,3 +266,11 @@
 
   <app-side-box></app-side-box>
 </div>
+
+<!-- Registration / Calendar Popup -->
+<app-success-popup
+  [(visible)]="showPopup"
+  [title]="'Thank you for registering'"
+  [message]="popupMessage"
+  [type]="popupType"
+></app-success-popup>

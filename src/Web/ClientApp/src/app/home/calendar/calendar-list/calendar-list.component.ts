@@ -105,7 +105,8 @@ export class CalendarListComponent implements OnInit {
     if (!monthSelector) {
       monthSelector = document.createElement('select')
       monthSelector.id = 'month-selector'
-      monthSelector.style = 'padding:5px 10px;outline:0'
+      monthSelector.style.padding = '5px 10px'
+      monthSelector.style.outline = '0'
       this.monthNames.forEach((name, index) => {
         const option = document.createElement('option')
         option.value = index.toString()

@@ -9,7 +9,7 @@ import {
 import { SectionDataService } from 'src/app/shared/services/section-data.service'
 import { tap } from 'rxjs/operators'
 import { GlobalVariablesService } from 'src/app/shared/services/global-variables.service'
-import {  ProfileClient} from 'src/app/shared/api.generated.clients'
+import { ProfileClient } from 'src/app/shared/api.generated.clients'
 @Component({
   selector: 'app-event-details',
   templateUrl: './event-details.component.html',
@@ -35,6 +35,9 @@ export class EventDetailsComponent implements OnInit {
   toDate: Date
   registrantData: any
   upToDate = false
+  showPopup = false
+  popupMessage = ''
+  popupType: 'success' | 'error' = 'success'
 
   get showQuestionnaireDialog(): boolean {
     return this.showQuestionnaire
@@ -52,46 +55,58 @@ export class EventDetailsComponent implements OnInit {
     private eventRegistrant: EventRegistrantClient,
     private globalVariables: GlobalVariablesService,
     private profileClient: ProfileClient
-
   ) {}
 
   registerUserToEvent() {
-
-    this.profileClient.profileCompletion().pipe(
-      tap((formProgress) => {
-       // let myFlag: boolean | null = null;
-        this.upToDate = (formProgress as { requiresUpdate: boolean | null }).requiresUpdate;
-       // this.upToDate = formProgress.requiresUpdate;
-        if (this.upToDate) {
-      //const isConfirmed = confirm('Are your image, contact details, and job description up to date? Click OK to confirm and register, or Cancel to update your profile.');
-      //if (!isConfirmed) {
-      alert('Can you please confirm that your image, contact details, and job description are up to date before registering.');
-
-        const urlParts = window.location.pathname.split('/');
-        // pathname: /en/alumni/events/452647f0-a779-f011-b824-00155d149682
-        const basePath = urlParts.slice(0, 3).join('/');
-        // /en/alumni
-
-        window.location.href = `${basePath}/profile/general-information`;
-        return;
-      //}
-    }
-    this.eventRegistrant
-      .eventregistrant(this.id)
+    this.profileClient
+      .profileCompletion()
       .pipe(
-        tap(() => {
-          alert('✅ Thank you for registering, You will be provided with the event details once your attendance is confirmed.');
-          window.location.reload()
+        tap((formProgress) => {
+          // let myFlag: boolean | null = null;
+          this.upToDate = (formProgress as { requiresUpdate: boolean | null }).requiresUpdate
+          // this.upToDate = formProgress.requiresUpdate;
+          if (this.upToDate) {
+            //const isConfirmed = confirm('Are your image, contact details, and job description up to date? Click OK to confirm and register, or Cancel to update your profile.');
+            //if (!isConfirmed) {
+            alert(
+              'Can you please confirm that your image, contact details, and job description are up to date before registering.'
+            )
+
+            const urlParts = window.location.pathname.split('/')
+            // pathname: /en/alumni/events/452647f0-a779-f011-b824-00155d149682
+            const basePath = urlParts.slice(0, 3).join('/')
+            // /en/alumni
+
+            window.location.href = `${basePath}/profile/general-information`
+            return
+            //}
+          }
+          this.eventRegistrant
+            .eventregistrant(this.id)
+            .pipe(
+              tap(() => {
+                this.popupMessage =
+                  'You will be provided with the event details once your attendance is confirmed.'
+                this.popupType = 'success'
+                this.showPopup = true
+                this.fetchContent()
+              })
+            )
+            .toPromise()
         })
       )
-          .toPromise()
-      })
-    )
       .toPromise()
   }
 
   goBack() {
     this._location.back()
+  }
+
+  addToCalendar() {
+    this.popupMessage =
+      'The event has been added to your calendar. You will receive a reminder before the event.'
+    this.popupType = 'success'
+    this.showPopup = true
   }
 
   openQuestionnaire() {

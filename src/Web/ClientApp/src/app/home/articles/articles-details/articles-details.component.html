@@ -1,110 +1,169 @@
-<div class="">
-  <div *ngIf="ready; else loading">
-  <div class="flex justify-between mb-4">
-    <div class="inline-flex items-center cursor-pointer contents" (click)="goBack()">
-      <img src="assets/images/ico-arrow-left.svg" class="w-6 h-6" alt="" />
-      <p class="text-lg ml-2 text-gray-700" i18n>
-        Go Back
-      </p>
-    </div>
-  </div>
-  <div class="m-0 p-8 border border-gray-400 rounded-t-lg flex justify-center items-center bg-white">
-    <h1 class="text-2xl">{{ caption }}</h1>
-  </div>
-  <div class="m-0 p-8 border border-t-0 border-gray-400 rounded-b-lg bg-white">
-    <form class="p-fluid p-formgrid p-grid profile-form gap-6">
-      <div class="w-full">
-        <div class="p-field">
-          <label for="articleName" i18n>Article Name</label>
-          <input
-            pInputText
-            id="articleName"
-            name="articleName"
-            type="text"
-            class="text-lg"
-            placeholder="Enter the article name here"
-            [(ngModel)]="name"
-            i18n-placeholder
-          />
-          <small controlName="articleName" class="p-invalid"></small>
+<div *ngIf="ready; else loading">
+  <div class="mainContainer">
+    <div class="gridWrap">
+      <div class="generalCard">
+        <div class="inner">
+          <div class="cardTitleWrap">
+            <div class="cardTitle">{{ caption }}</div>
+            <div class="cardTools">
+              <a class="backBtn cursor-pointer" (click)="goBack()">
+                <span i18n>Back</span>
+                <div class="iconBox">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9 14L4 9L9 4"
+                      stroke="currentcolor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M20 20V13C20 11.9391 19.5786 10.9217 18.8284 10.1716C18.0783 9.42143 17.0609 9 16 9H4"
+                      stroke="currentcolor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="gridWrap border">
+            <form class="form-v3 filledColor">
+              <div class="inputBox">
+                <div class="input-field normal full">
+                  <label for="articleTitle" i18n>Article Title</label>
+                  <input
+                    id="articleTitle"
+                    type="text"
+                    [(ngModel)]="name"
+                    name="articleName"
+                    i18n-placeholder
+                    placeholder="Enter the article name here"
+                  />
+                </div>
+                <div class="input-field normal full">
+                  <label for="articleDescription" i18n>Article Description</label>
+                  <textarea
+                    class="materialize-textarea"
+                    id="articleDescription"
+                    [(ngModel)]="description"
+                    name="articleDescription"
+                    i18n-placeholder
+                    placeholder="Enter the description of the article"
+                  ></textarea>
+                </div>
+
+                <div class="input-field normal">
+                  <label for="articleThumbnail" i18n>Article Thumbnail</label>
+                  <input
+                    id="articleThumbnail"
+                    type="file"
+                    (change)="getUploadedThumbnail($event)"
+                  />
+                  <div class="iconBox">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21.4403 11.05L12.2503 20.24C11.1244 21.3658 9.59747 21.9983 8.00529 21.9983C6.41311 21.9983 4.88613 21.3658 3.76029 20.24C2.63445 19.1142 2.00195 17.5872 2.00195 15.995C2.00195 14.4028 2.63445 12.8758 3.76029 11.75L12.9503 2.56C13.7009 1.80944 14.7188 1.38778 15.7803 1.38778C16.8417 1.38778 17.8597 1.80944 18.6103 2.56C19.3609 3.31057 19.7825 4.32855 19.7825 5.39C19.7825 6.45146 19.3609 7.46944 18.6103 8.22L9.41029 17.41C9.03501 17.7853 8.52602 17.9961 7.99529 17.9961C7.46456 17.9961 6.95557 17.7853 6.58029 17.41C6.20501 17.0347 5.99418 16.5257 5.99418 15.995C5.99418 15.4643 6.20501 14.9553 6.58029 14.58L15.0703 6.1"
+                        stroke="currentcolor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </div>
+
+                <div class="input-field normal">
+                  <label for="articleCoveImage" i18n>Article Cove Image</label>
+                  <input id="articleCoveImage" type="file" (change)="getUploadedFile($event)" />
+                  <div class="iconBox">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21.4403 11.05L12.2503 20.24C11.1244 21.3658 9.59747 21.9983 8.00529 21.9983C6.41311 21.9983 4.88613 21.3658 3.76029 20.24C2.63445 19.1142 2.00195 17.5872 2.00195 15.995C2.00195 14.4028 2.63445 12.8758 3.76029 11.75L12.9503 2.56C13.7009 1.80944 14.7188 1.38778 15.7803 1.38778C16.8417 1.38778 17.8597 1.80944 18.6103 2.56C19.3609 3.31057 19.7825 4.32855 19.7825 5.39C19.7825 6.45146 19.3609 7.46944 18.6103 8.22L9.41029 17.41C9.03501 17.7853 8.52602 17.9961 7.99529 17.9961C7.46456 17.9961 6.95557 17.7853 6.58029 17.41C6.20501 17.0347 5.99418 16.5257 5.99418 15.995C5.99418 15.4643 6.20501 14.9553 6.58029 14.58L15.0703 6.1"
+                        stroke="currentcolor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </div>
+
+                <div class="input-field normal full">
+                  <label for="articleContent" i18n>Article Content</label>
+                  <textarea
+                    class="materialize-textarea"
+                    id="articleContent"
+                    [(ngModel)]="text"
+                    name="articleText"
+                    i18n-placeholder
+                    placeholder="Enter the article content here"
+                  ></textarea>
+                </div>
+
+                <div class="input-field normal full buttonWrap end">
+                  <button
+                    type="button"
+                    class="more wAuto gray"
+                    (click)="articleStatus == 3 ? confirm(2) : sendForApproval()"
+                    [disabled]="onUpdate"
+                  >
+                    <span i18n>Send for Approval</span>
+                    <span *ngIf="onUpdate" class="flex align-center ml-2">
+                      <p-progressSpinner
+                        [style]="{ width: '20px', height: '20px' }"
+                        class="custom-spinner"
+                        styleClass="custom-spinner"
+                        strokeWidth="6"
+                        fill="white"
+                        animationDuration=".5s"
+                      ></p-progressSpinner>
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    class="more wAuto"
+                    (click)="articleStatus == 3 ? confirm(1) : saveAsDraft()"
+                    [disabled]="onUpdate"
+                  >
+                    <span i18n>Save as Draft</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-      <div class="w-full">
-        <div class="p-field">
-          <label for="articleDescription" i18n>Article Description</label>
-          <input
-            pInputText
-            id="articleDescription"
-            name="articleDescription"
-            type="text"
-            class="text-lg"
-            placeholder="Enter the description of the articel"
-            [(ngModel)]="description"
-            i18n-placeholder
-          />
-          <small controlName="articleDescription" class="p-invalid"></small>
-        </div>
-      </div>
-      <div class="w-full grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-16">
-        <app-image-upload
-          inputLabel="Article Photo"
-          inputId="coverPhoto"
-          inputPlaceholder="Enter the article photo"
-          buttonLabel="Upload"
-          [imgName]="imgUrl1"
-          (onUploadImage)="getUploadedFile($event)"
-          i18n-inputLabel
-          i18n-inputPlaceholder
-          i18n-buttonLabel
-        ></app-image-upload>
-        
-        <app-image-upload
-          inputLabel="Article Thumbnail Photo"
-          inputId="smallPhoto"
-          inputPlaceholder="Enter the article small photo"
-          buttonLabel="Upload"
-          [imgName]="imgUrl2"
-          (onUploadImage)="getUploadedThumbnail($event)"
-          i18n-inputLabel
-          i18n-inputPlaceholder
-          i18n-buttonLabel
-        ></app-image-upload>
-      </div>
-      <div class="w-full">
-        <p-editor [(ngModel)]="text" name="text" [style]="{ height: '250px' }"></p-editor>
-      </div>
-      <div class="w-full flex flex-row-reverse">
-        <div class="flex align-center"></div>
-      </div>
-    </form>
-    <div class="flex flex-row-reverse">
-      <p-confirmDialog [style]="{ width: '50vw' }" [baseZIndex]="10000"></p-confirmDialog>
-      <p-button
-        label="Save as Draft"
-        (click)="articleStatus == 3 ? confirm(1) : saveAsDraft()"
-        i18n-label
-      ></p-button>
-      <p-button
-        label="Send for Approval"
-        class="mx-2"
-        (click)="articleStatus == 3 ? confirm(2) : sendForApproval()"
-        i18n-label
-      ></p-button>
-      <span *ngIf="onUpdate" class="flex align-center"
-        ><p-progressSpinner
-          [style]="{ width: '20px', height: '20px' }"
-          class="custom-spinner"
-          styleClass="custom-spinner"
-          strokeWidth="6"
-          fill="white"
-          animationDuration=".5s"
-        ></p-progressSpinner
-      ></span>
     </div>
+
+    <app-side-box></app-side-box>
   </div>
 </div>
+
 <ng-template #loading>
   <app-progress-spinner></app-progress-spinner>
 </ng-template>
 
-</div>
+<p-confirmDialog [style]="{ width: '50vw' }" [baseZIndex]="10000"></p-confirmDialog>
+

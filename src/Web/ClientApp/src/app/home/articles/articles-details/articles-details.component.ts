@@ -23,8 +23,8 @@ export class ArticlesDetailsComponent implements OnInit {
   createPage = false
   description: string
   msgs: Message[] = []
-  imageFile: any = null;
-  thumbnailFile: any = null;
+  imageFile: any = null
+  thumbnailFile: any = null
   articleStatus: number
   id: string | undefined
   articleData: any
@@ -40,11 +40,16 @@ export class ArticlesDetailsComponent implements OnInit {
     this._location.back()
   }
 
-  getUploadedFile(file) {
-    this.imageFile = file
+  getUploadedFile(event: any) {
+    if (event.target.files.length > 0) {
+      this.imageFile = event.target.files[0]
+    }
   }
-  getUploadedThumbnail(file){
-    this.thumbnailFile = file;
+
+  getUploadedThumbnail(event: any) {
+    if (event.target.files.length > 0) {
+      this.thumbnailFile = event.target.files[0]
+    }
   }
 
   confirm(saveType: number) {
@@ -62,8 +67,8 @@ export class ArticlesDetailsComponent implements OnInit {
 
   saveArticle(articleStatus: number) {
     this.onUpdate = true
-    let orignalFile: FileParameter;
-    let thumbnailFile: FileParameter;
+    let orignalFile: FileParameter
+    let thumbnailFile: FileParameter
     const dateField = new Date()
 
     if (this.imageFile) {
@@ -74,18 +79,26 @@ export class ArticlesDetailsComponent implements OnInit {
     } else {
       orignalFile = null
     }
-    if(this.thumbnailFile){
+    if (this.thumbnailFile) {
       thumbnailFile = {
         data: this.thumbnailFile,
-        fileName: this.thumbnailFile.name
+        fileName: this.thumbnailFile.name,
       }
-    }
-    else{
-      this.thumbnailFile = null;
+    } else {
+      this.thumbnailFile = null
     }
 
     return this.article
-      .articlesPost(orignalFile, thumbnailFile, this.id, this.description, this.name, this.text, articleStatus, dateField)
+      .articlesPost(
+        orignalFile,
+        thumbnailFile,
+        this.id,
+        this.description,
+        this.name,
+        this.text,
+        articleStatus,
+        dateField
+      )
       .pipe(
         tap(() => {
           this.onUpdate = false
