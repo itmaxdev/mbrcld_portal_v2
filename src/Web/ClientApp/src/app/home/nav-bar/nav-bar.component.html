@@ -1,12 +1,12 @@
 <nav class="navbar" [class.closed]="!visibleOnMobile">
-  <!-- <div class="flex justify-between items-center lg:hidden">
+  <div class="flex justify-between items-center lg:hidden">
     <div class="ps-4">
       <app-language-switcher [alt]="true"></app-language-switcher>
     </div>
     <button class="p-6 focus:outline-none" (click)="close()">
       <img src="assets/images/white_menu.png" alt="Close Menu" class="h-4" />
     </button>
-  </div> -->
+  </div>
   <!-- <div class="flex flex-row justify-center items-center p-8">
     <img
       src="assets/images/mbrcld_logo_white.png"
@@ -113,7 +113,7 @@
     <!-- Role 2 -->
     <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 2">
       <a routerLink="feed" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-home.svg" alt="" />
+        <img src="assets/images/iconHome.svg" alt="" />
         <span class="nav-item-text" i18n>Home</span>
       </a>
       <a routerLink="profile" class="nav-item" routerLinkActive="active">
@@ -121,31 +121,31 @@
         <span class="nav-item-text" i18n>My Profile</span>
       </a>
       <a routerLink="dashboard" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-Dashboard.svg" alt="" />
+        <img src="assets/images/iconDashboard.svg" alt="" />
         <span class="nav-item-text" i18n>Dashboard</span>
       </a>
       <a routerLink="calendar" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-event.svg" alt="" />
+        <img src="assets/images/iconCalendar.svg" alt="" />
         <span class="nav-item-text" i18n>Calendar</span>
       </a>
       <a routerLink="programs" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-training.svg" alt="" />
+        <img src="assets/images/iconPrograms.svg" alt="" />
         <span class="nav-item-text" i18n>Programs</span>
       </a>
       <a routerLink="knowledge" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-hub.svg" alt="" />
+        <img src="assets/images/iconKnowledgeHub.svg" alt="" />
         <span class="nav-item-text" i18n>Knowledge Hub</span>
       </a>
       <a routerLink="articles" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-article.svg" alt="" />
+        <img src="assets/images/iconArticle.svg" alt="" />
         <span class="nav-item-text" i18n>Articles</span>
       </a>
       <a routerLink="events" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-event.svg" alt="" />
+        <img src="assets/images/iconEvents.svg" alt="" />
         <span class="nav-item-text" i18n>Events</span>
       </a>
       <a routerLink="survey" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-survey.svg" alt="" />
+        <img src="assets/images/iconSurveys.svg" alt="" />
         <span class="nav-item-text" i18n>Surveys</span>
       </a>
     </ng-container>
@@ -166,7 +166,7 @@
                 <li>
                   <a routerLink="feed" routerLinkActive="active" class="navLink">
                     <div class="iconBox">
-                      <img src="assets/images/ico-home.svg" width="30" height="30" />
+                      <img src="assets/images/iconHome.svg" width="30" height="30" />
                     </div>
                     <span i18n>Home</span>
                   </a>
@@ -186,7 +186,7 @@
                 <li>
                   <a routerLink="dashboard" routerLinkActive="active" class="navLink">
                     <div class="iconBox">
-                      <img src="assets/images/ico-Dashboard.svg" width="30" height="30" />
+                      <img src="assets/images/iconDashboard.svg" width="30" height="30" />
                     </div>
                     <span i18n>Dashboard</span>
                   </a>
@@ -196,7 +196,7 @@
                 <li>
                   <a routerLink="calendar" routerLinkActive="active" class="navLink">
                     <div class="iconBox">
-                      <img src="assets/images/ico-event.svg" width="30" height="30" />
+                      <img src="assets/images/iconCalendar.svg" width="30" height="30" />
                     </div>
                     <span i18n>Calendar</span>
                   </a>
@@ -211,7 +211,7 @@
                     [attr.data-count]="programCount"
                   >
                     <div class="iconBox">
-                      <img src="assets/images/ico-training.svg" width="30" height="30" />
+                      <img src="assets/images/iconPrograms.svg" width="30" height="30" />
                     </div>
                     <span i18n>Programs</span>
                   </a>
@@ -221,7 +221,7 @@
                 <li>
                   <a routerLink="ideas" routerLinkActive="active" class="navLink">
                     <div class="iconBox">
-                      <img src="assets/images/ico-project-ide.svg" width="30" height="30" />
+                      <img src="assets/images/iconIdeaHub.svg" width="30" height="30" />
                     </div>
                     <span i18n>Idea Hub</span>
                   </a>
@@ -241,7 +241,7 @@
                 <li>
                   <a routerLink="knowledge" routerLinkActive="active" class="navLink">
                     <div class="iconBox">
-                      <img src="assets/images/ico-hub.svg" width="30" height="30" />
+                      <img src="assets/images/iconKnowledgeHub.svg" width="30" height="30" />
                     </div>
                     <span i18n>Knowledge Hub</span>
                   </a>
@@ -251,7 +251,7 @@
                 <li>
                   <a routerLink="articles" routerLinkActive="active" class="navLink">
                     <div class="iconBox">
-                      <img src="assets/images/ico-article.svg" width="30" height="30" />
+                      <img src="assets/images/iconArticle.svg" width="30" height="30" />
                     </div>
                     <span i18n>Articles</span>
                   </a>
@@ -266,7 +266,7 @@
                     [attr.data-count]="eventCount"
                   >
                     <div class="iconBox">
-                      <img src="assets/images/ico-event.svg" width="30" height="30" />
+                      <img src="assets/images/iconEvents.svg" width="30" height="30" />
                     </div>
                     <span i18n>Events</span>
                   </a>
@@ -276,7 +276,7 @@
                 <li>
                   <a routerLink="survey" routerLinkActive="active" class="navLink">
                     <div class="iconBox">
-                      <img src="assets/images/ico-survey.svg" width="30" height="30" />
+                      <img src="assets/images/iconSurveys.svg" width="30" height="30" />
                     </div>
                     <span i18n>Surveys</span>
                   </a>
@@ -286,7 +286,7 @@
                 <li *ngIf="isActiveEliteclub">
                   <a routerLink="eliteclub" routerLinkActive="active" class="navLink">
                     <div class="iconBox">
-                      <img src="assets/images/ico-home.svg" width="30" height="30" />
+                      <img src="assets/images/iconHome.svg" width="30" height="30" />
                     </div>
                     <span i18n>Elite Club</span>
                   </a>
@@ -310,7 +310,7 @@
     <!-- Role 4 -->
     <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 4">
       <a routerLink="feed" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-home.svg" alt="" />
+        <img src="assets/images/iconHome.svg" alt="" />
         <span class="nav-item-text" i18n>Home</span>
       </a>
       <a routerLink="profile" class="nav-item" routerLinkActive="active">
@@ -318,18 +318,18 @@
         <span class="nav-item-text" i18n>Profile</span>
       </a>
       <a routerLink="programs" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-training.svg" alt="" />
+        <img src="assets/images/iconPrograms.svg" alt="" />
         <span class="nav-item-text" i18n>Programs</span>
       </a>
     </ng-container>
     <!-- Role 5 -->
     <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 5">
       <a routerLink="feed" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-home.svg" alt="" />
+        <img src="assets/images/iconHome.svg" alt="" />
         <span class="nav-item-text" i18n>Home</span>
       </a>
       <a routerLink="dashboard" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-Dashboard.svg" alt="" />
+        <img src="assets/images/iconDashboard.svg" alt="" />
         <span class="nav-item-text" i18n>Dashboard</span>
       </a>
       <a routerLink="applicants" class="nav-item" routerLinkActive="active">
@@ -337,7 +337,7 @@
         <span class="nav-item-text" i18n>Applicants Profile</span>
       </a>
       <a routerLink="calendar" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-event.svg" alt="" />
+        <img src="assets/images/iconCalendar.svg" alt="" />
         <span class="nav-item-text" i18n>Calendar</span>
       </a>
       <a routerLink="attendance" class="nav-item" routerLinkActive="active">
@@ -348,11 +348,11 @@
     <!-- Role 6 -->
     <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 6">
       <a routerLink="feed" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-home.svg" alt="" />
+        <img src="assets/images/iconHome.svg" alt="" />
         <span class="nav-item-text" i18n>Home</span>
       </a>
       <a routerLink="programs" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-training.svg" alt="" />
+        <img src="assets/images/iconPrograms.svg" alt="" />
         <span class="nav-item-text" i18n>Programs</span>
       </a>
     </ng-container>
@@ -387,7 +387,7 @@
       <!-- Role 1 -->
       <ng-container *ngIf="role == 1">
         <a routerLink="feed" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-home.svg" alt="" />
+          <img class="logo" src="assets/images/iconHome.svg" alt="" />
           <span class="nav-item-text" i18n>Home</span>
         </a>
         <a routerLink="profile" class="nav-item" routerLinkActive="active">
@@ -395,22 +395,22 @@
           <span class="nav-item-text" i18n>My Profile</span>
         </a>
         <a routerLink="articles" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-article.svg" alt="" />
+          <img class="logo" src="assets/images/iconArticle.svg" alt="" />
           <span class="nav-item-text" i18n>Articles</span>
         </a>
         <a routerLink="events" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-event.svg" alt="" />
+          <img class="logo" src="assets/images/iconEvents.svg" alt="" />
           <span class="nav-item-text" i18n>Events</span>
         </a>
         <a routerLink="programs" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-training.svg" alt="" />
+          <img class="logo" src="assets/images/iconPrograms.svg" alt="" />
           <span class="nav-item-text" i18n>Programs</span>
         </a>
       </ng-container>
       <!-- Role 2 -->
       <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 2">
         <a routerLink="feed" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-home.svg" alt="" />
+          <img class="logo" src="assets/images/iconHome.svg" alt="" />
           <span class="nav-item-text" i18n>Home</span>
         </a>
         <a routerLink="profile" class="nav-item" routerLinkActive="active">
@@ -418,38 +418,38 @@
           <span class="nav-item-text" i18n>My Profile</span>
         </a>
         <a routerLink="dashboard" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-Dashboard.svg" alt="" />
+          <img class="logo" src="assets/images/iconDashboard.svg" alt="" />
           <span class="nav-item-text" i18n>Dashboard</span>
         </a>
         <a routerLink="calendar" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-event.svg" alt="" />
+          <img class="logo" src="assets/images/iconCalendar.svg" alt="" />
           <span class="nav-item-text" i18n>Calendar</span>
         </a>
         <a routerLink="programs" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-training.svg" alt="" />
+          <img class="logo" src="assets/images/iconPrograms.svg" alt="" />
           <span class="nav-item-text" i18n>Programs</span>
         </a>
         <a routerLink="knowledge" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-hub.svg" alt="" />
+          <img class="logo" src="assets/images/iconKnowledgeHub.svg" alt="" />
           <span class="nav-item-text" i18n>Knowledge Hub</span>
         </a>
         <a routerLink="articles" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-article.svg" alt="" />
+          <img class="logo" src="assets/images/iconArticle.svg" alt="" />
           <span class="nav-item-text" i18n>Articles</span>
         </a>
         <a routerLink="events" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-event.svg" alt="" />
+          <img class="logo" src="assets/images/iconEvents.svg" alt="" />
           <span class="nav-item-text" i18n>Events</span>
         </a>
         <a routerLink="survey" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-survey.svg" alt="" />
+          <img class="logo" src="assets/images/iconSurveys.svg" alt="" />
           <span class="nav-item-text" i18n>Surveys</span>
         </a>
       </ng-container>
       <!-- Role 3 -->
       <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 3">
         <a routerLink="feed" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-home.svg" alt="" />
+          <img class="logo" src="assets/images/iconHome.svg" alt="" />
           <span class="nav-item-text" i18n>Home</span>
         </a>
         <a routerLink="profile" class="nav-item" routerLinkActive="active">
@@ -457,19 +457,19 @@
           <span class="nav-item-text" i18n>My Profile</span>
         </a>
         <a routerLink="dashboard" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-Dashboard.svg" alt="" />
+          <img class="logo" src="assets/images/iconDashboard.svg" alt="" />
           <span class="nav-item-text" i18n>Dashboard</span>
         </a>
         <a routerLink="calendar" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-event.svg" alt="" />
+          <img class="logo" src="assets/images/iconCalendar.svg" alt="" />
           <span class="nav-item-text" i18n>Calendar</span>
         </a>
         <a routerLink="programs" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-training.svg" alt="" />
+          <img class="logo" src="assets/images/iconPrograms.svg" alt="" />
           <span class="nav-item-text" i18n>Programs</span>
         </a>
         <a routerLink="ideas" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-project-ide.svg" alt="" />
+          <img class="logo" src="assets/images/iconIdeaHub.svg" alt="" />
           <span class="nav-item-text" i18n>Idea Hub</span>
         </a>
         <a routerLink="meeting" class="nav-item" routerLinkActive="active">
@@ -477,24 +477,24 @@
           <span class="nav-item-text" i18n>Meeting Hub</span>
         </a>
         <a routerLink="knowledge" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-hub.svg" alt="" />
+          <img class="logo" src="assets/images/iconKnowledgeHub.svg" alt="" />
           <span class="nav-item-text" i18n>Knowledge Hub</span>
         </a>
         <a routerLink="articles" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-article.svg" alt="" />
+          <img class="logo" src="assets/images/iconArticle.svg" alt="" />
           <span class="nav-item-text" i18n>Articles</span>
         </a>
         <a routerLink="events" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-event.svg" alt="" />
+          <img class="logo" src="assets/images/iconEvents.svg" alt="" />
           <span class="nav-item-text" i18n>Events</span>
         </a>
         <a routerLink="survey" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-survey.svg" alt="" />
+          <img class="logo" src="assets/images/iconSurveys.svg" alt="" />
           <span class="nav-item-text" i18n>Surveys</span>
         </a>
         <ng-container *ngIf="isActiveEliteclub">
           <a routerLink="eliteclub" class="nav-item" routerLinkActive="active">
-            <img class="logo" src="assets/images/ico-home.svg" alt="" />
+            <img class="logo" src="assets/images/iconHome.svg" alt="" />
             <span class="nav-item-text" i18n>Elite Club</span>
           </a>
         </ng-container>
@@ -502,7 +502,7 @@
       <!-- Role 4 -->
       <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 4">
         <a routerLink="feed" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-home.svg" alt="" />
+          <img class="logo" src="assets/images/iconHome.svg" alt="" />
           <span class="nav-item-text" i18n>Home</span>
         </a>
         <a routerLink="profile" class="nav-item" routerLinkActive="active">
@@ -510,18 +510,18 @@
           <span class="nav-item-text" i18n>Profile</span>
         </a>
         <a routerLink="programs" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-training.svg" alt="" />
+          <img class="logo" src="assets/images/iconPrograms.svg" alt="" />
           <span class="nav-item-text" i18n>Programs</span>
         </a>
       </ng-container>
       <!-- Role 5 -->
       <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 5">
         <a routerLink="feed" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-home.svg" alt="" />
+          <img class="logo" src="assets/images/iconHome.svg" alt="" />
           <span class="nav-item-text" i18n>Home</span>
         </a>
         <a routerLink="dashboard" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-Dashboard.svg" alt="" />
+          <img class="logo" src="assets/images/iconDashboard.svg" alt="" />
           <span class="nav-item-text" i18n>Dashboard</span>
         </a>
         <a routerLink="applicants" class="nav-item" routerLinkActive="active">
@@ -529,7 +529,7 @@
           <span class="nav-item-text" i18n>Applicants Profile</span>
         </a>
         <a routerLink="calendar" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-event.svg" alt="" />
+          <img class="logo" src="assets/images/iconCalendar.svg" alt="" />
           <span class="nav-item-text" i18n>Calendar</span>
         </a>
         <a routerLink="attendance" class="nav-item" routerLinkActive="active">
@@ -540,11 +540,11 @@
       <!-- Role 6 -->
       <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 6">
         <a routerLink="feed" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-home.svg" alt="" />
+          <img class="logo" src="assets/images/iconHome.svg" alt="" />
           <span class="nav-item-text" i18n>Home</span>
         </a>
         <a routerLink="programs" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-training.svg" alt="" />
+          <img class="logo" src="assets/images/iconPrograms.svg" alt="" />
           <span class="nav-item-text" i18n>Programs</span>
         </a>
       </ng-container>

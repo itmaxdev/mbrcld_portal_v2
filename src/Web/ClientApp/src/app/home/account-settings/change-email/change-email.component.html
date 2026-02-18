@@ -1,4 +1,4 @@
-<app-card sectionTitle="Change Email" i18n-sectionTitle class="flex-grow">
+<!-- <app-card sectionTitle="Change Email" i18n-sectionTitle class="flex-grow">
   <div class="text-2xl text-center font-semibold mt-10 mb-10" *ngIf="isFormSubmitted" i18n>
     We have sent you an email!
   </div>
@@ -27,4 +27,90 @@
   </div>
 </app-card>
 
+<p-toast [preventOpenDuplicates]="true"></p-toast> -->
+
+<div class="mainContainer">
+  <div class="gridWrap">
+    <div class="generalCard">
+      <div class="inner">
+        <div class="cardTitleWrap">
+          <div class="cardTitle" i18n>Change Email</div>
+          <div class="cardTools">
+          </div>
+        </div>
+
+        <!-- ✅ Success Message -->
+        <div class="text-2xl text-center font-semibold mt-10 mb-10" *ngIf="isFormSubmitted" i18n>
+          We have sent you an email!
+        </div>
+
+        <div class="roundFormWrap" *ngIf="!isFormSubmitted">
+          <form
+            class="form-v3 filledColor"
+            [formGroup]="changeEmailForm"
+            (ngSubmit)="submitChangeEmail()"
+          >
+            <div class="inputBox">
+              <div class="input-field normal">
+                <label for="emailID" i18n>Email ID</label>
+                <input
+                  id="emailID"
+                  type="email"
+                  formControlName="newEmail"
+                  required
+                  placeholder="Enter Email"
+                  i18n-placeholder
+                />
+                <small
+                  class="p-invalid"
+                  *ngIf="
+                    changeEmailForm.get('newEmail')?.invalid &&
+                    changeEmailForm.get('newEmail')?.touched
+                  "
+                >
+                  Invalid email
+                </small>
+              </div>
+
+              <!-- ✅ Captcha -->
+              <div class="input-field full">
+                <p-captcha
+                  siteKey="6LeL-MIZAAAAACMfX2kvpM3V6dCwcxgq4LisXQNF"
+                  (onResponse)="showCaptchaResponse($event)"
+                >
+                </p-captcha>
+              </div>
+
+              <!-- ✅ Submit Button -->
+              <div class="input-field full buttonWrap">
+                <button
+                  type="submit"
+                  class="more wAuto"
+                  [disabled]="
+                    !changeEmailForm.get('newEmail')?.value ||
+                    changeEmailForm.get('newEmail')?.invalid ||
+                    isFormSubmitting
+                  "
+                >
+                  <span i18n>Submit</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- ✅ Go Home Button -->
+        <div *ngIf="isFormSubmitted" class="mt-5 p-col-12 flex justify-end">
+          <button type="button" class="more wAuto" (click)="goHome()">
+            <span i18n>Go Home</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-side-box></app-side-box>
+</div>
+
+<!-- ✅ Toast -->
 <p-toast [preventOpenDuplicates]="true"></p-toast>

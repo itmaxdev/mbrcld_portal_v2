@@ -104,8 +104,8 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     @Inject(LOCALE_ID) private locale: string,
     private facade: ProfileFacade,
     private programs: ProgramsClient,
-    private messageService: MessageService,
-  ) { }
+    private messageService: MessageService
+  ) {}
 
   async ngOnInit() {
     const profile: any = await this.facade.loadGeneralInformation()
@@ -117,9 +117,6 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     this.facade.profileChanges.pipe(takeUntil(this.destroy$)).subscribe((profile) => {
       this.handleProfileChanges(profile)
     })
-
-
-
 
     this.loadFormsProgress()
   }
@@ -133,13 +130,16 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     this.progressBarPercentage = formProgress.completionPercentage
 
     this.facade.formChanges.pipe(takeUntil(this.destroy$)).subscribe((formProgress) => {
-      if (this.progressBarPercentage != formProgress.completionPercentage && formProgress.completionPercentage == 100) {
+      if (
+        this.progressBarPercentage != formProgress.completionPercentage &&
+        formProgress.completionPercentage == 100
+      ) {
         var inprogressPrograms = this.programs.inprogressPrograms().subscribe((data) => {
           if (data) {
             let shouldInform = !false
             for (let x = 0; x < data.length; x++) {
               if (data[x].completed < 100) {
-                shouldInform = true;
+                shouldInform = true
                 break
               }
             }
@@ -149,8 +149,8 @@ export class UserInfoComponent implements OnInit, OnDestroy {
                 detail: $localize`Thank you for completing the profile, please go to programs to start enrolling!`,
                 severity: 'success',
                 closable: true,
-                life: 5000
-              });
+                life: 5000,
+              })
             }
           }
           inprogressPrograms.unsubscribe()

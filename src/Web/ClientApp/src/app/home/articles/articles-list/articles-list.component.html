@@ -200,7 +200,7 @@
                     </picture>
                   </a>
 
-                  <div class="articleTools">
+                  <!-- <div class="articleTools">
                     <div class="tool likeBox" (click)="toggleLike(article)">
                       <div
                         class="iconBox"
@@ -239,6 +239,15 @@
                       </div>
                       <span>{{ article.commentsCount }} Comments</span>
                     </a>
+                  </div> -->
+                  <div class="articleTools">
+                    <app-social-panel
+                      [id]="article.id"
+                      [type]="1"
+                      [liked]="article.liked"
+                      [likesCount]="article.likes"
+                      [commentsCount]="article.commentsCount"
+                    ></app-social-panel>
                   </div>
                 </div>
               </div>
