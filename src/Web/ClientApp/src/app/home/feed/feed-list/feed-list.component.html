@@ -282,7 +282,7 @@
             </picture>
           </div>
 
-          <a href="./reUserArticleDetails.html" class="c">
+          <a [routerLink]="['item', card.id]" [queryParams]="{ type: 2 }" class="c">
             <div class="t">{{ card.name }}</div>
             <div class="s">{{ card.writtenByName }} · {{ postsDates[card.id] }}</div>
           </a>
@@ -298,7 +298,7 @@
 
         <!-- IMAGE POST -->
         <ng-template #imageBlock>
-          <a href="./reUserArticleDetails.html" class="articleImg">
+          <a [routerLink]="['item', card.id]" [queryParams]="{ type: 2 }" class="articleImg">
             <img [src]="card.pictureUrl" alt="" width="442" height="276" loading="lazy" />
           </a>
         </ng-template>

@@ -8,6 +8,7 @@ import { MessageService } from 'primeng/api'
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
+  styleUrls: ['./change-password.component.css'],
   providers: [MessageService],
 })
 export class ChangePasswordComponent {
