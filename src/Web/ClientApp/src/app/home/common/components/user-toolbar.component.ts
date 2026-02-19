@@ -58,8 +58,8 @@ import { environment } from '../../../../environments/environment'
             </div>
           </form>
         </div>
-        <a href="./reUserDashboard_ar.html" class="roundBtn">
-          <span>AR</span>
+        <a href="javascript:void(0)" class="roundBtn" (click)="toggleLanguage()">
+          <span>{{ locale && locale.toString().startsWith('ar') ? 'EN' : 'AR' }}</span>
         </a>
         <a href="javascript:void(0)" class="roundBtn" data-count="7">
           <svg
@@ -213,6 +213,13 @@ export class UserToolbarComponent implements OnInit, OnDestroy {
       localStorage.removeItem('uaeCode')
       this.authService.login()
     }
+  }
+
+  toggleLanguage() {
+    const referer = encodeURIComponent(location.href)
+    const isArabic = this.locale && this.locale.toString().startsWith('ar')
+    const langValue = isArabic ? 'en-US' : 'ar-SA'
+    location.href = `/SetPreferredLanguage?lang=${encodeURIComponent(langValue)}&referer=${referer}`
   }
 
   // openChangeEmail() {
