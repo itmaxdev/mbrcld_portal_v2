@@ -3,12 +3,12 @@
     <div class="generalCard">
       <div class="inner">
         <div class="cardTitleWrap">
-          <div class="cardTitle">Knowledge Hub</div>
+            <div class="cardTitle" i18n>Knowledge Hub</div>
           <div class="cardTools">
             <div class="searchBox">
               <form class="form-v3 filledColor">
                 <div class="input-field">
-                  <input type="text" placeholder="Search" />
+                  <input type="text" placeholder="Search" i18n-placeholder />
                   <button class="iconBox">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -24,10 +24,10 @@
         <div class="gridWrap border">
           <div class="circleTabWrap">
             <a href="javascript:void(0)" class="cLink" [class.active]="activeTab === 0" (click)="handleChangeTab({index: 0})">
-              <span>Scholarships</span>
+              <span i18n>Scholarships</span>
             </a>
             <a href="javascript:void(0)" class="cLink" [class.active]="activeTab === 1" (click)="handleChangeTab({index: 1})">
-              <span>Scholarship Registration Status</span>
+              <span i18n>Scholarship Registration Status</span>
             </a>
           </div>
 

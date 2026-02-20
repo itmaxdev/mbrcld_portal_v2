@@ -143,16 +143,16 @@
             </div>
 
             <div class="gridWrap border">
-              <div class="buttonGroup end">
+                <div class="buttonGroup end">
                 <a
                   *ngIf="role != '1'"
                   class="more gray wAuto sm"
                   (click)="myArticles = !myArticles; filterMyArticles()"
                 >
-                  <span>My Articles</span>
+                  <span i18n>My Articles</span>
                 </a>
                 <a *ngIf="role != '1'" class="more wAuto sm" [routerLink]="['create']">
-                  <span>Add New Article</span>
+                  <span i18n>Add New Article</span>
                 </a>
               </div>
 

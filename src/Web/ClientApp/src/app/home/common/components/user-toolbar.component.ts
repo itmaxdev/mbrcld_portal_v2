@@ -30,7 +30,7 @@ import { environment } from '../../../../environments/environment'
         <div class="searchBox">
           <form class="form-v3">
             <div class="input-field">
-              <input type="text" placeholder="Search" />
+              <input type="text" placeholder="Search" i18n-placeholder />
               <button class="iconBox">
                 <svg
                   width="24"
@@ -78,7 +78,7 @@ import { environment } from '../../../../environments/environment'
       </div>
 
       <div class="loginInfoWrap">
-        <div class="name">Welcome, User</div>
+        <div class="name" i18n>Welcome, User</div>
         <!-- status options available : [online , offline , away]  -->
         <a
           href="javascript:void(0)"
