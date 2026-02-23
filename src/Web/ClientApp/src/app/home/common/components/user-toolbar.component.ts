@@ -131,7 +131,7 @@ export class UserToolbarComponent implements OnInit, OnDestroy {
       this.menuItems = [
         {
           label: $localize`User Manual`,
-          icon: 'custom-icon',
+          icon: 'pi pi-book',
           command: () => this.downloadUserManual(),
         },
         {
@@ -159,7 +159,7 @@ export class UserToolbarComponent implements OnInit, OnDestroy {
       this.menuItems = [
         {
           label: $localize`User Manual`,
-          icon: 'custom-icon',
+          icon: 'pi pi-book',
           command: () => this.downloadUserManual(),
         },
         {

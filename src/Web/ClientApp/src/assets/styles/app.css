@@ -6769,7 +6769,7 @@ body {
         font-size: calc(29 / var(--gfs) * 1rem)
     }
 }
-
+/* 
 body::-webkit-scrollbar {
     display: none
 }
@@ -6789,7 +6789,7 @@ body:has(.signUpWrap) {
 
 ::-webkit-scrollbar-thumb {
     background-color: var(--brandColor)
-}
+} */
 
 h1,
 h2,
