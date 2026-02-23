@@ -11,6 +11,63 @@ $buttonBgColor: #2d7bbb;
 }
 
 @font-face {
+  font-family: "Untitled Sans";
+  src: url("assets/fonts/UntitledSans-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Untitled Sans";
+  src: url("assets/fonts/UntitledSans-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Untitled Sans";
+  src: url("assets/fonts/UntitledSans-Black.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Untitled Sans";
+  src: url("assets/fonts/UntitledSans-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Untitled Sans";
+  src: url("assets/fonts/UntitledSans-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "HelveticaNeueLT";
+  src: url("assets/fonts/HelveticaNeueLTArabic-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "HelveticaNeueLT";
+  src: url("assets/fonts/HelveticaNeueLTArabic-Roman.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "HelveticaNeueLT";
+  src: url("assets/fonts/HelveticaNeueLTArabic-Bold.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'Helvetica Neue LT Arabic 55 Roman';
   font-weight: normal;
   font-style: normal;
@@ -19,7 +76,7 @@ $buttonBgColor: #2d7bbb;
 }
 
 .mbrcld-font {
-  font-family: 'Helvetica Neue LT Arabic 55 Roman', 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif !important;
+  font-family: var(--fontFamily);
 }
 
 // html,
@@ -238,3 +295,50 @@ body::-webkit-scrollbar {
 
 }
 
+
+.p-slidemenu.p-slidemenu-overlay {
+  border-radius: 15px;
+
+  .p-slidemenu-content {
+    margin: 13px 18px 0 18px;
+    overflow: visible;
+    ul {
+      width: 100%;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.7rem;
+
+      .p-menuitem-link {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        font-size: calc(26 / var(--gfs) * 1rem);
+        font-weight: 400;
+        transition: all .4s var(--ease);
+
+        .p-menuitem-icon {
+          padding: 7px;
+          border-radius: 50%;
+        }
+
+        &:hover {
+          background-color: transparent;
+
+          .p-menuitem-text {
+            color: #2e66d9;
+          }
+
+          .p-menuitem-icon {
+            background-color: #2e66d9;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}
