@@ -104,6 +104,23 @@
                             <div class="st" i18n>Contributor</div>
                             <div class="v">{{ item.alumniName }}</div>
                           </div>
+                          <div class="meta">
+                            <div class="st" i18n>Status</div>
+                            <div
+                              class="statusPin normal"
+                              [ngClass]="{
+                                'colorDanger': myIdeas && item.projectIdeaStatus === 1,
+                                'colorWarning': myIdeas && item.projectIdeaStatus !== 1,
+                                'colorSuccess': !myIdeas
+                              }"
+                            >
+                              <span *ngIf="myIdeas && item.projectIdeaStatus === 1" i18n>Draft</span>
+                              <span *ngIf="myIdeas && item.projectIdeaStatus !== 1" i18n
+                                >Pending Approval</span
+                              >
+                              <span *ngIf="!myIdeas" i18n>Published</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <div class="tools" *ngIf="myIdeas">
