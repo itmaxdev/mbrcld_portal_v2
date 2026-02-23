@@ -14,9 +14,19 @@ export class EventListComponent implements OnInit {
   eventListReady = false
   eventRegistrationReady = false
   test = true
+  currentView = 'events'
 
   async ngOnInit() {
-    this.fetchEventList()
+    this.toggleView('events')
+  }
+
+  toggleView(view: string) {
+    this.currentView = view
+    if (view === 'events' && !this.eventListReady) {
+      this.fetchEventList()
+    } else if (view === 'registration' && !this.eventRegistrationReady) {
+      this.fetchEventRegistrationList()
+    }
   }
 
   async fetchEventList() {
@@ -28,6 +38,19 @@ export class EventListComponent implements OnInit {
   }
 
   async fetchEventRegistrationList() {
+    if (!this.eventListReady) {
+      this.event.eventsGet().subscribe((data) => {
+        this.events = data
+        this.eventListReady = true
+        this.test = this.events.length == 0 ? false : true
+        this.getRegistrationList()
+      })
+    } else {
+      this.getRegistrationList()
+    }
+  }
+
+  getRegistrationList() {
     this.event.eventsRegistrationGet().subscribe((data) => {
       this.eventsRegistration = data
       this.eventRegistrationReady = true
@@ -53,11 +76,37 @@ export class EventListComponent implements OnInit {
   handleChangeTab(event) {
     switch (event.index) {
       case 0:
-        this.fetchEventList()
+        this.toggleView('events')
         break
       case 1:
-        this.fetchEventRegistrationList()
+        this.toggleView('registration')
         break
+    }
+  }
+
+  getStatusLabel(statusCode: number) {
+    switch (statusCode) {
+      case 8:
+        return this.locale === 'ar' ? 'مقبول' : 'Accepted'
+      case 9:
+        return this.locale === 'ar' ? 'مرفوض' : 'Rejected'
+      case 4:
+        return this.locale === 'ar' ? 'قيد المراجعة' : 'Under Review'
+      default:
+        return this.locale === 'ar' ? 'ملغي' : 'Cancelled'
+    }
+  }
+
+  getStatusClass(statusCode: number) {
+    switch (statusCode) {
+      case 8:
+        return 'colorSuccess'
+      case 9:
+        return 'colorDanger'
+      case 4:
+        return 'colorWarning'
+      default:
+        return 'colorInfo'
     }
   }
 }

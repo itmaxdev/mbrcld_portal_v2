@@ -246,7 +246,13 @@
                     </span>
                   </div>
                 </div>
-                <a href="javascript:void(0)" class="more wAuto" (click)="addToCalendar()">
+                <a
+                  href="javascript:void(0)"
+                  class="more wAuto"
+                  (click)="!eventItem.alreadyRegistered && addToCalendar()"
+                  [ngStyle]="{ 'opacity': eventItem.alreadyRegistered ? '0.5' : '1', 'cursor': eventItem.alreadyRegistered ? 'default' : 'pointer' }"
+                  [attr.disabled]="eventItem.alreadyRegistered ? true : null"
+                >
                   <span>Add to Calendar</span>
                 </a>
               </div>
