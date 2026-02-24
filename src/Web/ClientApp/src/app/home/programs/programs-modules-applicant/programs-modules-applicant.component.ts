@@ -37,6 +37,7 @@ interface SelectedTabsApplicantModule {
   styleUrls: ['./programs-modules-applicant.component.scss'],
 })
 export class ProgramsModulesApplicantComponent implements OnInit {
+  activeTab = 'newsfeed'
   id: string
   date: Date
   topic: string
