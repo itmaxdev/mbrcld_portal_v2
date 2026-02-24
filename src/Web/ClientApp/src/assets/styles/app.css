@@ -11986,7 +11986,7 @@ font-family: fcicons !important;
 
 .leadersProgressCard {
     display: grid;
-    grid-template-columns: 28% 1fr;
+    grid-template-columns: 29% 1fr;
     gap: 3rem;
     align-items: center
 }
