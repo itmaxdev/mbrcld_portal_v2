@@ -38,14 +38,12 @@ export class CalendarListComponent implements OnInit {
   slimS: any
   link: string
   startDate: string
-  title: string
-  eventInfo: any
+  eventInfo: any = null
   duration: number
   ready = false
   calendarVisible = true
+  modalVisible = false
   events: EventInput[] = []
-  readyEventInfo = false
-  clickedOnEvent = false
   eventsData: GetUserCalendarViewModel[]
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin],
@@ -81,7 +79,7 @@ export class CalendarListComponent implements OnInit {
     //  selectMirror: true,
     //  dayMaxEvents: true,
     //  longPressDelay: 200,
-    //  eventClick: this.handleEventClick.bind(this),
+    eventClick: this.handleEventClick.bind(this),
     //  eventsSet: this.handleEvents.bind(this),
   }
 
@@ -180,20 +178,25 @@ export class CalendarListComponent implements OnInit {
     }
   }
 
+  onModalClose() {
+    this.eventInfo = null
+  }
+
   handleEventClick(clickInfo: EventClickArg) {
-    this.readyEventInfo = false
     this.eventsData.map((item) => {
       if (item[clickInfo.event.groupId] === clickInfo.event.extendedProps.publicId) {
-        this.title = item.name
-        this.duration = item.duration
-        this.startDate = moment
-          .utc(new Date(item.startDate.toString()))
-          .lang('en')
-          .format('dddd, MMMM D')
+        this.eventInfo = {
+          name: item.name,
+          duration: item.duration,
+          title: item.type == 2 ? 'Meeting' : 'Event',
+          startDate: moment
+            .utc(new Date(item.startDate.toString()))
+            .lang('en')
+            .format('dddd, MMMM D'),
+        }
       }
     })
-    this.readyEventInfo = true
-    this.clickedOnEvent = true
+    this.modalVisible = true
   }
 
   handleEvents(events: EventApi[]) {
@@ -201,8 +204,6 @@ export class CalendarListComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.ready = true
-    return
     this.ready = false
     await Promise.all([
       this.calendar.calendar(undefined).subscribe((data) => {
