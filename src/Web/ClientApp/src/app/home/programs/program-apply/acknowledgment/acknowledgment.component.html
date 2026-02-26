@@ -1,40 +1,79 @@
-
-<h1 class="text-2xl font-bold" style="color: var(--primary-color)">Acknowledgment</h1>
-<p class="p-text-secondary mb-8" i18n>This section requires you to confirm that all your entries are valid, accurate and updated. Once you click submit you will no longer be able to make any edits to your registration form (except the References section).</p>
-
-<app-card class="rounded-lg bg-card-light shadow-none">
-  <div class="p-grid">
-    <div class="p-col-12">
-      <div class="text-lg text-justify" i18n>
-        I hereby declare that the information provided in this form is true to the best of my knowledge and belief. And
-        that I understand it is for use as selection criteria for the MBRCLD program. I understand the misrepresentation
-        of information in this form will lead to disqualification from the application process and that I will be
-        debarred from participation in the future programs of the MBRCLD.
+<form class="form-v3 filledColor formBlock" (ngSubmit)="completeEnrollment()">
+  <div class="formGroup">
+    <div class="grpInfo">
+      <div class="title" i18n>Acknowledgment</div>
+      <div class="textBox sm">
+        <p i18n>
+          This section requires you to confirm that all your entries are valid, accurate and
+          updated. Once you click submit you will no longer be able to make any edits to your
+          registration form (except the References section)
+        </p>
+        <p i18n>
+          I hereby declare that the information provided in this form is true to the best of my
+          knowledge and belief. And that i understand it is for use as selection criteria for the
+          MBRCLD program
+        </p>
       </div>
     </div>
-    <div class="p-col-12 py-8">
-      <p-checkbox label="I agree to the MBRCLD Terms" i18n-label [(ngModel)]="accepted" [binary]="true"></p-checkbox>
+
+    <div class="inputBox">
+      <div class="input-field normal full">
+        <div class="checkboxWrap sm">
+          <label>
+            <input
+              name="group1"
+              type="checkBox"
+              [(ngModel)]="accepted"
+              [ngModelOptions]="{ standalone: true }"
+            />
+            <span i18n>I agree to the MBRCLD terms</span>
+          </label>
+        </div>
+      </div>
     </div>
-   
   </div>
-</app-card>
-<div class="p-grid py-8">
-  <div class="p-col-12 flex justify-between">
-    <button pButton type="button" label="Back" i18n-label class="w-32" routerLink="../upload-video"></button>
-    <button pButton type="button" label="Finish" i18n-label class="p-button-success w-32" [disabled]="!accepted || isSubmitting"
-      (click)="completeEnrollment()"></button>
+
+  <div class="formGroup">
+    <div class="inputBox">
+      <div class="input-field normal full buttonWrap">
+        <button type="button" class="more wAuto" routerLink="../upload-video">
+          <span i18n>Previous</span>
+        </button>
+        <button
+          type="submit"
+          class="more wAuto"
+          [disabled]="!accepted || isSubmitting"
+          [ngClass]="{ colorGray: !accepted || isSubmitting }"
+        >
+          <span i18n>Finish</span>
+        </button>
+      </div>
+    </div>
   </div>
-</div>
+</form>
 
-<p-dialog header="Congratulations" i18n-header [visible]="successfullyEnrolled" [closable]="false" [resizable]="false"
-  [responsive]="true" [draggable]="false" [modal]="true" [focusTrap]="true" [focusOnShow]="true"
-  styleClass="w-full max-w-md">
-
+<p-dialog
+  header="Congratulations"
+  i18n-header
+  [visible]="successfullyEnrolled"
+  [closable]="false"
+  [resizable]="false"
+  [responsive]="true"
+  [draggable]="false"
+  [modal]="true"
+  [focusTrap]="true"
+  [focusOnShow]="true"
+  styleClass="w-full max-w-md"
+>
   <div class="flex justify-center py-8">
     <span class="pi pi-check text-6xl text-green-600"></span>
   </div>
 
-  <div class="text-xl text-center" dir="rtl">لقد قمتم باستكمال متطلبات المرحلة الأولى من مراحل التسجيل للبرنامج. يرجى العلم بأنه سيتم التواصل معكم في حال انتقالكم للمرحلة الثانية والتي تتضمن تقييم شامل وذلك للتأكد من استيفائكم كافة الشروط والأحكام الخاصة بالبرنامج.</div>
+  <div class="text-xl text-center" dir="rtl">
+    لقد قمتم باستكمال متطلبات المرحلة الأولى من مراحل التسجيل للبرنامج. يرجى العلم بأنه سيتم التواصل
+    معكم في حال انتقالكم للمرحلة الثانية والتي تتضمن تقييم شامل وذلك للتأكد من استيفائكم كافة الشروط
+    والأحكام الخاصة بالبرنامج.
+  </div>
 
   <ng-template pTemplate="footer">
     <button pButton label="Go Back" i18n-label routerLink="../programs"></button>

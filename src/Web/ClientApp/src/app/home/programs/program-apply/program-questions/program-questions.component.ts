@@ -82,8 +82,7 @@ export class ProgramQuestionsComponent implements OnInit {
 
     await this.save()
 
-    this.router.navigate(['../smart-assessment'], { relativeTo: this.activatedRoute })
-    // this.router.navigate(['../smart-assessment'], { relativeTo: this.activatedRoute })
+    this.router.navigate(['../upload-video'], { relativeTo: this.activatedRoute })
   }
 
   private getDirtyFormValues() {

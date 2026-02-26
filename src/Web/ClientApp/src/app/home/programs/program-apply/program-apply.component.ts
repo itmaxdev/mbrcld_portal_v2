@@ -19,7 +19,7 @@ export class ProgramApplyComponent implements OnInit {
   steps: MenuItem[]
 
   async stepperChanged(component) {
-    //this.enrollmentStatus = await this.shared.getEnrollmentStatus()
+    this.enrollmentStatus = await this.shared.getEnrollmentStatus()
     this.activeIndex = component.activeIndex
     this.rebindStepper(
       this.enrollmentStatus.isAchievementStepCompleted,
@@ -59,6 +59,15 @@ export class ProgramApplyComponent implements OnInit {
       if (resp) enrollmentId = resp
     }
     this.shared.setEnrollmentId(enrollmentId)
+    this.enrollmentStatus = await this.shared.getEnrollmentStatus()
+    this.rebindStepper(
+      this.enrollmentStatus.isAchievementStepCompleted,
+      this.enrollmentStatus.isReferenceStepCompleted,
+      this.enrollmentStatus.isQuestionStepCompleted,
+      this.enrollmentStatus.isVideoUploaded,
+      this.enrollmentStatus.isSmartAssessmentStepCompleted,
+      this.enrollmentStatus.isAcknowledgmentStepCompleted
+    )
     this.ready = true
   }
 
@@ -74,52 +83,59 @@ export class ProgramApplyComponent implements OnInit {
       {
         label: $localize`Achievements`,
         routerLink: 'achievements',
-        // styleClass: isAchievementStepCompleted
-        //   ? this.activeIndex != 0
-        //     ? 'p-highlighted'
-        //     : ''
-        //   : 'pointer-events-none',
+        styleClass: isAchievementStepCompleted ? (this.activeIndex != 0 ? 'completed' : '') : '',
       },
       {
         label: $localize`References`,
         routerLink: 'references',
-        // styleClass: isReferenceStepCompleted
-        //   ? this.activeIndex != 1
-        //     ? 'p-highlighted'
-        //     : ''
-        //   : 'pointer-events-none',
+        styleClass: isReferenceStepCompleted
+          ? this.activeIndex != 1
+            ? 'completed'
+            : ''
+          : isAchievementStepCompleted
+          ? ''
+          : 'pointer-events-none',
       },
       {
         label: $localize`Questions`,
         routerLink: 'questions',
-        // styleClass: isQuestionStepCompleted
-        //   ? this.activeIndex != 2
-        //     ? 'p-highlighted'
-        //     : ''
-        //   : 'pointer-events-none',
+        styleClass: isQuestionStepCompleted
+          ? this.activeIndex != 2
+            ? 'completed'
+            : ''
+          : isReferenceStepCompleted
+          ? ''
+          : 'pointer-events-none',
       },
-      {
-        label: $localize`Smart Assessment`,
-        routerLink: 'smart-assessment',
-        // styleClass: isSmartAssessmentCompleted
-        //   ? this.activeIndex != 4
-        //     ? 'p-highlighted'
-        //     : ''
-        //   : 'pointer-events-none',
-      },
+      // {
+      //   label: $localize`Smart Assessment`,
+      //   routerLink: 'smart-assessment',
+      //   styleClass: isSmartAssessmentCompleted
+      //     ? this.activeIndex != 3
+      //       ? 'completed'
+      //       : ''
+      //     : isQuestionStepCompleted ? '' : 'pointer-events-none',
+      // },
       {
         label: $localize`:@@programUploadVideoTitle:Upload Video`,
         routerLink: 'upload-video',
-        // styleClass: isSmartAssessmentCompleted
-        //   ? this.activeIndex != 3
-        //     ? 'p-highlighted'
-        //     : ''
-        //   : 'pointer-events-none',
+        styleClass: isVideoUploaded
+          ? this.activeIndex != 4
+            ? 'completed'
+            : ''
+          : isQuestionStepCompleted
+          ? ''
+          : 'pointer-events-none',
       },
+
       {
         label: $localize`Acknowledgment`,
         routerLink: 'acknowledgment',
-        //styleClass: isAcknowledgmentStepCompleted ? '' : 'pointer-events-none',
+        styleClass: isAcknowledgmentStepCompleted
+          ? ''
+          : isVideoUploaded
+          ? ''
+          : 'pointer-events-none',
       },
     ]
   }

@@ -1,4 +1,4 @@
-<div class="pb-8">
+<!-- <div class="pb-8">
   <h1 class="text-2xl font-bold" style="color: var(--primary-color)" i18n>Upload Video</h1>
 
   <p class="p-text-secondary mb-8" i18n="@@programUploadVideoDescription">Please upload a 1-minute video introducing
@@ -25,7 +25,7 @@
 
   <div class="grid py-8">
     <div class="p-col-12 flex justify-between">
-      <button pButton type="button" label="Back" i18n-label class="w-32" routerLink="../smart-assessment"></button>
+      <button pButton type="button" label="Back" i18n-label class="w-32" routerLink="../questions"></button>
       <button pButton [disabled]="!isVideoUploaded" type="button" label="Next" i18n-label class="w-32"
         routerLink="../acknowledgment"></button>
     </div>
@@ -37,3 +37,64 @@
     <p-progressSpinner></p-progressSpinner>
   </div>
 </ng-template>
+ -->
+
+<form class="form-v3 filledColor formBlock">
+  <div class="formGroup">
+    <div class="grpInfo">
+      <div class="title">Upload Video</div>
+    </div>
+
+    <div class="inputBox">
+      <div class="input-field full normal">
+        <label for="uploadYourPhoto">Please upload a 1 minute video introducing yourself.</label>
+        <input
+          id="uploadYourPhoto"
+          type="file"
+          accept="video/*"
+          (change)="onFileSelected($event)"
+          [disabled]="status === 1 || isVideoUploaded"
+        />
+        <p *ngIf="isVideoUploaded" class="success-text">
+          Video uploaded.
+        </p>
+        <div class="iconBox">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M21.4403 11.05L12.2503 20.24C11.1244 21.3658 9.59747 21.9983 8.00529 21.9983C6.41311 21.9983 4.88613 21.3658 3.76029 20.24C2.63445 19.1142 2.00195 17.5872 2.00195 15.995C2.00195 14.4028 2.63445 12.8758 3.76029 11.75L12.9503 2.56C13.7009 1.80944 14.7188 1.38778 15.7803 1.38778C16.8417 1.38778 17.8597 1.80944 18.6103 2.56C19.3609 3.31057 19.7825 4.32855 19.7825 5.39C19.7825 6.45146 19.3609 7.46944 18.6103 8.22L9.41029 17.41C9.03501 17.7853 8.52602 17.9961 7.99529 17.9961C7.46456 17.9961 6.95557 17.7853 6.58029 17.41C6.20501 17.0347 5.99418 16.5257 5.99418 15.995C5.99418 15.4643 6.20501 14.9553 6.58029 14.58L15.0703 6.1"
+              stroke="currentcolor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="formGroup">
+    <div class="inputBox">
+      <div class="input-field normal full buttonWrap">
+        <button type="button" class="more wAuto" routerLink="../questions">
+          <span>Previous</span>
+        </button>
+        <button
+          type="submit"
+          class="more wAuto"
+          [disabled]="!isVideoUploaded"
+          routerLink="../acknowledgment"
+          [ngClass]="{ colorGray: !isVideoUploaded }"
+        >
+          <span>Next</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
