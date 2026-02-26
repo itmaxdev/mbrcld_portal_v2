@@ -1,18 +1,18 @@
-import { GeneralInformationComponent } from './general-information/general-information.component'
-import { ProfileComponent } from './profile.component'
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { TeamComponent } from './team/team.component'
+import { RegistrantProfileComponent } from '../registrant-profile/registrant-profile.component'
+import { RegistrantGeneralInformationComponent } from '../registrant-profile/components/general-information/general-information.component'
+import { RegistrantModuleTeamComponent } from '../registrant-profile/components/module-team/module-team.component'
 
 const routes: Routes = [
   {
     path: '',
-    component: ProfileComponent,
+    component: RegistrantProfileComponent,
     canActivate: [],
     children: [
       {
         path: 'general-information',
-        component: GeneralInformationComponent,
+        component: RegistrantGeneralInformationComponent,
       },
       {
         path: '',
@@ -20,8 +20,8 @@ const routes: Routes = [
         redirectTo: 'general-information',
       },
       {
-        path: 'team',
-        component: TeamComponent,
+        path: 'module-team',
+        component: RegistrantModuleTeamComponent,
       },
       {
         path: '**',
