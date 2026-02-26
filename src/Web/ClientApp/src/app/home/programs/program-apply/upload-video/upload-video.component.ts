@@ -1,7 +1,9 @@
 import { ProgramApplyService } from '../program-apply.service'
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Subject, timer } from 'rxjs'
-import { takeUntil, takeWhile, tap } from 'rxjs/operators'
+import { HttpClient } from '@angular/common/http'
+import { EnrollmentsClient } from 'src/app/shared/api.generated.clients'
+import { SectionDataService } from 'src/app/shared/services/section-data.service'
 
 @Component({
   selector: 'app-upload-video',
@@ -14,12 +16,17 @@ import { takeUntil, takeWhile, tap } from 'rxjs/operators'
   2: error
 */
 export class UploadVideoComponent implements OnInit, OnDestroy {
-  status = 1
+  status = 0
   isVideoUploaded = false
   isDestroyed = false
   private destroy$ = new Subject<boolean>()
 
-  constructor(private shared: ProgramApplyService) {}
+  constructor(
+    private shared: ProgramApplyService,
+    private http: HttpClient,
+    private enrollmentsClient: EnrollmentsClient,
+    private section: SectionDataService
+  ) {}
 
   async ngOnInit() {
     await this.checkIfUploaded()
@@ -44,6 +51,34 @@ export class UploadVideoComponent implements OnInit, OnDestroy {
 
   async onUploadError(e, fileUpload) {
     this.status = 2
+  }
+
+  async onFileSelected(event: any) {
+    const file: File = event.target.files[0]
+    if (!file) return
+
+    this.status = 1
+
+    try {
+      const enrollmentId = await this.shared.getEnrollmentId()
+
+      const formData = new FormData()
+      formData.append('file', file)
+
+      if (enrollmentId) {
+        formData.append('enrollmentId', enrollmentId)
+      }
+
+      await this.videoUpload(formData)
+
+      await this.checkIfUploaded()
+    } catch (err) {
+      this.status = 2
+    }
+  }
+
+  async videoUpload(formData: FormData): Promise<any> {
+    return this.http.post('/api/programs/upload-video', formData).toPromise()
   }
 
   private async checkIfUploaded() {
