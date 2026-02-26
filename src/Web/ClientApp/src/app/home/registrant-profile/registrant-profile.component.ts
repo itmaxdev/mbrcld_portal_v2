@@ -6,7 +6,14 @@ import { Component, OnInit } from '@angular/core'
   // styleUrls: ['./registrant-profile.component.scss']
 })
 export class RegistrantProfileComponent implements OnInit {
+  role: number
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const profileInfo = JSON.parse(localStorage.getItem('profile_info'))
+    if (profileInfo) {
+      this.role = profileInfo.role
+    }
+  }
 }

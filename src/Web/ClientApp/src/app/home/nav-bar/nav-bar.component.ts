@@ -44,7 +44,7 @@ export class NavBarComponent implements OnDestroy, OnInit {
     {
       title: $localize`Team`,
       icon: 'ico-team.svg',
-      route: 'team',
+      route: 'module-team',
       isVisibleForInstructor: true,
       isVisibleForApplicant: false,
       isVisibleForRegistrant: false,

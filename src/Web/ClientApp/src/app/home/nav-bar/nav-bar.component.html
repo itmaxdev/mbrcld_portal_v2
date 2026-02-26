@@ -308,19 +308,53 @@
       </header>
     </ng-container>
     <!-- Role 4 -->
-    <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 4">
-      <a routerLink="feed" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/iconHome.svg" alt="" />
-        <span class="nav-item-text" i18n>Home</span>
-      </a>
-      <a routerLink="profile" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-profile.svg" alt="" />
-        <span class="nav-item-text" i18n>Profile</span>
-      </a>
-      <a routerLink="programs" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/iconPrograms.svg" alt="" />
-        <span class="nav-item-text" i18n>Programs</span>
-      </a>
+    <!-- Role 4 -->
+    <ng-container *ngIf="role === 4">
+      <header id="header">
+        <div class="navWrapper">
+          <div class="navLogo">
+            <a routerLink="/feed" class="logoBox">
+              <img src="./assets/images/logo.svg" class="mainLogo" alt="Logo" />
+            </a>
+          </div>
+
+          <div class="menuWrap">
+            <nav>
+              <ul>
+                <!-- Home -->
+                <li>
+                  <a routerLink="feed" routerLinkActive="active" class="navLink">
+                    <div class="iconBox">
+                      <img src="assets/images/iconHome.svg" width="30" height="30" />
+                    </div>
+                    <span i18n>Home</span>
+                  </a>
+                </li>
+
+                <!-- Profile -->
+                <li>
+                  <a routerLink="profile" routerLinkActive="active" class="navLink">
+                    <div class="iconBox">
+                      <img src="assets/images/ico-profile.svg" width="30" height="30" />
+                    </div>
+                    <span i18n>Profile</span>
+                  </a>
+                </li>
+
+                <!-- Programs -->
+                <li>
+                  <a routerLink="programs" routerLinkActive="active" class="navLink">
+                    <div class="iconBox">
+                      <img src="assets/images/iconPrograms.svg" width="30" height="30" />
+                    </div>
+                    <span i18n>Programs</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
     </ng-container>
     <!-- Role 5 -->
     <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 5">

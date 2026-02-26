@@ -4,11 +4,13 @@ import { ProfileInstructorRoutingModule } from './profile-instructor-routing.mod
 import { HomeSharedModule } from '../shared/home-shared.module'
 import { KeyFilterModule } from 'primeng/keyfilter'
 import { ProfileModule } from './profile.module'
+import { RegistrantProfileModule } from '../registrant-profile/registrant-profile.module'
 
 @NgModule({
   imports: [
     ProfileInstructorRoutingModule,
     ProfileModule,
+    RegistrantProfileModule,
     SharedModule,
     HomeSharedModule,
     KeyFilterModule,

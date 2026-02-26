@@ -79,5 +79,10 @@ const routes: Routes = [
     RegistrantDocumentUploadComponent,
   ],
   imports: [SharedModule, CommonModule, RouterModule.forChild(routes)],
+  exports: [
+    RegistrantProfileComponent,
+    RegistrantGeneralInformationComponent,
+    RegistrantModuleTeamComponent,
+  ],
 })
 export class RegistrantProfileModule {}
