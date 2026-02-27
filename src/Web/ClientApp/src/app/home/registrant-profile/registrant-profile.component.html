@@ -75,7 +75,7 @@
                   <a *ngIf="role !== 4" routerLink="skills" routerLinkActive="active" class="tabLink">
                     <span>Skills</span>
                   </a>
-                  <a routerLink="module-team" routerLinkActive="active" class="tabLink">
+                  <a *ngIf="role !== 2" routerLink="module-team" routerLinkActive="active" class="tabLink">
                     <span>Module Team</span>
                   </a>
                 </div>

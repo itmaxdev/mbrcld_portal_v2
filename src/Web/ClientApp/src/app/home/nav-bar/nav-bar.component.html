@@ -111,43 +111,111 @@
       </header>
     </ng-container>
     <!-- Role 2 -->
-    <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 2">
-      <a routerLink="feed" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/iconHome.svg" alt="" />
-        <span class="nav-item-text" i18n>Home</span>
-      </a>
-      <a routerLink="profile" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/ico-profile.svg" alt="" />
-        <span class="nav-item-text" i18n>My Profile</span>
-      </a>
-      <a routerLink="dashboard" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/iconDashboard.svg" alt="" />
-        <span class="nav-item-text" i18n>Dashboard</span>
-      </a>
-      <a routerLink="calendar" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/iconCalendar.svg" alt="" />
-        <span class="nav-item-text" i18n>Calendar</span>
-      </a>
-      <a routerLink="programs" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/iconPrograms.svg" alt="" />
-        <span class="nav-item-text" i18n>Programs</span>
-      </a>
-      <a routerLink="knowledge" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/iconKnowledgeHub.svg" alt="" />
-        <span class="nav-item-text" i18n>Knowledge Hub</span>
-      </a>
-      <a routerLink="articles" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/iconArticle.svg" alt="" />
-        <span class="nav-item-text" i18n>Articles</span>
-      </a>
-      <a routerLink="events" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/iconEvents.svg" alt="" />
-        <span class="nav-item-text" i18n>Events</span>
-      </a>
-      <a routerLink="survey" class="nav-item" routerLinkActive="active">
-        <img src="assets/images/iconSurveys.svg" alt="" />
-        <span class="nav-item-text" i18n>Surveys</span>
-      </a>
+    <ng-container *ngIf="role == 2">
+      <header id="header">
+        <div class="navWrapper">
+          <div class="navLogo">
+            <a routerLink="/feed" class="logoBox">
+              <img src="./assets/images/logo.svg" class="mainLogo" alt="Logo" />
+            </a>
+          </div>
+          <div class="menuWrap">
+            <nav>
+              <ul>
+                <!-- Home -->
+                <li>
+                  <a routerLink="feed" routerLinkActive="active" class="navLink">
+                    <div class="iconBox">
+                      <img src="assets/images/iconHome.svg" width="30" height="30" />
+                    </div>
+                    <span i18n>Home</span>
+                  </a>
+                </li>
+
+                <!-- My Profile -->
+                <li>
+                  <a routerLink="profile" routerLinkActive="active" class="navLink">
+                    <div class="iconBox">
+                      <img src="assets/images/ico-profile.svg" width="30" height="30" />
+                    </div>
+                    <span i18n>My Profile</span>
+                  </a>
+                </li>
+
+                <!-- Dashboard -->
+                <li>
+                  <a routerLink="dashboard" routerLinkActive="active" class="navLink">
+                    <div class="iconBox">
+                      <img src="assets/images/iconDashboard.svg" width="30" height="30" />
+                    </div>
+                    <span i18n>Dashboard</span>
+                  </a>
+                </li>
+
+                <!-- Calendar -->
+                <li>
+                  <a routerLink="calendar" routerLinkActive="active" class="navLink">
+                    <div class="iconBox">
+                      <img src="assets/images/iconCalendar.svg" width="30" height="30" />
+                    </div>
+                    <span i18n>Calendar</span>
+                  </a>
+                </li>
+
+                <!-- Programs -->
+                <li>
+                  <a routerLink="programs" routerLinkActive="active" class="navLink">
+                    <div class="iconBox">
+                      <img src="assets/images/iconPrograms.svg" width="30" height="30" />
+                    </div>
+                    <span i18n>Programs</span>
+                  </a>
+                </li>
+
+                <!-- Knowledge Hub -->
+                <li>
+                  <a routerLink="knowledge" routerLinkActive="active" class="navLink">
+                    <div class="iconBox">
+                      <img src="assets/images/iconKnowledgeHub.svg" width="30" height="30" />
+                    </div>
+                    <span i18n>Knowledge Hub</span>
+                  </a>
+                </li>
+
+                <!-- Articles -->
+                <li>
+                  <a routerLink="articles" routerLinkActive="active" class="navLink">
+                    <div class="iconBox">
+                      <img src="assets/images/iconArticle.svg" width="30" height="30" />
+                    </div>
+                    <span i18n>Articles</span>
+                  </a>
+                </li>
+
+                <!-- Events -->
+                <li>
+                  <a routerLink="events" routerLinkActive="active" class="navLink">
+                    <div class="iconBox">
+                      <img src="assets/images/iconEvents.svg" width="30" height="30" />
+                    </div>
+                    <span i18n>Events</span>
+                  </a>
+                </li>
+
+                <!-- Surveys -->
+                <li>
+                  <a routerLink="survey" routerLinkActive="active" class="navLink">
+                    <div class="iconBox">
+                      <img src="assets/images/iconSurveys.svg" width="30" height="30" />
+                    </div>
+                    <span i18n>Surveys</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
     </ng-container>
     <!-- Role 3 -->
     <ng-container *ngIf="role === 3">
@@ -308,7 +376,6 @@
       </header>
     </ng-container>
     <!-- Role 4 -->
-    <!-- Role 4 -->
     <ng-container *ngIf="role === 4">
       <header id="header">
         <div class="navWrapper">
@@ -391,7 +458,7 @@
       </a>
     </ng-container>
 
-    <ng-container *ngIf="urlFragments[1] === 'profile' && role !== 1">
+    <ng-container *ngIf="urlFragments[1] === 'profile' && role !== 1 && role !== 2">
       <a routerLink="feed" class="nav-item">
         <i class="pi pi-angle-left flip-dir"></i>
         <span class="nav-item-text ms-3" i18n>Back to main page</span>

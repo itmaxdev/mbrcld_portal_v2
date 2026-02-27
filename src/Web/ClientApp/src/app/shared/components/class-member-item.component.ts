@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core'
+import { Component, Input, OnInit, ViewEncapsulation, Output, EventEmitter } from '@angular/core'
 import { Router } from '@angular/router'
 import { MenuItem, MessageService } from 'primeng/api'
 import { tap } from 'rxjs/operators'
@@ -9,101 +9,83 @@ import { SectionDataService } from '../services/section-data.service'
   selector: 'app-class-member-item',
   template: `
     <p-toast position="top-right" key="tr"></p-toast>
-    <div
-      class="flex p-4 justify-between bg-gray-200 w-full"
-      [ngClass]="{ 'sm:w-full': fullWidth }"
-    >
-      <a class="view-user cursor-pointer" [routerLink]="'view-applicant/' + data.id">
-        <div class="image flex items-center">
-          <img
-            class="w-12 h-12 rounded-full"
-            [src]="data.profilePictureUrl"
-            onerror="this.src='assets/images/no-photo.png'"
-            alt=""
-          />
+    <div class="studentCard" [ngClass]="{ col2: !fullWidth }">
+      <a (click)="onProfileClick()" class="inner cursor-pointer">
+        <div class="imgBox">
+          <picture>
+            <img
+              [src]="data.profilePictureUrl"
+              onerror="this.src='assets/images/no-photo.png'"
+              alt=""
+              width="100"
+              height="100"
+              loading="lazy"
+            />
+          </picture>
         </div>
-        <div class="ml-2 flex items-center">
-          <p class="view-user-fullName text-xl" i18n>{{ data.name || data.fullName }}</p>
+
+        <div class="contentBox">
+          <div class="title">{{ data.name || data.fullName }}</div>
         </div>
       </a>
-      <ng-template *ngIf="!isEliteClub">
-        <div *ngIf="role === 3" class="toggleBtn">
-          <button
-            type="button"
-            pButton
-            pRipple
-            class="bg-white h-8"
-            icon="none"
-            (click)="menu.toggle($event)"
-          >
-            <i class="pi pi-ellipsis-h pi-2 text-gray-600" style="font-size: 2rem;"></i>
-          </button>
-          <p-menu #menu [popup]="true" [model]="items"></p-menu>
-        </div>
-      </ng-template>
-      <p-dialog
-        [header]="'Please select to which group you want to add ' + data.fullName"
-        [style]="{ height: '50vh' }"
-        [(visible)]="addToExistingGroup"
-      >
-        <div *ngIf="isGroupsReady; else loadingGroups" class="flex w-full justify-between">
-          <p-dropdown
-            [options]="groups"
-            [(ngModel)]="selectedGroup"
-            optionLabel="name"
-            placeholder="Select a Group"
-          ></p-dropdown>
-        </div>
-        <ng-template pTemplate="footer">
-          <p-button
-            icon="pi pi-check"
-            (click)="addToGroup()"
-            label="Add to Group"
-            class="p-button-text"
-          ></p-button>
-        </ng-template>
-        <ng-template #loadingGroups>
-          <app-progress-spinner></app-progress-spinner>
-        </ng-template>
-      </p-dialog>
+      <div *ngIf="role === 3 && !isEliteClub" class="toggleBtn absolute top-2 right-2">
+        <button
+          type="button"
+          pButton
+          pRipple
+          class="bg-white h-8"
+          icon="none"
+          (click)="menu.toggle($event); $event.stopPropagation()"
+        >
+          <i class="pi pi-ellipsis-h pi-2 text-gray-600" style="font-size: 2rem;"></i>
+        </button>
+        <p-menu #menu [popup]="true" [model]="items"></p-menu>
+      </div>
     </div>
+
+    <p-dialog
+      [header]="'Please select to which group you want to add ' + data.fullName"
+      [style]="{ height: '50vh', width: '30vw' }"
+      [(visible)]="addToExistingGroup"
+    >
+      <div *ngIf="isGroupsReady; else loadingGroups" class="flex w-full justify-between">
+        <p-dropdown
+          [options]="groups"
+          [(ngModel)]="selectedGroup"
+          optionLabel="name"
+          placeholder="Select a Group"
+          appendTo="body"
+        ></p-dropdown>
+      </div>
+      <ng-template pTemplate="footer">
+        <p-button
+          icon="pi pi-check"
+          (click)="addToGroup()"
+          label="Add to Group"
+          class="p-button-text"
+        ></p-button>
+      </ng-template>
+      <ng-template #loadingGroups>
+        <app-progress-spinner></app-progress-spinner>
+      </ng-template>
+    </p-dialog>
   `,
   styles: [
     `
-      .view-user {
-        display: flex;
-        align-items: center;
+      .studentCard {
+        position: relative;
       }
-
-      .view-user-fullName {
-        color: #265a8c;
-      }
-
-      .view-user .image {
-        min-width: 3rem;
-      }
-
       .toggleBtn .p-button {
         background: none;
         color: gray;
         border: none !important;
       }
-
       .toggleBtn .p-button:focus {
         box-shadow: none !important;
       }
-
       .toggleBtn .p-button:hover {
         background: none !important;
         color: gray;
-      }
-
-      .toggleBtn .p-button-icon-only span {
-        font-size: 4rem !important;
-      }
-
-      p-dialog .p-dialog-content {
-        height: 100%;
       }
     `,
   ],
@@ -114,6 +96,8 @@ export class ClassMemberItemController implements OnInit {
   @Input() data: any
   @Input() fullWidth = false
   @Input() isEliteClub = false
+  @Output() openProfile = new EventEmitter<string>()
+
   public items: MenuItem[]
   public role: number
   public id: string
@@ -122,6 +106,10 @@ export class ClassMemberItemController implements OnInit {
   public groups: any[]
   public selectedGroup: any
   public isGroupsReady = false
+
+  onProfileClick() {
+    this.openProfile.emit(this.data.id)
+  }
 
   constructor(
     private chatClient: ChatClient,

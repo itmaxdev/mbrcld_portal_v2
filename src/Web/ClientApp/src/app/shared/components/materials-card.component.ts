@@ -16,133 +16,120 @@ import { MaterialStatuses } from '../api.generated.clients'
 @Component({
   selector: 'app-materials-card',
   template: `
-    <div
-      class="materials-card border gap-4 border-gray-300 rounded-lg w-full grid-cols-1 justify-between p-6 grid"
-    >
-      <div class="header flex justify-between">
-        <a [routerLink]="isModules ? ['materials/' + materialUrl] : ['modules/' + materialUrl]">
-          <div class="header-caption flex cursor-pointer">
-            <div class="count mr-4 relative flex justify-center">
-              <p class="inline text-xl text-blue-600" i18n>
-                {{ order }}
-              </p>
+    <div class="blueCard col1">
+      <div class="edit-icon-block absolute top-2 right-2 z-10" *ngIf="isModules && isInstructor">
+        <a class="cursor-pointer" (click)="openMaterialDialog()">
+          <img src="assets/images/ico-edit-white.png" alt="" class="w-6" />
+        </a>
+      </div>
+      <a
+        [routerLink]="isModules ? ['materials/' + materialUrl] : ['modules/' + materialUrl]"
+        class="inner"
+      >
+        <div class="topBox">
+          <div class="num">{{ order | number: '2.0' }}</div>
+          <div class="title">{{ language === 'en' ? name : name_AR }}</div>
+        </div>
+
+        <div class="bottomBox">
+          <div class="metaBox">
+            <div class="m" *ngIf="location">
+              <div class="iconBox">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z"
+                    stroke="currentcolor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z"
+                    stroke="currentcolor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <span>{{ location }}</span>
             </div>
-            <div class="caption max-w-xs">
-              <p
-                class="caption-text text-lg text-blue-600"
-                [pTooltip]="name"
-                tooltipPosition="top"
-                i18n
-              >
-                {{ language === 'en' ? name : name_AR }}
-              </p>
+            <div class="m" *ngIf="startDate !== 'N/A'">
+              <div class="iconBox">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z"
+                    stroke="currentcolor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M16 2V6"
+                    stroke="currentcolor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M8 2V6"
+                    stroke="currentcolor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M3 10H21"
+                    stroke="currentcolor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <span>{{ startDate }}</span>
+            </div>
+            <div class="m" *ngIf="duration">
+              <div class="iconBox">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 21 21"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M17.6641 0.556641C17.8645 0.556641 18.0574 0.635656 18.1992 0.777344C18.341 0.919168 18.4209 1.11193 18.4209 1.3125C18.4209 1.51307 18.341 1.70583 18.1992 1.84766C18.0574 1.98934 17.8645 2.06836 17.6641 2.06836H16.7061V4.99512C16.7071 5.91622 16.4571 6.82042 15.9834 7.61035C15.5097 8.40026 14.8296 9.0466 14.0166 9.47949L12.1035 10.5L14.0166 11.5215L14.3145 11.6934C14.9957 12.1176 15.5678 12.6986 15.9824 13.3896C16.4562 14.1795 16.7062 15.0838 16.7051 16.0049V18.9316H17.6641C17.8644 18.9317 18.0565 19.0108 18.1982 19.1523C18.3401 19.2942 18.4199 19.4869 18.4199 19.6875C18.4199 19.8881 18.3401 20.0808 18.1982 20.2227C18.0565 20.3642 17.8644 20.4433 17.6641 20.4434H3.33594C3.13537 20.4434 2.94261 20.3645 2.80078 20.2227C2.65896 20.0808 2.58008 19.8881 2.58008 19.6875C2.58008 19.4869 2.65896 19.2942 2.80078 19.1523C2.94261 19.0105 3.13537 18.9316 3.33594 18.9316H4.29492V16.0039C4.29393 15.0831 4.54304 14.1793 5.0166 13.3896C5.49035 12.5998 6.1704 11.9532 6.9834 11.5205L8.89551 10.499L6.9834 9.47852C6.17043 9.04585 5.49033 8.40011 5.0166 7.61035C4.54283 6.8205 4.29383 5.91616 4.29492 4.99512V2.06836H3.33594C3.13537 2.06836 2.94261 1.98948 2.80078 1.84766C2.65896 1.70583 2.58008 1.51307 2.58008 1.3125C2.58008 1.11193 2.65896 0.919168 2.80078 0.777344C2.94261 0.635519 3.13537 0.556641 3.33594 0.556641H17.6641ZM7.69531 12.8545C7.12448 13.1588 6.64708 13.6131 6.31445 14.168C5.98183 14.7228 5.80608 15.358 5.80664 16.0049V18.9316H15.1934V16.0049C15.194 15.3581 15.0191 14.7227 14.6865 14.168C14.3539 13.6132 13.8765 13.1588 13.3057 12.8545L10.5 11.3564L7.69531 12.8545ZM5.80664 4.99512C5.80602 5.64202 5.98182 6.2772 6.31445 6.83203C6.6055 7.3175 7.00701 7.72611 7.48535 8.02441L7.69531 8.14551L10.5 9.64258L13.3047 8.14551C13.8755 7.84117 14.3529 7.38685 14.6855 6.83203C15.0181 6.27723 15.1929 5.64197 15.1924 4.99512V2.06836H5.80664V4.99512Z"
+                    fill="currentcolor"
+                    stroke="currentcolor"
+                    stroke-width="0.2"
+                  />
+                </svg>
+              </div>
+              <span>{{ duration }}</span>
             </div>
           </div>
-        </a>
-        <div *ngIf="isModules && isInstructor" class="edit-icon-block">
-          <a class="cursor-pointer" (click)="openMaterialDialog()">
-            <img src="assets/images/ico-edit-gray.png" alt="" class="w-6" />
-          </a>
         </div>
-      </div>
-      <div *ngIf="isModules" class="content">
-        <p class="content-text text-xl" i18n>
-          {{ description }}
-        </p>
-      </div>
-      <div class="footer grid">
-        <div *ngIf="!isInstructor" class="status flex items-center">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Globe_icon.svg/1024px-Globe_icon.svg.png"
-            alt=""
-            class="w-4 h-4 mr-2"
-          />
-          <p class="modules-fields">
-            <span>
-              {{ completed }}
-            </span>
-            <span i18n>% is Completed</span>
-          </p>
-        </div>
-        <div class="status flex items-center">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Globe_icon.svg/1024px-Globe_icon.svg.png"
-            alt=""
-            class="w-4 h-4 mr-2"
-          />
-          <p class="modules-fields" i18n>{{location ? location : 'Online'}}</p>
-        </div>
-        <div *ngIf="status == 936510001 && publishDate" class="status flex items-center">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Globe_icon.svg/1024px-Globe_icon.svg.png"
-            alt=""
-            class="w-4 h-4 mr-2"
-          />
-          <p class="modules-fields">{{ publishDate }}</p>
-        </div>
-        <div *ngIf="startDate" class="status flex items-center">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Globe_icon.svg/1024px-Globe_icon.svg.png"
-            alt=""
-            class="w-4 h-4 mr-2"
-          />
-          <p class="modules-fields">{{ startDate }}</p>
-        </div>
-        <div class="status flex items-center">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Globe_icon.svg/1024px-Globe_icon.svg.png"
-            alt=""
-            class="w-4 h-4 mr-2"
-          />
-          <p class="modules-fields modules-duration">{{ duration }}</p>
-        </div>
-      </div>
+      </a>
     </div>
   `,
   styles: [
     `
-      .count {
-        width: 22px;
-      }
-
-      .caption {
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      .caption-text {
-        height: 92px;
-        overflow: hidden;
-        width: 140px;
-        display: -webkit-box;
-        -webkit-line-clamp: 4;
-        -webkit-box-orient: vertical;
-      }
-
-      .content {
-        width: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      .content-text {
-        overflow: hidden;
-        width: 100%;
-        display: -webkit-box;
-        -webkit-line-clamp: 5;
-        -webkit-box-orient: vertical;
-      }
-
-      .header-caption:hover .caption-text {
-        text-decoration: underline;
-      }
-
-      .modules-fields {
-        color: #718096;
-      }
-
-      .modules-duration {
-        direction: ltr;
+      .edit-icon-block {
+        display: flex;
+        justify-content: flex-end;
       }
     `,
   ],

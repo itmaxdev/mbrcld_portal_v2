@@ -10,132 +10,75 @@ import { ActivatedRoute } from '@angular/router'
         <p class="text-sm text-center text-gray-700" i18n>No SECTIONS Added</p>
       </div>
       <ng-template #sections>
-        <div>
-          <div class="pb-4" [ngSwitch]="item.type">
-            <div *ngSwitchCase="1">
-              <div class="container">
-                <div class="h-24 w-full bg-gray-200 flex header">
-                  <img class="img" [src]="item.profilePictureUrl" />
-                  <div class="newsItemHeader">
-                    <p class="name">{{ item.instructorName }} | {{ item.moduleName }}</p>
-                    <p class="date" *ngIf="role == '4'">{{ item.publishDate }}</p>
-                  </div>
+        <div class="newsfeedCard">
+          <div class="inner">
+            <div class="topBox">
+              <div class="imgBox">
+                <picture>
+                  <img
+                    [src]="item.profilePictureUrl"
+                    alt=""
+                    width="100"
+                    height="100"
+                    loading="lazy"
+                  />
+                </picture>
+              </div>
+              <div class="c">
+                <div class="title">{{ item.instructorName }} | {{ item.moduleName }}</div>
+                <div class="dateBox" *ngIf="item.type != 1 || role == '4'">
+                  {{ item.publishDate }}
                 </div>
-                <div>
-                  <h1 class="text-xl font-semibold text-blue-800 text">{{ item.name }}</h1>
+              </div>
+            </div>
+
+            <div class="contentBox" [ngSwitch]="item.type">
+              <!-- Case 1: Text -->
+              <div *ngSwitchCase="1">
+                <div class="qTitle" *ngIf="item.name">{{ item.name }}</div>
+                <div class="textBox" [ngClass]="{ sm: !lessText }">
                   <div
                     [innerHTML]="item.text"
                     id="textarea"
-                    class="content-text content-block text-lg text ql-editor "
+                    class="content-text content-block text-lg text ql-editor"
                     dir="ltr"
                     [ngStyle]="{ '-webkit-line-clamp': lessText ? '100000000' : '5' }"
                   ></div>
                 </div>
-              </div>
-              <div>
                 <button class="btn" *ngIf="showMoreButtonVisible" (click)="showMore()">
                   {{ this.buttonText }}
                 </button>
-                <div class="pl-4 pr-4 pb-2">
-                  <app-newsfeed-social-panel
-                    [id]="item.id"
-                    [liked]="item.liked"
-                    [likesCount]="item.likes"
-                    [commentsCount]="commentsCount"
-                    [sharesCount]="shares"
-                    [type]="2"
-                  ></app-newsfeed-social-panel>
-                </div>
               </div>
-            </div>
-            <div *ngSwitchCase="2">
-              <div class="container">
-                <div class="h-24 w-full bg-gray-200 flex header">
-                  <img class="img" [src]="item.profilePictureUrl" />
-                  <p class="name">{{ item.instructorName }} |</p>
-                  <p class="name">{{ item.moduleName }}</p>
-                  <p class="date">{{ item.publishDate }}</p>
-                </div>
+
+              <!-- Case 2: Video -->
+              <div *ngSwitchCase="2">
+                <div class="qTitle" *ngIf="item.name">{{ item.name }}</div>
                 <div class="video">
                   <app-video-content [name]="item.name" [videoUrl]="item.url"></app-video-content>
                 </div>
               </div>
-              <div>
-                <div class="pl-4 pr-4 pb-2 panel">
-                  <app-newsfeed-social-panel
-                    [id]="item.id"
-                    [liked]="item.liked"
-                    [likesCount]="item.likes"
-                    [commentsCount]="commentsCount"
-                    [sharesCount]="shares"
-                    [type]="2"
-                  ></app-newsfeed-social-panel>
-                </div>
-              </div>
-            </div>
-            <div *ngSwitchCase="3">
-              <div class="container">
-                <div class="h-24 w-full bg-gray-200 flex header">
-                  <img class="img" [src]="item.profilePictureUrl" />
-                  <p class="name">{{ item.instructorName }} |</p>
-                  <p class="name">{{ item.moduleName }}</p>
-                  <p class="date">{{ item.publishDate }}</p>
-                </div>
+
+              <!-- Case 3: Document -->
+              <div *ngSwitchCase="3">
+                <div class="qTitle" *ngIf="item.name">{{ item.name }}</div>
                 <app-document-content
                   [name]="item.name"
                   [documentUrl]="item.documentUrl"
                 ></app-document-content>
               </div>
-              <div>
-                <div class="pl-4 pr-4 pb-2">
-                  <app-newsfeed-social-panel
-                    [id]="item.id"
-                    [liked]="item.liked"
-                    [likesCount]="item.likes"
-                    [commentsCount]="commentsCount"
-                    [sharesCount]="shares"
-                    [type]="2"
-                  ></app-newsfeed-social-panel>
-                </div>
-              </div>
-            </div>
-            <div *ngSwitchCase="4">
-              <div class="container">
-                <div class="h-24 w-full bg-gray-200 flex header">
-                  <img class="img" [src]="item.profilePictureUrl" />
-                  <p class="name">{{ item.instructorName }} |</p>
-                  <p class="name">{{ item.moduleName }}</p>
-                  <p class="date">{{ item.publishDate }}</p>
-                </div>
+
+              <!-- Case 4: Meeting -->
+              <div *ngSwitchCase="4">
+                <div class="qTitle" *ngIf="item.name">{{ item.name }}</div>
                 <app-meeting-content
                   [name]="item.name"
                   [link]="item.url"
                   [date]="item.startDate"
                 ></app-meeting-content>
               </div>
-              <div>
-                <div class="pl-4 pr-4 pb-2">
-                  <app-newsfeed-social-panel
-                    [id]="item.id"
-                    [liked]="item.liked"
-                    [likesCount]="item.likes"
-                    [commentsCount]="commentsCount"
-                    [sharesCount]="shares"
-                    [type]="2"
-                  ></app-newsfeed-social-panel>
-                </div>
-              </div>
-            </div>
-            <div *ngSwitchCase="5">
-              <div class="container">
-                <div class="h-24 w-full bg-gray-200 flex header">
-                  <img class="img" [src]="item.profilePictureUrl" />
-                  <div class="newsItemHeader">
-                    <p class="name">{{ item.instructorName }} | {{ item.moduleName }}</p>
-                    <p class="date">{{ item.publishDate }}</p>
-                  </div>
-                </div>
 
+              <!-- Case 5: Sticky Note -->
+              <div *ngSwitchCase="5">
                 <div class="relative flex justify-center ">
                   <img src="assets/images/stick-note.png" class="relative w-full z-0 stickImg " />
                   <div
@@ -145,21 +88,18 @@ import { ActivatedRoute } from '@angular/router'
                     [ngStyle]="{ '-webkit-line-clamp': '15' }"
                   ></div>
                 </div>
+              </div>
+            </div>
 
-                <!-- <app-text-content [name]="item.name" [text]="item.text"></app-text-content -->
-              </div>
-              <div>
-                <div class="pl-4 pr-4 pb-2">
-                  <app-newsfeed-social-panel
-                    [id]="item.id"
-                    [liked]="item.liked"
-                    [likesCount]="item.likes"
-                    [commentsCount]="commentsCount"
-                    [sharesCount]="shares"
-                    [type]="2"
-                  ></app-newsfeed-social-panel>
-                </div>
-              </div>
+            <div class="pb-2">
+              <app-newsfeed-social-panel
+                [id]="item.id"
+                [liked]="item.liked"
+                [likesCount]="item.likes"
+                [commentsCount]="commentsCount"
+                [sharesCount]="shares"
+                [type]="2"
+              ></app-newsfeed-social-panel>
             </div>
           </div>
         </div>
@@ -187,15 +127,6 @@ import { ActivatedRoute } from '@angular/router'
         list-style: disc !important;
       }
 
-      .header {
-        margin-left: 0%;
-        margin-top: 30px;
-      }
-
-      .panel {
-        margin-left: -1%;
-      }
-
       .content-text {
         color: #718096;
         width: 100%;
@@ -204,38 +135,6 @@ import { ActivatedRoute } from '@angular/router'
       .stickImg {
         height: 31rem;
         width: 31rem;
-      }
-      .container {
-        border: none;
-        width: 770px;
-      }
-
-      .date {
-        margin-left: -325px;
-        margin-top: 50px;
-      }
-
-      .text {
-        margin-left: 25px;
-        margin-top: 10px;
-      }
-
-      .img {
-        border-radius: 50%;
-        height: 50px;
-        width: 50px;
-        margin: 20px;
-      }
-
-      .name {
-        margin-left: 5px;
-        margin-top: 30px;
-      }
-
-      .footer {
-        border: none;
-        width: 770px;
-        height: 80px;
       }
 
       .video {
@@ -251,19 +150,13 @@ import { ActivatedRoute } from '@angular/router'
         display: flex;
         justify-content: center;
         background-color: #dde1e3;
+        padding: 5px 15px;
+        border-radius: 5px;
       }
       .stickText {
         margin-left: 28%;
         width: 44%;
         margin-top: 30px;
-      }
-      .newsItemHeader {
-        margin-top: 24px;
-        display: flex;
-        flex-direction: column;
-      }
-      .newsItemHeader > p {
-        margin: 0;
       }
     `,
   ],
