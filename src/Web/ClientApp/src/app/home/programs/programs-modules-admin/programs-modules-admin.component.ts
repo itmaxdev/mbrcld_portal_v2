@@ -94,6 +94,8 @@ export class ProgramsModulesAdminComponent implements OnInit {
   isnewsFeedListReady = false
   role: number
   isExistSections = false
+  viewApplicantDialog = false
+  selectedApplicantId: string
   @ViewChild('openChat') openChat: ElementRef<HTMLElement>
 
   statusOptions = [
@@ -124,7 +126,7 @@ export class ProgramsModulesAdminComponent implements OnInit {
     public materialsClient: MaterialsClient,
     private newsFeedsClient: NewsFeedsClient,
     @Inject(LOCALE_ID) public locale: string
-  ) { }
+  ) {}
 
   onSelectType(event) {
     const publishDateInput = this.materialForm.get('publishDate')
@@ -140,6 +142,11 @@ export class ProgramsModulesAdminComponent implements OnInit {
 
   goBack() {
     this.section.redirectBack(2)
+  }
+
+  viewApplicant(id: string) {
+    this.selectedApplicantId = id
+    this.viewApplicantDialog = true
   }
 
   openDialog(idMaterial) {
@@ -185,7 +192,6 @@ export class ProgramsModulesAdminComponent implements OnInit {
       this.isOpenedAcceleratedModal = true
     }
   }
-
 
   saveOverview() {
     if (this.overviewForm.valid) {
@@ -396,7 +402,7 @@ export class ProgramsModulesAdminComponent implements OnInit {
     this.profileInfo = JSON.parse(this.ls.getItem('profile_info'))
     this.userRole = this.profileInfo.role
     this.userId = this.profileInfo.id
-    this.isInstructorOrAdmin = this.profileInfo.role === 6;
+    this.isInstructorOrAdmin = this.profileInfo.role === 6
     if (this.role == 6) {
       this.newsFeedsClient.instructorOrAdminNewsfeeds(this.moduleId).subscribe((data) => {
         if (data) {

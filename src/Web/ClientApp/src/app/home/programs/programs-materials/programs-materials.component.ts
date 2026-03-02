@@ -68,14 +68,16 @@ export class ProgramsMaterialsComponent implements OnInit {
 
     if (this.isInstructorOrAdmin) {
       this.programs.userPrograms().subscribe((data) => {
-        data.filter((item) => item.id === this.id)
-        this.programName = data[0].name
+        const program = data.find((item) => item.id === this.id)
+        this.programName = program ? program.name : ''
       })
     } else {
       this.programs.inprogressPrograms().subscribe((data) => {
-        data.filter((item) => item.id === this.id)
-        this.programName = data[0].name
-        this.completed = data[0].completed
+        const program = data.find((item) => item.id === this.id)
+        if (program) {
+          this.programName = program.name
+          this.completed = program.completed
+        }
       })
     }
   }
@@ -152,6 +154,22 @@ export class ProgramsMaterialsComponent implements OnInit {
 
   getConvertedDuration(minutes: any) {
     return this.section.convertMinuteToHours(minutes?.toString())
+  }
+
+  /** Zero-padded module order for display (e.g. 1 → "01") */
+  getPaddedOrder(order: number | undefined): string {
+    const n = order ?? 0
+    return n < 10 ? '0' + n : String(n)
+  }
+
+  /** Duration label for module card (e.g. "01 Hours") */
+  getDurationLabel(minutes: number | undefined): string {
+    if (minutes == null) return '0 Hours'
+    const hours = Math.floor(minutes / 60)
+    const mins = minutes % 60
+    const h = hours < 10 ? '0' + hours : String(hours)
+    if (mins === 0) return h + ' ' + (hours === 1 ? 'Hour' : 'Hours')
+    return this.section.convertMinuteToHours(String(minutes))
   }
 
   getProjectStatusData(status: number) {
