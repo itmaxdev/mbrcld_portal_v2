@@ -6,7 +6,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 import {
   CalendarClient,
   ChatClient,
-  GetApplicantProfileViewModel,
   GetInstructorProfileViewModel,
   GetUniversityProfileViewModel,
   IListTeamMembersViewModel,
@@ -70,8 +69,7 @@ export class ProgramsModulesApplicantComponent implements OnInit {
   viewMemberReady = false
   viewMemberData: any
   viewApplicantDialog = false
-  viewApplicantReady = false
-  viewApplicantData: GetApplicantProfileViewModel
+  selectedApplicantId: string
   isInstructor = false
   materialId: string = undefined
   isClassListReady = false
@@ -236,12 +234,8 @@ export class ProgramsModulesApplicantComponent implements OnInit {
   }
 
   viewApplicant(id: string) {
-    this.viewApplicantReady = false
+    this.selectedApplicantId = id
     this.viewApplicantDialog = true
-    this.modules.applicantProfile(id).subscribe((data) => {
-      this.viewApplicantData = data
-      this.viewApplicantReady = true
-    })
   }
 
   addMaterial() {

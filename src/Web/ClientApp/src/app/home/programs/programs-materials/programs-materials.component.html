@@ -164,12 +164,14 @@
             <a (click)="setTab(0)" class="cLink" [class.active]="activeTab === 0">
               <span i18n>Modules</span>
             </a>
-            <a (click)="setTab(1)" class="cLink" [class.active]="activeTab === 1">
-              <span i18n>Projects</span>
-            </a>
-            <a (click)="setTab(2)" class="cLink" [class.active]="activeTab === 2">
-              <span i18n>Program Evaluation</span>
-            </a>
+            <ng-container *ngIf="!isInstructorOrAdmin">
+              <a (click)="setTab(1)" class="cLink" [class.active]="activeTab === 1">
+                <span i18n>Projects</span>
+              </a>
+              <a (click)="setTab(2)" class="cLink" [class.active]="activeTab === 2">
+                <span i18n>Program Evaluation</span>
+              </a>
+            </ng-container>
           </div>
 
           <ng-container *ngIf="activeTab === 0">
@@ -189,23 +191,27 @@
 
           <!-- Modules Tab -->
           <div *ngIf="activeTab === 0">
-            <div *ngIf="ready; else loadingModules" class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <div class="blueCard col1" *ngFor="let item of modulesData">
+            <div *ngIf="ready; else loadingModules" class="grid grid-cols-3 gap-4">
+              <div class="blueCard" *ngFor="let item of modulesData">
                 <a [routerLink]="['modules', item.id]" class="inner">
                   <div class="topBox">
-                    <div class="num">{{ item.order | number: '2.0-0' }}</div>
-                    <div class="title">{{ item.name }}</div>
-                    <div class="sub">({{ item.cohortName }})</div>
+                    <div class="num">{{ getPaddedOrder(item.order) }}</div>
+                    <div class="title">
+                      {{ locale === 'ar' ? item.name_AR || item.name : item.name }}
+                    </div>
+                    <div class="sub">({{ programName || item.cohortName || 'Online' }})</div>
                   </div>
 
                   <div class="bottomBox">
                     <div class="progressWrap">
-                      <div class="info">{{ item.completed }}% completed</div>
+                      <div class="info">
+                        {{ item.completed != null ? item.completed : 0 }}% completed
+                      </div>
                       <!-- color options available : [green , blue , red ]  -->
                       <div
                         class="progress col1"
                         data-color="blue"
-                        [style.--percentage]="item.completed + '%'"
+                        [style.--percentage]="(item.completed != null ? item.completed : 0) + '%'"
                       ></div>
                     </div>
 
@@ -235,7 +241,7 @@
                             />
                           </svg>
                         </div>
-                        <span>{{ item.cohortName ? item.cohortName : 'Online' }}</span>
+                        <span>{{ item.cohortName || 'Online' }}</span>
                       </div>
                       <div class="m">
                         <div class="iconBox">
@@ -295,7 +301,7 @@
                             />
                           </svg>
                         </div>
-                        <span>{{ getConvertedDuration(item.duration) }}</span>
+                        <span>{{ getDurationLabel(item.duration) }}</span>
                       </div>
                     </div>
                   </div>
@@ -768,7 +774,7 @@
 <p-dialog
   [(visible)]="displayEditModal"
   [modal]="true"
-  [style]="{ width: '600px', 'border-radius': '0.75rem', overflow: 'hidden' }"
+  [style]="{ 'width': '600px', 'border-radius': '0.75rem', 'overflow': 'hidden' }"
   [closable]="false"
   styleClass="project-edit-dialog"
 >
@@ -835,20 +841,10 @@
           ></textarea>
         </div>
         <div class="input-field normal full buttonWrap">
-          <button
-            type="button"
-            class="more wAuto"
-            (click)="saveProject(1)"
-            [disabled]="sending"
-          >
+          <button type="button" class="more wAuto" (click)="saveProject(1)" [disabled]="sending">
             <span i18n>Save as Draft</span>
           </button>
-          <button
-            type="button"
-            class="more wAuto"
-            (click)="saveProject(2)"
-            [disabled]="sending"
-          >
+          <button type="button" class="more wAuto" (click)="saveProject(2)" [disabled]="sending">
             <span i18n>Send for Approval</span>
           </button>
         </div>
