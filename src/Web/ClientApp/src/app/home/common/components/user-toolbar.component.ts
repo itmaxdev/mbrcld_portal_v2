@@ -61,7 +61,7 @@ import { environment } from '../../../../environments/environment'
         <a href="javascript:void(0)" class="roundBtn" (click)="toggleLanguage()">
           <span>{{ locale && locale.toString().startsWith('ar') ? 'EN' : 'AR' }}</span>
         </a>
-        <a href="javascript:void(0)" class="roundBtn" data-count="7">
+        <!-- <a href="javascript:void(0)" class="roundBtn" data-count="7">
           <svg
             width="22"
             height="22"
@@ -74,7 +74,7 @@ import { environment } from '../../../../environments/environment'
               fill="currentcolor"
             />
           </svg>
-        </a>
+        </a> -->
       </div>
 
       <div class="loginInfoWrap">

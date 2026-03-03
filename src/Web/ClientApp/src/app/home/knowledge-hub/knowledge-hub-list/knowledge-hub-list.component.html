@@ -33,24 +33,41 @@
 
           <!-- Scholarships Tab -->
           <ng-container *ngIf="activeTab === 0">
+            <div class="circleTabWrap normal subTabs scholarshipsSubTabs">
+              <a href="javascript:void(0)" class="cLink" [class.active]="scholarshipsFilterTab === 'active'" (click)="setScholarshipsFilterTab('active')">
+                <span i18n>Active</span>
+              </a>
+              <a href="javascript:void(0)" class="cLink" [class.active]="scholarshipsFilterTab === 'previous'" (click)="setScholarshipsFilterTab('previous')">
+                <span i18n>Previous</span>
+              </a>
+            </div>
             <ng-container *ngIf="scholarshipsListReady; else loading">
               <ng-container *ngIf="scholarships && scholarships.length > 0; else noScholarships">
-                <div class="eventCard col2" *ngFor="let item of scholarships">
-                  <a [routerLink]="item.id" class="inner">
-                    <div class="imgBox">
-                      <picture>
-                        <!-- Assuming item.pictureUrl is valid for src. -->
-                        <img [src]="item.pictureUrl" [alt]="item.name" width="442" height="242" loading="lazy" />
-                      </picture>
-                    </div>
-                    <div class="contentBox">
-                      <div class="dateBox">{{ item.fromDate | date: 'dd MMMM yyyy' }}</div>
-                      <div class="title">
-                        {{ item.name }}
+                <ng-container *ngIf="filteredScholarships.length > 0; else noFilteredScholarships">
+                  <div class="eventCard col2" *ngFor="let item of filteredScholarships">
+                    <a [routerLink]="item.id" class="inner">
+                      <div class="imgBox">
+                        <picture>
+                          <img [src]="item.pictureUrl" [alt]="item.name" width="442" height="242" loading="lazy" />
+                        </picture>
                       </div>
-                    </div>
-                  </a>
-                </div>
+                      <div class="contentBox">
+                        <div class="dateBox">{{ item.fromDate | date: 'dd MMMM yyyy' }}</div>
+                        <div class="title">
+                          {{ item.name }}
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </ng-container>
+                <ng-template #noFilteredScholarships>
+                  <div class="flex justify-center w-full" style="grid-column: 1 / -1;">
+                    <p class="text-center text" i18n *ngIf="scholarshipsFilterTab === 'active' && locale == 'en'">No active scholarships at the moment.</p>
+                    <p class="text-center text" i18n *ngIf="scholarshipsFilterTab === 'active' && locale == 'ar'">لا توجد منح نشطة حالياً.</p>
+                    <p class="text-center text" i18n *ngIf="scholarshipsFilterTab === 'previous' && locale == 'en'">No previous scholarships.</p>
+                    <p class="text-center text" i18n *ngIf="scholarshipsFilterTab === 'previous' && locale == 'ar'">لا توجد منح سابقة.</p>
+                  </div>
+                </ng-template>
               </ng-container>
 
               <ng-template #noScholarships>

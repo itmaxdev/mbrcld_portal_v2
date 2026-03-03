@@ -122,6 +122,16 @@
             </div>
           </div>
         </div>
+        <div class="block" *ngIf="data?.aboutMember">
+          <div class="blockTitle">
+            <span i18n>About</span>
+          </div>
+          <div class="metaWrap">
+            <div class="m full">
+              <div class="v" style="white-space: pre-line;">{{ data.aboutMember }}</div>
+            </div>
+          </div>
+        </div>
         <div class="block">
           <div class="blockTitle">
             <span i18n>Education</span>

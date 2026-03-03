@@ -66,7 +66,6 @@ export class ProgramsModulesApplicantComponent implements OnInit {
   isProgramNameReady = false
   isInstructorProfileReady = false
   viewMemberDialog = false
-  viewMemberReady = false
   viewMemberData: any
   viewApplicantDialog = false
   selectedApplicantId: string
@@ -225,11 +224,10 @@ export class ProgramsModulesApplicantComponent implements OnInit {
   }
 
   viewMember(event: string) {
-    this.viewMemberReady = false
-    this.viewMemberDialog = true
+    this.viewMemberDialog = false
     this.universityTeamMembers.universityTeamMemberGet(event).subscribe((data) => {
       this.viewMemberData = data
-      this.viewMemberReady = true
+      this.viewMemberDialog = true
     })
   }
 
