@@ -37,7 +37,7 @@ import { SectionDataService } from '../services/section-data.service'
           icon="none"
           (click)="menu.toggle($event); $event.stopPropagation()"
         >
-          <i class="pi pi-ellipsis-h pi-2 text-gray-600" style="font-size: 2rem;"></i>
+          <!-- <i class="pi pi-ellipsis-h pi-2 text-gray-600" style="font-size: 2rem;"></i> -->
         </button>
         <p-menu #menu [popup]="true" [model]="items"></p-menu>
       </div>

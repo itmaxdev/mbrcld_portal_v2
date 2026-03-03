@@ -53,8 +53,11 @@ export class KnowledgeHubListComponent implements OnInit {
 
   scholarshipsListReady = false
   scholarshipRegistrationListReady = false
-  scholarships: Array<any>[]
+  scholarships: Array<any> = []
   scholarshipsRegistrations: Array<any>
+
+  /** Tab under Scholarships: 'active' (openForRegistration) or 'previous' */
+  scholarshipsFilterTab: 'active' | 'previous' = 'active'
 
   constructor(private client: ScholarshipsClient, @Inject(LOCALE_ID) public locale: string) {}
 
@@ -92,6 +95,24 @@ export class KnowledgeHubListComponent implements OnInit {
   }
 
   activeTab = 0
+
+  get activeScholarships(): Array<any> {
+    return (this.scholarships || []).filter((s) => s.openForRegistration === true)
+  }
+
+  get previousScholarships(): Array<any> {
+    return (this.scholarships || []).filter((s) => s.openForRegistration !== true)
+  }
+
+  get filteredScholarships(): Array<any> {
+    return this.scholarshipsFilterTab === 'active'
+      ? this.activeScholarships
+      : this.previousScholarships
+  }
+
+  setScholarshipsFilterTab(tab: 'active' | 'previous') {
+    this.scholarshipsFilterTab = tab
+  }
 
   handleChangeTab(event) {
     this.activeTab = event.index

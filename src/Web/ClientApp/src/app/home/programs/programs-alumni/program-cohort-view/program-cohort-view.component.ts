@@ -8,6 +8,7 @@ import {
   ModulesClient,
   ProjectsClient,
 } from 'src/app/shared/api.generated.clients'
+import { SectionDataService } from 'src/app/shared/services/section-data.service'
 
 @Component({
   selector: 'app-program-cohort-view',
@@ -17,14 +18,18 @@ import {
 export class ProgramCohortViewComponent implements OnInit {
   modules: Array<IListModulesByEliteClubIdViewModel> = []
   public cohortId: string
-  public cohortProjects: ListProjectsByCohortIdViewModel[]
+  public cohortProjects: ListProjectsByCohortIdViewModel[] | null = null
   public role: number
+  activeTab = 0
+  ready = false
+
   constructor(
     private projects: ProjectsClient,
     private modulesService: ModulesClient,
     private route: ActivatedRoute,
     private _location: Location,
-    @Inject(LOCALE_ID) private locale: string
+    private sectionData: SectionDataService,
+    @Inject(LOCALE_ID) public locale: string
   ) {}
 
   ngOnInit() {
@@ -34,26 +39,32 @@ export class ProgramCohortViewComponent implements OnInit {
 
     this.modulesService.cohortModules(this.cohortId).subscribe((data) => {
       if (data) {
-        if (this.locale == 'en') {
-          data.forEach(
-            (item) =>
-              (item.startDate = moment(item.startDate).lang('en').format('[Start] DD/MM/YY') as any)
-          )
-        } else {
-          data.forEach(
-            (item) =>
-              (item.startDate = moment(item.startDate)
-                .lang('en')
-                .format('[تاريخ البدء] DD/MM/YY') as any)
-          )
-        }
         this.modules = data
       }
+      this.ready = true
     })
 
     this.projects.cohortProjects(this.cohortId).subscribe((data) => {
       this.cohortProjects = data
     })
+  }
+
+  setTab(index: number) {
+    this.activeTab = index
+  }
+
+  getPaddedOrder(order: number | undefined): string {
+    const n = order ?? 0
+    return n < 10 ? '0' + n : String(n)
+  }
+
+  getDurationLabel(minutes: number | undefined): string {
+    if (minutes == null) return '0 Hours'
+    const hours = Math.floor(minutes / 60)
+    const mins = minutes % 60
+    const h = hours < 10 ? '0' + hours : String(hours)
+    if (mins === 0) return h + ' ' + (hours === 1 ? 'Hour' : 'Hours')
+    return this.sectionData.convertMinuteToHours(String(minutes))
   }
 
   goBack() {

@@ -189,7 +189,7 @@ import { ISectorOption } from '../../profile/professional-experience/models'
               </div>
             </div>
 
-            <div class="gridWrap border">
+            <div class="gridWrap border" *ngIf="ready; else loading">
               <form class="form-v3 filledColor formBlock" [formGroup]="ideaForm">
                 <div class="formGroup">
                   <div class="inputList col2">
@@ -288,10 +288,15 @@ import { ISectorOption } from '../../profile/professional-experience/models'
 
       <app-side-box></app-side-box>
     </div>
+
+    <ng-template #loading>
+      <app-progress-spinner></app-progress-spinner>
+    </ng-template>
   `,
   providers: [ConfirmationService],
 })
 export class ProjectIdeasCreateComponent implements OnInit {
+  ready = false
   public ideaForm: FormGroup
   public ideaId: string = undefined
   public sectorOptions: ISectorOption[]
@@ -321,6 +326,7 @@ export class ProjectIdeasCreateComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.ready = false
     this.buildForm()
     await Promise.all([
       this.facade.loadSectorOptions().then((options) => {
@@ -343,7 +349,11 @@ export class ProjectIdeasCreateComponent implements OnInit {
           selectedSector: this.sectorOptions.find((opt) => opt.value == data.sectorId),
           otherSector: data.otherSector,
         })
+        this.onSelectType(this.sectorOptions.find((opt) => opt.value == data.sectorId))
+        this.ready = true
       })
+    } else {
+      this.ready = true
     }
   }
 
