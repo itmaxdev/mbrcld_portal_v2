@@ -1,4 +1,5 @@
-﻿using Mbrcld.Application.Features.Enrollments.Commands;
+﻿using Mbrcld.Application.Features.Dashboard.Queries;
+using Mbrcld.Application.Features.Enrollments.Commands;
 using Mbrcld.Application.Features.Metadata.Queries;
 using Mbrcld.SharedKernel.Result;
 using Mbrcld.Web.Constants;
@@ -36,5 +37,21 @@ namespace Mbrcld.Web.API
             var Dashboard = await this.mediator.Send(new DashboardQuery(id.Value));
             return Ok(Dashboard);
         }
+
+
+        [Authorize]
+        [HttpGet]
+        [Route("homepage")]
+        public async Task<ActionResult<DashboardViewModel>> GetHomePageDashboardData(Guid? id=null)
+        {
+            if (id == null)
+            {
+                id = User.GetUserId();
+            }
+            var Dashboard = await this.mediator.Send(new HomePageDashboardQuery(id.Value));
+            return Ok(Dashboard);
+        }
+
+
     }
 }
