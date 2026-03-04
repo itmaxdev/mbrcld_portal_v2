@@ -18,10 +18,10 @@ namespace Mbrcld.Infrastructure.Persistence.Models
         internal string Name_Ar { get; set; }
 
         [DataMember(Name = "do_description")]
-        internal string Desription { get; set; }
+        internal string Description { get; set; }
 
         [DataMember(Name = "do_description_ar")]
-        internal string Desription_Ar { get; set; }
+        internal string Description_Ar { get; set; }
 
         [DataMember(Name = "do_projectfile")]
         internal string ProjectFile { get; set; }
@@ -89,8 +89,8 @@ namespace Mbrcld.Infrastructure.Persistence.Models
                   .ForMember(dst => dst.Id, x => x.MapFrom(src => src.Id))
                   .ForMember(dst => dst.Name, x => x.MapFrom(src => src.Name))
                   .ForMember(dst => dst.Name_Ar, x => x.MapFrom(src => src.Name_Ar))
-                  .ForMember(dst => dst.Description, x => x.MapFrom(src => src.Desription))
-                  .ForMember(dst => dst.Description_Ar, x => x.MapFrom(src => src.Desription_Ar))
+                  .ForMember(dst => dst.Description, x => x.MapFrom(src => src.Description))
+                  .ForMember(dst => dst.Description_Ar, x => x.MapFrom(src => src.Description_Ar))
                   .ForMember(dst => dst.InstructorId, x => x.MapFrom(src => src.Instructor.ContactId))
                   .ForMember(dst => dst.ApplicantId, x => x.MapFrom(src => src.Applicant.ContactId))
                   .ForMember(dst => dst.ApplicantName, x => x.MapFrom(src => src.Applicant.FirstName + " " + src.Applicant.MiddleName + " " + src.Applicant.LastName))

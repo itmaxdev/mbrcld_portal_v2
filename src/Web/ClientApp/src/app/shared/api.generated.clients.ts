@@ -19737,9 +19737,9 @@ export interface IListProgramAnswersByEnrollmentIdViewModel {
 export class ListAlumniAvailableProgramViewModel implements IListAlumniAvailableProgramViewModel {
   id?: string
   name?: string | undefined
-  desription?: string | undefined
+  Description?: string | undefined
   name_AR?: string | undefined
-  desription_AR?: string | undefined
+  Description_AR?: string | undefined
   pictureUrl?: string | undefined
 
   constructor(data?: IListAlumniAvailableProgramViewModel) {
@@ -19754,9 +19754,9 @@ export class ListAlumniAvailableProgramViewModel implements IListAlumniAvailable
     if (_data) {
       this.id = _data['Id']
       this.name = _data['Name']
-      this.desription = _data['Desription']
+      this.Description = _data['Description']
       this.name_AR = _data['Name']
-      this.desription_AR = _data['Desription_AR']
+      this.Description_AR = _data['Description_AR']
       this.pictureUrl = _data['PictureUrl']
     }
   }
@@ -19772,7 +19772,7 @@ export class ListAlumniAvailableProgramViewModel implements IListAlumniAvailable
     data = typeof data === 'object' ? data : {}
     data['Id'] = this.id
     data['Name'] = this.name
-    data['Desription'] = this.desription
+    data['Description'] = this.Description
     data['PictureUrl'] = this.pictureUrl
     return data
   }
@@ -19781,7 +19781,7 @@ export class ListAlumniAvailableProgramViewModel implements IListAlumniAvailable
 export interface IListAlumniAvailableProgramViewModel {
   id?: string
   name?: string | undefined
-  desription?: string | undefined
+  Description?: string | undefined
   pictureUrl?: string | undefined
 }
 

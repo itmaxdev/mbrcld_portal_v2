@@ -25,8 +25,8 @@ namespace Mbrcld.Application.Features.Metadata.Queries
                     .ForMember(dst => dst.ProgramId, x => x.MapFrom(src => src.ProgramId))
                     .ForMember(dst => dst.ProgramName, x => x.MapFrom(src => src.ProgramName))
                     .ForMember(dst => dst.ProgramName, x => x.MapFrom(src => src.ProgramName_AR))
-                    .ForMember(dst => dst.ProgramDescription, x => x.MapFrom(src => src.ProgramDesription))
-                    .ForMember(dst => dst.ProgramDescription_AR, x => x.MapFrom(src => src.ProgramDesription_AR))
+                    .ForMember(dst => dst.ProgramDescription, x => x.MapFrom(src => src.ProgramDescription))
+                    .ForMember(dst => dst.ProgramDescription_AR, x => x.MapFrom(src => src.ProgramDescription_AR))
                     .ForMember(dst => dst.CohortYear, x => x.MapFrom(src => src.Year))
                     .ReverseMap();
             }

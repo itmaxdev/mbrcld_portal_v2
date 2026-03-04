@@ -18,7 +18,7 @@ namespace Mbrcld.Infrastructure.Persistence.Models
         internal ODataContact AlumniId { get; set; }
 
         [DataMember(Name = "do_description")]
-        internal string Desription { get; set; }
+        internal string Description { get; set; }
 
         [DataMember(Name = "do_body")]
         internal string Body { get; set; }
@@ -54,7 +54,7 @@ namespace Mbrcld.Infrastructure.Persistence.Models
                   .ForMember(dst => dst.Name, x => x.MapFrom(src => src.Name))
                   .ForMember(dst => dst.AlumniId, x => x.MapFrom(src => src.AlumniId.ContactId))
                   .ForMember(dst => dst.AlumniName, x => x.MapFrom(src => src.AlumniId.FirstName + " " + src.AlumniId.MiddleName + " " + src.AlumniId.LastName))
-                  .ForMember(dst => dst.Description, x => x.MapFrom(src => src.Desription))
+                  .ForMember(dst => dst.Description, x => x.MapFrom(src => src.Description))
                   .ForMember(dst => dst.Body, x => x.MapFrom(src => src.Body))
                   .ForMember(dst => dst.ProjectIdeaStatus, x => x.MapFrom(src => src.ProjectIdeaStatus))
                   .ForMember(dst => dst.Date, x => x.MapFrom(src => src.Date))

@@ -15,7 +15,7 @@ namespace Mbrcld.Infrastructure.Persistence.Models
         internal string Name { get; set; }
 
         [DataMember(Name = "do_description")]
-        internal string Desription { get; set; }
+        internal string Description { get; set; }
 
         [DataMember(Name = "do_poststatus")]
         internal int? PostStatus { get; set; }
@@ -46,7 +46,7 @@ namespace Mbrcld.Infrastructure.Persistence.Models
                 CreateMap<ODataPost, Post>()
                   .ForMember(dst => dst.Id, x => x.MapFrom(src => src.Id))
                   .ForMember(dst => dst.Name, x => x.MapFrom(src => src.Name))
-                  .ForMember(dst => dst.Description, x => x.MapFrom(src => src.Desription))
+                  .ForMember(dst => dst.Description, x => x.MapFrom(src => src.Description))
                   .ForMember(dst => dst.PostDate, x => x.MapFrom(src => src.PostDate))
                   .ForMember(dst => dst.ExpiryDate, x => x.MapFrom(src => src.ExpiryDate))
                   .ForMember(dst => dst.PostStatus, x => x.MapFrom(src => src.PostStatus))

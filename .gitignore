@@ -235,3 +235,7 @@ _Pvt_Extensions
 src/.DS_Store
 src/Web/.DS_Store
 /.idea
+/src/Web/ClientApp/package-lock.json
+/src/Web/ClientApp/package.json
+/src/Web/ClientApp/package-lock.json
+/src/Web/ClientApp/package.json

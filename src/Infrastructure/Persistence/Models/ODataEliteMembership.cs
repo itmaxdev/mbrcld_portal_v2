@@ -21,7 +21,7 @@ namespace Mbrcld.Infrastructure.Persistence.Models
         internal DateTime? ToDate { get; set; }
 
         [DataMember(Name = "do_description")]
-        internal string Decription { get; set; }
+        internal string Description { get; set; }
 
         [DataMember(Name = "do_type")]
         internal int Type { get; set; }
@@ -40,7 +40,7 @@ namespace Mbrcld.Infrastructure.Persistence.Models
                   .ForMember(dst => dst.Name, x => x.MapFrom(src => src.Name))
                   .ForMember(dst => dst.FromDate, x => x.MapFrom(src => src.FromDate))
                   .ForMember(dst => dst.ToDate, x => x.MapFrom(src => src.ToDate))
-                  .ForMember(dst => dst.Description, x => x.MapFrom(src => src.Decription))
+                  .ForMember(dst => dst.Description, x => x.MapFrom(src => src.Description))
                   .ForMember(dst => dst.Type, x => x.MapFrom(src => src.Type))
                   .ForMember(dst => dst.EliteClubId, x => x.MapFrom(src => src.EliteClub.Id))
                   .ReverseMap();

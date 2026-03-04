@@ -18,7 +18,7 @@ namespace Mbrcld.Infrastructure.Persistence.Models
         internal ODataContact WrittenBy { get; set; }
 
         [DataMember(Name = "do_description")]
-        internal string Desription { get; set; }
+        internal string Description { get; set; }
         
         [DataMember(Name = "do_thearticle")]
         internal string TheArticle { get; set; }
@@ -45,7 +45,7 @@ namespace Mbrcld.Infrastructure.Persistence.Models
                   .ForMember(dst => dst.Name, x => x.MapFrom(src => src.Name))
                   .ForMember(dst => dst.WrittenBy, x => x.MapFrom(src => src.WrittenBy.ContactId))
                   .ForMember(dst => dst.WrittenByName, x => x.MapFrom(src => src.WrittenBy.FirstName + " " + src.WrittenBy.MiddleName + " " + src.WrittenBy.LastName))
-                  .ForMember(dst => dst.Description, x => x.MapFrom(src => src.Desription))
+                  .ForMember(dst => dst.Description, x => x.MapFrom(src => src.Description))
                   .ForMember(dst => dst.TheArticle, x => x.MapFrom(src => src.TheArticle))
                   .ForMember(dst => dst.ArticleStatus, x => x.MapFrom(src => src.ArticlesStatus))
                   .ForMember(dst => dst.Date, x => x.MapFrom(src => src.Date))

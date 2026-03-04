@@ -21,7 +21,7 @@ import { SectionDataService } from 'src/app/shared/services/section-data.service
             {{ locale == 'ar' ? data.name_AR : data.name }}
           </h1>
           <p class="info-text text-lg text-gray">
-            {{ locale == 'ar' ? data.desription_AR : data.desription }}
+            {{ locale == 'ar' ? data.Description_AR : data.Description }}
           </p>
         </div>
       </div>

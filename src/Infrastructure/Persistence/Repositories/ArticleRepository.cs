@@ -123,7 +123,7 @@ namespace Mbrcld.Infrastructure.Persistence.Repositories
         {
             List<Article> articles = new List<Article> { };
             var odataArticles = await webApiClient.For<ODataArticle>()
-                .Filter(c => c.Name.Contains(search) || c.Desription.Contains(search))
+                .Filter(c => c.Name.Contains(search) || c.Description.Contains(search))
                 .Filter(c => c.ArticlesStatus == 3) //Published
                 .OrderByDescending(x => x.Date)
                 .ProjectToModel()
@@ -150,7 +150,7 @@ namespace Mbrcld.Infrastructure.Persistence.Repositories
         public async Task<IList<Article>> SearchUserArticlesAsync(Guid userId, string search, CancellationToken cancellationToken = default)
         {
             var odataArticles = await webApiClient.For<ODataArticle>()
-                .Filter(c => c.Name.Contains(search) || c.Desription.Contains(search))
+                .Filter(c => c.Name.Contains(search) || c.Description.Contains(search))
                 .Filter(c => c.WrittenBy.ContactId == userId)
                 .OrderByDescending(x => x.Date)
                 .ProjectToModel()

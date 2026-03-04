@@ -37,7 +37,7 @@ namespace Mbrcld.Infrastructure.Persistence.Models
                   .ForMember(dst => dst.EliteMembeshipId, x => x.MapFrom(src => src.EliteMembership.Id))
                   .ForMember(dst => dst.FromDate, x => x.MapFrom(src => src.EliteMembership.FromDate))
                   .ForMember(dst => dst.ToDate, x => x.MapFrom(src => src.EliteMembership.ToDate))
-                  .ForMember(dst => dst.Description, x => x.MapFrom(src => src.EliteMembership.Decription))
+                  .ForMember(dst => dst.Description, x => x.MapFrom(src => src.EliteMembership.Description))
                   .ReverseMap();
             }
         }

@@ -108,7 +108,7 @@ namespace Mbrcld.Infrastructure.Persistence.Repositories
         public async Task<IList<SpecialProject>> SearchSpecialProjectsAsync(string search, CancellationToken cancellationToken = default)
         {
             var odataSpecialProjects = await webApiClient.For<ODataSpecialProject>()
-                .Filter(c => c.Name.Contains(search) || c.Desription.Contains(search))
+                .Filter(c => c.Name.Contains(search) || c.Description.Contains(search))
                 .Filter(c => c.SpecialProjectStatus == 3) //Published
                 .OrderByDescending(x => x.Date)
                 .ProjectToModel()

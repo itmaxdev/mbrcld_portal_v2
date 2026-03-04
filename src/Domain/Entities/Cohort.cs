@@ -16,8 +16,8 @@
         public Guid ProgramId { get; set; }
         public string ProgramName { get; set; }
         public string ProgramName_AR { get; set; }
-        public string ProgramDesription { get; set; }
-        public string ProgramDesription_AR { get; set; }
+        public string ProgramDescription { get; set; }
+        public string ProgramDescription_AR { get; set; }
         public decimal TotalCost { get; set; }
 
         private Cohort() { }

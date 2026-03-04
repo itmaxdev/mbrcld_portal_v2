@@ -79,7 +79,7 @@ namespace Mbrcld.Infrastructure.Persistence.Repositories
         {
             DateTime yesterday = DateTime.Today.AddDays(-1);
             var odataPosts = await webApiClient.For<ODataPost>()
-                .Filter(c => c.Name.Contains(search) || c.Desription.Contains(search))
+                .Filter(c => c.Name.Contains(search) || c.Description.Contains(search))
                 .Filter(c => c.PostStatus == 2) //Published
                 .Filter(c => c.ExpiryDate > yesterday || c.ExpiryDate == null)
                 .Filter(c => c.PostDate <= DateTime.Today || c.PostDate == null)
