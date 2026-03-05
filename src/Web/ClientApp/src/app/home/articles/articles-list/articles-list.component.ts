@@ -13,6 +13,7 @@ import { DisclaimerTypes } from 'src/app/shared/components/disclaimer.component'
   styleUrls: ['./articles-list.component.scss'],
 })
 export class ArticlesListComponent implements OnInit {
+  componentName = 'articles'
   role: string
   ready = false
   searching = true

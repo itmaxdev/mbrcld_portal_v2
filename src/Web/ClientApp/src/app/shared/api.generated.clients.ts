@@ -8197,12 +8197,14 @@ export class PanHistoriesClient {
   /**
    * @param postId (optional)
    * @param newsfeedId (optional)
+   * @param articleId (optional)
    * @param comment (optional)
    * @return Success
    */
   comment(
     postId: string | undefined,
     newsfeedId: string | undefined,
+    articleId: string | undefined,
     comment: string | null | undefined
   ): Observable<string> {
     let url_ = this.baseUrl + '/api/pan-history/comment?'
@@ -8211,6 +8213,9 @@ export class PanHistoriesClient {
     if (newsfeedId === null) throw new Error("The parameter 'newsfeedId' cannot be null.")
     else if (newsfeedId !== undefined)
       url_ += 'newsfeedId=' + encodeURIComponent('' + newsfeedId) + '&'
+    if (articleId === null) throw new Error("The parameter 'articleId' cannot be null.")
+    else if (articleId !== undefined)
+      url_ += 'articleId=' + encodeURIComponent('' + articleId) + '&'
     if (comment !== undefined && comment !== null)
       url_ += 'comment=' + encodeURIComponent('' + comment) + '&'
     url_ = url_.replace(/[?&]$/, '')
@@ -8292,8 +8297,10 @@ export class PanHistoriesClient {
   /**
    * @return Success
    */
-  postComments(id: string): Observable<ListCommentsByPostIdViewModel[]> {
-    let url_ = this.baseUrl + '/api/pan-history/post-comments/{id}'
+  postComments(id: string, componentName?: string): Observable<ListCommentsByPostIdViewModel[]> {
+    let url_ = `${this.baseUrl}/api/pan-history/${
+      componentName === 'feed' ? 'post-comments' : 'article-comments'
+    }/{id}`;
     if (id === undefined || id === null) throw new Error("The parameter 'id' must be defined.")
     url_ = url_.replace('{id}', encodeURIComponent('' + id))
     url_ = url_.replace(/[?&]$/, '')
