@@ -82,6 +82,8 @@ namespace Mbrcld.Application.Features.Metadata.Queries
                     //}
                     var likedPosts =await panHistoryRepository.CheckIfPanHistoriesosLikedAsync(post.Id,request.UserId).ConfigureAwait(false);
                     post.Liked= likedPosts.Count > 0;
+                    var postsComments = await panHistoryRepository.GetCommentsCountByPostsAsync(post.Id).ConfigureAwait(false);
+                    post.Comments = postsComments;
                 }
 
                 //foreach(var record in mapped)

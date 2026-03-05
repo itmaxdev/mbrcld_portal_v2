@@ -14,6 +14,8 @@ namespace Mbrcld.Application.Interfaces.Repositories
         Task<Result> DeleteAsync(Guid contactId , Guid? ArticleId, Guid? PostId, Guid? NewsFeedId, CancellationToken cancellationToken = default);
         //Task<Maybe<PanHistory>> GetPanHistoryByUserIdAndArticleIdAsync(Guid userId, Guid articleid, CancellationToken cancellationToken = default);
         Task<IList<PanHistory>> ListPanHistoriesByArticlesAsync(Guid articleid, CancellationToken cancellationToken = default);
+        Task<int> GetCommentsCountByArticlesAsync(Guid articleid, CancellationToken cancellationToken = default);
+        Task<int> GetCommentsCountByPostsAsync(Guid articleid, CancellationToken cancellationToken = default);
         Task<IList<PanHistory>> ListPanHistoriesByNewsFeedsAsync(Guid newsfeedid, CancellationToken cancellationToken = default);
         Task<IList<PanHistory>> ListPanHistoriesByPostsAsync(Guid postid, CancellationToken cancellationToken = default);
         Task<IList<PanHistory>> CheckIfPanHistoriesosLikedAsync(Guid postid,Guid userid, CancellationToken cancellationToken = default);

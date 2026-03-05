@@ -13,6 +13,7 @@
         public DateTime? ExpiryDate { get; set; }
         public bool Liked { get; set; }
         public int? Likes { get; set; }
+        public int? Comments { get; set; }
         public string WrittenByName { get; set; }
         public Guid? WrittenBy { get; set; }
         public int Type { get; set; }

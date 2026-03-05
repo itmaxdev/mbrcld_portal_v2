@@ -15,6 +15,7 @@ namespace Mbrcld.Application.Features.Metadata.Queries
         public string ProfilePictureUrl { get; set; }
         public bool Liked { get; set; }
         public int? Likes { get; set; }
+        public int? Comments { get; set; }
         public string WrittenByName { get; set; }
         public Guid WrittenBy { get; set; }
         public DateTime Date { get; set; }

@@ -52,8 +52,7 @@ namespace Mbrcld.Infrastructure.Persistence.Models
                   .ForMember(dst => dst.PostStatus, x => x.MapFrom(src => src.PostStatus))
                   .ForMember(dst => dst.PostType, x => x.MapFrom(src => src.PostType))
                   .ForMember(dst => dst.VideoUrl, x => x.MapFrom(src => src.VideoUrl))
-                  .ForMember(dst => dst.Likes, x => x.MapFrom(src => src.Likes))
-                 // .ForMember(dst => dst.Pinned, x => x.MapFrom(src => src.Pinned))
+                  .ForMember(dst => dst.Likes, x => x.MapFrom(src => src.Likes))                  
                   .ReverseMap();
             }
         }

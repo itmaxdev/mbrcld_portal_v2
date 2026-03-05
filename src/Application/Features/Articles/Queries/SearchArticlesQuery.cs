@@ -45,6 +45,8 @@ namespace Mbrcld.Application.Features.Metadata.Queries
                 {
                     //var userlike = await panHistoryRepository.GetPanHistoryByUserIdAndArticleIdAsync(request.UserId, article.Id).ConfigureAwait(false);
                     var articlelikes = await panHistoryRepository.ListPanHistoriesByArticlesAsync(article.Id).ConfigureAwait(false);
+                    var articleComments = await panHistoryRepository.GetCommentsCountByArticlesAsync(article.Id).ConfigureAwait(false);
+
                     foreach (var likes in articlelikes)
                     {
                         if (likes.UserId == request.UserId)
@@ -58,6 +60,7 @@ namespace Mbrcld.Application.Features.Metadata.Queries
                     {
                         article.Likes = articlelikes.Count;
                     }
+                    article.Comments = articleComments;
                 }
                 return mapper.Map<IEnumerable<SearchArticlesViewModel>>(articles).ToList();
             }

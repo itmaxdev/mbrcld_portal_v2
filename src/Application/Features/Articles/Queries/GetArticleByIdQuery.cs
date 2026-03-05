@@ -44,6 +44,8 @@ namespace Mbrcld.Application.Features.Metadata.Queries
                 if (article.HasValue)
                 {
                     var articlelikes = await panHistoryRepository.ListPanHistoriesByArticlesAsync(article.Value.Id).ConfigureAwait(false);
+                    var articleComments = await panHistoryRepository.GetCommentsCountByArticlesAsync(article.Value.Id).ConfigureAwait(false);
+
                     foreach (var likes in articlelikes)
                     {
                         if (likes.UserId == request.UserId)
@@ -57,6 +59,7 @@ namespace Mbrcld.Application.Features.Metadata.Queries
                     {
                         article.Value.Likes = articlelikes.Count;
                     }
+                    article.Value.Comments = articleComments;
                 }
                 return mapper.Map<GetArticleByIdViewModel>(article.ValueOrDefault);
             }

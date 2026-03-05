@@ -57,6 +57,8 @@ namespace Mbrcld.Application.Features.Metadata.Queries
                     {
                         post.Value.Likes = postlikes.Count;
                     }
+                    var postsComments = await panHistoryRepository.GetCommentsCountByPostsAsync(post.Value.Id).ConfigureAwait(false);
+                    post.Value.Comments = postsComments;
                 }
                 return mapper.Map<GetPostByIdViewModel>(post.ValueOrDefault);
             }

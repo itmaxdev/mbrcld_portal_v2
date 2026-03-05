@@ -18,6 +18,7 @@ namespace Mbrcld.Application.Features.Metadata.Queries
         public string ProfilePictureUrl { get; set; }
         public bool Liked { get; set; }
         public int? Likes { get; set; }
+        public int? Comments { get; set; }
 
         #region Mapping profile
         private sealed class MappingProfile : Profile

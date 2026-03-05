@@ -7,6 +7,7 @@ using Mbrcld.SharedKernel;
 using Mbrcld.SharedKernel.Result;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -120,6 +121,17 @@ namespace Mbrcld.Infrastructure.Persistence.Repositories
             return this.mapper.Map<IList<PanHistory>>(odataPanHistory);
         }
 
+        public async Task<int> GetCommentsCountByArticlesAsync(Guid articleid, CancellationToken cancellationToken = default)
+        {
+            var odataPanHistory = await this.webApiClient.For<ODataPanHistory>()
+                .Filter(e => e.ArticleId.Id == articleid)
+                .Filter(e => e.Action == 2) //comments
+                .ProjectToModel()
+                .FindEntriesAsync()
+                .ConfigureAwait(false);
+
+            return this.mapper.Map<int>(odataPanHistory.Count());
+        }
         public async Task<IList<PanHistory>> ListPanHistoriesByNewsFeedsAsync(Guid newsfeedid, CancellationToken cancellationToken = default)
         {
             var odataPanHistory = await this.webApiClient.For<ODataPanHistory>()
@@ -167,6 +179,18 @@ namespace Mbrcld.Infrastructure.Persistence.Repositories
                 .ConfigureAwait(false);
 
             return this.mapper.Map<IList<PanHistory>>(odataPanHistory);
+        }
+
+        public async Task<int> GetCommentsCountByPostsAsync(Guid postid, CancellationToken cancellationToken = default)
+        {
+            var odataPanHistory = await this.webApiClient.For<ODataPanHistory>()
+                .Filter(e => e.PostId.Id == postid)
+                .Filter(e => e.Action == 2) //Like
+                .ProjectToModel()
+                .FindEntriesAsync()
+                .ConfigureAwait(false);
+
+            return this.mapper.Map<int>(odataPanHistory.Count());
         }
         public async Task<IList<PanHistory>> ListPanHistoriesCommentsByArticlesAsync(Guid articleid, CancellationToken cancellationToken = default)
         {

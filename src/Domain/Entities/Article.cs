@@ -16,7 +16,8 @@
         public bool Liked { get; set; }
         public bool AdminArticle { get; set; }
         public int? Likes { get; set; }
-
+        public int? Comments { get; set; }
+        
         private Article() { }
         public static Article Create(
             Guid userid,

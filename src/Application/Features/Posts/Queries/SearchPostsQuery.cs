@@ -45,6 +45,8 @@ namespace Mbrcld.Application.Features.Metadata.Queries
                 foreach (var article in articles)
                 {
                     var articlelikes = await panHistoryRepository.ListPanHistoriesByArticlesAsync(article.Id).ConfigureAwait(false);
+                    var articleComments = await panHistoryRepository.GetCommentsCountByArticlesAsync(article.Id).ConfigureAwait(false);
+
                     foreach (var likes in articlelikes)
                     {
                         if (likes.UserId == request.UserId)
@@ -58,15 +60,20 @@ namespace Mbrcld.Application.Features.Metadata.Queries
                     {
                         article.Likes = articlelikes.Count;
                     }
+                    article.Comments = articleComments;
                 }
 
                 var mapped = this.mapper.Map<IList<Post>>(articles);
                 var posts = await postRepository.SearchPostsAsync(request.Search, cancellationToken);
+
                 foreach (var post in posts)
                 {
                     post.Type = 2;//Post
                     post.WrittenBy = null;
                     var postlikes = await panHistoryRepository.ListPanHistoriesByPostsAsync(post.Id).ConfigureAwait(false);
+                    var postComments = await panHistoryRepository.GetCommentsCountByPostsAsync(post.Id).ConfigureAwait(false);
+
+                    post.Comments = postComments;
                     foreach (var likes in postlikes)
                     {
                         if (likes.UserId == request.UserId)
