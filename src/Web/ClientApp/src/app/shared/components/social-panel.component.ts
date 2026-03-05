@@ -20,8 +20,8 @@ import { PanHistoriesClient } from 'src/app/shared/api.generated.clients'
           <span>{{ likesCount }} likes</span>
         </div>
 
-        <!-- COMMENT -->
-        <div *ngIf="type == 2" class="tool commentBox" (click)="addCommentState = true">
+        <!-- COMMENT (posts type=2 and articles type=1) -->
+        <div class="tool commentBox" (click)="addCommentState = true">
           <div class="iconBox">
             <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <rect width="24" height="24" fill="white" />
@@ -161,6 +161,7 @@ import { PanHistoriesClient } from 'src/app/shared/api.generated.clients'
   encapsulation: ViewEncapsulation.None,
 })
 export class SocialPanelComponent implements OnInit {
+  @Input() componentName: string
   @Input() type: number
   @Input() liked: boolean
   @Input() id: string
@@ -198,10 +199,16 @@ export class SocialPanelComponent implements OnInit {
       })
       this.commentsCount++
       this.newComment = ''
-
+      let articleId = undefined
+      let postId = undefined
+      if (this.componentName === 'feed') {
+        postId = this.id
+      } else if (this.componentName === 'articles') {
+        articleId = this.id
+      }
       await Promise.all([
         this.panHistories
-          .comment(this.id, undefined, comment)
+          .comment(postId, undefined, articleId, comment)
           .pipe(tap(() => {}))
           .toPromise(),
       ])
@@ -247,7 +254,7 @@ export class SocialPanelComponent implements OnInit {
     this.isLiked ? (this.likeImg = this.activeIconHeart) : (this.likeImg = this.inactiveIconHeart)
 
     await Promise.all([
-      this.panHistories.postComments(this.id).subscribe((data) => {
+      this.panHistories.postComments(this.id, this.componentName).subscribe((data) => {
         this.commentsData = this.sortCommentsData(data)
         this.commentsCount = this.commentsData.length
       }),

@@ -118,7 +118,7 @@ export class NewsFeedSocialPanelComponent implements OnInit {
 
       await Promise.all([
         this.panHistories
-          .comment(this.postId, this.id, comment)
+          .comment(this.postId, this.id, undefined, comment)
           .pipe(tap(() => {}))
           .toPromise(),
       ])

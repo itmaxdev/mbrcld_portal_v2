@@ -16,6 +16,7 @@ interface DatesOfPosts {
   styleUrls: ['./feed-list.component.scss'],
 })
 export class FeedListComponent implements OnInit {
+  componentName = 'feed'
   ready = false
   role: number
   postsData: ListPostsViewModel[]
