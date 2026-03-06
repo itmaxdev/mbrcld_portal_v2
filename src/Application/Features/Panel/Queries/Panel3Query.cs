@@ -39,19 +39,19 @@ namespace Mbrcld.Application.Features.Panel.Queries
                 {
                     Title = "MBRCLD Alumni",
                     Title_AR = "خريج",
-                    Number = "700+"
+                    Number = "700"
                 });
                 panel3.Add(new Panel3ViewModel()
                 {
                     Title = "Sectors",
                     Title_AR = "قطاع",
-                    Number = "40+"
+                    Number = "40"
                 });
                 panel3.Add(new Panel3ViewModel()
                 {
                     Title = "Transformational ideas and projects",
                     Title_AR = "فكرة ومشروع",
-                    Number = "1000+"
+                    Number = "1000"
                 });
                 return mapper.Map<List<Panel3ViewModel>>(panel3);
             }
