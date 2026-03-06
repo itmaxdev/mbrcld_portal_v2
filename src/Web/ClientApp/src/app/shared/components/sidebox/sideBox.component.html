@@ -2,77 +2,27 @@
     <div class="inlineCalenderSmallCard">
         <div class="inner">
             <div class="inlineCalenderSmall" #inlineCalenderSmall id="inlineCalenderSmall"></div>
-
-            <div class="articleList">
-                <div class="articleSmallCard">
-                    <a href="#" class="inner">
-                        <div class="articleImg">
-                            <picture class="">
-                                <source srcset="./assets/images/articleImg1.webp" type="image/webp" />
-                                <source srcset="./assets/images/articleImg1.jpg" type="image/jpeg" />
-                                <img src="./assets/images/articleImg1.jpg" alt="" width="80" height="57"
-                                    loading="lazy" />
-                            </picture>
-                        </div>
-
-                        <div class="contentBox">
-                            <div class="date">27 June 2025</div>
-                            <div class="t">
-                                Lorem ipsum dolor sit amet, consec tetur adipiscing elit...
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="articleSmallCard">
-                    <a href="#" class="inner">
-                        <div class="articleImg">
-                            <picture class="">
-                                <source srcset="./assets/images/articleImg2.webp" type="image/webp" />
-                                <source srcset="./assets/images/articleImg2.jpg" type="image/jpeg" />
-                                <img src="./assets/images/articleImg2.jpg" alt="" width="80" height="57"
-                                    loading="lazy" />
-                            </picture>
-                        </div>
-
-                        <div class="contentBox">
-                            <div class="date">27 June 2025</div>
-                            <div class="t">
-                                Lorem ipsum dolor sit amet, consec tetur adipiscing elit...
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
         </div>
     </div>
     <div class="leadersHighlightCard">
-        <div class="imgBox">
-            <picture class="">
+        <div class="imgBox" *ngIf="videoUrl">
+                <iframe [src]="videoUrl" width="100%" height="188" i18n>
+                    Video not found
+                  </iframe>
+            <!-- <picture class="" *ngIf="!videoUrl">
                 <source srcset="./assets/images/leadersHighlightImg.jpg" type="image/jpeg" />
                 <img src="./assets/images/leadersHighlightImg.jpg" alt="" width="314" height="188" loading="lazy" />
-            </picture>
+            </picture> -->
         </div>
         <div class="contentBox">
-            <div class="title" i18n>Leaders Highlights</div>
+            <div class="title" i18n>{{currentLang == 'en' ? 'Leaders Highlights' : 'معلومات المركز'}}</div>
 
             <div class="points">
-                <div class="p">
-                    <div class="num" dir="ltr" data-animcount="700">
-                        <i class="not-italic">700</i><sup>+</sup>
+                <div class="p" *ngFor="let item of listItems">
+                    <div class="num" dir="ltr" data-animcount="item.number">
+                        <i class="not-italic">{{item.number}}</i><sup>+</sup>
                     </div>
-                    <span i18n>MBRCLD Alumni</span>
-                </div>
-                <div class="p">
-                    <div class="num" dir="ltr" data-animcount="40">
-                        <i class="not-italic">40</i><sup>+</sup>
-                    </div>
-                    <span i18n>Sectors</span>
-                </div>
-                <div class="p">
-                    <div class="num" dir="ltr" data-animcount="1000">
-                        <i class="not-italic">1000</i><sup>+</sup>
-                    </div>
-                    <span i18n>Transformational ideas and projects</span>
+                    <span i18n>{{item.title}}</span>
                 </div>
             </div>
         </div>

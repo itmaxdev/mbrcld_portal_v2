@@ -334,11 +334,10 @@ export class ProjectIdeasCreateComponent implements OnInit {
       }),
     ])
     this.ideaId = this.route.snapshot.paramMap.get('ideaId')
+    this.isEditingMode = !!this.ideaId
+
     if (this.ideaId) {
       this.projectIdeas.projectIdeasGetById(this.ideaId).subscribe((data) => {
-        if (data.projectIdeaStatus === 3) {
-          this.isEditingMode = true
-        }
         this.uploadedFile = data.uploadedFile
         this.ideaForm.patchValue({
           name: data.name,

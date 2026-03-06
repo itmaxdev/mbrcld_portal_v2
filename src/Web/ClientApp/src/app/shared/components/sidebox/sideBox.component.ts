@@ -1,5 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core'
+import { Component, OnInit, ViewChild, ElementRef, Inject, LOCALE_ID } from '@angular/core'
 import Datepicker from 'vanillajs-datepicker/js/Datepicker'
+import { Panel3ViewModel, RightPanelClient } from '../../api.generated.clients'
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
+import { debounceTime } from 'rxjs/operators'
 
 @Component({
   selector: 'app-side-box',
@@ -7,6 +10,13 @@ import Datepicker from 'vanillajs-datepicker/js/Datepicker'
   styleUrls: ['./sideBox.component.scss'],
 })
 export class SideBoxComponent {
+  role: number
+  currentProgram: any
+  currentModule: any
+  videoUrl: SafeResourceUrl
+  listItems: any[] = []
+  currentLang: string
+
   @ViewChild('inlineCalenderSmall', { static: false })
   calendarEl!: ElementRef
 
@@ -19,9 +29,68 @@ export class SideBoxComponent {
     '2025-12-24',
   ]
 
-  constructor() {}
+  constructor(
+    @Inject(LOCALE_ID) locale: string,
+    private rightPanelClient: RightPanelClient,
+    private _sanitizer: DomSanitizer
+  ) {
+    this.currentLang = locale
+  }
 
-  ngOnInit() {}
+  ngOnInit(): void {
+    this.role = JSON.parse(localStorage.getItem('profile_info')).role
+    if (this.role == 1) {
+      this.getCurrentProgram()
+    } else if (this.role == 2) {
+      this.getCurrentModule()
+    }
+    this.getPinned()
+    this.getLists()
+  }
+
+  getPinned() {
+    this.rightPanelClient
+      .pinnedGet()
+      .pipe(debounceTime(600))
+      .subscribe((res: any) => {
+        if (res) {
+          this.videoUrl = this._sanitizer.bypassSecurityTrustResourceUrl(
+            'https://player.vimeo.com/video/' + res.videoUrl.split('/').pop()
+          )
+        }
+      })
+  }
+
+  getCurrentProgram() {
+    this.rightPanelClient
+      .currentProgramGet()
+      .pipe(debounceTime(600))
+      .subscribe((res: any) => {
+        if (res) {
+          this.currentProgram = res
+        }
+      })
+  }
+
+  getCurrentModule() {
+    this.rightPanelClient
+      .currentModuleGet()
+      .pipe(debounceTime(600))
+      .subscribe((res: any) => {
+        if (res) {
+          this.currentModule = res
+        }
+      })
+  }
+
+  getLists() {
+    this.rightPanelClient.listsGet().subscribe((res: Panel3ViewModel[]) => {
+      if (res) {
+        this.listItems = res
+        console.log(this.listItems)
+      }
+    })
+  }
 
   ngAfterViewInit(): void {
     if (!this.calendarEl) return
@@ -57,7 +126,6 @@ export class SideBoxComponent {
         content: `<span>${date.getDate()}</span>`,
       }
     }
-
     return
   }
 

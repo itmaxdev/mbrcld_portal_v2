@@ -1,6 +1,7 @@
 import * as moment from 'moment'
 import { Component, OnInit } from '@angular/core'
 import {
+  DashboardClient,
   ListPostsViewModel,
   PostsClient,
   SearchArticlesViewModel,
@@ -25,7 +26,11 @@ export class FeedListComponent implements OnInit {
   showAlert = true
   alertMessage = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
 
-  constructor(private posts: PostsClient) {}
+  totalEvents = 0
+  totalArticles = 0
+  totalPrograms = 0
+
+  constructor(private posts: PostsClient, private dashboard: DashboardClient) {}
 
   closeAlert() {
     this.showAlert = false
@@ -76,8 +81,22 @@ export class FeedListComponent implements OnInit {
     }
   }
 
+  loadDashboardCounts(): void {
+    this.dashboard.homepage().subscribe({
+      next: (data) => {
+        if (data) {
+          const byName = (name: string) => data.find((x) => x.name === name)?.value ?? 0
+          this.totalEvents = byName('Total Events')
+          this.totalPrograms = byName('Total Programs')
+          this.totalArticles = byName('Total Articles')
+        }
+      },
+    })
+  }
+
   ngOnInit(): void {
     this.role = JSON.parse(localStorage.getItem('profile_info')).role
     this.getAllPosts()
+    this.loadDashboardCounts()
   }
 }

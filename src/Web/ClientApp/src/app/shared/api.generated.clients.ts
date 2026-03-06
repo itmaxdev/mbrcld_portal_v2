@@ -1992,6 +1992,40 @@ export class DashboardClient {
       )
   }
 
+  /**
+   * @return Success
+   */
+  homepage(): Observable<DashboardViewModel[]> {
+    let url_ = this.baseUrl + '/api/dashboard/homepage'
+
+    let options_: any = {
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({
+        Accept: 'application/json;odata.metadata=minimal;odata.streaming=true',
+      }),
+    }
+
+    return this.http
+      .request('get', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processDashboard(response_)
+        })
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processDashboard(<any>response_)
+            } catch (e) {
+              return <Observable<DashboardViewModel[]>>(<any>_observableThrow(e))
+            }
+          } else return <Observable<DashboardViewModel[]>>(<any>_observableThrow(response_))
+        })
+      )
+  }
+
   protected processDashboard(response: HttpResponseBase): Observable<DashboardViewModel[]> {
     const status = response.status
     const responseBlob =
