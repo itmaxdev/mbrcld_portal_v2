@@ -1,10 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit, Inject, LOCALE_ID } from '@angular/core'
 import { Router, NavigationEnd } from '@angular/router'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 import { EliteClubClient } from 'src/app/shared/api.generated.clients'
+import { AuthorizationService } from 'src/app/core/api-authorization'
 import { ProfileFacade } from '../profile/common/profile-facade.service'
 import { NavBarService } from './nav-bar.service'
+import { environment } from '../../../environments/environment'
 
 interface KeyValuePair {
   key?: string
@@ -30,6 +32,8 @@ export class NavBarComponent implements OnDestroy, OnInit {
   urlFragments: string[] = []
   role: number
   isActiveEliteclub: boolean
+  private logOutUrl: string
+  private roleName: string
 
   navLinks: NavLink[] = [
     {
@@ -155,8 +159,21 @@ export class NavBarComponent implements OnDestroy, OnInit {
     router: Router,
     private navBarService: NavBarService,
     private profileFacade: ProfileFacade,
-    private elitclubService: EliteClubClient
+    private elitclubService: EliteClubClient,
+    private authService: AuthorizationService,
+    @Inject(LOCALE_ID) private locale: string
   ) {
+    this.roleName = router.url.split('/')[1]
+    this.logOutUrl =
+      environment.logOutUrl +
+      '?redirect_uri=' +
+      environment.baseUrl +
+      '/' +
+      this.locale +
+      '/' +
+      this.roleName +
+      '/account-settings/logout'
+
     router.events.pipe(takeUntil(this.destroy$)).subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.urlFragments = event.url.split('/').filter((x) => !!x)
@@ -208,5 +225,19 @@ export class NavBarComponent implements OnDestroy, OnInit {
 
   close() {
     this.navBarService.close()
+  }
+
+  async logOut() {
+    localStorage.removeItem('programId')
+    localStorage.removeItem('enrollmentId')
+    if (localStorage.getItem('uaeCode')) {
+      localStorage.removeItem('uaeCode')
+      window.location.href = this.logOutUrl
+    } else {
+      await this.authService.logout()
+      localStorage.removeItem('profile_info')
+      localStorage.removeItem('uaeCode')
+      this.authService.login()
+    }
   }
 }
