@@ -97,7 +97,7 @@
                 </li>
 
                 <li class="logOutBox">
-                  <a routerLink="/" class="navLink">
+                  <a (click)="logOut(); $event.preventDefault()" class="navLink" href="#" role="button">
                     <div class="iconBox">
                       <img src="./assets/images/iconlogOut.svg" width="30" height="30" />
                     </div>
@@ -362,7 +362,7 @@
 
                 <!-- Logout -->
                 <li class="logOutBox">
-                  <a routerLink="/" class="navLink">
+                  <a (click)="logOut(); $event.preventDefault()" class="navLink" href="#" role="button">
                     <div class="iconBox">
                       <img src="./assets/images/iconlogOut.svg" width="30" height="30" />
                     </div>

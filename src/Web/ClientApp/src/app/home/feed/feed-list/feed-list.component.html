@@ -39,8 +39,8 @@
 
 <div class="mainContainer">
   <div *ngIf="ready; else loading" class="gridWrap">
-    <div class="alert alertDanger" *ngIf="showAlert">
-      <div class="textBox smLineHeight">
+    <!-- <div class="alert alertDanger" *ngIf="showAlert">
+      <div class="textBox smLineHeight" i18n>
         {{ alertMessage }}
       </div>
       <button type="button" class="closeBtn" data-alertclose (click)="closeAlert()">
@@ -49,7 +49,7 @@
           <path d="M6 6L18 18" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </button>
-    </div>
+    </div> -->
     <div class="infoCard col1">
       <a href="#" class="inner">
         <div class="topBox">
