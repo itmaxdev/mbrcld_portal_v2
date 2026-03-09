@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 
 namespace Mbrcld.Web.API
 {
-    [Authorize(Roles = "Applicant, Direct Manager, Alumni")]
     [ApiController]
     [ApiVersion(ApiVersionConstants.Version_1_0)]
     [Route("api/dashboard")]
@@ -26,6 +25,8 @@ namespace Mbrcld.Web.API
         {
             this.mediator = mediator;
         }
+
+        [Authorize(Roles = "Applicant, Direct Manager, Alumni")]
 
         [HttpGet]
         public async Task<ActionResult<DashboardViewModel>> GetDashboardData(Guid? id = null)
