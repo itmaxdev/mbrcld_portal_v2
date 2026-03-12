@@ -21,10 +21,12 @@ export class MeetingListComponent implements OnInit {
   public isSearched = false
   public noUserFinded = true
   public ready = false
-  public allPrograms: ListAllProgramsViewModel[]
+  public allPrograms: ListAllProgramsViewModel[] = []
+  /** Dedicated list for Program dropdown only; shaped like sector options (label/value/id). */
+  private programOptionsList: any[] = []
   public cohortYears: any[] = []
-  public sectorOptions: ISectorOption[]
-  public selectedProgram: ListAllProgramsViewModel
+  public sectorOptions: ISectorOption[] = []
+  public selectedProgram: any
   public selectedYear: any
   public selectedSector: ISectorOption
   public findedUsers: SearchAlumniViewModel[]
@@ -34,6 +36,8 @@ export class MeetingListComponent implements OnInit {
   public userId: string
   public userProfile: any
   public meetingTabs = '0'
+  public viewApplicantDialog = false
+  public selectedApplicantId: string
 
   constructor(
     private profile: ProfileClient,
@@ -112,7 +116,24 @@ export class MeetingListComponent implements OnInit {
     this.ready = false
     await Promise.all([
       this.programs.allPrograms().subscribe((data) => {
-        this.allPrograms = data
+        // Keep raw list for any other usage
+        this.allPrograms = data || []
+
+        // Mirror sector option shape so dropdown renders label correctly
+        this.programOptionsList = (data || []).map((p: any) => {
+          const id = p.id ?? p.Id
+          let label = p.name ?? p.Name ?? p.programName ?? p.ProgramName ?? p.title ?? p.Title ?? ''
+
+          if (!label || String(label).toLowerCase() === 'empty') {
+            label = id ? `Program ${id}` : ''
+          }
+
+          return {
+            id,
+            value: id,
+            label,
+          }
+        })
       }),
       this.facade.loadSectorOptions().then((options) => {
         this.sectorOptions = options
@@ -171,5 +192,15 @@ export class MeetingListComponent implements OnInit {
         this.isFindUserDone = true
         this.noUserFinded = this.findedUsers.length === 0 ? true : false
       })
+  }
+
+  viewApplicant(applicantId: string) {
+    this.selectedApplicantId = applicantId
+    this.viewApplicantDialog = true
+  }
+
+  /** Options for Program dropdown; uses dedicated list so Sector selection cannot overwrite it. */
+  get programOptionsForDropdown(): ListAllProgramsViewModel[] {
+    return this.programOptionsList
   }
 }

@@ -5888,6 +5888,39 @@ body:not(.browserSafari) .form-v3 input[type=file]::file-selector-button {
     background: var(--inputBG)
 }
 
+.form-v3.filledColor .p-dropdown {
+    border: none;
+    background: var(--inputBG);
+    border-radius: 10px;
+    min-height: var(--inputH);
+    height: var(--inputH);
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    transition: box-shadow .3s, border-color .3s
+}
+
+.form-v3.filledColor .p-dropdown .p-dropdown-label {
+    padding-inline: 1rem;
+    font-weight: 500;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.form-v3.filledColor .p-dropdown .p-dropdown-trigger {
+    background: transparent;
+    border: none;
+    width: var(--inputH)
+}
+
+.form-v3.filledColor .p-dropdown.p-focus,
+.form-v3.filledColor .p-dropdown:focus-within {
+    box-shadow: 0 0 0 1px var(--primary-color);
+    outline: none
+}
+
 .form-v3.filledColor .inputBox {
     row-gap: 1.5rem
 }

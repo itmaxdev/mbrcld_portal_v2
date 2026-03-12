@@ -82,6 +82,7 @@ export class FeedListComponent implements OnInit {
   }
 
   loadDashboardCounts(): void {
+    this.ready = false
     this.dashboard.homepage().subscribe({
       next: (data) => {
         if (data) {
@@ -89,6 +90,7 @@ export class FeedListComponent implements OnInit {
           this.totalEvents = byName('Total Events')
           this.totalPrograms = byName('Total Programs')
           this.totalArticles = byName('Total Articles')
+          this.ready = true
         }
       },
     })

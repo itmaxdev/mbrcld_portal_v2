@@ -98,24 +98,6 @@
         <div class="inner">
           <div class="cardTitleWrap">
             <div class="cardTitle">Meeting Hub</div>
-            <div class="cardTools">
-              <div class="searchBox">
-                <form class="form-v3 filledColor">
-                  <div class="input-field">
-                    <input type="text" placeholder="Search" />
-                    <button class="iconBox" type="button">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z"
-                          stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M21 20.9999L16.65 16.6499" stroke="currentcolor" stroke-width="2"
-                          stroke-linecap="round" stroke-linejoin="round" />
-                      </svg>
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
           </div>
 
           <div class="gridWrap border">
@@ -180,23 +162,44 @@
 
             <!-- Alumni Search tab content -->
             <ng-container *ngIf="meetingTabs === '1'">
-              <form class="form-v3 filledColor" (ngSubmit)="searchMeeting()">
+              <form class="form-v3 filledColor formBlock" (ngSubmit)="searchMeeting()">
                 <div class="inputBox col3">
                   <div class="input-field normal">
                     <label for="selectSector" i18n>Select Sector</label>
-                    <p-dropdown inputId="selectSector" [options]="sectorOptions" [(ngModel)]="selectedSector"
-                      name="sector" optionLabel="label" [showClear]="true" i18n-placeholder placeholder="Select Sector" appendTo="body"></p-dropdown>
+                    <app-select-dropdown
+                      inputId="selectSector"
+                      [options]="sectorOptions"
+                      [(model)]="selectedSector"
+                      name="sector"
+                      optionLabel="label"
+                      placeholder="Select Sector"
+                      i18n-placeholder
+                    ></app-select-dropdown>
                   </div>
                   <div class="input-field normal">
                     <label for="selectProgram" i18n>Select a Program</label>
-                    <p-dropdown inputId="selectProgram" [options]="allPrograms" [(ngModel)]="selectedProgram"
-                      name="program" optionLabel="name" [showClear]="true" i18n-placeholder placeholder="Select a Program" appendTo="body"
-                      (onChange)="getcohortYears($event)"></p-dropdown>
+                    <app-select-dropdown
+                      inputId="selectProgram"
+                      [options]="programOptionsForDropdown"
+                      [(model)]="selectedProgram"
+                      name="program"
+                      optionLabel="label"
+                      placeholder="Select a Program"
+                      i18n-placeholder
+                      (onChange)="onProgramChange()"
+                    ></app-select-dropdown>
                   </div>
                   <div class="input-field normal">
                     <label for="selectCohortYear" i18n>Select a Cohort Year</label>
-                    <p-dropdown inputId="selectCohortYear" [options]="cohortYears" [(ngModel)]="selectedYear"
-                      name="cohortYear" optionLabel="label" [showClear]="true" i18n-placeholder placeholder="Select a Cohort Year" appendTo="body"></p-dropdown>
+                    <app-select-dropdown
+                      inputId="selectCohortYear"
+                      [options]="cohortYears"
+                      [(model)]="selectedYear"
+                      name="cohortYear"
+                      optionLabel="label"
+                      placeholder="Select a Cohort Year"
+                      i18n-placeholder
+                    ></app-select-dropdown>
                   </div>
                   <div class="input-field normal full buttonWrap end">
                     <button type="submit" class="more wAuto">
@@ -233,7 +236,11 @@
               </div>
 
               <div *ngIf="isSearched && isFindUserDone && findedUsers?.length" class="alumniGrid">
-                <app-class-member-item *ngFor="let item of findedUsers" [data]="item"></app-class-member-item>
+                <app-class-member-item
+                  *ngFor="let item of findedUsers"
+                  [data]="item"
+                  (openProfile)="viewApplicant($event)"
+                ></app-class-member-item>
               </div>
             </ng-container>
           </div>
@@ -244,6 +251,12 @@
     <app-side-box></app-side-box>
   </div>
 </ng-container>
+
+<app-applicant-profile-dialog
+  [(visible)]="viewApplicantDialog"
+  [applicantId]="selectedApplicantId"
+></app-applicant-profile-dialog>
+
 <ng-template #loading>
   <app-progress-spinner></app-progress-spinner>
 </ng-template>

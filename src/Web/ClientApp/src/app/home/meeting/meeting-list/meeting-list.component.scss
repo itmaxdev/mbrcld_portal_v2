@@ -1,3 +1,25 @@
+// Alumni Search: 3-column layout for Sector, Program, Cohort Year (like general information)
+.form-v3.filledColor .inputBox.col3 {
+  grid-template-columns: repeat(3, 1fr);
+
+  @media only screen and (max-width: 47.9375rem) {
+    grid-template-columns: 100%;
+  }
+}
+
+.alumniGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 600px) {
+  .alumniGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .meeting-hub {
   display: flex;
   align-items: center;

@@ -87,7 +87,7 @@ export class ScholarshipDetailsComponent implements OnInit {
         this.status = { statusName: 'Accepted', statusColor: 'green' }
         break
       case 'Rejected':
-        this.status = { statusName: 'Under Review', statusColor: 'red' }
+        this.status = { statusName: 'Rejected', statusColor: 'red' }
         break
     }
   }

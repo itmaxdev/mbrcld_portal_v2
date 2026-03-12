@@ -144,6 +144,13 @@ export class RegistrantExperienceComponent implements OnInit, OnDestroy {
         this.experienceForm.get('otherIndustry').updateValueAndValidity()
         this.experienceForm.get('otherSector').updateValueAndValidity()
       })
+
+    this.experienceForm
+      .get('present')
+      .valueChanges.pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.experienceForm.get('to').updateValueAndValidity()
+      })
   }
 
   private validateForm() {

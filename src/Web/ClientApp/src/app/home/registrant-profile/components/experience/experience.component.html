@@ -1,5 +1,5 @@
 <ng-container *ngIf="ready; else loading">
-  <form [formGroup]="experienceForm" (ngSubmit)="onSubmit()" class="form-v3 filledColor formBlock">
+  <form (ngSubmit)="onSubmit()" class="form-v3 filledColor formBlock">
     <div class="formGroup">
       <div class="grpInfo">
         <div class="title" i18n>Professional Experience</div>
@@ -162,7 +162,7 @@
     </div>
 
     <!-- CV Section in v3 style -->
-    <div class="formGroup">
+    <!-- <div class="formGroup">
       <div class="input-field normal">
         <label i18n>Copy of CV <span class="text-red-500">*</span></label>
         <app-registrant-document-upload
@@ -170,7 +170,7 @@
           accept=".pdf,.doc,.docx"
         ></app-registrant-document-upload>
       </div>
-    </div>
+    </div> -->
 
     <div class="formGroup">
       <div class="inputBox">

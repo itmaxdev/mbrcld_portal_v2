@@ -50,7 +50,7 @@
         </svg>
       </button>
     </div> -->
-    <div class="infoCard col1">
+    <div class="infoCard col1" *ngIf="totalEvents > 0">
       <a href="#" class="inner">
         <div class="topBox">
           <div class="num" [attr.data-animcount]="totalEvents">
@@ -81,7 +81,7 @@
         </div>
       </a>
     </div>
-    <div class="infoCard col1 colorBlack">
+    <div class="infoCard col1 colorBlack" *ngIf="totalArticles > 0">
       <a href="#" class="inner">
         <div class="topBox">
           <div class="num" [attr.data-animcount]="totalArticles">
@@ -114,7 +114,7 @@
         </div>
       </a>
     </div>
-    <div class="infoCard col1">
+    <div class="infoCard col1" *ngIf="totalPrograms > 0">
       <a href="#" class="inner">
         <div class="topBox">
           <div class="num" [attr.data-animcount]="totalPrograms">

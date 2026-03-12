@@ -2,6 +2,7 @@ import { NewsfeedComponent } from './components/newsfeed'
 import { CardComponent } from './components/card.component'
 import { LanguageSwitcherComponent } from './components/language-switcher.component'
 import { NationalityDropdownComponent } from './components/nationality-dropdown.component'
+import { SelectDropdownComponent } from './components/select-dropdown.component'
 import { PasswordValidatorComponent } from './components/password-validator.component'
 import { PhoneNumberInputComponent } from './components/phone-number-input.component'
 import { InstructorProfileComponent } from './components/instructor-profile.component'
@@ -151,6 +152,7 @@ const Components = [
   ProfileInformationComponent,
   LeadershipProjectsComponent,
   NationalityDropdownComponent,
+  SelectDropdownComponent,
   ChatParticipantItemComponent,
   ClassMemberItemSmallController,
   ChatParticipantMessageComponent,
