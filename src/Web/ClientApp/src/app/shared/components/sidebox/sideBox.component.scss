@@ -1,0 +1,63 @@
+// sideBox.component.scss
+
+:host {
+    // Ensure the host element participates in the flex/grid layout correctly
+    display: block;
+    align-self: flex-start; // CRITICAL: prevents stretching to full height in flexbox
+    position: sticky;
+    top: 20px; // distance from top of viewport when stuck
+  }
+  
+  .sideBox {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+  
+  .inlineCalenderSmallCard,
+  .leadersHighlightCard {
+    background: #fff;
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+  
+  .leadersHighlightCard {
+    .imgBox {
+      iframe {
+        display: block;
+      }
+    }
+  
+    .contentBox {
+      padding: 16px;
+  
+      .title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+  
+      .points {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+  
+        .p {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+  
+          .num {
+            font-size: 1.25rem;
+            font-weight: 700;
+          }
+  
+          span {
+            font-size: 0.875rem;
+            color: #6b7280;
+          }
+        }
+      }
+    }
+  }

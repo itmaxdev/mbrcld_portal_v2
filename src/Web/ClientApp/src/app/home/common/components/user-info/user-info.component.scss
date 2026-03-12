@@ -30,3 +30,17 @@
 .padder{
   padding: 1rem 1rem 1rem 2rem;
 }
+
+.topnav-backdrop {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+
+  /*
+    PrimeNG popup overlays typically sit around z-index: 1000+.
+    Keep the backdrop below the menu but above the page content.
+  */
+  z-index: 999;
+}
