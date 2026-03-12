@@ -86,7 +86,14 @@ import { environment } from '../../../../environments/environment'
           data-status="online"
           (click)="menu.toggle($event)"
         >
-          <p-slideMenu #menu [model]="menuItems" [popup]="true" appendTo="body"></p-slideMenu>
+          <p-slideMenu
+            #menu
+            [model]="menuItems"
+            [popup]="true"
+            appendTo="body"
+            (onShow)="menuOpen = true"
+            (onHide)="menuOpen = false"
+          ></p-slideMenu>
           <picture>
             <source [srcset]="profilePicUrl" type="image/webp" />
             <source [srcset]="profilePicUrl" type="image/jpeg" />
@@ -95,12 +102,14 @@ import { environment } from '../../../../environments/environment'
         </a>
       </div>
     </div>
+    <div *ngIf="menuOpen" class="topnav-backdrop" (click)="menu.hide(); menuOpen = false"></div>
   `,
 })
 export class UserToolbarComponent implements OnInit, OnDestroy {
   roleName: string
   menuItems: MenuItem[]
   profilePicUrl: string
+  menuOpen = false
   private logOutUrl: string
 
   private destroy$ = new Subject<boolean>()
