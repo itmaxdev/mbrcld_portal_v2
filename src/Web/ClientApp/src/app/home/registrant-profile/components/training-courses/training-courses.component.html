@@ -277,7 +277,12 @@
             <div class="input-field normal">
               <label for="graduationDate" i18n>Date <span class="text-red-500">*</span></label>
               <div class="date-wrapper">
-                <input id="graduationDate" type="date" formControlName="graduationDate" />
+                <input
+                  id="graduationDate"
+                  type="date"
+                  formControlName="graduationDate"
+                  [attr.max]="maxTrainingDate"
+                />
                 <div class="iconBox">
                   <svg
                     width="24"

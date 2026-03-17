@@ -50,8 +50,13 @@
         </svg>
       </button>
     </div> -->
-    <div class="infoCard col1" *ngIf="totalEvents > 0">
-      <a href="#" class="inner">
+    <div class="infoCard col1" *ngIf="showSummaryCards && totalEvents > 0">
+      <a
+        href="javascript:void(0)"
+        class="inner"
+        role="link"
+        (click)="navigateToModule('events'); $event.preventDefault()"
+      >
         <div class="topBox">
           <div class="num" [attr.data-animcount]="totalEvents">
             <i class="not-italic">{{ totalEvents }}</i>
@@ -81,8 +86,13 @@
         </div>
       </a>
     </div>
-    <div class="infoCard col1 colorBlack" *ngIf="totalArticles > 0">
-      <a href="#" class="inner">
+    <div class="infoCard col1 colorBlack" *ngIf="showSummaryCards && totalArticles > 0">
+      <a
+        href="javascript:void(0)"
+        class="inner"
+        role="link"
+        (click)="navigateToModule('articles'); $event.preventDefault()"
+      >
         <div class="topBox">
           <div class="num" [attr.data-animcount]="totalArticles">
             <i class="not-italic">{{ totalArticles }}</i>
@@ -114,8 +124,13 @@
         </div>
       </a>
     </div>
-    <div class="infoCard col1" *ngIf="totalPrograms > 0">
-      <a href="#" class="inner">
+    <div class="infoCard col1" *ngIf="showSummaryCards && totalPrograms > 0">
+      <a
+        href="javascript:void(0)"
+        class="inner"
+        role="link"
+        (click)="navigateToModule('programs'); $event.preventDefault()"
+      >
         <div class="topBox">
           <div class="num" [attr.data-animcount]="totalPrograms">
             <i class="not-italic">{{ totalPrograms }}</i>

@@ -202,7 +202,8 @@
                     ></app-select-dropdown>
                   </div>
                   <div class="input-field normal full buttonWrap end">
-                    <button type="submit" class="more wAuto">
+                    <button type="submit" class="more wAuto" [disabled]="!hasAtLeastOneFilter"
+                      [class.colorGray]="!hasAtLeastOneFilter">
                       <span i18n>Search</span>
                     </button>
                   </div>

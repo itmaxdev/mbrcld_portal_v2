@@ -28,24 +28,35 @@
 						<label for="mobilePhone" i18n>Mobile Phone *</label>
 						<app-phone-number appValidatePhoneNumber formControlName="mobilePhone" inputId="mobilePhone">
 						</app-phone-number>
-						<small appControlValidationError controlName="mobilePhone" class="p-invalid"></small>
+						<small
+							appControlValidationError
+							controlName="mobilePhone"
+							class="p-invalid"
+							[messages]="{
+								required: 'Mobile phone is required',
+								digitsOnly: 'Only digits are allowed',
+								phoneNumber: 'Please enter a valid phone number'
+							}"
+						></small>
 					</div>
 					<div class="p-field">
 						<label for="firstName" i18n>First Name *</label>
 						<input pInputText formControlName="firstName" type="text" id="firstName"
 							placeholder="Enter the first name" i18n-placeholder>
-						<small appControlValidationError controlName="firstName" class="p-invalid"></small>
+						<small appControlValidationError controlName="firstName" class="p-invalid"
+							[messages]="{ pattern: 'First name must contain letters only' }"></small>
 					</div>
 					<div class="p-field">
 						<label for="lastName" i18n>Last Name *</label>
 						<input pInputText formControlName="lastName" type="text" id="lastName"
-							placeholder="Enter the first name here" i18n-placeholder>
-						<small appControlValidationError controlName="lastName" class="p-invalid"></small>
+							placeholder="Enter the last name" i18n-placeholder>
+						<small appControlValidationError controlName="lastName" class="p-invalid"
+							[messages]="{ pattern: 'Last name must contain letters only' }"></small>
 					</div>
 					<div class="p-field relative">
 						<label for="password" i18n>Password *</label>
 						<input pPassword appPasswordValidator formControlName="password" type="password" id="password"
-							placeholder="Enter password here" i18n-placeholder [feedback]="false">
+							placeholder="Enter password here1" i18n-placeholder [feedback]="false">
 						<small appControlValidationError controlName="password" class="p-invalid"
 							[messages]="{ '*': 'This password does not meet the requirements' }"></small>
 					</div>

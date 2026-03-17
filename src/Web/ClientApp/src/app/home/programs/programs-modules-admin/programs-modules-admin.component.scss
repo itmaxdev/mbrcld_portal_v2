@@ -10,15 +10,15 @@
   .create-room .p-dialog-footer button {
     width: auto !important;
   }
-}
 
-.modal {
-  #duration {
-    padding-right: 0 !important;
+  .popupBox.mdBox.materialDialog.p-dialog .p-dialog-content {
+    padding: 0;
+    overflow: visible;
   }
 
-  #order {
-    padding-right: 0 !important;
+  .popupBox.mdBox.materialDialog .formBox .input-field:has(.iconBox) .p-calendar .p-inputtext,
+  .popupBox.mdBox.materialDialog .formBox .input-field:has(.iconBox) .p-inputnumber .p-inputtext {
+    padding-inline-end: 3rem;
   }
 }
 

@@ -424,6 +424,13 @@
                 </div>
               </div>
               <small appControlValidationError controlName="to" class="p-invalid"></small>
+              <div
+                *ngIf="experienceForm.errors?.toBeforeFrom"
+                class="p-invalid text-xs mt-1"
+                i18n
+              >
+                To Date must be on or after From Date.
+              </div>
             </div>
 
             <div class="input-field normal">
