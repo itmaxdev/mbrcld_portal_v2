@@ -1,7 +1,7 @@
 import { ITrainingCourse } from './models'
 import { TrainingCoursesFacadeService } from './training-courses-facade.service'
 import { Component, OnInit } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ConfirmationService } from 'primeng/api'
 import { CountryListService, ICountryListItem } from 'src/app/core/country-list.service'
@@ -66,6 +66,10 @@ export class TrainingCoursesComponent implements OnInit {
   }
 
   async updateTrainingCourse() {
+    if (!this.trainingCourseForm.valid || this.isFormSubmitting) {
+      this.trainingCourseForm.markAllAsTouched()
+      return
+    }
     this.isFormSubmitting = true
     const formValues = this.trainingCourseForm.value
 
@@ -114,12 +118,26 @@ export class TrainingCoursesComponent implements OnInit {
     this.router.navigate(['../memberships'], { relativeTo: this.activatedRoute })
   }
 
+  private static graduationNotFuture(control: AbstractControl): ValidationErrors | null {
+    const v = control.value
+    if (v == null || v === '') {
+      return null
+    }
+    const d = v instanceof Date ? new Date(v.getFullYear(), v.getMonth(), v.getDate()) : new Date(v)
+    if (Number.isNaN(d.getTime())) {
+      return null
+    }
+    const today = new Date()
+    const endOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59, 999)
+    return d > endOfToday ? { notFutureDate: true } : null
+  }
+
   private buildForm(): void {
     this.trainingCourseForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       provider: new FormControl('', [Validators.required]),
       country: new FormControl('', [Validators.required]),
-      graduationDate: new FormControl('', [Validators.required]),
+      graduationDate: new FormControl('', [Validators.required, TrainingCoursesComponent.graduationNotFuture]),
     } as FormModel)
   }
 }

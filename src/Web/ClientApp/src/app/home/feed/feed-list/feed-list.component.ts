@@ -1,5 +1,6 @@
 import * as moment from 'moment'
 import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 import {
   DashboardClient,
   ListPostsViewModel,
@@ -30,7 +31,24 @@ export class FeedListComponent implements OnInit {
   totalArticles = 0
   totalPrograms = 0
 
-  constructor(private posts: PostsClient, private dashboard: DashboardClient) {}
+  /** Admin (role 6): hide Total Events / Articles / Programs cards on feed. */
+  get showSummaryCards(): boolean {
+    return this.role !== 6
+  }
+
+  constructor(
+    private posts: PostsClient,
+    private dashboard: DashboardClient,
+    private router: Router
+  ) {}
+
+  /** Navigates to events / articles / programs under the current role base (registrant, admin, alumni, etc.). */
+  navigateToModule(module: 'events' | 'articles' | 'programs'): void {
+    const base = this.router.url.split('/').filter(Boolean)[0]
+    if (base) {
+      void this.router.navigate(['/', base, module])
+    }
+  }
 
   closeAlert() {
     this.showAlert = false
@@ -40,7 +58,7 @@ export class FeedListComponent implements OnInit {
     this.ready = false
     this.posts.postsGet().subscribe((data) => {
       this.postsData = data
-      this.postsData.map((post) => {
+      this.postsData.forEach((post) => {
         const newDate = moment([
           moment(post.postDate).year(),
           moment(post.postDate).month(),
@@ -50,8 +68,8 @@ export class FeedListComponent implements OnInit {
           .fromNow()
 
         this.postsDates[post.id] = newDate
-        this.ready = true
       })
+      this.ready = true
     })
   }
 
@@ -99,6 +117,8 @@ export class FeedListComponent implements OnInit {
   ngOnInit(): void {
     this.role = JSON.parse(localStorage.getItem('profile_info')).role
     this.getAllPosts()
-    this.loadDashboardCounts()
+    if (this.role !== 6) {
+      this.loadDashboardCounts()
+    }
   }
 }

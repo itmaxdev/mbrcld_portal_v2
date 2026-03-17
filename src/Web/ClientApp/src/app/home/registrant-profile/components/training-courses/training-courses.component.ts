@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ConfirmationService } from 'primeng/api'
 import { CountryListService, ICountryListItem } from 'src/app/core/country-list.service'
@@ -48,12 +48,28 @@ export class RegistrantTrainingCoursesComponent implements OnInit {
     }
   }
 
+  /** YYYY-MM-DD in local time — use for HTML date input max and validation */
+  get maxTrainingDate(): string {
+    const n = new Date()
+    return `${n.getFullYear()}-${String(n.getMonth() + 1).padStart(2, '0')}-${String(n.getDate()).padStart(2, '0')}`
+  }
+
+  private static notFutureTrainingDate(control: AbstractControl): ValidationErrors | null {
+    const v = control.value
+    if (!v || typeof v !== 'string') {
+      return null
+    }
+    const n = new Date()
+    const max = `${n.getFullYear()}-${String(n.getMonth() + 1).padStart(2, '0')}-${String(n.getDate()).padStart(2, '0')}`
+    return v > max ? { notFutureDate: true } : null
+  }
+
   private buildForm(): void {
     this.trainingCourseForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       provider: new FormControl('', [Validators.required]),
       country: new FormControl('', [Validators.required]),
-      graduationDate: new FormControl('', [Validators.required]),
+      graduationDate: new FormControl('', [Validators.required, RegistrantTrainingCoursesComponent.notFutureTrainingDate]),
     })
   }
 

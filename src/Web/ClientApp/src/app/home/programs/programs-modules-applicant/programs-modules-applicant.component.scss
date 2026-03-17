@@ -82,4 +82,14 @@
       z-index: 10;
     }
   }
+
+  .popupBox.mdBox.materialDialog.p-dialog .p-dialog-content {
+    padding: 0;
+    overflow: visible;
+  }
+
+  .popupBox.mdBox.materialDialog .formBox .input-field:has(.iconBox) .p-calendar .p-inputtext,
+  .popupBox.mdBox.materialDialog .formBox .input-field:has(.iconBox) .p-inputnumber .p-inputtext {
+    padding-inline-end: 3rem;
+  }
 }

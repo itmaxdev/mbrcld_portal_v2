@@ -18,6 +18,14 @@ const homeRoutes: Routes = [
         loadChildren: () => import('./programs/programs.module').then((m) => m.ProgramsModule),
       },
       {
+        path: 'events',
+        loadChildren: () => import('./events/events.module').then((m) => m.EventsModule),
+      },
+      {
+        path: 'articles',
+        loadChildren: () => import('./articles/articles.module').then((m) => m.ArticlesModule),
+      },
+      {
         path: 'profile',
         loadChildren: () =>
           import('./profile/profile-instructor.module').then((m) => m.ProfileInstructorModule),

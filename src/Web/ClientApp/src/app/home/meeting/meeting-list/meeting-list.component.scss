@@ -76,3 +76,25 @@
     }
   }
 }
+
+// Fix: equal height topic cards with bottom-aligned buttons
+.programCard.col1 {
+  display: flex;
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+  }
+
+  .contentBox {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .followWrap {
+    margin-top: auto;
+  }
+}

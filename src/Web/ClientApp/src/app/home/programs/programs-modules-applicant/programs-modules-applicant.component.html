@@ -319,163 +319,148 @@
 
 <!-- ===== ADD/EDIT MATERIAL DIALOG ===== -->
 <p-dialog
-  [header]="modalHeader"
   [(visible)]="displayBasic"
-  [style]="{ width: '50vw' }"
+  [style]="{ width: '50vw', 'max-width': '700px' }"
   [baseZIndex]="10000"
+  [showHeader]="false"
+  styleClass="popupBox mdBox materialDialog"
 >
-  <div>
-    <div class="m-0 p-8">
-      <form [formGroup]="materialForm" class="p-fluid p-formgrid p-grid profile-form gap-6">
-        <div class="w-full grid grid-cols-2 gap-8">
-          <div class="w-full">
-            <div class="p-field">
-              <label for="name" i18n>Topic <span class="text-red-500">*</span></label>
-              <input
-                pInputText
-                [(ngModel)]="topic"
-                formControlName="name"
-                id="name"
-                type="text"
-                class="text-lg"
-                placeholder="Enter Topic"
-                i18n-placeholder
-              />
-              <div *ngIf="materialForm.get('name').invalid && materialForm.get('name').touched">
-                <small
-                  *ngIf="materialForm.get('name').errors.required"
-                  class="p-invalid text-red-600"
-                  i18n
-                >This field is required</small>
-              </div>
+  <div class="inner">
+    <div class="topBox">
+      <div class="title">{{ modalHeader }}</div>
+      <a href="javascript:void(0)" class="plusBtn cursor-pointer" (click)="displayBasic = false" aria-label="Close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 6L18 18" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+    <div class="formBox">
+      <form [formGroup]="materialForm" class="form-v3 filledColor" (ngSubmit)="addMaterial()">
+        <div class="inputBox">
+          <div class="input-field normal full">
+            <label for="name" i18n>Topic <span class="text-red-500">*</span></label>
+            <input
+              pInputText
+              [(ngModel)]="topic"
+              formControlName="name"
+              id="name"
+              type="text"
+              placeholder="Enter Topic"
+              i18n-placeholder
+            />
+            <div *ngIf="materialForm.get('name').invalid && materialForm.get('name').touched">
+              <small *ngIf="materialForm.get('name').errors.required" class="p-invalid text-red-600" i18n>This field is required</small>
             </div>
           </div>
-          <div class="w-full">
-            <div class="p-field" dir="rtl">
-              <label for="nameAr">الموضوع</label>
-              <input
-                pInputText
-                [(ngModel)]="topic_ar"
-                formControlName="nameAr"
-                id="nameAr"
-                type="text"
-                class="text-lg"
-                placeholder="الموضوع"
-              />
-              <div *ngIf="materialForm.get('nameAr').invalid && materialForm.get('nameAr').touched">
-                <small
-                  *ngIf="materialForm.get('nameAr').errors.required"
-                  class="p-invalid text-red-600"
-                  i18n
-                >This field is required</small>
-                <small
-                  *ngIf="!materialForm.get('nameAr').errors.required && materialForm.get('nameAr').errors.language"
-                  class="p-invalid text-red-600"
-                >Please provide input in the correct language</small>
-              </div>
+          <div class="input-field normal" dir="rtl">
+            <label for="nameAr">الموضوع</label>
+            <input
+              pInputText
+              [(ngModel)]="topic_ar"
+              formControlName="nameAr"
+              id="nameAr"
+              type="text"
+              placeholder="الموضوع"
+            />
+            <div *ngIf="materialForm.get('nameAr').invalid && materialForm.get('nameAr').touched">
+              <small *ngIf="materialForm.get('nameAr').errors.required" class="p-invalid text-red-600" i18n>This field is required</small>
+              <small *ngIf="!materialForm.get('nameAr').errors.required && materialForm.get('nameAr').errors.language" class="p-invalid text-red-600">Please provide input in the correct language</small>
             </div>
           </div>
-        </div>
-        <div class="w-full">
-          <div class="p-field">
-            <label for="location">Location <span class="text-red-500">*</span></label>
+          <div class="input-field normal">
+            <label for="location" i18n>Location <span class="text-red-500">*</span></label>
             <input
               pInputText
               [(ngModel)]="location"
               formControlName="location"
               id="location"
               type="text"
-              class="text-lg"
               placeholder="Enter Location"
+              i18n-placeholder
             />
             <div *ngIf="materialForm.get('location').invalid && materialForm.get('location').touched">
-              <small *ngIf="materialForm.get('location').errors.required" class="p-invalid text-red-600" i18n>
-                This field is required
-              </small>
+              <small *ngIf="materialForm.get('location').errors.required" class="p-invalid text-red-600" i18n>This field is required</small>
             </div>
           </div>
-        </div>
-        <div class="w-full">
-          <div class="p-field">
+          <div class="input-field normal">
             <label for="startDate" i18n>Start Date <span class="text-red-500">*</span></label>
             <p-calendar
               [(ngModel)]="startDate"
               formControlName="startDate"
               id="startDate"
-              class="text-lg"
-              placeholder="Start Date"
+              placeholder="dd - mm - yyyy"
+              appendTo="body"
+              inputId="startDate"
               i18n-placeholder
             ></p-calendar>
+            <div class="iconBox">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 10H21" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
             <div *ngIf="materialForm.get('startDate').invalid && materialForm.get('startDate').touched">
-              <small *ngIf="materialForm.get('startDate').errors.required" class="p-invalid text-red-600" i18n>
-                This field is required
-              </small>
+              <small *ngIf="materialForm.get('startDate').errors.required" class="p-invalid text-red-600" i18n>This field is required</small>
             </div>
           </div>
-        </div>
-        <div class="w-full">
-          <div class="p-field">
+          <div class="input-field normal">
             <label for="duration" i18n>Duration (Minutes) <span class="text-red-500">*</span></label>
             <p-inputNumber
               [(ngModel)]="duration"
               formControlName="duration"
               id="duration"
-              class="text-lg"
-              placeholder="Enter Duration"
+              placeholder="--:--"
               mode="decimal"
               inputId="duration"
               [useGrouping]="false"
+              i18n-placeholder
             ></p-inputNumber>
+            <div class="iconBox">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 6V12L16 14" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
             <div *ngIf="materialForm.get('duration').invalid && materialForm.get('duration').touched">
-              <small *ngIf="materialForm.get('duration').errors.required" class="p-invalid text-red-600" i18n>
-                This field is required
-              </small>
+              <small *ngIf="materialForm.get('duration').errors.required" class="p-invalid text-red-600" i18n>This field is required</small>
             </div>
           </div>
-        </div>
-        <div class="w-full">
-          <div class="p-field">
-            <label for="order">Order <span class="text-red-500">*</span></label>
+          <div class="input-field normal">
+            <label for="order" i18n>Order <span class="text-red-500">*</span></label>
             <p-inputNumber
               [(ngModel)]="order"
               formControlName="order"
               id="order"
-              class="text-lg"
               placeholder="Enter Order"
               mode="decimal"
               inputId="order"
               [useGrouping]="false"
+              i18n-placeholder
             ></p-inputNumber>
             <div *ngIf="materialForm.get('order').invalid && materialForm.get('order').touched">
-              <small *ngIf="materialForm.get('order').errors.required" class="p-invalid text-red-600" i18n>
-                This field is required
-              </small>
+              <small *ngIf="materialForm.get('order').errors.required" class="p-invalid text-red-600" i18n>This field is required</small>
             </div>
+          </div>
+          <div class="input-field normal full buttonWrap">
+            <button type="submit" class="more wAuto" [disabled]="!materialForm.valid || onUpdate">
+              <span i18n>Save</span>
+            </button>
+            <span *ngIf="onUpdate" class="flex items-center ml-2">
+              <p-progressSpinner
+                [style]="{ width: '20px', height: '20px' }"
+                styleClass="custom-spinner"
+                strokeWidth="6"
+                animationDuration=".5s"
+              ></p-progressSpinner>
+            </span>
           </div>
         </div>
       </form>
     </div>
   </div>
-  <ng-template pTemplate="footer">
-    <div class="flex flex-row-reverse">
-      <p-button
-        (click)="addMaterial()"
-        [disabled]="materialForm.valid ? null : true"
-        label="Save"
-        i18n-label
-      ></p-button>
-      <span *ngIf="onUpdate" class="flex items-center">
-        <p-progressSpinner
-          [style]="{ width: '20px', height: '20px' }"
-          class="custom-spinner flex align-center"
-          styleClass="custom-spinner"
-          strokeWidth="6"
-          fill="white"
-          animationDuration=".5s"
-        ></p-progressSpinner>
-      </span>
-    </div>
-  </ng-template>
 </p-dialog>
 
 <router-outlet></router-outlet>

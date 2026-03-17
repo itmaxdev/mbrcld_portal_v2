@@ -14,6 +14,18 @@ const homeRoutes: Routes = [
         loadChildren: () => import('./feed/feed.module').then((m) => m.FeedModule),
       },
       {
+        path: 'programs',
+        loadChildren: () => import('./programs/programs.module').then((m) => m.ProgramsModule),
+      },
+      {
+        path: 'events',
+        loadChildren: () => import('./events/events.module').then((m) => m.EventsModule),
+      },
+      {
+        path: 'articles',
+        loadChildren: () => import('./articles/articles.module').then((m) => m.ArticlesModule),
+      },
+      {
         path: 'applicants',
         loadChildren: () =>
           import('./dm-applicants/dm-applicants.module').then((m) => m.DmApplicantsModule),

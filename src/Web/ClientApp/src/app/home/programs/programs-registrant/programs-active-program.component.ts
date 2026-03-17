@@ -13,88 +13,111 @@ import { ProfileFacade } from '../../profile/common/profile-facade.service'
 @Component({
   selector: 'app-program-active-programs',
   template: `
-    <div class="program-detail-container" *ngIf="programDetail">
-      <img
-        class="program-image"
-        [ngClass]="{ 'img-rtl': language == 'ar' }"
-        [src]="programDetail.pictureUrl"
-      />
-      <div class="program-detail-content" [ngClass]="{ rtl: language == 'ar' }">
-        <h1 class="program-section-title p-text-secondary" i18n>Active Programs</h1>
-
-        <h1 class="text-3xl font-bold mb-8" style="color: var(--primary-color)">
-          {{ language == 'en' ? programDetail.name : programDetail.name_AR }}
-        </h1>
-        <div class="p-flex">
-          <div
-            class="p-col-6 col-sm-12 ql-editor px-0"
-            [innerHTML]="
-              language == 'en' ? programDetail.longDescription : programDetail.longDescription_AR
-            "
-          ></div>
-        </div>
-
-        <div class="flex gap-4 py-10">
-          <button pButton label="Go Back" i18n-label class=" mr-8" (click)="goBack()"></button>
-          <div *ngIf="!incompleteProfile && alreadyEnrolled && programId">
-            <button pButton label="Enroll" i18n-label class="w-64 " (click)="onClick()"></button>
-          </div>
-          <div *ngIf="incompleteProfile">
-            <button
-              pButton
-              label="Complete your profile"
-              i18n-label
-              class="w-64 p-button-secondary"
-              routerLink="../../../profile"
-            ></button>
+    <div class="mainContainer" *ngIf="programDetail">
+      <div class="gridWrap">
+        <div class="generalCard">
+          <div class="inner">
+            <div class="cardTitleWrap">
+              <div class="cardTitle" i18n>Programs</div>
+              <div class="cardTools">
+                <a (click)="goBack()" class="backBtn" style="cursor: pointer;">
+                  <span i18n>Back</span>
+                  <div class="iconBox">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9 14L4 9L9 4"
+                        stroke="currentcolor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M20 20V13C20 11.9391 19.5786 10.9217 18.8284 10.1716C18.0783 9.42143 17.0609 9 16 9H4"
+                        stroke="currentcolor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </a>
+              </div>
+            </div>
+ 
+            <div class="gridWrap border">
+              <div class="programDetailsWrap">
+                <div class="imgBox" [ngClass]="{ 'img-rtl': language == 'ar' }">
+                  <img
+                    [src]="programDetail.pictureUrl"
+                    alt=""
+                    width="543"
+                    height="912"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="contentBox" [ngClass]="{ rtl: language == 'ar' }">
+                  <div class="title">
+                    {{ language == 'en' ? programDetail.name : programDetail.name_AR }}
+                  </div>
+                  <!-- supporting class list : [colorDanger, colorSuccess, colorWarning, colorInfo] -->
+                  <div class="statusPin colorInfo">
+                    <span i18n>Active Program</span>
+                  </div>
+ 
+                  <div
+                    class="textBox sm"
+                    [innerHTML]="
+                      language == 'en'
+                        ? programDetail.longDescription
+                        : programDetail.longDescription_AR
+                    "
+                  ></div>
+ 
+                  <div class="moreWrap">
+                    <button (click)="goBack()" class="more wAuto">
+                      <span i18n>Go Back</span>
+                    </button>
+                    <ng-container *ngIf="!incompleteProfile && alreadyEnrolled && programId">
+                      <button
+                        class="more wAuto"
+                        style="margin-inline-start: 1rem;"
+                        (click)="onClick()"
+                      >
+                        <span i18n>Enroll</span>
+                      </button>
+                    </ng-container>
+                    <ng-container *ngIf="incompleteProfile">
+                      <button
+                        class="more wAuto secondary"
+                        style="margin-inline-start: 1rem;"
+                        routerLink="../../../profile"
+                      >
+                        <span i18n>Complete your profile</span>
+                      </button>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+ 
+      <app-side-box></app-side-box>
     </div>
   `,
   styles: [
     `
-      :host {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        height: 100%;
-      }
-      .program-detail-container {
-        background-size: cover !important;
-        min-height: 100vh;
-      }
-      .program-image {
-        width: 100%;
-        height: 100vh;
-        object-fit: cover;
-        position: fixed;
-        z-index: 0;
-        top: 0;
-        left: 0;
-      }
-      .program-image.img-rtl {
-        transform: scaleX(-1);
-      }
-      .program-detail-content {
-        background: linear-gradient(to right, #dadbdc 40%, transparent);
-        padding: 3em;
-        padding-top: 100px;
-        min-height: 100vh;
-        z-index: 1;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-      }
-      .program-detail-content.rtl {
-        background: linear-gradient(to left, #dadbdc 40%, transparent);
-      }
+      // Layout and visuals are handled by shared styles
+      // (same structure as PreviousProgramComponent).
     `,
   ],
-  // encapsulation: ViewEncapsulation.None,
 })
 export class ProgramActiveProgramComponent implements OnInit {
   alreadyEnrolled = false

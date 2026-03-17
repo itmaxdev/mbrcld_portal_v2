@@ -9,6 +9,8 @@ const ERROR_MESSAGES = {
   'maxlength': $localize`This should be at most \${requiredLength} characters long`,
   'language': $localize`Please provide input in the correct language`,
   'phoneNumber': $localize`This is not a valid phone number`,
+  'pattern': $localize`Please enter valid characters only`,
+  'notFutureDate': $localize`The date cannot be in the future`,
   '*': $localize`Please check the current value`,
 }
 

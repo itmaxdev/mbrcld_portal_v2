@@ -1,268 +1,321 @@
 <p-toast position="top-right" key="tr"></p-toast>
-<div class="module-block mb-8">
-  <div>
-    <div class="flex justify-between items-center">
-      <div class="inline-flex items-center mb-8 cursor-pointer contents" (click)="goBack()">
-        <img src="assets/images/ico-arrow-left.svg" class="w-6 h-6" alt="" />
-        <p class="text-lg ml-2 text-gray-700" i18n>
-          Back to Modules
-        </p>
-      </div>
-      <div class="chat-options-block flex">
-        <a class="mr-4" #openChat [routerLink]="['chat/' + roomId]">
-          <button
-            pButton
-            pRipple
-            type="button"
-            icon="pi pi-comment"
-            class="chat-button p-button-rounded"
-          ></button>
-        </a>
-      </div>
-    </div>
-    <div class="flex justify-between mb-8">
-      <div>
-        <div *ngIf="isModuleNameReady && isProgramNameReady">
-          <h1 class="text-2xl text-gray-700">
-            {{ programName }}
-          </h1>
-          <h1 class="text-xl text-gray-700 ml-4">{{ moduleOrder }}. {{ moduleName }}</h1>
+<div class="mainContainer">
+  <div class="gridWrap">
+    <div class="generalCard">
+      <div class="inner">
+        <div class="cardTitleWrap">
+          <div class="c">
+            <div class="cardTitle">{{ programName }}</div>
+            <nav aria-label="Breadcrumb" class="breadcrumbWrap">
+              <ul>
+                <li>
+                  <a class="link" (click)="goBack()">
+                    <span i18n>Programs</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="link" (click)="goBack()">
+                    <span>{{ programName }}</span>
+                  </a>
+                </li>
+                <li>
+                  <span class="current" aria-current="page">{{ moduleName }}</span>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="cardTools">
+            <a [routerLink]="['chat/' + roomId]" class="backBtn">
+              <span i18n>Support</span>
+              <div class="iconBox">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 11.5C21.0034 12.8199 20.6951 14.1219 20.1 15.3C19.3944 16.7118 18.3098 17.8992 16.9674 18.7293C15.6251 19.5594 14.0782 19.9994 12.5 20C11.1801 20.0035 9.87812 19.6951 8.7 19.1L3 21L4.9 15.3C4.30493 14.1219 3.99656 12.8199 4 11.5C4.00061 9.92179 4.44061 8.37488 5.27072 7.03258C6.10083 5.69028 7.28825 4.6056 8.7 3.90003C9.87812 3.30496 11.1801 2.99659 12.5 3.00003H13C15.0843 3.11502 17.053 3.99479 18.5291 5.47089C20.0052 6.94699 20.885 8.91568 21 11V11.5Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </a>
+            <a class="backBtn" (click)="goBack()">
+              <span i18n>Back</span>
+              <div class="iconBox">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 14L4 9L9 4" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M20 20V13C20 11.9391 19.5786 10.9217 18.8284 10.1716C18.0783 9.42143 17.0609 9 16 9H4" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="sectionTitleSmall">
+          <h2 class="">
+            <span *ngIf="isModuleNameReady">{{ moduleOrder }}. {{ moduleName }}</span>
+            <small *ngIf="isProgramNameReady">({{ programName }})</small>
+          </h2>
+        </div>
+
+        <div class="gridWrap border">
+          <!-- Tab Navigation -->
+          <div class="circleTabWrap normal">
+            <a class="cLink"
+               [class.active]="selectedTabs?.newsFeed"
+               (click)="handleChange({index: 0})" i18n>
+              <span>Newsfeed</span>
+            </a>
+            <a class="cLink"
+               [class.active]="selectedTabs?.overview"
+               (click)="handleChange({index: 1})" i18n>
+              <span>Overview</span>
+            </a>
+            <a class="cLink"
+               [class.active]="selectedTabs?.materials"
+               (click)="handleChange({index: 2})" i18n>
+              <span>Materials</span>
+            </a>
+            <a class="cLink"
+               [class.active]="selectedTabs?.accelerated"
+               (click)="handleChange({index: 3})" i18n>
+              <span>Accelerated Project</span>
+            </a>
+            <a class="cLink"
+               [class.active]="selectedTabs?.submitted"
+               (click)="handleChange({index: 4})" i18n>
+              <span>Submitted Project</span>
+            </a>
+            <a class="cLink"
+               [class.active]="selectedTabs?.class"
+               (click)="handleChange({index: 5})" i18n>
+              <span>Class List</span>
+            </a>
+          </div>
+
+          <!-- Add Newsfeed / Add Material buttons (instructor only) -->
+          <div class="buttonGroup end" *ngIf="isInstructor">
+            <a *ngIf="selectedTabs?.newsFeed" [href]="'/' + locale + generatedURL + '/edit'" class="more wAuto">
+              <span i18n>Add Newsfeed</span>
+            </a>
+            <a *ngIf="selectedTabs?.materials" class="more wAuto" (click)="showBasicDialog()">
+              <span i18n>Add Material</span>
+            </a>
+          </div>
+
+          <!-- ===== NEWSFEED TAB ===== -->
+          <div *ngIf="selectedTabs?.newsFeed">
+            <div *ngIf="isnewsFeedListReady; else loadingNewsfeed">
+              <ng-container *ngIf="newsFeedList?.length > 0; else emptyNewsfeed">
+                <app-newsfeed *ngFor="let item of newsFeedList" [item]="item"></app-newsfeed>
+              </ng-container>
+              <ng-template #emptyNewsfeed>
+                <p class="text-sm text-center text-gray-700" i18n>No newsfeeds available.</p>
+              </ng-template>
+            </div>
+            <ng-template #loadingNewsfeed>
+              <app-progress-spinner></app-progress-spinner>
+            </ng-template>
+          </div>
+
+          <!-- ===== OVERVIEW TAB ===== -->
+          <div *ngIf="selectedTabs?.overview">
+            <div class="grid gap-4">
+              <form [formGroup]="overviewForm">
+                <p-editor
+                  [(ngModel)]="overviewText"
+                  formControlName="overviewText"
+                  id="overviewText"
+                  [style]="{ height: '320px' }"
+                ></p-editor>
+                <div
+                  *ngIf="
+                    overviewForm.get('overviewText').invalid && overviewForm.get('overviewText').touched
+                  "
+                >
+                  <small controlName="topic" class="p-invalid" i18n>This field is required</small>
+                </div>
+              </form>
+            </div>
+            <div class="flex mt-2 flex-row-reverse">
+              <p-button
+                (click)="saveOverview()"
+                [disabled]="overviewForm.valid ? false : true"
+                label="Save Overview"
+                i18n-label
+              ></p-button>
+            </div>
+          </div>
+
+          <!-- ===== MATERIALS TAB ===== -->
+          <div *ngIf="selectedTabs?.materials">
+            <div *ngIf="!isExistMaterials; else materials">
+              <p class="text-sm text-center text-gray-700" i18n>No MATERIALS Added</p>
+            </div>
+            <ng-template #materials>
+              <div *ngIf="ready; else loadingMaterials" class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                <app-materials-card
+                  *ngFor="let item of materialsData"
+                  [id]="item.id"
+                  [role]="userRole"
+                  [isModules]="true"
+                  [name]="item.name"
+                  [startDate]="item.startDate"
+                  [description]="null"
+                  [order]="item.order"
+                  [materialUrl]="item.id"
+                  [duration]="item.duration"
+                  [publishDate]="item.publishDate"
+                  [status]="item.status"
+                  [isInstructor]="isInstructor"
+                  [completed]="item.completed"
+                  (openDialog)="openDialog($event)"
+                ></app-materials-card>
+              </div>
+            </ng-template>
+            <ng-template #loadingMaterials>
+              <app-progress-spinner></app-progress-spinner>
+            </ng-template>
+          </div>
+
+          <!-- ===== ACCELERATED PROJECT TAB ===== -->
+          <div *ngIf="selectedTabs?.accelerated">
+            <div *ngIf="!isExistAccelerated; else acceleratedProject">
+              <div *ngIf="isInstructor" class="flex flex-row-reverse mb-4">
+                <p-button
+                  (click)="openAccelerated(null)"
+                  label="Add Accelerated Project"
+                  i18n-label
+                ></p-button>
+              </div>
+              <p class="text-sm text-center text-gray-700" i18n>No ACCELERATED PROJECTS Added</p>
+            </div>
+            <ng-template #acceleratedProject>
+              <div *ngIf="isExistAccelerated; else loadingAccelerated" class="grid gap-4">
+                <app-enrolled-card
+                  *ngFor="let item of templateData"
+                  [id]="item.id"
+                  [role]="userRole"
+                  [caption]="item.topic"
+                  [content]="item.description"
+                  [visibleBtn]="true"
+                  [isClickable]="false"
+                  (openAccelerated)="openAccelerated($event)"
+                ></app-enrolled-card>
+              </div>
+            </ng-template>
+            <ng-template #loadingAccelerated>
+              <app-progress-spinner></app-progress-spinner>
+            </ng-template>
+          </div>
+
+          <!-- ===== SUBMITTED PROJECT TAB ===== -->
+          <div *ngIf="selectedTabs?.submitted">
+            <div *ngIf="!isExistTemplate; else templateProject">
+              <p class="text-sm text-center text-gray-700" i18n>No SUBMITTED PROJECTS Added</p>
+            </div>
+            <ng-template #templateProject>
+              <div *ngIf="isExistTemplate; else loadingSubmitted" class="grid gap-4">
+                <app-enrolled-card
+                  *ngFor="let item of underreviewData"
+                  [id]="item.id"
+                  [role]="userRole"
+                  [caption]="item.topic"
+                  [content]="item.applicantName"
+                  [visibleBtn]="true"
+                  [isClickable]="false"
+                  [isRoute]="true"
+                ></app-enrolled-card>
+              </div>
+            </ng-template>
+            <ng-template #loadingSubmitted>
+              <app-progress-spinner></app-progress-spinner>
+            </ng-template>
+          </div>
+
+          <!-- ===== CLASS LIST TAB ===== -->
+          <div *ngIf="selectedTabs?.class">
+            <div *ngIf="isClassListReady; else loadingClassList" class="grid grid-cols-3 gap-3">
+              <div *ngFor="let item of classListData">
+                <app-class-member-item
+                  [data]="item"
+                ></app-class-member-item>
+              </div>
+            </div>
+            <ng-template #loadingClassList>
+              <app-progress-spinner></app-progress-spinner>
+            </ng-template>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <app-side-box></app-side-box>
 </div>
-
-<p-tabView class="module-tabs" (onChange)="handleChange($event)">
-  <p-tabPanel header="Newsfeed" [selected]="selectedTabs.newsFeed" i18n-header>
-    <div *ngIf="isInstructor" class="add-newsfeed-button">
-      <a [href]="'/' + locale + generatedURL + '/edit'">
-        <p-button label="Add Newsfeed" i18n-label></p-button>
-      </a>
-    </div>
-    <div *ngIf="isnewsFeedListReady; else loading">
-      <app-newsfeed *ngFor="let item of newsFeedList" [item]="item"></app-newsfeed>
-    </div>
-  </p-tabPanel>
-
-  <p-tabPanel header="Overview" [selected]="selectedTabs.overview" i18n-header>
-    <div class="grid gap-4">
-      <form [formGroup]="overviewForm">
-        <p-editor
-          [(ngModel)]="overviewText"
-          formControlName="overviewText"
-          id="overviewText"
-          [style]="{ height: '320px' }"
-        ></p-editor>
-        <div
-          *ngIf="
-            overviewForm.get('overviewText').invalid && overviewForm.get('overviewText').touched
-          "
-        >
-          <small controlName="topic" class="p-invalid" i18n>This field is required</small>
-        </div>
-      </form>
-    </div>
-    <div class="flex mt-2 flex-row-reverse">
-      <p-button
-        (click)="saveOverview()"
-        [disabled]="overviewForm.valid ? false : true"
-        label="Save Overview"
-        i18n-label
-      ></p-button>
-    </div>
-  </p-tabPanel>
-  <p-tabPanel header="Materials" [selected]="selectedTabs.materials" i18n-header>
-    <div *ngIf="isInstructor" class="flex flex-row-reverse mb-4">
-      <p-button (click)="showBasicDialog()" label="Add Material" i18n-label></p-button>
-    </div>
-    <div *ngIf="!isExistMaterials; else materials">
-      <p class="text-sm text-center text-gray-700" i18n>No MATERIALS Added</p>
-    </div>
-    <ng-template #materials>
-      <div *ngIf="ready; else loading" class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <app-materials-card
-          *ngFor="let item of materialsData"
-          [id]="item.id"
-          [role]="userRole"
-          [isModules]="true"
-          [name]="item.name"
-          [startDate]="item.startDate"
-          [description]="null"
-          [order]="item.order"
-          [materialUrl]="item.id"
-          [duration]="item.duration"
-          [publishDate]="item.publishDate"
-          [status]="item.status"
-          [isInstructor]="isInstructor"
-          [completed]="item.completed"
-          (openDialog)="openDialog($event)"
-        ></app-materials-card>
-      </div>
-    </ng-template>
-  </p-tabPanel>
-  <p-tabPanel header="Accelerated Project" [selected]="selectedTabs.accelerated" i18n-header>
-    <div *ngIf="!isExistAccelerated; else acceleratedProject">
-      <div *ngIf="isInstructor" class="flex flex-row-reverse mb-4">
-        <p-button
-          (click)="openAccelerated(null)"
-          label="Add Accelerated Project"
-          i18n-label
-        ></p-button>
-      </div>
-      <p class="text-sm text-center text-gray-700" i18n>No ACCELERATED PROJECTS Added</p>
-    </div>
-    <ng-template #acceleratedProject>
-      <div *ngIf="isExistAccelerated; else loading" class="grid gap-4">
-        <app-enrolled-card
-          *ngFor="let item of templateData"
-          [id]="item.id"
-          [role]="userRole"
-          [caption]="item.topic"
-          [content]="item.description"
-          [visibleBtn]="true"
-          [isClickable]="false"
-          (openAccelerated)="openAccelerated($event)"
-        ></app-enrolled-card>
-      </div>
-    </ng-template>
-  </p-tabPanel>
-  <p-tabPanel header="Submitted Project" [selected]="selectedTabs.submitted" i18n-header>
-    <div *ngIf="!isExistTemplate; else templateProject">
-      <p class="text-sm text-center text-gray-700" i18n>No SUBMITTED PROJECTS Added</p>
-    </div>
-    <ng-template #templateProject>
-      <div *ngIf="isExistTemplate; else loading" class="grid gap-4">
-        <app-enrolled-card
-          *ngFor="let item of underreviewData"
-          [id]="item.id"
-          [role]="userRole"
-          [caption]="item.topic"
-          [content]="item.applicantName"
-          [visibleBtn]="true"
-          [isClickable]="false"
-          [isRoute]="true"
-        ></app-enrolled-card>
-      </div>
-    </ng-template>
-  </p-tabPanel>
-
-  <p-tabPanel header="Class List" [selected]="selectedTabs.class" i18n-header>
-    <div *ngIf="isClassListReady; else loadingClassList" class="grid gap-2">
-      <app-class-member-item
-        *ngFor="let item of classListData"
-        [data]="item"
-      ></app-class-member-item>
-    </div>
-    <ng-template #loadingClassList>
-      <app-progress-spinner></app-progress-spinner>
-    </ng-template>
-  </p-tabPanel>
-</p-tabView>
-
-<ng-template #loading>
-  <app-progress-spinner></app-progress-spinner>
-</ng-template>
 
 <!-- Materials Dialog -->
 <p-dialog
-  class="modal"
-  [header]="modalHeader"
-  [style]="{ width: '50vw' }"
   [(visible)]="displayBasic"
+  [style]="{ width: '50vw', 'max-width': '700px' }"
   [baseZIndex]="10000"
+  [showHeader]="false"
+  styleClass="popupBox mdBox materialDialog"
 >
-  <div>
-    <div class="m-0 p-8">
-      <form [formGroup]="materialForm" class="p-fluid p-formgrid p-grid profile-form gap-6">
-        <div class="w-full grid grid-cols-2 gap-8">
-          <div class="w-full">
-            <div class="p-field">
-              <label for="title" i18n>Topic <span class="text-red-500">*</span></label>
-              <input
-                pInputText
-                [(ngModel)]="topic"
-                formControlName="name"
-                id="name"
-                type="text"
-                class="text-lg"
-                placeholder="Enter Topic"
-                i18n-placeholder
-              />
-              <div *ngIf="materialForm.get('name').invalid && materialForm.get('name').touched">
-                <small
-                  *ngIf="materialForm.get('name').errors.required"
-                  controlName="enterName"
-                  class="p-invalid text-red-600"
-                  i18n
-                  >This field is required</small
-                >
-              </div>
+  <div class="inner">
+    <div class="topBox">
+      <div class="title">{{ modalHeader }}</div>
+      <a href="javascript:void(0)" class="plusBtn cursor-pointer" (click)="displayBasic = false" aria-label="Close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 6L18 18" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+    <div class="formBox">
+      <form [formGroup]="materialForm" class="form-v3 filledColor" (ngSubmit)="addMaterial()">
+        <div class="inputBox">
+          <div class="input-field normal full">
+            <label for="name" i18n>Topic <span class="text-red-500">*</span></label>
+            <input
+              pInputText
+              [(ngModel)]="topic"
+              formControlName="name"
+              id="name"
+              type="text"
+              placeholder="Enter Topic"
+              i18n-placeholder
+            />
+            <div *ngIf="materialForm.get('name').invalid && materialForm.get('name').touched">
+              <small *ngIf="materialForm.get('name').errors.required" class="p-invalid text-red-600" i18n>This field is required</small>
             </div>
           </div>
-          <div class="w-full">
-            <div class="p-field" dir="rtl">
-              <label for="title">الموضوع</label>
-              <input
-                pInputText
-                [(ngModel)]="topic_ar"
-                formControlName="nameAr"
-                id="nameAr"
-                type="text"
-                class="text-lg"
-                placeholder="الموضوع"
-              />
-              <div *ngIf="materialForm.get('nameAr').invalid && materialForm.get('nameAr').touched">
-                <small
-                  *ngIf="materialForm.get('nameAr').errors.required"
-                  controlName="enterNameAr"
-                  class="p-invalid text-red-600"
-                  i18n
-                  >This field is required</small
-                >
-                <small
-                  *ngIf="
-                    !materialForm.get('nameAr').errors.required &&
-                    materialForm.get('nameAr').errors.language
-                  "
-                  controlName="enterName"
-                  class="p-invalid text-red-600"
-                  >Please provide input in the correct language</small
-                >
-              </div>
+          <div class="input-field normal" dir="rtl">
+            <label for="nameAr">الموضوع</label>
+            <input
+              pInputText
+              [(ngModel)]="topic_ar"
+              formControlName="nameAr"
+              id="nameAr"
+              type="text"
+              placeholder="الموضوع"
+            />
+            <div *ngIf="materialForm.get('nameAr').invalid && materialForm.get('nameAr').touched">
+              <small *ngIf="materialForm.get('nameAr').errors.required" class="p-invalid text-red-600" i18n>This field is required</small>
+              <small *ngIf="!materialForm.get('nameAr').errors.required && materialForm.get('nameAr').errors.language" class="p-invalid text-red-600">Please provide input in the correct language</small>
             </div>
           </div>
-        </div>
-        <div class="w-full">
-          <div class="p-field">
-            <label for="title" i18n>Location <span class="text-red-500">*</span></label>
+          <div class="input-field normal">
+            <label for="location" i18n>Location <span class="text-red-500">*</span></label>
             <input
               pInputText
               [(ngModel)]="location"
               formControlName="location"
               id="location"
               type="text"
-              class="text-lg"
               placeholder="Enter Location"
               i18n-placeholder
             />
-            <div
-              *ngIf="materialForm.get('location').invalid && materialForm.get('location').touched"
-            >
-              <small
-                *ngIf="materialForm.get('location').errors.required"
-                controlName="enterLocation"
-                class="p-invalid text-red-600"
-                i18n
-                >This field is required</small
-              >
+            <div *ngIf="materialForm.get('location').invalid && materialForm.get('location').touched">
+              <small *ngIf="materialForm.get('location').errors.required" class="p-invalid text-red-600" i18n>This field is required</small>
             </div>
           </div>
-        </div>
-
-        <div class="w-full">
-          <div class="p-field">
-            <label for="startDate" i18n>Start Date<span class="text-red-500">*</span></label>
+          <div class="input-field normal">
+            <label for="startDate" i18n>Start Date <span class="text-red-500">*</span></label>
             <p-calendar
               [(ngModel)]="startDate"
               [monthNavigator]="true"
@@ -271,93 +324,64 @@
               appUseUtc
               appPrimeNGi18n
               appendTo="body"
-              inputId="from"
+              inputId="startDate"
               formControlName="startDate"
               id="startDate"
-              type="text"
-              class="text-lg"
-              placeholder="Start Date"
+              placeholder="dd - mm - yyyy"
               i18n-placeholder
             ></p-calendar>
-            <div
-              *ngIf="materialForm.get('startDate').invalid && materialForm.get('startDate').touched"
-            >
-              <small
-                *ngIf="materialForm.get('startDate').errors.required"
-                controlName="startDate"
-                class="p-invalid text-red-600"
-                i18n
-                >This field is required</small
-              >
+            <div class="iconBox">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 10H21" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div *ngIf="materialForm.get('startDate').invalid && materialForm.get('startDate').touched">
+              <small *ngIf="materialForm.get('startDate').errors.required" class="p-invalid text-red-600" i18n>This field is required</small>
             </div>
           </div>
-        </div>
-
-        <div class="w-full">
-          <div class="p-field">
-            <label for="title" i18n>Duration (Minutes) <span class="text-red-500">*</span></label>
+          <div class="input-field normal">
+            <label for="duration" i18n>Duration (Minutes) <span class="text-red-500">*</span></label>
             <p-inputNumber
-              pInputText
               [(ngModel)]="duration"
               formControlName="duration"
               id="duration"
-              type="text"
-              class="text-lg"
-              style="border:0;padding-left:0"
-              placeholder="Enter Duration"
+              placeholder="--:--"
               mode="decimal"
               inputId="duration"
               [useGrouping]="false"
               i18n-placeholder
-            >
-            </p-inputNumber>
-            <div
-              *ngIf="materialForm.get('duration').invalid && materialForm.get('duration').touched"
-            >
-              <small
-                *ngIf="materialForm.get('duration').errors.required"
-                controlName="enterDuration"
-                class="p-invalid text-red-600"
-                i18n
-                >This field is required</small
-              >
+            ></p-inputNumber>
+            <div class="iconBox">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 6V12L16 14" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div *ngIf="materialForm.get('duration').invalid && materialForm.get('duration').touched">
+              <small *ngIf="materialForm.get('duration').errors.required" class="p-invalid text-red-600" i18n>This field is required</small>
             </div>
           </div>
-        </div>
-        <div class="w-full">
-          <div class="p-field">
-            <label for="title" i18n>Order <span class="text-red-500">*</span></label>
+          <div class="input-field normal">
+            <label for="order" i18n>Order <span class="text-red-500">*</span></label>
             <p-inputNumber
-              pInputText
               [(ngModel)]="order"
               formControlName="order"
               id="order"
-              type="text"
-              class="text-lg"
-              style="border:0;padding-left:0"
               placeholder="Enter Order"
               mode="decimal"
               inputId="order"
               [useGrouping]="false"
               i18n-placeholder
-            >
-            </p-inputNumber>
+            ></p-inputNumber>
             <div *ngIf="materialForm.get('order').invalid && materialForm.get('order').touched">
-              <small
-                *ngIf="materialForm.get('order').errors.required"
-                controlName="enterOrder"
-                class="p-invalid text-red-600"
-                i18n
-                >This field is required</small
-              >
+              <small *ngIf="materialForm.get('order').errors.required" class="p-invalid text-red-600" i18n>This field is required</small>
             </div>
           </div>
-        </div>
-        <div *ngIf="isScheudledSelected" class="w-full">
-          <div class="p-field">
-            <label for="publishDate" i18n-placeholder>
-              Publish Date<span class="text-red-500">*</span>
-            </label>
+          <div *ngIf="isScheudledSelected" class="input-field normal full">
+            <label for="publishDate" i18n>Publish Date <span class="text-red-500">*</span></label>
             <p-calendar
               [(ngModel)]="publishDate"
               [monthNavigator]="true"
@@ -369,30 +393,15 @@
               inputId="publishDate"
               formControlName="publishDate"
               id="publishDate"
-              type="text"
-              class="text-lg"
               placeholder="Publish Date"
               i18n-placeholder
             ></p-calendar>
-            <div
-              *ngIf="
-                materialForm.get('publishDate').invalid && materialForm.get('publishDate').touched
-              "
-            >
-              <small
-                *ngIf="materialForm.get('publishDate').errors.required"
-                controlName="publishDate"
-                class="p-invalid text-red-600"
-                i18n
-              >
-                This field is required
-              </small>
+            <div *ngIf="materialForm.get('publishDate').invalid && materialForm.get('publishDate').touched">
+              <small *ngIf="materialForm.get('publishDate').errors.required" class="p-invalid text-red-600" i18n>This field is required</small>
             </div>
           </div>
-        </div>
-        <div class="w-full">
-          <div class="p-field">
-            <label for="status" i18n>Status<span class="text-red-500">*</span></label>
+          <div class="input-field normal">
+            <label for="status" i18n>Status <span class="text-red-500">*</span></label>
             <p-dropdown
               formControlName="status"
               id="status"
@@ -400,41 +409,30 @@
               [(ngModel)]="status"
               [options]="statusOptions"
               (ngModelChange)="onSelectType($event)"
+              appendTo="body"
               i18n-placeholder
             ></p-dropdown>
             <div *ngIf="materialForm.get('status').invalid && materialForm.get('status').touched">
-              <small
-                *ngIf="materialForm.get('status').errors.required"
-                controlName="status"
-                class="p-invalid text-red-600"
-                i18n
-              >This field is required</small>
+              <small *ngIf="materialForm.get('status').errors.required" class="p-invalid text-red-600" i18n>This field is required</small>
             </div>
+          </div>
+          <div class="input-field normal full buttonWrap">
+            <button type="submit" class="more wAuto" [disabled]="!materialForm.valid || onUpdate">
+              <span i18n>Save</span>
+            </button>
+            <span *ngIf="onUpdate" class="flex items-center ml-2">
+              <p-progressSpinner
+                [style]="{ width: '20px', height: '20px' }"
+                styleClass="custom-spinner"
+                strokeWidth="6"
+                animationDuration=".5s"
+              ></p-progressSpinner>
+            </span>
           </div>
         </div>
       </form>
     </div>
   </div>
-  <ng-template pTemplate="footer">
-    <div class="flex flex-row-reverse">
-      <p-button
-        (click)="addMaterial()"
-        [disabled]="materialForm.valid ? null : true"
-        label="Save"
-        i18n-label
-      ></p-button>
-      <span *ngIf="onUpdate" class="flex items-center"
-        ><p-progressSpinner
-          [style]="{ width: '20px', height: '20px' }"
-          class="custom-spinner flex align-center"
-          styleClass="custom-spinner"
-          strokeWidth="6"
-          fill="white"
-          animationDuration=".5s"
-        ></p-progressSpinner
-      ></span>
-    </div>
-  </ng-template>
 </p-dialog>
 
 <!-- Accelerated Projects -->

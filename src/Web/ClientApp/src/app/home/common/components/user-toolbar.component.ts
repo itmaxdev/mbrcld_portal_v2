@@ -95,9 +95,16 @@ import { environment } from '../../../../environments/environment'
             (onHide)="menuOpen = false"
           ></p-slideMenu>
           <picture>
-            <source [srcset]="profilePicUrl" type="image/webp" />
-            <source [srcset]="profilePicUrl" type="image/jpeg" />
-            <img [src]="profilePicUrl" alt="" width="100" height="100" loading="lazy" />
+            <source [srcset]="profilePicUrl || defaultProfilePicUrl" type="image/webp" />
+            <source [srcset]="profilePicUrl || defaultProfilePicUrl" type="image/jpeg" />
+            <img
+              [src]="profilePicUrl || defaultProfilePicUrl"
+              alt="Profile picture"
+              width="100"
+              height="100"
+              loading="lazy"
+              
+            />
           </picture>
         </a>
       </div>
@@ -109,6 +116,7 @@ export class UserToolbarComponent implements OnInit, OnDestroy {
   roleName: string
   menuItems: MenuItem[]
   profilePicUrl: string
+  defaultProfilePicUrl = 'assets/images/no-photo.png'
   menuOpen = false
   private logOutUrl: string
 
@@ -135,8 +143,11 @@ export class UserToolbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const profileInfo = JSON.parse(localStorage.getItem('profile_info'))
-    if (profileInfo && [1, 2, 3].indexOf(profileInfo.role) != -1) {
+    const profileInfoRaw = localStorage.getItem('profile_info')
+    const profileInfo = profileInfoRaw ? JSON.parse(profileInfoRaw) : null
+    const profileRole = profileInfo ? profileInfo.role : null
+
+    if (profileRole && [1, 2, 3].indexOf(profileRole) !== -1) {
       this.menuItems = [
         {
           label: $localize`User Manual`,
@@ -188,7 +199,11 @@ export class UserToolbarComponent implements OnInit, OnDestroy {
         },
       ]
     }
-    this.profilePicUrl = profileInfo.profilePictureUrl
+
+    this.profilePicUrl =
+      profileInfo && profileInfo.profilePictureUrl
+        ? profileInfo.profilePictureUrl
+        : this.defaultProfilePicUrl
     this.profileFacade.loadProfile()
   }
 
@@ -221,6 +236,13 @@ export class UserToolbarComponent implements OnInit, OnDestroy {
       localStorage.removeItem('profile_info')
       localStorage.removeItem('uaeCode')
       this.authService.login()
+    }
+  }
+
+  onImageError(event: Event) {
+    const img = event.target as HTMLImageElement
+    if (img && img.src !== this.defaultProfilePicUrl) {
+      img.src = this.defaultProfilePicUrl
     }
   }
 

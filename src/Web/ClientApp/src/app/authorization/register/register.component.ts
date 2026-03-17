@@ -16,7 +16,7 @@ import {
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register-new.component.html',
+  templateUrl: './register.component.html',
   styleUrls: ['register.component.scss'],
   providers: [MessageService],
 })
@@ -134,10 +134,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
       emiratesId,
       password,
       confirmPassword,
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
+      firstName: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z\s'\-]+$/)]),
+      lastName: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z\s'\-]+$/)]),
       email: new FormControl('', [Validators.required, email()]),
-      mobilePhone: new FormControl('', [Validators.required]),
+      mobilePhone: new FormControl(''),
     })
 
     nationality.valueChanges

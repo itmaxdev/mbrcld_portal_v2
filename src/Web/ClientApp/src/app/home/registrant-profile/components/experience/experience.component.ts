@@ -25,7 +25,6 @@ const positionLevelOptions = [
 
 const organizationLevelOptions = [
   { value: 0, label: $localize`Country` },
-  { value: 1, label: $localize`Country` },
   { value: 2, label: $localize`Regional` },
   { value: 3, label: $localize`Global` },
 ]
@@ -159,6 +158,16 @@ export class RegistrantExperienceComponent implements OnInit, OnDestroy {
       this.professionalExperiences.find((e) => !e.to)?.id !== this.editingExperience?.id
     ) {
       return { singleCurrentJob: true }
+    }
+    const fromVal = this.experienceForm?.get('from')?.value
+    const toVal = this.experienceForm?.get('to')?.value
+    const present = this.experienceForm?.get('present')?.value
+    if (!present && fromVal && toVal) {
+      const fromDate = new Date(fromVal)
+      const toDate = new Date(toVal)
+      if (toDate < fromDate) {
+        return { toBeforeFrom: true }
+      }
     }
     return null
   }

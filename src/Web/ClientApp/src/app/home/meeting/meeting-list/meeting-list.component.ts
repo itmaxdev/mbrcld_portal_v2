@@ -203,4 +203,9 @@ export class MeetingListComponent implements OnInit {
   get programOptionsForDropdown(): ListAllProgramsViewModel[] {
     return this.programOptionsList
   }
+
+  /** True when at least one of Sector, Program, or Cohort Year is selected; enables Search button. */
+  get hasAtLeastOneFilter(): boolean {
+    return !!(this.selectedSector || this.selectedProgram || this.selectedYear)
+  }
 }
