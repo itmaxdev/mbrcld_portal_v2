@@ -54,6 +54,33 @@ export class ProfileFacade {
     private documentsClient: UserDocumentsClient
   ) {}
 
+  private setProfilePictureUrl(url?: string | null) {
+    const normalized = this.normalizeProfilePictureUrl(url)
+    this.profilePic$.next(normalized)
+
+    // Keep localStorage in sync because multiple components read from it directly.
+    try {
+      const raw = localStorage.getItem('profile_info')
+      if (!raw) return
+      const info = JSON.parse(raw)
+      info.profilePictureUrl = normalized
+      localStorage.setItem('profile_info', JSON.stringify(info))
+    } catch {
+      // ignore storage errors
+    }
+  }
+
+  private normalizeProfilePictureUrl(url?: string | null): string | null {
+    if (!url) return null
+
+    // Add a cache-buster so the browser doesn't keep a previously failed 404 cached.
+    const cacheBuster = Date.now()
+    if (url.includes('?')) {
+      return url.replace(/([?&])v=\d+/, `$1v=${cacheBuster}`)
+    }
+    return `${url}?v=${cacheBuster}`
+  }
+
   loadGeneralInformation(): Promise<IUserGeneralInformation> {
     return this.loadProfile()
   }
@@ -134,7 +161,12 @@ export class ProfileFacade {
 
   removeProfilePicture(): Promise<void> {
     this.invalidateCachedProfile()
-    return this.profileClient.profilePictureDelete().toPromise()
+    return this.profileClient
+      .profilePictureDelete()
+      .toPromise()
+      .then(() => {
+        this.setProfilePictureUrl(null)
+      })
   }
 
   reloadProfile(): Promise<IGetUserProfileViewModel> {
@@ -164,6 +196,8 @@ export class ProfileFacade {
 
   async loadProfile(): Promise<IGetUserProfileViewModel> {
     if (this.cachedProfile) {
+      // Ensure subscribers/localStorage still receive the cached picture URL.
+      this.setProfilePictureUrl(this.cachedProfile.profilePictureUrl)
       return this.cachedProfile
     }
 
@@ -179,7 +213,7 @@ export class ProfileFacade {
         tap((profile) => {
           this.cachedProfile = profile
           this.profileSubject$.next(profile)
-          this.profilePic$.next(profile.profilePictureUrl)
+          this.setProfilePictureUrl(profile.profilePictureUrl)
           this.isLoadingProfile = false
         })
       )

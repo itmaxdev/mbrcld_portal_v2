@@ -250,29 +250,34 @@
           <!-- Start Date – half width -->
           <div class="input-field normal">
             <label for="startDate" i18n>Start Date <span class="text-red-500">*</span></label>
-            <p-calendar
-              [(ngModel)]="startDate"
-              [monthNavigator]="true"
-              [yearNavigator]="true"
-              appUseDateRange="freeDate"
-              appUseUtc
-              appPrimeNGi18n
-              appendTo="body"
-              [baseZIndex]="20000"
-              [autoZIndex]="true"
-              inputId="startDate"
-              formControlName="startDate"
-              id="startDate"
-              placeholder="dd-mm-yyyy"
-              i18n-placeholder
-            ></p-calendar>
-            <div class="iconBox">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M16 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M8 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M3 10H21" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+            <div style="position:relative; display:block;">
+              <p-calendar
+                [(ngModel)]="startDate"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                appUseDateRange="freeDate"
+                appUseUtc
+                appPrimeNGi18n
+                appendTo="body"
+                [baseZIndex]="20000"
+                [autoZIndex]="true"
+                inputId="startDate"
+                formControlName="startDate"
+                id="startDate"
+                placeholder="dd-mm-yyyy"
+                i18n-placeholder
+                styleClass="w-full"
+                inputStyleClass="w-full"
+                [inputStyle]="{'padding-right':'2.5rem'}"
+              ></p-calendar>
+              <div class="iconBox" style="position:absolute; right:0.75rem; top:50%; transform:translateY(-50%); pointer-events:none; display:flex; align-items:center;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M16 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M3 10H21" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
             </div>
             <div *ngIf="materialForm.get('startDate').invalid && materialForm.get('startDate').touched">
               <small *ngIf="materialForm.get('startDate').errors.required" class="p-invalid text-red-600" i18n>This field is required</small>
@@ -282,22 +287,27 @@
           <!-- Duration – half width -->
           <div class="input-field normal">
             <label for="duration" i18n>Duration (Minutes) <span class="text-red-500">*</span></label>
-            <p-inputNumber
-              [(ngModel)]="duration"
-              formControlName="duration"
-              id="duration"
-              placeholder="0"
-              mode="decimal"
-              inputId="duration"
-              [useGrouping]="false"
-              [min]="0"
-              i18n-placeholder
-            ></p-inputNumber>
-            <div class="iconBox">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12 6V12L16 14" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+            <div style="position:relative; display:block;">
+              <p-inputNumber
+                [(ngModel)]="duration"
+                formControlName="duration"
+                id="duration"
+                placeholder="0"
+                mode="decimal"
+                inputId="duration"
+                [useGrouping]="false"
+                [min]="0"
+                i18n-placeholder
+                styleClass="w-full"
+                inputStyleClass="w-full"
+                [inputStyle]="{'padding-right':'2.5rem'}"
+              ></p-inputNumber>
+              <div class="iconBox" style="position:absolute; right:0.75rem; top:50%; transform:translateY(-50%); pointer-events:none; display:flex; align-items:center;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M12 6V12L16 14" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
             </div>
             <div *ngIf="materialForm.get('duration').invalid && materialForm.get('duration').touched">
               <small *ngIf="materialForm.get('duration').errors.required" class="p-invalid text-red-600" i18n>This field is required</small>
@@ -308,14 +318,15 @@
           <div class="input-field normal">
             <label for="order" i18n>Order <span class="text-red-500">*</span></label>
             <p-dropdown
-              [(ngModel)]="order"
               formControlName="order"
               id="order"
               placeholder="Select Order"
               appendTo="body"
               [baseZIndex]="20000"
               [autoZIndex]="true"
-              [options]="[1,2,3,4,5,6,7,8,9,10]"
+              [options]="orderOptions"
+              optionLabel="label"
+              optionValue="value"
               i18n-placeholder
             ></p-dropdown>
             <div *ngIf="materialForm.get('order').invalid && materialForm.get('order').touched">
@@ -346,29 +357,34 @@
           <!-- Publish Date – shows only when Scheduled is selected, full width -->
           <div *ngIf="isScheudledSelected" class="input-field normal full">
             <label for="publishDate" i18n>Publish Date <span class="text-red-500">*</span></label>
-            <p-calendar
-              [(ngModel)]="publishDate"
-              [monthNavigator]="true"
-              [yearNavigator]="true"
-              appUseDateRange="freeDate"
-              appUseUtc
-              appPrimeNGi18n
-              appendTo="body"
-              [baseZIndex]="20000"
-              [autoZIndex]="true"
-              inputId="publishDate"
-              formControlName="publishDate"
-              id="publishDate"
-              placeholder="dd-mm-yyyy"
-              i18n-placeholder
-            ></p-calendar>
-            <div class="iconBox">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M16 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M8 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M3 10H21" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+            <div style="position:relative; display:block;">
+              <p-calendar
+                [(ngModel)]="publishDate"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                appUseDateRange="freeDate"
+                appUseUtc
+                appPrimeNGi18n
+                appendTo="body"
+                [baseZIndex]="20000"
+                [autoZIndex]="true"
+                inputId="publishDate"
+                formControlName="publishDate"
+                id="publishDate"
+                placeholder="dd-mm-yyyy"
+                i18n-placeholder
+                styleClass="w-full"
+                inputStyleClass="w-full"
+                [inputStyle]="{'padding-right':'2.5rem'}"
+              ></p-calendar>
+              <div class="iconBox" style="position:absolute; right:0.75rem; top:50%; transform:translateY(-50%); pointer-events:none; display:flex; align-items:center;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M16 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M3 10H21" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
             </div>
             <div *ngIf="materialForm.get('publishDate').invalid && materialForm.get('publishDate').touched">
               <small *ngIf="materialForm.get('publishDate').errors.required" class="p-invalid text-red-600" i18n>This field is required</small>

@@ -98,6 +98,8 @@ export class ProgramsModulesAdminComponent implements OnInit {
   selectedApplicantId: string
   @ViewChild('openChat') openChat: ElementRef<HTMLElement>
 
+  orderOptions = Array.from({ length: 10 }, (_, i) => ({ label: String(i + 1), value: i + 1 }))
+
   statusOptions = [
     {
       value: MaterialStatuses.Draft,
@@ -160,6 +162,12 @@ export class ProgramsModulesAdminComponent implements OnInit {
       this.publishDate = data.publishDate ? moment(data.publishDate).toDate() : ('' as any)
       this.status = data.status
       this.showBasicDialog(idMaterial)
+      // Patch order directly into the reactive form so p-dropdown gets a plain number
+
+      const matchedOrder = this.orderOptions.find((opt) => opt.value === data.order) ?? null
+      this.materialForm.patchValue({ order: matchedOrder })
+
+      // this.materialForm.patchValue({ order: data.order })
     })
   }
 
@@ -229,6 +237,7 @@ export class ProgramsModulesAdminComponent implements OnInit {
   }
 
   addMaterial() {
+    console.log(this.materialForm.value)
     this.moduleId = this.route.snapshot.paramMap.get('modulesId')
 
     if (this.materialForm.valid) {
@@ -242,7 +251,7 @@ export class ProgramsModulesAdminComponent implements OnInit {
           allData.nameAr,
           allData.location,
           allData.duration,
-          allData.order,
+          allData.order.value,
           allData.startDate,
           allData.publishDate,
           allData.status

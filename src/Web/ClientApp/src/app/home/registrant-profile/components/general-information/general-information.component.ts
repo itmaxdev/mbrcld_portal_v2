@@ -63,7 +63,8 @@ export class RegistrantGeneralInformationComponent implements OnInit, OnDestroy 
 
   ngOnInit(): void {
     this.buildForm()
-    this.facade.loadProfile().then((data) => {
+    // Force refresh so we don't keep a stale profilePictureUrl (can cause 404s).
+    this.facade.reloadProfile().then((data) => {
       // Format birthdate to YYYY-MM-DD if it's a Date object,
       // because standard <input type="date"> expects this format.
       if (data.birthdate) {
@@ -100,8 +101,8 @@ export class RegistrantGeneralInformationComponent implements OnInit, OnDestroy 
       // General Information fields
       firstName: new FormControl('', [Validators.required]),
       firstName_AR: new FormControl('', [Validators.required]),
-      middleName: new FormControl(''),
-      middleName_AR: new FormControl(''),
+      middleName: new FormControl('', [Validators.required]),
+      middleName_AR: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
       lastName_AR: new FormControl('', [Validators.required]),
       gender: new FormControl('', [Validators.required]),

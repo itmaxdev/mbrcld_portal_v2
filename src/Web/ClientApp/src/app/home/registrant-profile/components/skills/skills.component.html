@@ -274,8 +274,11 @@
           <button type="button" class="more wAuto gray" (click)="goBack()">
             <span i18n>Previous</span>
           </button>
-          <button type="submit" class="more wAuto" [disabled]="isFormSubmitting">
+          <button *ngIf="role !== 3" type="submit" class="more wAuto" [disabled]="isFormSubmitting">
             <span i18n>Next</span>
+          </button>
+          <button *ngIf="role === 3" type="submit" class="more wAuto" [disabled]="isFormSubmitting">
+            <span i18n>Save</span>
           </button>
         </div>
       </div>
