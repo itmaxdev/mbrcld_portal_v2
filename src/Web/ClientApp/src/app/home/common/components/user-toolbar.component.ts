@@ -6,6 +6,7 @@ import { AuthorizationService } from 'src/app/core/api-authorization'
 import { UserDocumentsClient } from 'src/app/shared/api.generated.clients'
 import { ProfileFacade } from '../../profile/common/profile-facade.service'
 import { environment } from '../../../../environments/environment'
+import { takeUntil } from 'rxjs/operators'
 
 @Component({
   selector: 'app-user-toolbar',
@@ -103,7 +104,6 @@ import { environment } from '../../../../environments/environment'
               width="100"
               height="100"
               loading="lazy"
-              
             />
           </picture>
         </a>
@@ -204,6 +204,12 @@ export class UserToolbarComponent implements OnInit, OnDestroy {
       profileInfo && profileInfo.profilePictureUrl
         ? profileInfo.profilePictureUrl
         : this.defaultProfilePicUrl
+
+    // Keep toolbar picture in sync with the actual profile API.
+    this.profileFacade.profilePicChanges.pipe(takeUntil(this.destroy$)).subscribe((url) => {
+      this.profilePicUrl = url || this.defaultProfilePicUrl
+    })
+
     this.profileFacade.loadProfile()
   }
 

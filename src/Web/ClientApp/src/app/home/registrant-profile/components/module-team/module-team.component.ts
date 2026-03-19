@@ -6,6 +6,7 @@ import {
   IListTeamMembersViewModel,
   UniversityTeamMembersClient,
 } from 'src/app/shared/api.generated.clients'
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
   selector: 'app-registrant-module-team',
@@ -21,9 +22,19 @@ export class RegistrantModuleTeamComponent implements OnInit {
   editMemberId: string
   members: IListTeamMembersViewModel[]
 
-  constructor(private universityTeamMembers: UniversityTeamMembersClient) {}
+  constructor(
+    private universityTeamMembers: UniversityTeamMembersClient,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
+    const profileInfo = JSON.parse(localStorage.getItem('profile_info'))
+    if (profileInfo?.role === 3) {
+      // Alumni shouldn't access the team module.
+      this.router.navigate(['../../feed'], { relativeTo: this.activatedRoute })
+      return
+    }
     this.buildForm()
     this.loadMembers()
   }

@@ -62,6 +62,7 @@ export class RegistrantSkillsComponent implements OnInit {
 
   ready = false
   isFormSubmitting = false
+  role: number
 
   constructor(
     private router: Router,
@@ -73,6 +74,8 @@ export class RegistrantSkillsComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
+    const profileInfo = JSON.parse(localStorage.getItem('profile_info'))
+    this.role = profileInfo?.role
     this.buildForms()
     await this.fetchContent()
     this.ready = true
@@ -208,6 +211,11 @@ export class RegistrantSkillsComponent implements OnInit {
 
   // Navigation
   onSubmit() {
+    // Alumni doesn't have the team module in their profile flow.
+    if (this.role === 3) {
+      this.router.navigate(['../../feed'], { relativeTo: this.activatedRoute })
+      return
+    }
     this.router.navigate(['../module-team'], { relativeTo: this.activatedRoute })
   }
 

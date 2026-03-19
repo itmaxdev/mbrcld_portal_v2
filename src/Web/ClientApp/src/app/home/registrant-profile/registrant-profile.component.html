@@ -7,14 +7,13 @@
                   <div class="cardTools">
                     <div class="progressWrap">
                       <div class="pInfo">
-                        <span>75% Profile Completed </span>
-                        <span>Updated on 28 Jun </span>
+                        <span *ngIf="progressReady">{{ completionPercentage }}% Profile Completed </span>
                       </div>
                       <!-- color options available : [green , blue , red ]  -->
                       <div
                         class="progress"
                         data-color="blue"
-                        style="--percentage: 75%"
+                        [ngStyle]="{ '--percentage': completionPercentage + '%' }"
                       ></div>
                     </div>
                   </div>

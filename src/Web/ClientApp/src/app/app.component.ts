@@ -45,13 +45,13 @@ export class AppComponent implements OnInit {
         }
         if (profilePrefix != '' && !alreadyChecked) {
           alreadyChecked = true
-          if (this.globalVariables.isProfilePercentageCompleted === null) {
-            const profileCompletion = await this.profile.loadFormProgress()
-            if (profileCompletion) {
-              this.globalVariables.isProfilePercentageCompleted =
-                profileCompletion.completionPercentage == 100
-              this.globalVariables.profileIsOutDated = profileCompletion.requiresUpdate
-            }
+          // Always refresh once per non-profile navigation. Otherwise a previously-incomplete
+          // profile can keep blocking the user even after completing it.
+          const profileCompletion = await this.profile.loadFormProgress()
+          if (profileCompletion) {
+            this.globalVariables.isProfilePercentageCompleted =
+              profileCompletion.completionPercentage == 100
+            this.globalVariables.profileIsOutDated = profileCompletion.requiresUpdate
           }
 
           if (this.globalVariables.isProfilePercentageCompleted === false) {
@@ -100,14 +100,14 @@ export class AppComponent implements OnInit {
       }
     })
 
-    this.router.events.subscribe(event => {
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.pushGTMEvent(event.urlAfterRedirects);
+        this.pushGTMEvent(event.urlAfterRedirects)
       }
-    });
+    })
   }
 
-  ngOnDestroy() { }
+  ngOnDestroy() {}
 
   ngOnInit(): void {
     if (!this.location.path().includes('authorize/login')) {
@@ -116,12 +116,11 @@ export class AppComponent implements OnInit {
   }
 
   private pushGTMEvent(url: string) {
-
     if (typeof dataLayer !== 'undefined') {
       dataLayer.push({
-        'event': 'pageview',
-        'page': url
-      });
+        event: 'pageview',
+        page: url,
+      })
     }
   }
 }
