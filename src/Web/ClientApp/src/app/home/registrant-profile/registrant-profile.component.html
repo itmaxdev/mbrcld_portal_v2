@@ -10,11 +10,13 @@
                         <span *ngIf="progressReady">{{ completionPercentage }}% Profile Completed </span>
                       </div>
                       <!-- color options available : [green , blue , red ]  -->
-                      <div
-                        class="progress"
-                        data-color="blue"
-                        [ngStyle]="{ '--percentage': completionPercentage + '%' }"
-                      ></div>
+                      <div class="progress">
+                        <div
+                          class="progress-fill"
+                          data-color="blue"
+                          [ngStyle]="{ 'width': completionPercentage + '%' }"
+                        ></div>
+                      </div>
                     </div>
                   </div>
                 </div>

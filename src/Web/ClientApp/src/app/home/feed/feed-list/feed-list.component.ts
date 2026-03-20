@@ -46,7 +46,7 @@ export class FeedListComponent implements OnInit {
   navigateToModule(module: 'events' | 'articles' | 'programs'): void {
     const base = this.router.url.split('/').filter(Boolean)[0]
     if (base) {
-      void this.router.navigate(['/', base, module])
+      this.router.navigate(['/', base, module])
     }
   }
 
@@ -109,8 +109,35 @@ export class FeedListComponent implements OnInit {
           this.totalPrograms = byName('Total Programs')
           this.totalArticles = byName('Total Articles')
           this.ready = true
+
+          setTimeout(() => {
+            this.triggerCountAnimation()
+          }, 400)
         }
       },
+    })
+  }
+
+  triggerCountAnimation(): void {
+    const counters = document.querySelectorAll('[data-animcount]')
+    counters.forEach((el) => {
+      const target = +(el.getAttribute('data-animcount') ?? 0)
+      const inner = el.querySelector('i')
+      if (!inner || target === 0) return
+
+      let current = 0
+      const duration = 1500 // total ms
+      const totalFrames = duration / 16 // ~93 frames
+      const step = target / totalFrames // fractional step per frame
+
+      const timer = setInterval(() => {
+        current += step
+        if (current >= target) {
+          current = target
+          clearInterval(timer)
+        }
+        inner.textContent = Math.floor(current).toString()
+      }, 16)
     })
   }
 

@@ -83,12 +83,46 @@ export class SideBoxComponent {
       })
   }
 
-  getLists() {
+  getLists1() {
     this.rightPanelClient.listsGet().subscribe((res: Panel3ViewModel[]) => {
       if (res) {
         this.listItems = res
         console.log(this.listItems)
       }
+    })
+  }
+
+  getLists() {
+    this.rightPanelClient.listsGet().subscribe((res: Panel3ViewModel[]) => {
+      if (res) {
+        this.listItems = res
+        setTimeout(() => {
+          this.triggerCountAnimation()
+        }, 100)
+      }
+    })
+  }
+
+  triggerCountAnimation(): void {
+    const counters = document.querySelectorAll('[data-animcount]')
+    counters.forEach((el) => {
+      const target = +(el.getAttribute('data-animcount') ?? 0)
+      const inner = el.querySelector('i')
+      if (!inner || target === 0) return
+
+      let current = 0
+      const duration = 1500
+      const totalFrames = duration / 16
+      const step = target / totalFrames
+
+      const timer = setInterval(() => {
+        current += step
+        if (current >= target) {
+          current = target
+          clearInterval(timer)
+        }
+        inner.textContent = Math.floor(current).toString()
+      }, 16)
     })
   }
 

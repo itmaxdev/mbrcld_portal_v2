@@ -1,120 +1,221 @@
-<div>
-  <div class="inline-flex items-center mb-8 cursor-pointer contents" (click)="goBack()">
-    <img src="assets/images/ico-arrow-left.svg" class="w-6 h-6" alt="" />
-    <p class="text-lg ml-2 text-gray-700" i18n>
-      Back to Materials
-    </p>
-  </div>
-  <div class="flex justify-between mb-8">
-    <div>
-      <div *ngIf="isModuleNameReady && isProgramNameReady && isMaterialNameReady">
-        <h1 class="text-2xl text-gray-700">
-          {{ programName }}
-        </h1>
-        <h1 class="text-xl text-gray-700 ml-4">{{ moduleOrder }}. {{ moduleName }}</h1>
-        <h1 class="text-lg text-gray-700 ml-8">{{ materialOrder }}. {{ materialName }}</h1>
-      </div>
-    </div>
+<div class="mainContainer">
+  <div class="gridWrap">
+    <div class="generalCard">
+      <div class="inner">
 
-    <div *ngIf="isInstructor || isAdmin">
-      <p-button (click)="showBasicDialog()" label="Add Section" i18n-label></p-button>
-    </div>
-  </div>
-  <div *ngIf="isExistSections; else sections">
-    <p class="text-sm text-center text-gray-700" i18n>No SECTIONS Added</p>
-  </div>
-  <ng-template #sections>
-    <div *ngIf="ready; else loading" class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-      <app-sections-card
-        *ngFor="let item of sectionsList"
-        [id]="item.id"
-        [role]="userRole"
-        [order]="item.order"
-        [name]="item.name"
-        [startDate]="item.startDate"
-        [duration]="item.duration"
-        [status]="item.status"
-        [publishDate]="item.publishDate"
-        [sectionStatus]="item.sectionStatus"
-        [isInstructor]="isInstructor"
-        [materialUrl]="item.id"
-        (openModal)="openDialog($event)"
-      ></app-sections-card>
-    </div>
-  </ng-template>
-</div>
-
-<p-dialog
-  [header]="modalHeader"
-  [(visible)]="displayBasic"
-  [style]="{ width: '50vw' }"
-  [baseZIndex]="10000"
->
-  <div class="grid gap-4">
-    <div>
-      <div class="m-0 p-8">
-        <form [formGroup]="sectionForm" class="p-fluid p-formgrid p-grid profile-form gap-6">
-          <div class="w-full grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-16">
-            <div class="p-field">
-              <label for="sectionNumber" i18n>Topic <span class="text-red-500">*</span></label>
-              <input
-                pInputText
-                [(ngModel)]="topic"
-                id="name"
-                name="name"
-                type="text"
-                class="text-lg"
-                formControlName="name"
-                placeholder="Enter Topic"
-                i18n-placeholder
-              />
-              <div *ngIf="sectionForm.get('name').invalid && sectionForm.get('name').touched">
-                <small
-                  *ngIf="sectionForm.get('name').errors.required"
-                  controlName="name"
-                  class="p-invalid text-red-600"
-                  i18n
-                  >This field is required</small
-                >
+        <!-- ── Title + Breadcrumb ── -->
+        <div class="cardTitleWrap">
+          <div class="c">
+            <div class="cardTitle">{{ programName }}</div>
+            <nav aria-label="Breadcrumb" class="breadcrumbWrap">
+              <ul>
+                <li>
+                  <a class="link" (click)="goBack()">
+                    <span i18n>Programs</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="link" (click)="goBack()">
+                    <span>{{ programName }}</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="link" (click)="goBack()">
+                    <span>{{ moduleName }}</span>
+                  </a>
+                </li>
+                <li>
+                  <span class="current" aria-current="page">{{ materialName }}</span>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="cardTools">
+            <a class="backBtn" (click)="goBack()" style="cursor:pointer;">
+              <span i18n>Back</span>
+              <div class="iconBox">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 14L4 9L9 4" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M20 20V13C20 11.9391 19.5786 10.9217 18.8284 10.1716C18.0783 9.42143 17.0609 9 16 9H4" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
-            </div>
-            <div class="p-field p-col-12" dir="rtl">
-              <label for="sectionTitle">الموضوع</label>
-              <input
-                pInputText
-                [(ngModel)]="topic_ar"
-                id="nameAr"
-                name="nameAr"
-                type="text"
-                class="text-lg"
-                formControlName="nameAr"
-                placeholder="الموضوع"
-              />
-              <div *ngIf="sectionForm.get('nameAr').invalid && sectionForm.get('nameAr').touched">
-                <small
-                  *ngIf="sectionForm.get('nameAr').errors.required"
-                  controlName="nameAr"
-                  class="p-invalid text-red-600"
-                  i18n
-                  >This field is required</small
-                >
-                <small
-                  *ngIf="
-                    !sectionForm.get('nameAr').errors.required &&
-                    sectionForm.get('nameAr').errors.language
-                  "
-                  controlName="nameAr"
-                  class="p-invalid text-red-600"
-                  >Please provide input in the correct language</small
-                >
+            </a>
+          </div>
+        </div>
+
+        <!-- ── Module / Material subtitle + Add Section button ── -->
+        <div class="cardTitleWrap smallMargin">
+          <div class="c">
+            <div *ngIf="isModuleNameReady && isProgramNameReady && isMaterialNameReady">
+              <div class="sectionTitleSmall">
+                <h2>
+                  <span>{{ moduleOrder }}. {{ moduleName }}</span>
+                  <small *ngIf="programName">({{ programName }})</small>
+                </h2>
+              </div>
+              <div class="numberTitle">
+                <div class="num">{{ materialOrder }}</div>
+                <span>{{ materialName }}</span>
               </div>
             </div>
           </div>
-          <div class="w-full grid grid-cols-1 gap-6">
-            <div class="p-field">
-              <label for="startDate" i18n>Start Date<span class="text-red-500">*</span></label>
+
+          <!-- Add Section button — uses (click)="showBasicDialog()" to open p-dialog, same as modules-admin -->
+          <div class="cardTools" *ngIf="isInstructor || isAdmin">
+            <a class="more wAuto" style="cursor:pointer;" (click)="showBasicDialog()">
+              <span i18n>Add Section</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- ── Sections list ── -->
+        <ng-container *ngIf="isExistSections; else sections">
+          <p class="text-sm text-center text-gray-700" i18n>No Sections Added</p>
+        </ng-container>
+
+        <ng-template #sections>
+          <ng-container *ngIf="ready; else loading">
+            <div class="gridWrap border">
+              <div class="blueCard col1" *ngFor="let item of sectionsList">
+                <a [routerLink]="['content', item.id]" class="inner">
+                  <div class="topBox">
+                    <div class="num">{{ item.order | number: '2.0-0' }}</div>
+                    <div class="title">{{ item.name }}</div>
+                  </div>
+
+                  <div class="bottomBox">
+                    <div class="metaBox">
+
+                      <!-- Status -->
+                      <div class="m">
+                        <div class="iconBox">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </div>
+                        <span>{{ item.status }}</span>
+                      </div>
+
+                      <!-- Start Date -->
+                      <div class="m">
+                        <div class="iconBox">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M3 10H21" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </div>
+                        <span>{{ item.startDate | date: 'dd MMMM yyyy' }}</span>
+                      </div>
+
+                      <!-- Duration -->
+                      <div class="m">
+                        <div class="iconBox">
+                          <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.6641 0.556641C17.8645 0.556641 18.0574 0.635656 18.1992 0.777344C18.341 0.919168 18.4209 1.11193 18.4209 1.3125C18.4209 1.51307 18.341 1.70583 18.1992 1.84766C18.0574 1.98934 17.8645 2.06836 17.6641 2.06836H16.7061V4.99512C16.7071 5.91622 16.4571 6.82042 15.9834 7.61035C15.5097 8.40026 14.8296 9.0466 14.0166 9.47949L12.1035 10.5L14.0166 11.5215L14.3145 11.6934C14.9957 12.1176 15.5678 12.6986 15.9824 13.3896C16.4562 14.1795 16.7062 15.0838 16.7051 16.0049V18.9316H17.6641C17.8644 18.9317 18.0565 19.0108 18.1982 19.1523C18.3401 19.2942 18.4199 19.4869 18.4199 19.6875C18.4199 19.8881 18.3401 20.0808 18.1982 20.2227C18.0565 20.3642 17.8644 20.4433 17.6641 20.4434H3.33594C3.13537 20.4434 2.94261 20.3645 2.80078 20.2227C2.65896 20.0808 2.58008 19.8881 2.58008 19.6875C2.58008 19.4869 2.65896 19.2942 2.80078 19.1523C2.94261 19.0105 3.13537 18.9316 3.33594 18.9316H4.29492V16.0039C4.29393 15.0831 4.54304 14.1793 5.0166 13.3896C5.49035 12.5998 6.1704 11.9532 6.9834 11.5205L8.89551 10.499L6.9834 9.47852C6.17043 9.04585 5.49033 8.40011 5.0166 7.61035C4.54283 6.8205 4.29383 5.91616 4.29492 4.99512V2.06836H3.33594C3.13537 2.06836 2.94261 1.98948 2.80078 1.84766C2.65896 1.70583 2.58008 1.51307 2.58008 1.3125C2.58008 1.11193 2.65896 0.919168 2.80078 0.777344C2.94261 0.635519 3.13537 0.556641 3.33594 0.556641H17.6641ZM7.69531 12.8545C7.12448 13.1588 6.64708 13.6131 6.31445 14.168C5.98183 14.7228 5.80608 15.358 5.80664 16.0049V18.9316H15.1934V16.0049C15.194 15.3581 15.0191 14.7227 14.6865 14.168C14.3539 13.6132 13.8765 13.1588 13.3057 12.8545L10.5 11.3564L7.69531 12.8545ZM5.80664 4.99512C5.80602 5.64202 5.98182 6.2772 6.31445 6.83203C6.6055 7.3175 7.00701 7.72611 7.48535 8.02441L7.69531 8.14551L10.5 9.64258L13.3047 8.14551C13.8755 7.84117 14.3529 7.38685 14.6855 6.83203C15.0181 6.27723 15.1929 5.64197 15.1924 4.99512V2.06836H5.80664V4.99512Z" fill="currentcolor" stroke="currentcolor" stroke-width="0.2"/>
+                          </svg>
+                        </div>
+                        <span>{{ item.duration }} Minutes</span>
+                      </div>
+
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </ng-container>
+        </ng-template>
+
+        <ng-template #loading>
+          <app-progress-spinner></app-progress-spinner>
+        </ng-template>
+
+      </div>
+    </div>
+  </div>
+
+  <app-side-box></app-side-box>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     Add / Edit Section — p-dialog (same pattern as
+     programs-modules-admin materialDialog — this is why
+     the popup works there and now will work here too)
+     ══════════════════════════════════════════════════════ -->
+<p-dialog
+  [(visible)]="displayBasic"
+  [style]="{ width: '50vw', 'max-width': '700px' }"
+  [baseZIndex]="10000"
+  [autoZIndex]="true"
+  [showHeader]="false"
+  styleClass="popupBox mdBox materialDialog"
+>
+  <div class="inner">
+
+    <!-- Header row: dynamic title + X close -->
+    <div class="topBox">
+      <div class="title">{{ modalHeader }}</div>
+      <a href="javascript:void(0)" class="plusBtn cursor-pointer" (click)="displayBasic = false" aria-label="Close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 6L18 18" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="formBox">
+      <form [formGroup]="sectionForm" class="form-v3 filledColor" (ngSubmit)="saveSection()">
+        <div class="inputBox">
+
+          <!-- Topic (EN) – full width -->
+          <div class="input-field normal full">
+            <label for="name" i18n>Topic <span class="text-red-500">*</span></label>
+            <input
+              pInputText
+              [(ngModel)]="topic"
+              formControlName="name"
+              id="name"
+              type="text"
+              placeholder="Enter Topic"
+              i18n-placeholder
+            />
+            <div *ngIf="sectionForm.get('name').invalid && sectionForm.get('name').touched">
+              <small *ngIf="sectionForm.get('name').errors.required" class="p-invalid text-red-600" i18n>
+                This field is required
+              </small>
+            </div>
+          </div>
+
+          <!-- Topic (AR) – full width -->
+          <div class="input-field normal full" dir="rtl">
+            <label for="nameAr">الموضوع</label>
+            <input
+              pInputText
+              [(ngModel)]="topic_ar"
+              formControlName="nameAr"
+              id="nameAr"
+              type="text"
+              placeholder="الموضوع"
+            />
+            <div *ngIf="sectionForm.get('nameAr').invalid && sectionForm.get('nameAr').touched">
+              <small *ngIf="sectionForm.get('nameAr').errors.required" class="p-invalid text-red-600" i18n>
+                This field is required
+              </small>
+              <small
+                *ngIf="!sectionForm.get('nameAr').errors.required && sectionForm.get('nameAr').errors.language"
+                class="p-invalid text-red-600">
+                Please provide input in the correct language
+              </small>
+            </div>
+          </div>
+
+          <!-- Start Date – half width -->
+          <div class="input-field normal">
+            <label for="startDate" i18n>Start Date <span class="text-red-500">*</span></label>
+            <div style="position:relative; display:block;">
               <p-calendar
-                pInputText
                 [(ngModel)]="startDate"
                 [monthNavigator]="true"
                 [yearNavigator]="true"
@@ -122,34 +223,114 @@
                 appUseUtc
                 appPrimeNGi18n
                 appendTo="body"
-                inputId="from"
+                [baseZIndex]="20000"
+                [autoZIndex]="true"
+                inputId="startDate"
                 formControlName="startDate"
                 id="startDate"
-                type="text"
-                class="text-lg"
-                style="border:0;padding-left:0"
-                placeholder="Start Date"
+                placeholder="dd-mm-yyyy"
                 i18n-placeholder
+                styleClass="w-full"
+                inputStyleClass="w-full"
+                [inputStyle]="{'padding-right':'2.5rem'}"
               ></p-calendar>
-              <div
-                *ngIf="sectionForm.get('startDate').invalid && sectionForm.get('startDate').touched"
-              >
-                <small
-                  *ngIf="sectionForm.get('startDate').errors.required"
-                  controlName="startDate"
-                  class="p-invalid text-red-600"
-                  i18n
-                  >This field is required</small
-                >
+              <div class="iconBox" style="position:absolute; right:0.75rem; top:50%; transform:translateY(-50%); pointer-events:none; display:flex; align-items:center;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M16 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M3 10H21" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
             </div>
+            <div *ngIf="sectionForm.get('startDate').invalid && sectionForm.get('startDate').touched">
+              <small *ngIf="sectionForm.get('startDate').errors.required" class="p-invalid text-red-600" i18n>
+                This field is required
+              </small>
+            </div>
           </div>
-          <div *ngIf="isScheudledSelected" class="w-full">
-            <div class="p-field">
-              <label for="publishDate" i18n-placeholder>
-                Publish Date
-                <span class="text-red-500">*</span>
-              </label>
+
+          <!-- Duration – half width -->
+          <div class="input-field normal">
+            <label for="duration" i18n>Duration (Minutes) <span class="text-red-500">*</span></label>
+            <div style="position:relative; display:block;">
+              <p-inputNumber
+                [(ngModel)]="duration"
+                formControlName="duration"
+                id="duration"
+                placeholder="0"
+                mode="decimal"
+                inputId="duration"
+                [useGrouping]="false"
+                [min]="0"
+                i18n-placeholder
+                styleClass="w-full"
+                inputStyleClass="w-full"
+                [inputStyle]="{'padding-right':'2.5rem'}"
+              ></p-inputNumber>
+              <div class="iconBox" style="position:absolute; right:0.75rem; top:50%; transform:translateY(-50%); pointer-events:none; display:flex; align-items:center;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M12 6V12L16 14" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            <div *ngIf="sectionForm.get('duration').invalid && sectionForm.get('duration').touched">
+              <small *ngIf="sectionForm.get('duration').errors.required" class="p-invalid text-red-600" i18n>
+                This field is required
+              </small>
+            </div>
+          </div>
+
+          <!-- Status – half width -->
+          <div class="input-field normal">
+            <label for="status" i18n>Status <span class="text-red-500">*</span></label>
+            <p-dropdown
+              formControlName="status"
+              id="status"
+              placeholder="Select a status"
+              [(ngModel)]="status"
+              [options]="sectionStatusOptions"
+              (ngModelChange)="onSelectType($event)"
+              appendTo="body"
+              [baseZIndex]="20000"
+              [autoZIndex]="true"
+              i18n-placeholder
+            ></p-dropdown>
+            <div *ngIf="sectionForm.get('status').invalid && sectionForm.get('status').touched">
+              <small *ngIf="sectionForm.get('status').errors.required" class="p-invalid text-red-600" i18n>
+                This field is required
+              </small>
+            </div>
+          </div>
+
+          <!-- Order – half width -->
+          <div class="input-field normal">
+            <label for="order" i18n>Order <span class="text-red-500">*</span></label>
+            <p-inputNumber
+              [(ngModel)]="order"
+              formControlName="order"
+              id="order"
+              placeholder="0"
+              mode="decimal"
+              inputId="order"
+              [useGrouping]="false"
+              [min]="1"
+              i18n-placeholder
+              styleClass="w-full"
+              inputStyleClass="w-full"
+            ></p-inputNumber>
+            <div *ngIf="sectionForm.get('order').invalid && sectionForm.get('order').touched">
+              <small *ngIf="sectionForm.get('order').errors.required" class="p-invalid text-red-600" i18n>
+                This field is required
+              </small>
+            </div>
+          </div>
+
+          <!-- Publish Date – only shown when Scheduled status is selected, full width -->
+          <div *ngIf="isScheudledSelected" class="input-field normal full">
+            <label for="publishDate" i18n>Publish Date <span class="text-red-500">*</span></label>
+            <div style="position:relative; display:block;">
               <p-calendar
                 [(ngModel)]="publishDate"
                 [monthNavigator]="true"
@@ -158,130 +339,54 @@
                 appUseUtc
                 appPrimeNGi18n
                 appendTo="body"
+                [baseZIndex]="20000"
+                [autoZIndex]="true"
                 inputId="publishDate"
                 formControlName="publishDate"
                 id="publishDate"
-                type="text"
-                class="text-lg"
-                placeholder="Publish Date"
+                placeholder="dd-mm-yyyy"
                 i18n-placeholder
+                styleClass="w-full"
+                inputStyleClass="w-full"
+                [inputStyle]="{'padding-right':'2.5rem'}"
               ></p-calendar>
-              <div
-                *ngIf="
-                  sectionForm.get('publishDate').invalid && sectionForm.get('publishDate').touched
-                "
-              >
-                <small
-                  *ngIf="sectionForm.get('publishDate').errors.required"
-                  controlName="publishDate"
-                  class="p-invalid text-red-600"
-                  i18n
-                  >This field is required</small
-                >
+              <div class="iconBox" style="position:absolute; right:0.75rem; top:50%; transform:translateY(-50%); pointer-events:none; display:flex; align-items:center;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M16 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8 2V6" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M3 10H21" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
+            </div>
+            <div *ngIf="sectionForm.get('publishDate').invalid && sectionForm.get('publishDate').touched">
+              <small *ngIf="sectionForm.get('publishDate').errors.required" class="p-invalid text-red-600" i18n>
+                This field is required
+              </small>
             </div>
           </div>
-          <div class="w-full">
-            <div class="p-field">
-              <label for="status" i18n>Status<span class="text-red-500">*</span></label>
-              <p-dropdown
-                formControlName="status"
-                id="status"
-                [(ngModel)]="status"
-                placeholder="Select a status"
-                [options]="sectionStatusOptions"
-                (ngModelChange)="onSelectType($event)"
-                i18n-placeholder
-              ></p-dropdown>
-              <div *ngIf="sectionForm.get('status').invalid && sectionForm.get('status').touched">
-                <small
-                  *ngIf="sectionForm.get('status').errors.required"
-                  controlName="status"
-                  class="p-invalid text-red-600"
-                  i18n
-                  >This field is required</small
-                >
-              </div>
-            </div>
+
+          <!-- Save button -->
+          <div class="input-field normal full buttonWrap">
+            <button
+              type="submit"
+              class="more wAuto"
+              [disabled]="!sectionForm.valid"
+            >
+              <span i18n>Save</span>
+            </button>
+            <span *ngIf="saveClicked" class="flex items-center ml-2">
+              <p-progressSpinner 
+                [style]="{ width: '20px', height: '20px' }"
+                styleClass="custom-spinner"
+                strokeWidth="6"
+                animationDuration=".5s"
+              ></p-progressSpinner>
+            </span>
           </div>
-          <div class="w-full grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-16">
-            <div class="p-field">
-              <label for="sectionNumber" i18n
-                >Duration (Minutes) <span class="text-red-500">*</span></label
-              >
-              <p-inputNumber
-                pInputText
-                [(ngModel)]="duration"
-                id="duration"
-                name="duration"
-                type="text"
-                class="text-lg"
-                style="border:0;padding-left:0"
-                formControlName="duration"
-                placeholder="Enter the duration"
-                mode="decimal"
-                inputId="duration"
-                [useGrouping]="false"
-                i18n-placeholder
-              >
-              </p-inputNumber>
-              <div
-                *ngIf="sectionForm.get('duration').invalid && sectionForm.get('duration').touched"
-              >
-                <small
-                  *ngIf="sectionForm.get('duration').errors.required"
-                  controlName="duration"
-                  class="p-invalid text-red-600"
-                  i18n
-                  >This field is required</small
-                >
-              </div>
-            </div>
-            <div class="p-field p-col-12">
-              <label for="sectionTitle" i18n>Order <span class="text-red-500">*</span></label>
-              <p-inputNumber
-                pInputText
-                [(ngModel)]="order"
-                id="order"
-                name="order"
-                type="text"
-                class="text-lg"
-                style="border:0;padding-left:0"
-                formControlName="order"
-                placeholder="Enter the order"
-                mode="decimal"
-                inputId="order"
-                [useGrouping]="false"
-                i18n-placeholder
-              >
-              </p-inputNumber>
-              <div *ngIf="sectionForm.get('order').invalid && sectionForm.get('order').touched">
-                <small
-                  *ngIf="sectionForm.get('order').errors.required"
-                  controlName="order"
-                  class="p-invalid text-red-600"
-                  i18n
-                  >This field is required</small
-                >
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
+
+        </div>
+      </form>
     </div>
   </div>
-  <ng-template pTemplate="footer">
-    <div class="flex flex-row-reverse">
-      <p-button
-        (click)="saveSection()"
-        [disabled]="sectionForm.valid ? null : true"
-        label="Save"
-        i18n-label
-      ></p-button>
-    </div>
-  </ng-template>
 </p-dialog>
-
-<ng-template #loading>
-  <app-progress-spinner></app-progress-spinner>
-</ng-template>
