@@ -19,7 +19,7 @@
 
             <div class="points">
                 <div class="p" *ngFor="let item of listItems">
-                    <div class="num" dir="ltr" data-animcount="item.number">
+                    <div class="num" dir="ltr" [attr.data-animcount]="item.number">
                         <i class="not-italic">{{item.number}}</i><sup>+</sup>
                     </div>
                     <span i18n>{{item.title}}</span>

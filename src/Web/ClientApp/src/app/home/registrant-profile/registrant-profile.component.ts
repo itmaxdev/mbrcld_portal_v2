@@ -4,7 +4,7 @@ import { ProfileFacade } from '../profile/common/profile-facade.service'
 @Component({
   selector: 'app-registrant-profile',
   templateUrl: './registrant-profile.component.html',
-  // styleUrls: ['./registrant-profile.component.scss']
+  styleUrls: ['./registrant-profile.component.scss'],
 })
 export class RegistrantProfileComponent implements OnInit {
   role: number

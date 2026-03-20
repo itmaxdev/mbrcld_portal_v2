@@ -30,6 +30,7 @@ interface ISectionData {
   styleUrls: ['./programs-section-list.component.scss'],
 })
 export class ProgramsSectionListComponent implements OnInit {
+  saveClicked = false
   topic: string
   order: number
   ready = false
@@ -128,6 +129,7 @@ export class ProgramsSectionListComponent implements OnInit {
   }
 
   async saveSection() {
+    this.saveClicked = true
     if (this.sectionForm.valid) {
       const sectionData: ISectionData = this.sectionForm.value
       await Promise.all([
@@ -154,6 +156,7 @@ export class ProgramsSectionListComponent implements OnInit {
           )
           .toPromise(),
       ])
+      this.saveClicked = false
     }
   }
 
