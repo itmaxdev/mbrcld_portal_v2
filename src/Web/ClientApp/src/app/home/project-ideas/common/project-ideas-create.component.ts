@@ -152,7 +152,7 @@ import { ISectorOption } from '../../profile/professional-experience/models'
       </div>
     </div> -->
 
-    <div class="mainContainer">
+    <app-main-container>
       <div class="gridWrap">
         <div class="generalCard">
           <div class="inner">
@@ -285,9 +285,7 @@ import { ISectorOption } from '../../profile/professional-experience/models'
           </div>
         </div>
       </div>
-
-      <app-side-box></app-side-box>
-    </div>
+    </app-main-container>
 
     <ng-template #loading>
       <app-progress-spinner></app-progress-spinner>

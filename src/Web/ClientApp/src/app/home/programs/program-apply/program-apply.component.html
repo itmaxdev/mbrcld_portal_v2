@@ -1,6 +1,6 @@
 <ng-container *ngIf="ready; else loading">
   <ng-container *ngIf="!alreadyEnrolled; else alreadyEnrolledDialog">
-    <div class="mainContainer">
+    <app-main-container>
       <div class="gridWrap">
         <div class="generalCard">
           <div class="inner">
@@ -38,8 +38,7 @@
           </div>
         </div>
       </div>
-      <app-side-box></app-side-box>
-    </div>
+    </app-main-container>
   </ng-container>
 </ng-container>
 

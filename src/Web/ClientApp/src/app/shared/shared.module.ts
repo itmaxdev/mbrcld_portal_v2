@@ -84,6 +84,7 @@ import { NewsFeedSocialPanelComponent } from './components/newsfeed-social-panel
 import { SideBoxComponent } from './components/sidebox/sideBox.component'
 import { SuccessPopupComponent } from './components/success-popup.component'
 import { ApplicantProfileDialogComponent } from './components/applicant-profile-dialog/applicant-profile-dialog.component'
+import { MainContainerComponent } from './components/main-container.component'
 
 FullCalendarModule.registerPlugins([interactionPlugin, timeGridPlugin, listPlugin])
 
@@ -115,6 +116,7 @@ const PrimeNgModules = [
 
 const Components = [
   ApplicantProfileDialogComponent,
+  MainContainerComponent,
   SideBoxComponent,
   SuccessPopupComponent,
   CardComponent,

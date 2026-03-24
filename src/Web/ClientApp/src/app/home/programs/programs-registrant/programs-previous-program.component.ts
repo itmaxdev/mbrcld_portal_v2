@@ -37,7 +37,7 @@ import {
         </div>
       </div>
     </div> -->
-    <div class="mainContainer" *ngIf="programDetail">
+    <app-main-container *ngIf="programDetail">
       <div class="gridWrap">
         <div class="generalCard">
           <div class="inner">
@@ -114,9 +114,7 @@ import {
           </div>
         </div>
       </div>
-
-      <app-side-box></app-side-box>
-    </div>
+    </app-main-container>
   `,
   styles: [
     `

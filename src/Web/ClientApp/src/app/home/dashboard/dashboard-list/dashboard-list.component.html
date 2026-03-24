@@ -16,7 +16,7 @@
   <app-progress-spinner></app-progress-spinner>
 </ng-template>
 
-<div class="mainContainer">
+<app-main-container>
   <div *ngIf="ready; else loading" class="gridWrap smallCustomOrder">
     <div class="infoCard col1 row2" *ngIf="getItem('Sections') as item">
       <div class="inner">
@@ -145,5 +145,4 @@
       </div>
     </div>
   </div>
-  <app-side-box></app-side-box>
-</div>
+</app-main-container>

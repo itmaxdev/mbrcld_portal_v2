@@ -35,7 +35,7 @@
   <app-progress-spinner></app-progress-spinner>
 </ng-template>
 
-<div class="mainContainer">
+<app-main-container>
   <div class="gridWrap">
     <ng-container *ngIf="ready; else loading">
       <div class="generalCard">
@@ -187,5 +187,4 @@
     </ng-container>
   </div>
 
-  <app-side-box></app-side-box>
-</div>
+</app-main-container>

@@ -37,7 +37,7 @@
   <app-progress-spinner></app-progress-spinner>
 </ng-template>
 
-<div class="mainContainer">
+<app-main-container>
   <div *ngIf="ready; else loading" class="gridWrap">
     <!-- <div class="alert alertDanger" *ngIf="showAlert">
       <div class="textBox smLineHeight" i18n>
@@ -196,5 +196,4 @@
     </div>
   </div>
 
-  <app-side-box></app-side-box>
-</div>
+</app-main-container>

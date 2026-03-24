@@ -1,4 +1,4 @@
-<div class="mainContainer" id="calendarContainer">
+<app-main-container id="calendarContainer">
 	<div class="gridWrap">
 		<div class="generalCard">
 			<div class="inner">
@@ -13,8 +13,7 @@
 			</div>
 		</div>
 	</div>
-	<app-side-box></app-side-box>
-</div>
+</app-main-container>
 
 <p-dialog *ngIf="eventInfo != null" [closeOnEscape]="true" (onHide)="onModalClose()" [header]="eventInfo.title"
 	[(visible)]="modalVisible" [style]="{ width: '40rem' }" [modal]="true">

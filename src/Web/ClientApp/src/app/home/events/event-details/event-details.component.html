@@ -93,7 +93,7 @@
   <app-progress-spinner></app-progress-spinner>
 </ng-template> -->
 
-<div class="mainContainer">
+<app-main-container>
   <div class="gridWrap">
     <ng-container *ngIf="ready; else loading">
       <div class="generalCard">
@@ -270,8 +270,7 @@
     </ng-template>
   </div>
 
-  <app-side-box></app-side-box>
-</div>
+</app-main-container>
 
 <!-- Registration / Calendar Popup -->
 <app-success-popup

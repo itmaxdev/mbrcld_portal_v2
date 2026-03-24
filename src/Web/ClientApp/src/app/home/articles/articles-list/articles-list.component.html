@@ -88,7 +88,7 @@
 </ng-template>
 
 <ng-container *ngIf="!showDisclaimer; else disclaimer">
-  <div class="mainContainer">
+  <app-main-container>
     <div class="gridWrap">
       <ng-container *ngIf="ready; else loading">
         <div class="generalCard">
@@ -258,6 +258,5 @@
       </ng-container>
     </div>
 
-    <app-side-box></app-side-box>
-  </div>
+  </app-main-container>
 </ng-container>

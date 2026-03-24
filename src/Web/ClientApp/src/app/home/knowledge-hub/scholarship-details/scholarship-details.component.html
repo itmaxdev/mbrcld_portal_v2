@@ -1,4 +1,4 @@
-<div class="mainContainer" *ngIf="ready; else loading">
+<app-main-container *ngIf="ready; else loading">
   <div class="gridWrap">
     <div class="generalCard" *ngIf="item; else errorFetch">
       <div class="inner">
@@ -76,8 +76,7 @@
     </div>
   </div>
 
-  <app-side-box></app-side-box>
-</div>
+</app-main-container>
 
 <ng-template #errorFetch>
   <div style="text-align: center; padding: 20px;">

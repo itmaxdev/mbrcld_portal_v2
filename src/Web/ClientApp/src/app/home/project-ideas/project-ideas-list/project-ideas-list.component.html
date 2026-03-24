@@ -1,4 +1,4 @@
-<div class="mainContainer" *ngIf="!showDisclaimer; else disclaimer">
+<app-main-container *ngIf="!showDisclaimer; else disclaimer">
   <div class="gridWrap">
     <div class="generalCard">
       <div class="inner">
@@ -212,8 +212,7 @@
     </div>
   </div>
 
-  <app-side-box></app-side-box>
-</div>
+</app-main-container>
 
 <ng-template #disclaimer>
   <app-disclaimer
