@@ -1,0 +1,13 @@
+::ng-deep {
+  .popupBox.mdBox.achievementDialog.p-dialog {
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .popupBox.mdBox.achievementDialog.p-dialog .p-dialog-content {
+    padding: 0;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    max-height: 75vh;
+  }
+}

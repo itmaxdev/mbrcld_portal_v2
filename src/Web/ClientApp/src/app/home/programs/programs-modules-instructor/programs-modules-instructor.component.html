@@ -89,7 +89,13 @@
 
           <!-- Add Newsfeed / Add Material buttons (instructor only) -->
           <div class="buttonGroup end" *ngIf="isInstructor">
-            <a *ngIf="selectedTabs?.newsFeed" [href]="'/' + locale + generatedURL + '/edit'" class="more wAuto">
+            <a
+              *ngIf="selectedTabs?.newsFeed"
+              href="javascript:void(0)"
+              class="more wAuto"
+              style="cursor:pointer;"
+              (click)="showNewsfeedDialog()"
+            >
               <span i18n>Add Newsfeed</span>
             </a>
             <a *ngIf="selectedTabs?.materials" class="more wAuto" (click)="showBasicDialog()">
@@ -421,6 +427,302 @@
               <span i18n>Save</span>
             </button>
             <span *ngIf="onUpdate" class="flex items-center ml-2">
+              <p-progressSpinner
+                [style]="{ width: '20px', height: '20px' }"
+                styleClass="custom-spinner"
+                strokeWidth="6"
+                animationDuration=".5s"
+              ></p-progressSpinner>
+            </span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</p-dialog>
+
+<!-- Newsfeed Dialog (Add Text) -->
+<p-dialog
+  [(visible)]="displayNewsfeedDialog"
+  [style]="{ width: '50vw', 'max-width': '700px' }"
+  [contentStyle]="{ 'max-height': '75vh', overflow: 'auto' }"
+  [blockScroll]="true"
+  [baseZIndex]="10000"
+  [autoZIndex]="true"
+  [showHeader]="false"
+  styleClass="popupBox mdBox materialDialog newsfeedDialog"
+>
+  <div class="inner">
+    <div class="topBox">
+      <div class="title">{{ newsfeedModalHeader }}</div>
+      <a
+        href="javascript:void(0)"
+        class="plusBtn cursor-pointer"
+        (click)="displayNewsfeedDialog = false"
+        aria-label="Close"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M18 6L6 18"
+            stroke="currentcolor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M6 6L18 18"
+            stroke="currentcolor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </a>
+    </div>
+
+    <div class="formBox">
+      <form
+        [formGroup]="newsfeedForm"
+        class="form-v3 filledColor"
+        (ngSubmit)="addNewsfeed()"
+      >
+        <div class="inputBox">
+          <div class="input-field normal full">
+            <label for="newsfeedType" i18n>Choose</label>
+            <p-dropdown
+              id="newsfeedType"
+              [(ngModel)]="newsfeedType"
+              [options]="newsfeedTypeOptions"
+              optionLabel="label"
+              optionValue="value"
+              (onChange)="onNewsfeedTypeChange($event.value)"
+              appendTo="body"
+              [baseZIndex]="30000"
+              [autoZIndex]="true"
+            ></p-dropdown>
+          </div>
+
+          <div class="input-field normal full">
+            <label for="newsfeedTitle" i18n>
+              Title <span class="text-red-500">*</span>
+            </label>
+            <input
+              id="newsfeedTitle"
+              pInputText
+              [(ngModel)]="newsfeedTitle"
+              formControlName="title"
+              type="text"
+              placeholder="Enter Title"
+              i18n-placeholder
+            />
+            <div
+              *ngIf="
+                newsfeedForm.get('title').invalid &&
+                newsfeedForm.get('title').touched
+              "
+            >
+              <small
+                *ngIf="newsfeedForm.get('title').errors.required"
+                class="p-invalid text-red-600"
+                i18n
+                >This field is required</small
+              >
+            </div>
+          </div>
+
+          <div class="input-field normal">
+            <label for="newsfeedOrder" i18n>
+              Order <span class="text-red-500">*</span>
+            </label>
+            <p-inputNumber
+              id="newsfeedOrder"
+              [(ngModel)]="newsfeedOrder"
+              formControlName="order"
+              mode="decimal"
+              inputId="newsfeedOrderInput"
+              [useGrouping]="false"
+              placeholder="Enter Order"
+              i18n-placeholder
+              styleClass="w-full"
+              inputStyleClass="w-full"
+              [inputStyle]="{ 'padding-right': '2.5rem' }"
+            ></p-inputNumber>
+            <div
+              *ngIf="
+                newsfeedForm.get('order').invalid &&
+                newsfeedForm.get('order').touched
+              "
+            >
+              <small
+                *ngIf="newsfeedForm.get('order').errors.required"
+                class="p-invalid text-red-600"
+                i18n
+                >This field is required</small
+              >
+            </div>
+          </div>
+
+          <div class="input-field normal">
+            <label for="newsfeedStatus" i18n>
+              Status <span class="text-red-500">*</span>
+            </label>
+            <p-dropdown
+              id="newsfeedStatus"
+              formControlName="status"
+              placeholder="Select a status"
+              [options]="newsfeedStatusOptions"
+              optionLabel="label"
+              optionValue="value"
+              (onChange)="onSelectNewsfeedStatus($event.value)"
+              appendTo="body"
+              [baseZIndex]="30000"
+              [autoZIndex]="true"
+              i18n-placeholder
+            ></p-dropdown>
+            <div
+              *ngIf="
+                newsfeedForm.get('status').invalid &&
+                newsfeedForm.get('status').touched
+              "
+            >
+              <small
+                *ngIf="newsfeedForm.get('status').errors.required"
+                class="p-invalid text-red-600"
+                i18n
+                >This field is required</small
+              >
+            </div>
+          </div>
+
+          <div *ngIf="isNewsfeedScheduledSelected" class="input-field normal full">
+            <label for="newsfeedPublishDate" i18n>
+              Publish Date <span class="text-red-500">*</span>
+            </label>
+            <p-calendar
+              id="newsfeedPublishDate"
+              inputId="newsfeedPublishDate"
+              [(ngModel)]="newsfeedPublishDate"
+              formControlName="publishDate"
+              [monthNavigator]="true"
+              [yearNavigator]="true"
+              appUseDateRange="freeDate"
+              appUseUtc
+              appPrimeNGi18n
+              appendTo="body"
+              [baseZIndex]="20000"
+              [autoZIndex]="true"
+              placeholder="Publish Date"
+              i18n-placeholder
+              styleClass="w-full"
+              inputStyleClass="w-full"
+              [inputStyle]="{ 'padding-right': '2.5rem' }"
+            ></p-calendar>
+            <div
+              *ngIf="
+                newsfeedForm.get('publishDate').invalid &&
+                newsfeedForm.get('publishDate').touched
+              "
+            >
+              <small
+                *ngIf="newsfeedForm.get('publishDate').errors.required"
+                class="p-invalid text-red-600"
+                i18n
+                >This field is required</small
+              >
+            </div>
+          </div>
+
+          <div class="input-field normal full">
+            <label for="newsfeedExpiryDate" i18n>
+              Expiry Date <span class="text-red-500">*</span>
+            </label>
+            <p-calendar
+              id="newsfeedExpiryDate"
+              inputId="newsfeedExpiryDate"
+              [(ngModel)]="newsfeedExpiryDate"
+              formControlName="expiryDate"
+              [minDate]="newsfeedDateTime"
+              [showTime]="true"
+              [monthNavigator]="true"
+              [yearNavigator]="true"
+              appUseDateRange="freeDate"
+              appUseUtc
+              appPrimeNGi18n
+              appendTo="body"
+              placeholder="Enter expire date"
+              i18n-placeholder
+              styleClass="w-full"
+              inputStyleClass="w-full"
+            ></p-calendar>
+            <div
+              *ngIf="
+                newsfeedForm.get('expiryDate').invalid &&
+                newsfeedForm.get('expiryDate').touched
+              "
+            >
+              <small
+                *ngIf="newsfeedForm.get('expiryDate').errors.required"
+                class="p-invalid text-red-600"
+                i18n
+                >This field is required</small
+              >
+            </div>
+          </div>
+
+          <div class="input-field normal full">
+            <label for="informStudent" i18n>Inform Student</label>
+            <p-dropdown
+              id="informStudent"
+              formControlName="notifyUsers"
+              [(ngModel)]="newsfeedInform"
+              [options]="informStudentOptions"
+              optionLabel="label"
+              optionValue="value"
+              appendTo="body"
+              [baseZIndex]="30000"
+              [autoZIndex]="true"
+            ></p-dropdown>
+          </div>
+
+          <div class="input-field normal full">
+            <label for="newsfeedText" i18n>
+              Description <span class="text-red-500">*</span>
+            </label>
+            <p-editor
+              id="newsfeedText"
+              [(ngModel)]="newsfeedText"
+              formControlName="text"
+              [style]="{ height: '230px' }"
+            ></p-editor>
+            <div
+              *ngIf="
+                newsfeedForm.get('text').invalid && newsfeedForm.get('text').touched
+              "
+            >
+              <small
+                *ngIf="newsfeedForm.get('text').errors.required"
+                class="p-invalid text-red-600"
+                i18n
+                >This field is required</small
+              >
+            </div>
+          </div>
+
+          <div class="input-field normal full buttonWrap">
+            <button
+              type="submit"
+              class="more wAuto"
+              [disabled]="!newsfeedForm.valid || onUpdateNewsfeed"
+            >
+              <span i18n>Save</span>
+            </button>
+            <span *ngIf="onUpdateNewsfeed" class="flex items-center ml-2">
               <p-progressSpinner
                 [style]="{ width: '20px', height: '20px' }"
                 styleClass="custom-spinner"

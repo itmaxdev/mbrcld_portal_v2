@@ -146,11 +146,17 @@
           <small appControlValidationError controlName="birthdate" class="p-invalid"></small>
         </div>
         <div class="input-field normal">
-          <label for="nationality" i18n>Nationality <span class="text-red-500">*</span></label>
+          <!-- <label for="nationality" i18n>Nationality <span class="text-red-500">*</span></label>
           <app-nationality-dropdown controlName="nationality" inputId="nationality"></app-nationality-dropdown>
+          <small appControlValidationError controlName="nationality" class="p-invalid"></small> -->
+          <label for="nationality" i18n> Nationality <span class="text-red-500">*</span></label>
+          <app-nationality-dropdown appendTo="body" controlName="nationality" inputId="nationality" placeholder="Select a country" i18n-placeholder>
+          </app-nationality-dropdown>
           <small appControlValidationError controlName="nationality" class="p-invalid"></small>
+
         </div>
-        <div class="input-field normal">
+        
+        <!-- <div class="input-field normal">
           <label for="residenceCountry" i18n>Residence Country <span class="text-red-500">*</span></label>
           <app-nationality-dropdown controlName="residenceCountry" inputId="residenceCountry"></app-nationality-dropdown>
           <small appControlValidationError controlName="residenceCountry" class="p-invalid"></small>
@@ -176,7 +182,22 @@
             i18n-placeholder
           />
           <small appControlValidationError controlName="city" class="p-invalid"></small>
+        </div> -->
+
+        <div class="input-field normal">
+          <label for="residenceCountry" i18n> Residence Country <span class="text-red-500">*</span></label>
+          <app-nationality-dropdown appendTo="body" controlName="residenceCountry" inputId="residenceCountry" placeholder="Select a country" i18n-placeholder>
+          </app-nationality-dropdown>
+          <small appControlValidationError controlName="residenceCountry" class="p-invalid"></small>
         </div>
+        <div class="input-field normal">
+          <label for="city" i18n>City <span *ngIf="showDropDown" class="text-red-500">*</span></label>
+          <p-dropdown *ngIf="showDropDown" appendTo="body" [options]="cityOptions" formControlName="city" id="city"
+            inputId="degree" placeholder="Select City" i18n-placeholder></p-dropdown>
+          <input *ngIf="!showDropDown" pInputText formControlName="city" type="text" id="city" placeholder="Enter City" i18n-placeholder>
+          <small appControlValidationError controlName="city" class="p-invalid"></small>
+        </div>
+
         <div class="input-field normal" [class.p-disabled]="true">
           <label for="personalEmail" i18n>Personal Email <span class="text-red-500">*</span></label>
           <input id="personalEmail" type="email" formControlName="email" />

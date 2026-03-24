@@ -6,6 +6,8 @@ export interface IUserGeneralInformation {
   middleName_AR?: string
   lastName?: string
   lastName_AR?: string
+  residenceCountry?: string
+  city?: string
   maritalStatus?: number
   gender?: number
   birthdate?: Date
