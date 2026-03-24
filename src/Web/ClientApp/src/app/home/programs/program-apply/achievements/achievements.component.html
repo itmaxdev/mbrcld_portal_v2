@@ -71,76 +71,183 @@
 </ng-container>
 
 
-<p-dialog header="Add Achievement" i18n-header [(visible)]="showAchievementDialog" [modal]="true" [focusTrap]="true"
-  [focusOnShow]="true" [draggable]="false" styleClass="w-full max-w-sm lg:max-w-screen-md">
-  <form [formGroup]="achievementForm" class="p-fluid p-formgrid p-grid"
-        (ngSubmit)="editingAchievement.id ? updateAchievement() : addAchievement()">
-    <div class="p-field p-col-6">
-      <label for="description">Description <span class="text-red-500">*</span></label>
-      <textarea pInputTextarea formControlName="description" rows="5" type="text" id="description"
-                placeholder="Enter Description"></textarea>
-      <small appControlValidationError controlName="description" class="p-invalid"></small>
+<p-dialog
+  [(visible)]="showAchievementDialog"
+  [modal]="true"
+  [focusTrap]="true"
+  [focusOnShow]="true"
+  [draggable]="false"
+  [showHeader]="false"
+  [contentStyle]="{ 'max-height': 'fit-content', overflow: 'auto' }"
+  [blockScroll]="true"
+  styleClass="popupBox mdBox achievementDialog"
+>
+  <div class="inner">
+    <div class="topBox">
+      <div class="title">{{ editingAchievement.id ? 'Edit Achievement' : 'Add Achievement' }}</div>
+      <a href="javascript:void(0)" class="plusBtn" (click)="showAchievementDialog = false" aria-label="Close">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M18 6L6 18"
+            stroke="currentcolor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M6 6L18 18"
+            stroke="currentcolor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </a>
     </div>
-    <div class="p-field p-col-6" dir="rtl">
-      <label for="description_AR">وصف الانجاز <span class="text-red-500">*</span></label>
-      <textarea pInputTextarea formControlName="description_AR" rows="5" type="text" id="description_AR"
-                placeholder="أدخل الوصف"></textarea>
-      <small appControlValidationError controlName="description_AR" class="p-invalid"></small>
+    <div class="formBox">
+      <form
+        [formGroup]="achievementForm"
+        class="form-v3 filledColor"
+        (ngSubmit)="editingAchievement.id ? updateAchievement() : addAchievement()"
+      >
+        <div class="inputBox">
+          <div class="input-field normal">
+            <label for="description">Description <span class="text-red-500">*</span></label>
+            <textarea
+              pInputTextarea
+              formControlName="description"
+              rows="5"
+              id="description"
+              placeholder="Enter Description"
+            ></textarea>
+            <small appControlValidationError controlName="description" class="p-invalid"></small>
+          </div>
+          <div class="input-field normal" dir="rtl">
+            <label for="description_AR">الوصف <span class="text-red-500">*</span></label>
+            <textarea
+              pInputTextarea
+              formControlName="description_AR"
+              rows="5"
+              id="description_AR"
+              placeholder="أدخل الوصف"
+            ></textarea>
+            <small appControlValidationError controlName="description_AR" class="p-invalid"></small>
+          </div>
+          <div class="input-field normal">
+            <label for="summaryOfAchievement">Summary of achievement <span class="text-red-500">*</span></label>
+            <input
+              pInputText
+              formControlName="summaryOfAchievement"
+              type="text"
+              id="summaryOfAchievement"
+              placeholder="Enter summary of achievement"
+            />
+            <small appControlValidationError controlName="summaryOfAchievement" class="p-invalid"></small>
+          </div>
+          <div class="input-field normal" dir="rtl">
+            <label for="summaryOfAchievement_AR">ملخص الإنجاز <span class="text-red-500">*</span></label>
+            <input
+              pInputText
+              formControlName="summaryOfAchievement_AR"
+              type="text"
+              id="summaryOfAchievement_AR"
+              placeholder="أدخل ملخص الإنجاز"
+            />
+            <small appControlValidationError controlName="summaryOfAchievement_AR" class="p-invalid"></small>
+          </div>
+          <div class="input-field normal">
+            <label for="populationImpact" i18n>Population Impacted <span class="text-red-500">*</span></label>
+            <p-dropdown
+              appendTo="body"
+              [baseZIndex]="30000"
+              [autoZIndex]="true"
+              [options]="populationImpactOptions"
+              formControlName="populationImpact"
+              id="populationImpact"
+              placeholder="Select Population Impacted"
+              i18n-placeholder
+            ></p-dropdown>
+            <small appControlValidationError controlName="populationImpact" class="p-invalid"></small>
+          </div>
+          <div class="input-field normal">
+            <label for="financialImpact" i18n>Financial Impact <span class="text-red-500">*</span></label>
+            <p-dropdown
+              appendTo="body"
+              [baseZIndex]="30000"
+              [autoZIndex]="true"
+              [options]="financialImpactOptions"
+              formControlName="financialImpact"
+              id="financialImpact"
+              placeholder="Select Financial Impact"
+              i18n-placeholder
+            ></p-dropdown>
+            <small appControlValidationError controlName="financialImpact" class="p-invalid"></small>
+          </div>
+          <div class="input-field normal">
+            <label for="organization">Organization/Project/Situation <span class="text-red-500">*</span></label>
+            <input
+              pInputText
+              formControlName="organization"
+              type="text"
+              id="organization"
+              placeholder="Enter Organization/Project/Situation"
+            />
+            <small appControlValidationError controlName="organization" class="p-invalid"></small>
+          </div>
+          <div class="input-field normal" dir="rtl">
+            <label for="organization_AR">المنظمة/المشروع/الحالة <span class="text-red-500">*</span></label>
+            <input
+              pInputText
+              formControlName="organization_AR"
+              type="text"
+              id="organization_AR"
+              placeholder="أدخل المنظمة/المشروع/الحالة"
+            />
+            <small appControlValidationError controlName="organization_AR" class="p-invalid"></small>
+          </div>
+          <div class="input-field normal">
+            <label for="yearOfAchievement" i18n>Year of achievement <span class="text-red-500">*</span></label>
+            <p-dropdown
+              appendTo="body"
+              [baseZIndex]="30000"
+              [autoZIndex]="true"
+              [options]="yearOptions"
+              formControlName="yearOfAchievement"
+              id="yearOfAchievement"
+              placeholder="Select Year Of Achievement"
+              i18n-placeholder
+            ></p-dropdown>
+            <small appControlValidationError controlName="yearOfAchievement" class="p-invalid"></small>
+          </div>
+          <div class="input-field normal">
+            <label for="achievementImpact" i18n>Achievement Impacted <span class="text-red-500">*</span></label>
+            <p-dropdown
+              appendTo="body"
+              [baseZIndex]="30000"
+              [autoZIndex]="true"
+              [options]="achievementImpactOptions"
+              formControlName="achievementImpact"
+              id="achievementImpact"
+              placeholder="Select Achievement Impacted"
+              i18n-placeholder
+            ></p-dropdown>
+            <small appControlValidationError controlName="achievementImpact" class="p-invalid"></small>
+          </div>
+          <div class="input-field normal full buttonWrap">
+            <button type="submit" class="more wAuto" [disabled]="achievementForm.invalid || isFormSubmitting">
+              <span i18n>Save</span>
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
-    <div class="p-field p-col-12 p-lg-6">
-      <label for="summaryOfAchievement">Summary of achievement <span class="text-red-500">*</span></label>
-      <input pInputText formControlName="summaryOfAchievement" type="text" id="summaryOfAchievement"
-             placeholder="Enter Course Summary of achievement">
-      <small appControlValidationError controlName="summaryOfAchievement" class="p-invalid"></small>
-    </div>
-    <div class="p-field p-col-12 p-lg-6" dir="rtl">
-      <label for="summaryOfAchievement_AR">ملخص الإنجاز <span class="text-red-500">*</span></label>
-      <input pInputText formControlName="summaryOfAchievement_AR" type="text" id="summaryOfAchievement_AR"
-             placeholder="أدخل ملخص الإنجاز">
-      <small appControlValidationError controlName="summaryOfAchievement_AR" class="p-invalid"></small>
-    </div>
-    <div class="p-field p-col-12 p-lg-6">
-      <label for="populationImpact" i18n>Population Impacted <span class="text-red-500">*</span></label>
-      <p-dropdown appendTo="body" [options]="populationImpactOptions" formControlName="populationImpact" id="populationImpact"
-                  inputId="degree" placeholder="Select Population Impacted" i18n-placeholder></p-dropdown>
-      <small appControlValidationError controlName="populationImpact" class="p-invalid"></small>
-    </div>
-    <div class="p-field p-col-12 p-lg-6">
-      <label for="financialImpact" i18n>Financial Impact <span class="text-red-500">*</span></label>
-      <p-dropdown appendTo="body" [options]="financialImpactOptions" formControlName="financialImpact" id="financialImpact"
-                  inputId="degree" placeholder="Select Financial Impact" i18n-placeholder></p-dropdown>
-      <small appControlValidationError controlName="financialImpact" class="p-invalid"></small>
-    </div>
-    <div class="p-field p-col-12 p-lg-6">
-      <label for="organization">Organization/Project/Situation <span class="text-red-500">*</span></label>
-      <input pInputText formControlName="organization" type="text" id="organization"
-             placeholder="Enter Organization/Project/Situation">
-      <small appControlValidationError controlName="organization" class="p-invalid"></small>
-    </div>
-    <div class="p-field p-col-12 p-lg-6" dir="rtl">
-      <label for="organization_AR">الجهة / المشروع / الحالة <span class="text-red-500">*</span></label>
-      <input pInputText formControlName="organization_AR" type="text" id="organization_AR"
-             placeholder="أدخل المنظمة/المشروع/الحالة">
-      <small appControlValidationError controlName="organization_AR" class="p-invalid"></small>
-    </div>
-    <div class="p-field p-col-12 p-lg-6">
-      <label for="yearOfAchievement" i18n>Year of achievement <span class="text-red-500">*</span></label>
-      <p-dropdown appendTo="body" [options]="yearOptions" formControlName="yearOfAchievement" id="yearOfAchievement"
-                  inputId="degree" placeholder="Select Year Of Achievement" i18n-placeholder></p-dropdown>
-      <small appControlValidationError controlName="yearOfAchievement" class="p-invalid"></small>
-    </div>
-    <div class="p-field p-col-12 p-lg-6">
-      <label for="achievementImpact" i18n>Achievement Impacted <span class="text-red-500">*</span></label>
-      <p-dropdown appendTo="body" [options]="achievementImpactOptions" formControlName="achievementImpact" id="achievementImpact"
-                  inputId="degree" placeholder="Select Achievement Impacted" i18n-placeholder></p-dropdown>
-      <small appControlValidationError controlName="achievementImpact" class="p-invalid"></small>
-    </div>
-    <div class="p-field p-col-12 p-lg-6"></div>
-    <div class="mt-5 p-col text-center">
-      <p-button [disabled]="achievementForm.invalid || isFormSubmitting" class="p-button-md" type="submit"
-                icon="pi pi-plus" label="Save" i18n-label></p-button>
-    </div>
-  </form>
+  </div>
 </p-dialog>
 
 <p-confirmDialog

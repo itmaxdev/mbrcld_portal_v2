@@ -84,10 +84,16 @@ export class ArticlesListComponent implements OnInit {
     }
   }
 
+  onSearchSubmit(value: string) {
+    this.searchArticle(value)
+  }
+
   searchArticle(searchedValue) {
+    const value =
+      typeof searchedValue === 'string' ? searchedValue.trim() : searchedValue?.target?.value || ''
+
     if (!this.isMyArticles) {
       this.searching = false
-      const value = searchedValue.target.value ? searchedValue.target.value : ''
 
       if (value !== '') {
         this.articles.search(value).subscribe((data) => {
@@ -99,7 +105,7 @@ export class ArticlesListComponent implements OnInit {
         this.getAllArticlesList()
       }
     } else {
-      this.searchMyArticle(searchedValue)
+      this.searchMyArticle({ target: { value } })
     }
   }
 

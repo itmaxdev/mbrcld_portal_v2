@@ -115,6 +115,46 @@ export class ProgramsModulesAdminComponent implements OnInit {
     },
   ]
 
+  // Newsfeed popup (Add Text)
+  displayNewsfeedDialog = false
+  newsfeedModalHeader = ''
+  newsfeedForm: FormGroup
+  newsfeedType = 1
+  newsfeedTypeOptions = [
+    { label: 'Text', value: 1 },
+    { label: 'Video', value: 2 },
+    { label: 'Document', value: 3 },
+    { label: 'Meeting', value: 4 },
+    { label: 'Sticky Note', value: 5 },
+  ]
+
+  newsfeedTitle = ''
+  newsfeedOrder: number
+  newsfeedStatus: number
+  newsfeedPublishDate: Date
+  newsfeedExpiryDate: Date
+  newsfeedText = ''
+  newsfeedInform = false
+  newsfeedDateTime: Date = new Date()
+  onUpdateNewsfeed = false
+  isNewsfeedScheduledSelected = false
+
+  newsfeedStatusOptions = [
+    {
+      value: 936510000, // scheduled
+      label: this.locale === 'en' ? 'Scheduled' : 'مقرر للنشر',
+    },
+    {
+      value: 1, // published immediately
+      label: this.locale === 'en' ? 'Published immediately' : 'للنشر على الفور',
+    },
+  ]
+
+  informStudentOptions = [
+    { label: this.locale === 'en' ? 'Yes' : 'نعم', value: true },
+    { label: this.locale === 'en' ? 'No' : 'لا', value: false },
+  ]
+
   constructor(
     private ls: SecureStorage,
     private route: ActivatedRoute,
@@ -270,6 +310,129 @@ export class ProgramsModulesAdminComponent implements OnInit {
     }
   }
 
+  onSelectNewsfeedStatus(event: number) {
+    const publishDateInput = this.newsfeedForm?.get('publishDate')
+    if (!publishDateInput) return
+
+    if (event === 936510000) {
+      this.isNewsfeedScheduledSelected = true
+      publishDateInput.setValidators(Validators.required)
+    } else {
+      this.isNewsfeedScheduledSelected = false
+      publishDateInput.clearValidators()
+    }
+    publishDateInput.updateValueAndValidity()
+  }
+
+  showNewsfeedDialog() {
+    this.displayNewsfeedDialog = true
+    this.onUpdateNewsfeed = false
+    this.newsfeedModalHeader = this.locale === 'ar' ? 'إضافة أخبار' : 'Add Newsfeed'
+
+    // Defaults: text newsfeed, published immediately
+    this.newsfeedType = 1
+    this.newsfeedStatus = 1
+    this.isNewsfeedScheduledSelected = false
+
+    this.newsfeedDateTime = new Date()
+    this.newsfeedTitle = ''
+    this.newsfeedOrder = null
+    this.newsfeedPublishDate = null
+    this.newsfeedExpiryDate = null
+    this.newsfeedInform = false
+    this.newsfeedText = ''
+
+    this.newsfeedForm.reset({
+      title: null,
+      order: null,
+      status: this.newsfeedStatus,
+      publishDate: null,
+      expiryDate: null,
+      notifyUsers: false,
+      text: null,
+    })
+
+    this.newsfeedForm.get('publishDate').clearValidators()
+    this.newsfeedForm.get('publishDate').updateValueAndValidity()
+  }
+
+  onNewsfeedTypeChange(type: number) {
+    this.newsfeedType = type
+
+    // Popup currently supports text form only.
+    // For other types, reuse existing dedicated add pages.
+    if (type === 1) return
+
+    const map: { [key: number]: string } = {
+      2: 'add-video',
+      3: 'add-document',
+      4: 'add-meeting',
+      5: 'add-sticknote',
+    }
+
+    const routeSuffix = map[type]
+    if (routeSuffix) {
+      this.displayNewsfeedDialog = false
+      window.location.href = `/${this.locale}${this.generatedURL}/edit/${routeSuffix}`
+    }
+  }
+
+  private refreshNewsfeeds() {
+    this.newsFeedsClient.instructorOrAdminNewsfeeds(this.moduleId).subscribe((data) => {
+      if (data) {
+        data.forEach((item) => {
+          if (item.publishDate) {
+            const temp = moment(item.publishDate).lang('en').format('DD-MM-YYYY')
+            item.publishDate = temp as any
+          }
+        })
+      }
+
+      this.newsFeedList = data
+      this.isnewsFeedListReady = true
+      this.isExistSections = !this.newsFeedList || this.newsFeedList.length === 0
+    })
+  }
+
+  addNewsfeed() {
+    if (this.newsfeedForm.valid) {
+      const allData = this.newsfeedForm.value
+      const statusValue =
+        allData.status && typeof allData.status === 'object' ? allData.status.value : allData.status
+      const notifyUsersValue =
+        allData.notifyUsers && typeof allData.notifyUsers === 'object'
+          ? allData.notifyUsers.value
+          : allData.notifyUsers
+      this.onUpdateNewsfeed = true
+
+      return this.newsFeedsClient
+        .newsfeedsPost(
+          null,
+          this.moduleId,
+          null,
+          allData.title,
+          0,
+          allData.order,
+          this.newsfeedType,
+          allData.text,
+          undefined,
+          statusValue,
+          notifyUsersValue,
+          null,
+          allData.publishDate,
+          allData.expiryDate
+        )
+        .pipe(
+          tap(() => {
+            this.onUpdateNewsfeed = false
+            this.displayNewsfeedDialog = false
+            this.refreshNewsfeeds()
+          })
+        )
+        .toPromise()
+    }
+  }
+
   cols = [
     { field: 'profilePictureUrl', header: 'Avatar' },
     { field: 'name', header: 'Name' },
@@ -392,6 +555,21 @@ export class ProgramsModulesAdminComponent implements OnInit {
       publishDate: new FormControl(''),
       status: new FormControl(null, [Validators.required]),
     })
+
+    this.newsfeedForm = new FormGroup({
+      title: new FormControl(null, [Validators.required]),
+      order: new FormControl(null, [Validators.required]),
+      status: new FormControl(1, [Validators.required]),
+      publishDate: new FormControl(null),
+      expiryDate: new FormControl(null, [Validators.required]),
+      notifyUsers: new FormControl(false),
+      text: new FormControl(null, [Validators.required]),
+    })
+
+    this.newsfeedStatus = 1
+    this.isNewsfeedScheduledSelected = false
+    this.newsfeedForm.get('publishDate').clearValidators()
+    this.newsfeedForm.get('publishDate').updateValueAndValidity()
 
     const localSelectedTab = localStorage.getItem('selected_tab')
     if (localSelectedTab) {

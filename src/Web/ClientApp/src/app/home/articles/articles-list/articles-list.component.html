@@ -104,15 +104,15 @@
               </div>
               <div class="cardTools">
                 <div class="searchBox">
-                  <form class="form-v3 filledColor">
+                  <form class="form-v3 filledColor" (ngSubmit)="onSearchSubmit(searchInput.value)">
                     <div class="input-field">
                       <input
+                        #searchInput
                         type="text"
                         placeholder="Search"
                         i18n-placeholder
-                        (keyup.enter)="searchArticle($event)"
                       />
-                      <button class="iconBox">
+                      <button class="iconBox" type="submit">
                         <svg
                           width="24"
                           height="24"

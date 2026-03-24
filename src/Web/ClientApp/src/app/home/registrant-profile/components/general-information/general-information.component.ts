@@ -149,6 +149,8 @@ export class RegistrantGeneralInformationComponent implements OnInit, OnDestroy 
         firstName_AR: formValue.firstName_AR,
         middleName_AR: formValue.middleName_AR,
         lastName_AR: formValue.lastName_AR,
+        residenceCountry: formValue.residenceCountry,
+        city: formValue.city,
         gender: formValue.gender,
         maritalStatus: formValue.maritalStatus,
         // Convert string from <input type="date"> back to Date object

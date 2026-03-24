@@ -36,6 +36,12 @@
   .popupBox.mdBox.materialDialog .formBox .input-field:has(.iconBox) .p-inputnumber .p-inputtext {
     padding-inline-end: 3rem;
   }
+
+  .popupBox.mdBox.materialDialog.newsfeedDialog.p-dialog .p-dialog-content {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    max-height: 75vh;
+  }
 }
 
 .applicant-avatar img {
