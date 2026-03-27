@@ -245,9 +245,12 @@ $buttonBgColor: #2d7bbb;
   border-radius: 2px;
 }
 
-body::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
+/* AFTER — scope only to non-mobile, or remove entirely */
+@media (min-width: 1024px) {
+  body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+  }
 }
 
 @media (max-width: 640px) {
