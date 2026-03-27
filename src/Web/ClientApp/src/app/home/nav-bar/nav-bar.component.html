@@ -69,12 +69,7 @@
                 </li>
 
                 <li>
-                  <a
-                    routerLink="events"
-                    routerLinkActive="active"
-                    class="navLink"
-                    [attr.data-count]="eventCount"
-                  >
+                  <a routerLink="events" routerLinkActive="active" class="navLink" [attr.data-count]="eventCount">
                     <div class="iconBox">
                       <img src="./assets/images/iconEvents.svg" width="30" height="30" />
                     </div>
@@ -83,12 +78,7 @@
                 </li>
 
                 <li>
-                  <a
-                    routerLink="programs"
-                    routerLinkActive="active"
-                    class="navLink"
-                    [attr.data-count]="programCount"
-                  >
+                  <a routerLink="programs" routerLinkActive="active" class="navLink" [attr.data-count]="programCount">
                     <div class="iconBox">
                       <img src="./assets/images/iconPrograms.svg" width="30" height="30" />
                     </div>
@@ -272,12 +262,7 @@
 
                 <!-- Programs -->
                 <li>
-                  <a
-                    routerLink="programs"
-                    routerLinkActive="active"
-                    class="navLink"
-                    [attr.data-count]="programCount"
-                  >
+                  <a routerLink="programs" routerLinkActive="active" class="navLink" [attr.data-count]="programCount">
                     <div class="iconBox">
                       <img src="assets/images/iconPrograms.svg" width="30" height="30" />
                     </div>
@@ -327,12 +312,7 @@
 
                 <!-- Events -->
                 <li>
-                  <a
-                    routerLink="events"
-                    routerLinkActive="active"
-                    class="navLink"
-                    [attr.data-count]="eventCount"
-                  >
+                  <a routerLink="events" routerLinkActive="active" class="navLink" [attr.data-count]="eventCount">
                     <div class="iconBox">
                       <img src="assets/images/iconEvents.svg" width="30" height="30" />
                     </div>
@@ -386,11 +366,11 @@
           </div>
 
           <div class="menuWrap">
-            <nav>
+            <nav >
               <ul>
                 <!-- Home -->
                 <li>
-                  <a routerLink="feed" routerLinkActive="active" class="navLink">
+                  <a routerLink="feed" routerLinkActive="active"  class="navLink">
                     <div class="iconBox">
                       <img src="assets/images/iconHome.svg" width="30" height="30" />
                     </div>
@@ -446,12 +426,14 @@
         <span class="nav-item-text" i18n>Attendance</span>
       </a>
     </ng-container>
+
+
     <!-- Role 6 -->
     <ng-container *ngIf="role == 6">
       <header id="header">
         <div class="navWrapper">
           <div class="navLogo">
-            <a routerLink="/feed" class="logoBox">
+            <a routerLink="/feed" class="logoBox" (click)="close()">
               <img src="./assets/images/logo.svg" class="mainLogo" alt="Logo" />
             </a>
           </div>
@@ -460,7 +442,7 @@
             <nav>
               <ul>
                 <li>
-                  <a routerLink="feed" routerLinkActive="active" class="navLink">
+                  <a routerLink="feed" routerLinkActive="active" class="navLink" (click)="close()">
                     <div class="iconBox">
                       <img src="assets/images/iconHome.svg" width="30" height="30" />
                     </div>
@@ -469,7 +451,7 @@
                 </li>
 
                 <li>
-                  <a routerLink="programs" routerLinkActive="active" class="navLink">
+                  <a routerLink="programs" routerLinkActive="active" class="navLink" (click)="close()">
                     <div class="iconBox">
                       <img src="assets/images/iconPrograms.svg" width="30" height="30" />
                     </div>
@@ -489,214 +471,348 @@
         <span class="nav-item-text ms-3" i18n>Back to main page</span>
       </a>
       <hr class="border-blue-600 border-0 border-t-2 my-2" />
-      <a
-        *ngFor="let link of navLinks"
-        [routerLink]="['profile', link.route]"
-        class="nav-item"
-        routerLinkActive="active"
-      >
+      <a *ngFor="let link of navLinks" [routerLink]="['profile', link.route]" class="nav-item"
+        routerLinkActive="active">
         <span class="relative">
           <img [src]="'assets/images/' + link.icon" alt="" />
-          <span
-            *ngIf="isSectionIncomplete(link.route) && role !== (4 || 5)"
-            class="w-4 h-4 bg-orange-400 rounded-full start-0 bottom-0 absolute -ms-2 -mb-2"
-          ></span>
+          <span *ngIf="isSectionIncomplete(link.route) && role !== (4 || 5)"
+            class="w-4 h-4 bg-orange-400 rounded-full start-0 bottom-0 absolute -ms-2 -mb-2"></span>
         </span>
         <span class="nav-item-text" i18n>{{ link.title }}</span>
       </a>
     </ng-container>
   </div>
 </nav>
-<div class="bottom-menu-container" style="position: fixed; bottom: 0;">
-  <div class="flex justify-between items-center lg:hidden">
-    <div class="flex flex-col justify-start flex-grow icons-container">
-      <!-- Role 1 -->
-      <ng-container *ngIf="role == 1">
-        <a routerLink="feed" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconHome.svg" alt="" />
-          <span class="nav-item-text" i18n>Home</span>
-        </a>
-        <a routerLink="profile" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-profile.svg" alt="" />
-          <span class="nav-item-text" i18n>My Profile</span>
-        </a>
-        <a routerLink="articles" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconArticle.svg" alt="" />
-          <span class="nav-item-text" i18n>Articles</span>
-        </a>
-        <a routerLink="events" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconEvents.svg" alt="" />
-          <span class="nav-item-text" i18n>Events</span>
-        </a>
-        <a routerLink="programs" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconPrograms.svg" alt="" />
-          <span class="nav-item-text" i18n>Programs</span>
-        </a>
-      </ng-container>
-      <!-- Role 2 -->
-      <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 2">
-        <a routerLink="feed" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconHome.svg" alt="" />
-          <span class="nav-item-text" i18n>Home</span>
-        </a>
-        <a routerLink="profile" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-profile.svg" alt="" />
-          <span class="nav-item-text" i18n>My Profile</span>
-        </a>
-        <a routerLink="dashboard" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconDashboard.svg" alt="" />
-          <span class="nav-item-text" i18n>Dashboard</span>
-        </a>
-        <a routerLink="calendar" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconCalendar.svg" alt="" />
-          <span class="nav-item-text" i18n>Calendar</span>
-        </a>
-        <a routerLink="programs" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconPrograms.svg" alt="" />
-          <span class="nav-item-text" i18n>Programs</span>
-        </a>
-        <a routerLink="knowledge" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconKnowledgeHub.svg" alt="" />
-          <span class="nav-item-text" i18n>Knowledge Hub</span>
-        </a>
-        <a routerLink="articles" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconArticle.svg" alt="" />
-          <span class="nav-item-text" i18n>Articles</span>
-        </a>
-        <a routerLink="events" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconEvents.svg" alt="" />
-          <span class="nav-item-text" i18n>Events</span>
-        </a>
-        <a routerLink="survey" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconSurveys.svg" alt="" />
-          <span class="nav-item-text" i18n>Surveys</span>
-        </a>
-      </ng-container>
-      <!-- Role 3 -->
-      <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 3">
-        <a routerLink="feed" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconHome.svg" alt="" />
-          <span class="nav-item-text" i18n>Home</span>
-        </a>
-        <a routerLink="profile" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-profile.svg" alt="" />
-          <span class="nav-item-text" i18n>My Profile</span>
-        </a>
-        <a routerLink="dashboard" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconDashboard.svg" alt="" />
-          <span class="nav-item-text" i18n>Dashboard</span>
-        </a>
-        <a routerLink="calendar" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconCalendar.svg" alt="" />
-          <span class="nav-item-text" i18n>Calendar</span>
-        </a>
-        <a routerLink="programs" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconPrograms.svg" alt="" />
-          <span class="nav-item-text" i18n>Programs</span>
-        </a>
-        <a routerLink="ideas" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconIdeaHub.svg" alt="" />
-          <span class="nav-item-text" i18n>Idea Hub</span>
-        </a>
-        <a routerLink="meeting" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-meeting-hub.svg" alt="" />
-          <span class="nav-item-text" i18n>Meeting Hub</span>
-        </a>
-        <a routerLink="knowledge" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconKnowledgeHub.svg" alt="" />
-          <span class="nav-item-text" i18n>Knowledge Hub</span>
-        </a>
-        <a routerLink="articles" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconArticle.svg" alt="" />
-          <span class="nav-item-text" i18n>Articles</span>
-        </a>
-        <a routerLink="events" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconEvents.svg" alt="" />
-          <span class="nav-item-text" i18n>Events</span>
-        </a>
-        <a routerLink="survey" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconSurveys.svg" alt="" />
-          <span class="nav-item-text" i18n>Surveys</span>
-        </a>
-        <ng-container *ngIf="isActiveEliteclub">
-          <a routerLink="eliteclub" class="nav-item" routerLinkActive="active">
-            <img class="logo" src="assets/images/iconHome.svg" alt="" />
-            <span class="nav-item-text" i18n>Elite Club</span>
-          </a>
-        </ng-container>
-      </ng-container>
-      <!-- Role 4 -->
-      <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 4">
-        <a routerLink="feed" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconHome.svg" alt="" />
-          <span class="nav-item-text" i18n>Home</span>
-        </a>
-        <a routerLink="profile" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-profile.svg" alt="" />
-          <span class="nav-item-text" i18n>Profile</span>
-        </a>
-        <a routerLink="programs" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconPrograms.svg" alt="" />
-          <span class="nav-item-text" i18n>Programs</span>
-        </a>
-      </ng-container>
-      <!-- Role 5 -->
-      <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 5">
-        <a routerLink="feed" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconHome.svg" alt="" />
-          <span class="nav-item-text" i18n>Home</span>
-        </a>
-        <a routerLink="dashboard" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconDashboard.svg" alt="" />
-          <span class="nav-item-text" i18n>Dashboard</span>
-        </a>
-        <a routerLink="applicants" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-applicants.svg" alt="" />
-          <span class="nav-item-text" i18n>Applicants Profile</span>
-        </a>
-        <a routerLink="calendar" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconCalendar.svg" alt="" />
-          <span class="nav-item-text" i18n>Calendar</span>
-        </a>
-        <a routerLink="attendance" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/ico-attendance.svg" alt="" />
-          <span class="nav-item-text" i18n>Attendance</span>
-        </a>
-      </ng-container>
-      <!-- Role 6 -->
-      <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 6">
-        <a routerLink="feed" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconHome.svg" alt="" />
-          <span class="nav-item-text" i18n>Home</span>
-        </a>
-        <a routerLink="programs" class="nav-item" routerLinkActive="active">
-          <img class="logo" src="assets/images/iconPrograms.svg" alt="" />
-          <span class="nav-item-text" i18n>Programs</span>
-        </a>
-      </ng-container>
-      <ng-container *ngIf="urlFragments[1] === 'profile' && role !== 1">
-        <a routerLink="feed" class="nav-item" style="justify-content: center;">
-          <i class="pi pi-angle-left flip-dir"></i>
-          <!-- <span class="nav-item-text ms-3" i18n>Back to main page</span> -->
-        </a>
-        <hr class="border-blue-600 border-0 border-t-2 my-2" />
-        <a
-          *ngFor="let link of navLinks"
-          [routerLink]="['profile', link.route]"
-          class="nav-item"
-          routerLinkActive="active"
-        >
-          <span class="relative">
-            <img class="logo" [src]="'assets/images/' + link.icon" alt="" />
-            <span
-              *ngIf="isSectionIncomplete(link.route) && role !== (4 || 5)"
-              class="w-4 h-4 bg-orange-400 rounded-full start-0 bottom-0 absolute -ms-2 -mb-2"
-            ></span>
-          </span>
-          <span class="nav-item-text" i18n>{{ link.title }}</span>
-        </a>
-      </ng-container>
+<div class="bottom-menu-container lg:hidden" style="position: fixed; bottom: 0; left: 0; right: 0;">
+  <ng-container *ngIf="role == 1">
+    <div class="mobileMenu">
+      <nav>
+        <ul>
+          <li>
+            <a routerLink="feed" routerLinkActive="active" class="navLink">
+              <div class="iconBox">
+                <img src="assets/images/iconHome.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="programs" routerLinkActive="active" class="navLink"
+              [attr.data-count]="programCount != null && programCount > 0 ? programCount : null">
+              <div class="iconBox">
+                <img src="assets/images/iconPrograms.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="calendar" routerLinkActive="active" class="navLink">
+              <div class="iconBox">
+                <img src="assets/images/iconCalendar.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="events" routerLinkActive="active" class="navLink"
+              [attr.data-count]="eventCount != null && eventCount > 0 ? eventCount : null">
+              <div class="iconBox">
+                <img src="assets/images/iconEvents.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="profile" routerLinkActive="active" class="navLink">
+              <div class="iconBox">
+                <img src="assets/images/iconMyProfile.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <button type="button" class="burgerMenu" (click)="toggleMobileDrawer()" aria-label="Open full navigation menu">
+        <div class="bInner bmaster">
+          <span class="start"></span>
+          <span class="med"></span>
+        </div>
+        <div class="bInner bcopy">
+          <span class="start"></span>
+          <span class="med"></span>
+        </div>
+      </button>
     </div>
-  </div>
-  <div *ngIf="visibleOnMobile" class="backdrop" (click)="close()"></div>
+  </ng-container>
+
+  <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 2">
+    <div class="mobileMenu">
+      <nav>
+        <ul>
+          <li>
+            <a routerLink="feed" routerLinkActive="active" class="navLink">
+              <div class="iconBox">
+                <img src="assets/images/iconHome.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="programs" routerLinkActive="active" class="navLink">
+              <div class="iconBox">
+                <img src="assets/images/iconPrograms.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="calendar" routerLinkActive="active" class="navLink">
+              <div class="iconBox">
+                <img src="assets/images/iconCalendar.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="events" routerLinkActive="active" class="navLink">
+              <div class="iconBox">
+                <img src="assets/images/iconEvents.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="profile" routerLinkActive="active" class="navLink">
+              <div class="iconBox">
+                <img src="assets/images/ico-profile.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <button type="button" class="burgerMenu" (click)="toggleMobileDrawer()" aria-label="Open full navigation menu">
+        <div class="bInner bmaster">
+          <span class="start"></span>
+          <span class="med"></span>
+        </div>
+        <div class="bInner bcopy">
+          <span class="start"></span>
+          <span class="med"></span>
+        </div>
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 3">
+    <div class="mobileMenu">
+      <nav>
+        <ul>
+          <li>
+            <a routerLink="feed" routerLinkActive="active" class="navLink">
+              <div class="iconBox">
+                <img src="assets/images/iconHome.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="programs" routerLinkActive="active" class="navLink"
+              [attr.data-count]="programCount != null && programCount > 0 ? programCount : null">
+              <div class="iconBox">
+                <img src="assets/images/iconPrograms.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="calendar" routerLinkActive="active" class="navLink">
+              <div class="iconBox">
+                <img src="assets/images/iconCalendar.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="events" routerLinkActive="active" class="navLink"
+              [attr.data-count]="eventCount != null && eventCount > 0 ? eventCount : null">
+              <div class="iconBox">
+                <img src="assets/images/iconEvents.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="profile" routerLinkActive="active" class="navLink">
+              <div class="iconBox">
+                <img src="assets/images/iconMyProfile.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <button type="button" class="burgerMenu" (click)="toggleMobileDrawer()" aria-label="Open full navigation menu">
+        <div class="bInner bmaster">
+          <span class="start"></span>
+          <span class="med"></span>
+        </div>
+        <div class="bInner bcopy">
+          <span class="start"></span>
+          <span class="med"></span>
+        </div>
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 4">
+    <div class="mobileMenu">
+      <nav>
+        <ul>
+          <li>
+            <a routerLink="feed" routerLinkActive="active" class="navLink">
+              <div class="iconBox">
+                <img src="assets/images/iconHome.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="profile" routerLinkActive="active" class="navLink">
+              <div class="iconBox">
+                <img src="assets/images/ico-profile.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="programs" routerLinkActive="active" class="navLink">
+              <div class="iconBox">
+                <img src="assets/images/iconPrograms.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <button type="button" class="burgerMenu" (click)="toggleMobileDrawer()" aria-label="Open full navigation menu">
+        <div class="bInner bmaster">
+          <span class="start"></span>
+          <span class="med"></span>
+        </div>
+        <div class="bInner bcopy">
+          <span class="start"></span>
+          <span class="med"></span>
+        </div>
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 5">
+    <div class="mobileMenu">
+      <nav>
+        <ul>
+          <li>
+            <a routerLink="feed" routerLinkActive="active" class="navLink">
+              <div class="iconBox">
+                <img src="assets/images/iconHome.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="dashboard" routerLinkActive="active" class="navLink">
+              <div class="iconBox">
+                <img src="assets/images/iconDashboard.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="applicants" routerLinkActive="active" class="navLink">
+              <div class="iconBox">
+                <img src="assets/images/ico-applicants.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="calendar" routerLinkActive="active" class="navLink">
+              <div class="iconBox">
+                <img src="assets/images/iconCalendar.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="attendance" routerLinkActive="active" class="navLink">
+              <div class="iconBox">
+                <img src="assets/images/ico-attendance.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <button type="button" class="burgerMenu" (click)="toggleMobileDrawer()" aria-label="Open full navigation menu">
+        <div class="bInner bmaster">
+          <span class="start"></span>
+          <span class="med"></span>
+        </div>
+        <div class="bInner bcopy">
+          <span class="start"></span>
+          <span class="med"></span>
+        </div>
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="urlFragments[1] !== 'profile' && role == 6">
+    <div class="mobileMenu">
+      <nav>
+        <ul>
+          <li>
+            <!-- <a routerLink="feed" routerLinkActive="active" class="navLink"> -->
+            <a routerLink="feed" routerLinkActive="active" class="navLink" (click)="close()">
+
+              <div class="iconBox">
+                <img src="assets/images/iconHome.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+          <li>
+            <a routerLink="programs" routerLinkActive="active" class="navLink">
+              <div class="iconBox">
+                <img src="assets/images/iconPrograms.svg" width="30" height="30" alt="" />
+              </div>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <button type="button" class="burgerMenu" (click)="toggleMobileDrawer()" aria-label="Open full navigation menu">
+        <div class="bInner bmaster">
+          <span class="start"></span>
+          <span class="med"></span>
+        </div>
+        <div class="bInner bcopy">
+          <span class="start"></span>
+          <span class="med"></span>
+        </div>
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="urlFragments[1] === 'profile' && role !== 1">
+    <div class="mobileMenu mobileMenu--profile">
+      <nav>
+        <ul>
+          <li>
+            <a routerLink="feed" class="navLink" aria-label="Back to main page">
+              <div class="iconBox">
+                <i class="pi pi-angle-left flip-dir mobileMenu__backIcon"></i>
+              </div>
+            </a>
+          </li>
+          <li *ngFor="let link of navLinks">
+            <a [routerLink]="['profile', link.route]" routerLinkActive="active" class="navLink">
+              <div class="iconBox iconBox--relative">
+                <img [src]="'assets/images/' + link.icon" width="30" height="30" alt="" />
+                <span *ngIf="isSectionIncomplete(link.route) && role !== (4 || 5)"
+                  class="mobileMenu__incompleteDot"></span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <button type="button" class="burgerMenu" (click)="toggleMobileDrawer()" aria-label="Open full navigation menu">
+        <div class="bInner bmaster">
+          <span class="start"></span>
+          <span class="med"></span>
+        </div>
+        <div class="bInner bcopy">
+          <span class="start"></span>
+          <span class="med"></span>
+        </div>
+      </button>
+    </div>
+  </ng-container>
+
 </div>
+<div *ngIf="visibleOnMobile" class="backdrop" (click)="close()"></div>

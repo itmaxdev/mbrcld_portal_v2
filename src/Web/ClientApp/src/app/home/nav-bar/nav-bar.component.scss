@@ -6,7 +6,7 @@
   @apply right-0;
   @apply w-screen;
   @apply h-screen;
-  @apply z-10;
+  z-index: 15; 
 
   background-color: rgba(0, 0, 0, 0.05);
 
@@ -16,7 +16,8 @@
 }
 
 .navbar {
-  @apply absolute;
+  position: fixed;
+  // @apply absolute;
   @apply flex;
   @apply flex-col;
   @apply h-screen;
@@ -29,6 +30,11 @@
   @apply box-border;
   @apply z-20;
   @apply bg-black;
+  -webkit-overflow-scrolling: touch; // ← ADD: enables momentum scrolling on iOS
+  pointer-events: auto;  
+
+  top: 0;   // ← ADD: anchor to top when fixed
+  left: 0;  // ← ADD: anchor to left (or right for RTL, adjust as needed)
 
   width: 270px;
   box-shadow: 0 0 16px -3px rgba(0, 0, 0, 0.9);
@@ -41,7 +47,10 @@
   }
   
   @screen lg {
-    @apply relative;
+    @apply relative;  // desktop: back to normal flow
+    position: relative;
+    top: auto;
+    left: auto;
     box-shadow: none;
   }
 
@@ -121,13 +130,59 @@
 .bottom-menu-container {
   z-index: 1500;
   width: 100%;
+  pointer-events: none;
+
+  .mobileMenu,
+  .backdrop,
+  .burgerMenu {
+    pointer-events: auto;
+  }
+
+  .mobileMenu * {
+    pointer-events: auto;
+  }
 }
 
-.icons-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  @apply bg-black;
-  width: 100%;
-  overflow-y: scroll;
+.mobileMenu--profile {
+  max-width: 100%;
+
+  nav {
+    flex: 1;
+    min-width: 0;
+  }
+
+  nav ul {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 0.25rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .mobileMenu__backIcon {
+    font-size: 1.25rem;
+    color: var(--white, #fff);
+  }
+
+  .iconBox--relative {
+    position: relative;
+  }
+
+  .mobileMenu__incompleteDot {
+    position: absolute;
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: #fb923c;
+    border-radius: 9999px;
+    left: 0;
+    bottom: 0;
+    margin-left: -0.35rem;
+    margin-bottom: -0.2rem;
+  }
 }

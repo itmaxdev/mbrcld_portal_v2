@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Inject, LOCALE_ID } from '@angular/core'
+import { Component, OnDestroy, OnInit, Inject, LOCALE_ID, HostBinding } from '@angular/core'
 import { Router, NavigationEnd } from '@angular/router'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
@@ -32,6 +32,9 @@ export class NavBarComponent implements OnDestroy, OnInit {
   urlFragments: string[] = []
   role: number
   isActiveEliteclub: boolean
+  /** Badge counts for compact mobile nav; wire to API when available. */
+  programCount: number | null = null
+  eventCount: number | null = null
   private logOutUrl: string
   private roleName: string
 
@@ -155,6 +158,11 @@ export class NavBarComponent implements OnDestroy, OnInit {
     return this._visibleOnMobile
   }
 
+  @HostBinding('class.menuActive')
+  get menuActiveHost(): boolean {
+    return this._visibleOnMobile
+  }
+
   constructor(
     router: Router,
     private navBarService: NavBarService,
@@ -225,6 +233,10 @@ export class NavBarComponent implements OnDestroy, OnInit {
 
   close() {
     this.navBarService.close()
+  }
+
+  toggleMobileDrawer() {
+    this.navBarService.toggle()
   }
 
   async logOut() {
