@@ -33,8 +33,9 @@ export class ProgramCohortViewComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const { role } = JSON.parse(localStorage.getItem('profile_info'))
-    this.role = role
+    const raw = localStorage.getItem('profile_info')
+    const role = raw ? JSON.parse(raw)?.role : null
+    this.role = role ?? 0
     this.cohortId = this.route.snapshot.paramMap.get('cohortId')
 
     this.modulesService.cohortModules(this.cohortId).subscribe((data) => {

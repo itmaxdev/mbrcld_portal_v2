@@ -114,8 +114,6 @@ import {
           </div>
         </div>
       </div>
-
-      <app-side-box></app-side-box>
     </div>
   `,
   styles: [

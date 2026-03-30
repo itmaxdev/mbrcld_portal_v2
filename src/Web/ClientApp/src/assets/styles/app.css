@@ -4780,6 +4780,12 @@ html[dir=rtl] [dir=ltr] {
     grid-template-columns: calc(100% - var(--sideNav) - var(--gap)) var(--sideNav)
 }
 
+/* If a page uses `mainContainer` but does not render `<app-side-box>` as a direct child,
+   don't reserve the sidebar column width. */
+.mainContainer:not(:has(> app-side-box)) {
+    grid-template-columns: 100%
+}
+
 @media only screen and (min-width: 100rem) {
     .mainContainer {
         font-size: calc(30 / var(--gfs) * 1rem);
@@ -15748,7 +15754,7 @@ header .menuWrap ul li.logOutBox {
     list-style: none;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 
 .mobileMenu nav ul li {

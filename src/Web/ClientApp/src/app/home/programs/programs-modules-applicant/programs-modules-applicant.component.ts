@@ -330,7 +330,8 @@ export class ProgramsModulesApplicantComponent implements OnInit {
     this.userRole = this.profileInfo.role
     // this.isInstructor = this.profileInfo.role === 4
     this.programId = this.route.snapshot.paramMap.get('programId')
-    this.role = JSON.parse(localStorage.getItem('profile_info')).role
+    const raw = localStorage.getItem('profile_info')
+    this.role = raw ? JSON.parse(raw)?.role ?? 0 : 0
 
     this.materials.moduleMaterials(this.id).subscribe((data) => {
       if (data.length > 0) {

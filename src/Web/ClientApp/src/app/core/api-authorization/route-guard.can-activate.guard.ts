@@ -8,8 +8,12 @@ export class RouteGuardCanActivateGuard implements CanActivate {
   constructor() {}
 
   public canActivate(next: ActivatedRouteSnapshot) {
-    const profileInfo = JSON.parse(localStorage.getItem('profile_info'))
-    const role = profileInfo.role
+    const raw = localStorage.getItem('profile_info')
+    if (!raw) return false
+
+    const profileInfo = JSON.parse(raw)
+    const role = profileInfo?.role
+    if (role == null) return false
     return role == Number(next.data.role)
   }
 }
@@ -22,7 +26,10 @@ export class DefaultRouteGuard implements CanActivate {
 
   public canActivate(next: ActivatedRouteSnapshot) {
     if (localStorage.getItem('profile_info')) {
-      const { role } = JSON.parse(localStorage.getItem('profile_info'))
+      const raw = localStorage.getItem('profile_info')
+      const profileInfo = raw ? JSON.parse(raw) : null
+      const role = profileInfo?.role
+      if (role == null) return false
       switch (role) {
         case 1:
           this.router.navigate(['/registrant'])
@@ -41,7 +48,7 @@ export class DefaultRouteGuard implements CanActivate {
           break
         case 6:
           this.router.navigate(['/admin'])
-          break;
+          break
       }
     }
     return false

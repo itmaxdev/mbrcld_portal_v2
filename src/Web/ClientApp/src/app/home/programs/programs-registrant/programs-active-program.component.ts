@@ -49,7 +49,7 @@ import { ProfileFacade } from '../../profile/common/profile-facade.service'
                 </a>
               </div>
             </div>
- 
+
             <div class="gridWrap border">
               <div class="programDetailsWrap">
                 <div class="imgBox" [ngClass]="{ 'img-rtl': language == 'ar' }">
@@ -69,7 +69,7 @@ import { ProfileFacade } from '../../profile/common/profile-facade.service'
                   <div class="statusPin colorInfo">
                     <span i18n>Active Program</span>
                   </div>
- 
+
                   <div
                     class="textBox sm"
                     [innerHTML]="
@@ -78,7 +78,7 @@ import { ProfileFacade } from '../../profile/common/profile-facade.service'
                         : programDetail.longDescription_AR
                     "
                   ></div>
- 
+
                   <div class="moreWrap">
                     <button (click)="goBack()" class="more wAuto">
                       <span i18n>Go Back</span>
@@ -108,8 +108,6 @@ import { ProfileFacade } from '../../profile/common/profile-facade.service'
           </div>
         </div>
       </div>
- 
-      <app-side-box></app-side-box>
     </div>
   `,
   styles: [

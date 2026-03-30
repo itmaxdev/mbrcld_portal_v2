@@ -198,8 +198,10 @@ export class NavBarComponent implements OnDestroy, OnInit {
     this.profileFacade.formChanges.pipe(takeUntil(this.destroy$)).subscribe((e) => {
       this.sectionStatuses = e.sections
     })
-    const { role } = JSON.parse(localStorage.getItem('profile_info'))
-    this.role = role
+
+    const raw = localStorage.getItem('profile_info')
+    const role = raw ? JSON.parse(raw)?.role : null
+    this.role = role ?? 0
 
     if (this.role == 4) {
       this.navLinks = this.navLinks.filter((item) => item.isVisibleForInstructor)

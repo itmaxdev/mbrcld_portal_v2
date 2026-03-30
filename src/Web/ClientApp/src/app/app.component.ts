@@ -31,8 +31,9 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe(async (val) => {
       if (val instanceof NavigationStart && val.url.indexOf('/profile') == -1) {
         let profilePrefix = ''
-        const info = JSON.parse(localStorage.getItem('profile_info'))
-        switch (info.role) {
+        const raw = localStorage.getItem('profile_info')
+        const info = raw ? JSON.parse(raw) : null
+        switch (info?.role) {
           case 1:
             profilePrefix = '/registrant'
             break

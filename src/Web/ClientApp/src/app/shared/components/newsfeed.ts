@@ -191,7 +191,8 @@ export class NewsfeedComponent implements OnInit {
         this.showMoreButtonVisible = false
       }
     }
-    this.role = JSON.parse(localStorage.getItem('profile_info')).role
+    const raw = localStorage.getItem('profile_info')
+    this.role = raw ? JSON.parse(raw)?.role ?? '' : ''
     this.id = this.route.snapshot.paramMap.get('modulesId')
     this.lessText = false
     this.buttonText = 'Show more'

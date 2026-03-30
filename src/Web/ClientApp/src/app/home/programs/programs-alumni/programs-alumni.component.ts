@@ -33,8 +33,9 @@ export class ProgramsAlumniComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const userProfile = JSON.parse(localStorage.getItem('profile_info'))
-    this.role = userProfile.role
+    const raw = localStorage.getItem('profile_info')
+    const userProfile = raw ? JSON.parse(raw) : null
+    this.role = userProfile?.role ?? 0
     this.getInProgressPrograms()
   }
 
