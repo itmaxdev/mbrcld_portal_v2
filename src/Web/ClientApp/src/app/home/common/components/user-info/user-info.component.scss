@@ -28,7 +28,25 @@
 }
 
 .padder{
-  padding: 1rem 1rem 1rem 2rem;
+  padding-block: 1rem;
+  padding-inline: 1rem 2rem;
+}
+
+:host-context([dir='rtl']) .padder {
+  padding-inline: 2rem 1rem;
+}
+
+:host-context([dir='rtl']) .topNavWrap {
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+:host-context([dir='rtl']) .sToolWrap {
+  min-width: 0;
+}
+
+:host-context([dir='rtl']) .sToolWrap .searchBox {
+  flex: 1 1 32rem;
+  min-width: 14rem;
 }
 
 .topnav-backdrop {

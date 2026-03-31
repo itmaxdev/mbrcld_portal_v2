@@ -19,3 +19,10 @@
     box-shadow: none;
   }
 }
+
+:host-context([dir='rtl']) {
+  @screen lg {
+    left: 0;
+    right: 270px;
+  }
+}
