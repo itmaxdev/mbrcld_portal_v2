@@ -41,6 +41,36 @@
   // }
 }
 
+.home-shell {
+  --sideNav: 20em;
+  display: grid;
+  align-items: start;
+  gap: var(--gap, 1rem);
+  grid-template-columns: calc(100% - var(--sideNav) - var(--gap, 1rem)) var(--sideNav);
+}
+
+@media only screen and (min-width: 100rem) {
+  .home-shell {
+    --sideNav: 23em;
+  }
+}
+
+@media only screen and (min-width: 64rem) and (max-width: 85.625rem) {
+  .home-shell {
+    --sideNav: 15.5em;
+  }
+}
+
+@media only screen and (max-width: 61.25rem) {
+  .home-shell {
+    grid-template-columns: 100%;
+  }
+}
+
+.home-main {
+  min-width: 0;
+}
+
 .empty-area {
   display: none;
   height: 30px;

@@ -9,16 +9,22 @@ import { debounceTime } from 'rxjs/operators'
   templateUrl: './sideBox.component.html',
   styleUrls: ['./sideBox.component.scss'],
 })
-export class SideBoxComponent {
+export class SideBoxComponent implements OnInit {
   role: number
   currentProgram: any
   currentModule: any
-  videoUrl: SafeResourceUrl
+  videoUrl?: SafeResourceUrl
   listItems: any[] = []
   currentLang: string
 
   @ViewChild('inlineCalenderSmall', { static: false })
   calendarEl!: ElementRef
+
+  private static pinnedCacheByKey = new Map<string, SafeResourceUrl>()
+  private static listsCacheByKey = new Map<string, Panel3ViewModel[]>()
+  private static programCacheByKey = new Map<string, any>()
+  private static moduleCacheByKey = new Map<string, any>()
+  private static animationTriggeredKeys = new Set<string>()
 
   private eventDates: string[] = [
     '2025-11-05',
@@ -38,67 +44,99 @@ export class SideBoxComponent {
   }
 
   ngOnInit(): void {
-    this.role = JSON.parse(localStorage.getItem('profile_info')).role
+    const profileInfoRaw = localStorage.getItem('profile_info')
+    this.role = profileInfoRaw ? JSON.parse(profileInfoRaw).role : 0
+    const cacheKey = `${this.currentLang}|${this.role}`
+
     if (this.role == 1) {
-      this.getCurrentProgram()
+      this.getCurrentProgram(cacheKey)
     } else if (this.role == 2) {
-      this.getCurrentModule()
+      this.getCurrentModule(cacheKey)
     }
-    this.getPinned()
-    this.getLists()
+    this.getPinned(cacheKey)
+    this.getLists(cacheKey)
   }
 
-  getPinned() {
+  private getPinned(cacheKey: string) {
+    const cached = SideBoxComponent.pinnedCacheByKey.get(cacheKey)
+    if (cached) {
+      this.videoUrl = cached
+      return
+    }
+
     this.rightPanelClient
       .pinnedGet()
       .pipe(debounceTime(600))
       .subscribe((res: any) => {
         if (res) {
-          this.videoUrl = this._sanitizer.bypassSecurityTrustResourceUrl(
+          const url = this._sanitizer.bypassSecurityTrustResourceUrl(
             'https://player.vimeo.com/video/' + res.videoUrl.split('/').pop()
           )
+          this.videoUrl = url
+          SideBoxComponent.pinnedCacheByKey.set(cacheKey, url)
         }
       })
   }
 
-  getCurrentProgram() {
+  private getCurrentProgram(cacheKey: string) {
+    const cached = SideBoxComponent.programCacheByKey.get(cacheKey)
+    if (cached) {
+      this.currentProgram = cached
+      return
+    }
+
     this.rightPanelClient
       .currentProgramGet()
       .pipe(debounceTime(600))
       .subscribe((res: any) => {
         if (res) {
           this.currentProgram = res
+          SideBoxComponent.programCacheByKey.set(cacheKey, res)
         }
       })
   }
 
-  getCurrentModule() {
+  private getCurrentModule(cacheKey: string) {
+    const cached = SideBoxComponent.moduleCacheByKey.get(cacheKey)
+    if (cached) {
+      this.currentModule = cached
+      return
+    }
+
     this.rightPanelClient
       .currentModuleGet()
       .pipe(debounceTime(600))
       .subscribe((res: any) => {
         if (res) {
           this.currentModule = res
+          SideBoxComponent.moduleCacheByKey.set(cacheKey, res)
         }
       })
   }
 
-  getLists1() {
-    this.rightPanelClient.listsGet().subscribe((res: Panel3ViewModel[]) => {
-      if (res) {
-        this.listItems = res
-        console.log(this.listItems)
-      }
-    })
-  }
+  private getLists(cacheKey: string) {
+    const cached = SideBoxComponent.listsCacheByKey.get(cacheKey)
+    if (cached) {
+      this.listItems = cached
 
-  getLists() {
+      if (!SideBoxComponent.animationTriggeredKeys.has(cacheKey)) {
+        SideBoxComponent.animationTriggeredKeys.add(cacheKey)
+        setTimeout(() => this.triggerCountAnimation(), 100)
+      }
+      return
+    }
+
     this.rightPanelClient.listsGet().subscribe((res: Panel3ViewModel[]) => {
       if (res) {
         this.listItems = res
-        setTimeout(() => {
-          this.triggerCountAnimation()
-        }, 100)
+        SideBoxComponent.listsCacheByKey.set(cacheKey, res)
+
+        if (!SideBoxComponent.animationTriggeredKeys.has(cacheKey)) {
+          SideBoxComponent.animationTriggeredKeys.add(cacheKey)
+          setTimeout(() => {
+            this.triggerCountAnimation()
+          }, 100)
+        }
       }
     })
   }

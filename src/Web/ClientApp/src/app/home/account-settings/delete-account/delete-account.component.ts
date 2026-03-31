@@ -19,7 +19,9 @@ export class DeleteAccountComponent {
     private messageService: MessageService,
     private confirmationService: ConfirmationService
   ) {
-    this.userRole = parseInt(JSON.parse(localStorage.getItem('profile_info')).role)
+    const raw = localStorage.getItem('profile_info')
+    const profileInfo = raw ? JSON.parse(raw) : null
+    this.userRole = parseInt(String(profileInfo?.role ?? 0))
   }
 
   ngOnInit(): void {}

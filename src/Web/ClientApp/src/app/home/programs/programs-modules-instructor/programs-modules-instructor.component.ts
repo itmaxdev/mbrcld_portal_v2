@@ -565,7 +565,8 @@ export class ProgramsModulesInstructorComponent implements OnInit {
     this.isModuleNameReady = false
     this.id = this.route.snapshot.paramMap.get('modulesId')
     this.programId = this.route.snapshot.paramMap.get('programId')
-    this.role = JSON.parse(localStorage.getItem('profile_info')).role
+    const raw = localStorage.getItem('profile_info')
+    this.role = raw ? JSON.parse(raw)?.role ?? 0 : 0
 
     this.chatClient.chat(this.id).subscribe((data) => {
       const chatData = JSON.parse(data)

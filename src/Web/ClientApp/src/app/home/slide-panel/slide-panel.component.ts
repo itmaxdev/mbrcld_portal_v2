@@ -67,7 +67,8 @@ export class SlidePanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.role = JSON.parse(localStorage.getItem('profile_info')).role
+    const raw = localStorage.getItem('profile_info')
+    this.role = raw ? JSON.parse(raw)?.role ?? 0 : 0
     if (this.role == 1) {
       this.getCurrentProgram()
     } else if (this.role == 2) {

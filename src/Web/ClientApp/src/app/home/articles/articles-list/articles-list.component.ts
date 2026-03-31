@@ -46,8 +46,9 @@ export class ArticlesListComponent implements OnInit {
 
   getMyArticles() {
     this.isMyArticles = true
-    const profileInfo = JSON.parse(localStorage.getItem('profile_info'))
-    const pictureUrl = profileInfo.profilePictureUrl
+    const raw = localStorage.getItem('profile_info')
+    const profileInfo = raw ? JSON.parse(raw) : null
+    const pictureUrl = profileInfo?.profilePictureUrl
 
     return this.articles.userArticles().subscribe((data) => {
       this.articleData = data
@@ -115,7 +116,8 @@ export class ArticlesListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.role = JSON.parse(localStorage.getItem('profile_info')).role
+    const raw = localStorage.getItem('profile_info')
+    this.role = raw ? JSON.parse(raw)?.role ?? '' : ''
     this.profileClient.userDisclaimerGet(DisclaimerTypes.ArticlesDisclaimer).subscribe((data) => {
       if (data.disclaimer) this.getAllArticlesList()
       else this.showDisclaimer = true

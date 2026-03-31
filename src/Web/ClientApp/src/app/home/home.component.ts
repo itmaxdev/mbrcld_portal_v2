@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   public roomId: string
   public role: number
   public chatUrl: string = undefined
-  public isChatUrl: boolean
+  public isChatUrl = false
 
   constructor(
     private chatClient: ChatClient,
@@ -37,8 +37,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    const profileInfo = JSON.parse(localStorage.getItem('profile_info'))
-    this.role = profileInfo.role
+    const raw = localStorage.getItem('profile_info')
+    const profileInfo = raw ? JSON.parse(raw) : null
+    this.role = profileInfo?.role ?? 0
 
     this.chatClient.chat('12341234-1234-1234-1234-123412341234').subscribe((data) => {
       const chatData = JSON.parse(data)

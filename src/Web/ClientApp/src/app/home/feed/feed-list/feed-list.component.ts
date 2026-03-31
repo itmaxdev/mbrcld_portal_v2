@@ -142,7 +142,8 @@ export class FeedListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.role = JSON.parse(localStorage.getItem('profile_info')).role
+    const raw = localStorage.getItem('profile_info')
+    this.role = raw ? JSON.parse(raw)?.role ?? 0 : 0
     this.getAllPosts()
     if (this.role !== 6) {
       this.loadDashboardCounts()

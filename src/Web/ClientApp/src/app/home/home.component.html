@@ -3,7 +3,12 @@
 <div class="content">
   <app-toolbar></app-toolbar>
   <div class="content-width">
-    <router-outlet></router-outlet>
+    <div class="home-shell">
+      <div class="home-main">
+        <router-outlet></router-outlet>
+      </div>
+      <app-side-box *ngIf="!isChatUrl"></app-side-box>
+    </div>
   </div>
   <div class="empty-area"></div>
 </div>

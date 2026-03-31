@@ -285,8 +285,6 @@ import { ISectorOption } from '../../profile/professional-experience/models'
           </div>
         </div>
       </div>
-
-      <app-side-box></app-side-box>
     </div>
 
     <ng-template #loading>
