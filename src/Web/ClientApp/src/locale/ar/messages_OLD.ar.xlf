@@ -1,5 +1,5 @@
-<?xml version='1.0' encoding='utf-8'?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+<?xml version="1.0" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file datatype="plaintext" original="ng2.template" source-language="en" target-language="ar">
     <body>
       <trans-unit datatype="html" id="fd966a55a9d8174e64bf096d0247ba9e1659008e">
@@ -2514,7 +2514,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="32883af6951ddd5309cd581711a36e662ffed3ab">
         <source>Year Of Achievement</source>
-        <target>عام تحقيق الإنجاز</target>
+        <target>عام تحقيق الأنجاز <x equiv-text="&quot;\uFFFD#57\uFFFD&quot;" id="START_TAG_SPAN" />*<x equiv-text="&quot;\uFFFD/#57\uFFFD&quot;" id="CLOSE_TAG_SPAN" /></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/programs/program-apply/achievements/achievements.component.js</context>
           <context context-type="linenumber">344</context>
@@ -5078,7 +5078,7 @@
     </trans-unit>
     <trans-unit id="a8271e3774870c02c33177c493d756d800ec2c05" datatype="html">
       <source> Go back </source>
-      <target>العودة</target><targe>العودة</targe>
+      <targe>العودة</targe>
       <context-group purpose="location">
         <context context-type="sourcefile">src/app/home/programs/programs-new-newsfeed/programs-new-newsfeed.component.js</context>
         <context context-type="linenumber">95</context>
@@ -5306,21 +5306,21 @@
       </trans-unit>
       <trans-unit id="1103198648728220869" datatype="html">
         <source>Please enter valid characters only</source>
-        <target>يرجى إدخال أحرف صحيحة فقط</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/directives/control-validation-error.directive.js</context>
           <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3815016496554970090" datatype="html">
         <source>The date cannot be in the future</source>
-        <target>لا يمكن أن يكون التاريخ في المستقبل</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/directives/control-validation-error.directive.js</context>
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1737753151350322492" datatype="html">
         <source><x id="PH" equiv-text="error.errors[0]" /></source>
-        <target><x id="PH" equiv-text="error.errors[0]" /></target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/authorization/register/register.component.js</context>
           <context context-type="linenumber">251</context>
         </context-group>
@@ -5399,7 +5399,7 @@
       </trans-unit>
       <trans-unit id="004b222ff9ef9dd4771b777950ca1d0e4cd4348a" datatype="html">
         <source>About</source>
-        <target>حول</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/applicant-profile-dialog/applicant-profile-dialog.component.js</context>
           <context context-type="linenumber">264</context>
         </context-group>
@@ -5510,7 +5510,7 @@
       </trans-unit>
       <trans-unit id="bc5882e708b970b053095b082652343a3f85c1d9" datatype="html">
         <source>Year of Achievement: <x id="INTERPOLATION" equiv-text="&quot;\uFFFD0\uFFFD&quot;" /></source>
-		        <target>عام تحقيق الإنجاز: <x id="INTERPOLATION" equiv-text="&quot;\uFFFD0\uFFFD&quot;" /></target>
+		        <target>عام تحقيق الأنجاز <x equiv-text="&quot;\uFFFD#57\uFFFD&quot;" id="START_TAG_SPAN" />*<x equiv-text="&quot;\uFFFD/#57\uFFFD&quot;" id="CLOSE_TAG_SPAN" /></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/programs/program-apply/achievements/achievements.component.js</context>
           <context context-type="linenumber">410</context>
@@ -5542,7 +5542,7 @@
       </trans-unit>
       <trans-unit id="b5629d298ff1a69b8db19a4ba2995c76b52da604" datatype="html">
         <source>Support</source>		
-        <target>الدعم</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/programs/programs-modules-admin/programs-modules-admin.component.js</context>
           <context context-type="linenumber">1137</context>
         </context-group>
@@ -5581,21 +5581,21 @@
       </trans-unit>
       <trans-unit id="0ba24de2e90f3b1d325daa72b4c8a994e3b9e4db" datatype="html">
         <source>Start Date <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#90\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#90\uFFFD&quot;" /></source>
-        <target>تاريخ البدء *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/programs/programs-modules-admin/programs-modules-admin.component.js</context>
           <context context-type="linenumber">1197</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f083fb1d765f0e5e6bb7f5422ee435d06653f5dd" datatype="html">
         <source>dd-mm-yyyy</source>
-        <target>يي-شش-سسسس</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/programs/programs-modules-admin/programs-modules-admin.component.js</context>
           <context context-type="linenumber">1203</context>
         </context-group>
       </trans-unit>
       <trans-unit id="df442b82d7c8a30fb18c5b77f2c88b5de7ca20ee" datatype="html">
         <source>0</source>
-        <target>0</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/programs/programs-modules-admin/programs-modules-admin.component.js</context>
           <context context-type="linenumber">1215</context>
         </context-group>
@@ -5714,14 +5714,14 @@
       </trans-unit>
       <trans-unit id="9bbf9bfd4e156c8dcf050ed9bcca94c6f069232b" datatype="html">
         <source>dd - mm - yyyy</source>
-        <target>يي - شش - سسسس</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/programs/programs-modules-instructor/programs-modules-instructor.component.js</context>
           <context context-type="linenumber">1371</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4155b0ac3ee5eeb84e8b18bb2c094ccdbeb0e396" datatype="html">
         <source>--:--</source>
-        <target>--:--</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/programs/programs-modules-instructor/programs-modules-instructor.component.js</context>
           <context context-type="linenumber">1383</context>
         </context-group>
@@ -5744,7 +5744,7 @@
       </trans-unit>
       <trans-unit id="31893b6b6f73de52bffeb341165521b8db27758b" datatype="html">
         <source> قريبا </source>
-        <target> قريبا </target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/events/event-list/event-list.component.js</context>
           <context context-type="linenumber">328</context>
         </context-group>
@@ -5775,7 +5775,7 @@
       </trans-unit>
       <trans-unit id="3a7cb9bf3a88e19b02645a615b7137f4aaae107d" datatype="html">
         <source>Article Thumbnail</source>
-        <target>صورة مصغرة للمقالة</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/articles/articles-details/articles-details.component.js</context>
           <context context-type="linenumber">304</context>
         </context-group>
@@ -5830,7 +5830,7 @@
       </trans-unit>
       <trans-unit id="0d22858ca5af6217e9d40a715f5c0049f6bc7675" datatype="html">
         <source>أو اسحب وأفلت</source>
-        <target>أو اسحب وأفلت</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/common/registrant-document-upload/registrant-document-upload.component.js</context>
           <context context-type="linenumber">214</context>
         </context-group>
@@ -6149,28 +6149,28 @@
       </trans-unit>
       <trans-unit id="6444aee1565ec9d8605c48d71a46a9ee11be0a0a" datatype="html">
         <source>الاسم الأول <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#33\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#33\uFFFD&quot;" /></source>
-        <target>الاسم الأول *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/general-information/general-information.component.js</context>
           <context context-type="linenumber">571</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4c5508f3b4400cf9244edc866625d551fd81e653" datatype="html">
         <source>Middle Name <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#39\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#39\uFFFD&quot;" /></source>
-        <target>الاسم الأوسط *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/general-information/general-information.component.js</context>
           <context context-type="linenumber">577</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c69ae76b8a4497769c41cd8c759471f1f5ac72f4" datatype="html">
         <source>الاسم الأوسط <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#45\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#45\uFFFD&quot;" /></source>
-        <target>الاسم الأوسط *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/general-information/general-information.component.js</context>
           <context context-type="linenumber">583</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8ce1166ac954a5fee46005a4bd23c30513239816" datatype="html">
         <source>الاسم الأخير <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#57\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#57\uFFFD&quot;" /></source>
-        <target>الاسم الأخير *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/general-information/general-information.component.js</context>
           <context context-type="linenumber">595</context>
         </context-group>
@@ -6233,7 +6233,7 @@
       </trans-unit>
       <trans-unit id="1b60a56572a72890976f13fb853119f69de48f5c" datatype="html">
         <source>تاريخ الانضمام <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#2\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#2\uFFFD&quot;" /></source>
-        <target>تاريخ الانضمام *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/profile/memberships/memberships.component.js</context>
           <context context-type="linenumber">417</context>
         </context-group>
@@ -6280,21 +6280,21 @@
       </trans-unit>
       <trans-unit id="26f0afb72a82059e5979f019a6c0a619792e3531" datatype="html">
         <source>Smart Assessment</source>
-        <target>التقييم الذكي</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/programs/program-apply/smart-assessment/smart-assessment.component.js</context>
           <context context-type="linenumber">108</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7e06250462bc445fb9df59b314b8acf587d85297" datatype="html">
         <source> If you already have a pymetrics account under this email address for a different application or company, you should follow the link above, and login with your existing account. Please do not make a new account. </source>
-        <target>إذا كان لديك حساب pymetrics بالفعل تحت عنوان البريد الإلكتروني هذا لطلب أو شركة مختلفة، فيجب عليك اتباع الرابط أعلاه وتسجيل الدخول بحسابك الحالي. يرجى عدم إنشاء حساب جديد.</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/programs/program-apply/smart-assessment/smart-assessment.component.js</context>
           <context context-type="linenumber">126</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2dcf1ff226ed7ea25c4c21ebc394e85014ea7414" datatype="html">
         <source> If you played pymetrics less than 330 days ago, you are not required to replay the exercises. Please login and follow the prompts to resubmit existing data, which will be re-assessed against the role profile to which you’ve applied. </source>
-        <target>إذا لعبت pymetrics منذ أقل من 330 يومًا، فلا يُطلب منك إعادة التمارين. يرجى تسجيل الدخول واتباع التعليمات لإعادة إرسال البيانات الموجودة، والتي ستُعاد تقييمها مقابل ملف الدور الذي تقدمت إليه.</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/programs/program-apply/smart-assessment/smart-assessment.component.js</context>
           <context context-type="linenumber">132</context>
         </context-group>
@@ -6381,7 +6381,7 @@
       </trans-unit>
       <trans-unit id="9dbad6964cd22e18b62ba1315bd5c3c531ebad1c" datatype="html">
         <source>لا توجد منح نشطة حالياً.</source>
-        <target>لا توجد منح نشطة حالياً.</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/knowledge-hub/knowledge-hub-list/knowledge-hub-list.component.js</context>
           <context context-type="linenumber">355</context>
         </context-group>
@@ -6396,7 +6396,7 @@
       </trans-unit>
       <trans-unit id="616012356aa980c49582aa58240dc88578713f4a" datatype="html">
         <source>لا توجد منح سابقة.</source>
-        <target>لا توجد منح سابقة.</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/knowledge-hub/knowledge-hub-list/knowledge-hub-list.component.js</context>
           <context context-type="linenumber">367</context>
         </context-group>
@@ -6419,63 +6419,63 @@
       </trans-unit>
       <trans-unit id="56f3224cad69418f7716c98ba6481eba36f7b4b0" datatype="html">
         <source> <x id="INTERPOLATION" equiv-text="&quot;\uFFFD0\uFFFD&quot;" /> </source>
-        <target> <x id="INTERPOLATION" equiv-text="&quot;\uFFFD0\uFFFD&quot;" /> </target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/achievements/achievements.component.js</context>
           <context context-type="linenumber">579</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c99c9a019a8f47727101126fbab5cd0811beb4db" datatype="html">
         <source>Organization/Project/Situation <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#19\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#19\uFFFD&quot;" /></source>
-        <target>المنظمة / المشروع / الحالة *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/achievements/achievements.component.js</context>
           <context context-type="linenumber">585</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3939afd57ec53d9ac5b953638661661732259fd5" datatype="html">
         <source>Enter in English</source>
-        <target>أدخل بالإنجليزية</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/achievements/achievements.component.js</context>
           <context context-type="linenumber">591</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c6cf46b7d88c6b0d3f62d7d98ec10e40737383ab" datatype="html">
         <source>الجهة / المشروع / الحالة <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#26\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#26\uFFFD&quot;" /></source>
-        <target>الجهة / المشروع / الحالة *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/achievements/achievements.component.js</context>
           <context context-type="linenumber">597</context>
         </context-group>
       </trans-unit>
       <trans-unit id="07bfb7b5715d060f7a16cf94a0302205782f2b1f" datatype="html">
    		        <source>أدخل باللغة الإنجليزية</source>
-        <target>أدخل بالعربية</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/achievements/achievements.component.js</context>
           <context context-type="linenumber">603</context>
         </context-group>
       </trans-unit>
       <trans-unit id="cb2747ec361094b409b9aafd315f21c35b381765" datatype="html">
         <source>Summary of achievement <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#33\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#33\uFFFD&quot;" /></source>
- <target>ملخص الإنجاز *</target><context-group purpose="location">
+ <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/achievements/achievements.component.js</context>
           <context context-type="linenumber">609</context>
         </context-group>
       </trans-unit>
       <trans-unit id="cae3962710862bd72b77d6a350ee566bd51e4303" datatype="html">
         <source>Outcome in English</source>
-    <target>النتيجة بالإنجليزية</target><context-group purpose="location">
+    <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/achievements/achievements.component.js</context>
           <context context-type="linenumber">615</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3567f4fd75fb1baf8d5285aee64a802a0540beb8" datatype="html">
         <source>ملخص الإنجاز <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#40\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#40\uFFFD&quot;" /></source>
-        <target>ملخص الإنجاز *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/achievements/achievements.component.js</context>
           <context context-type="linenumber">621</context>
         </context-group>
       </trans-unit>
       <trans-unit id="19b484ee5fdc9a6aded7c2c57dbeadd74261a4c9" datatype="html">
         <source>النتيجة بالعربية</source>
-        <target>النتيجة بالعربية</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/achievements/achievements.component.js</context>
           <context context-type="linenumber">627</context>
         </context-group>
@@ -6490,21 +6490,21 @@
       </trans-unit>
       <trans-unit id="96a56d276c317a9c87b43df03f176c0233ab1862" datatype="html">
         <source>Goal, Outcome, Role (English)</source>
-  <target>الهدف، النتيجة، الدور (بالإنجليزية)</target><context-group purpose="location">
+  <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/achievements/achievements.component.js</context>
           <context context-type="linenumber">639</context>
         </context-group>
       </trans-unit>
       <trans-unit id="167c808b7fc6611d8c1a815f54a4cf0d500af8bf" datatype="html">
         <source>وصف الانجاز <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#54\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#54\uFFFD&quot;" /></source>
-        <target>وصف الانجاز *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/achievements/achievements.component.js</context>
           <context context-type="linenumber">645</context>
         </context-group>
       </trans-unit>
       <trans-unit id="34ed819bb8ffc0c8993211cafd3052c76e8f1f7c" datatype="html">
         <source>الهدف، النتيجة، الدور (بالعربية)</source>
-        <target>الهدف، النتيجة، الدور (بالعربية)</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/achievements/achievements.component.js</context>
           <context context-type="linenumber">651</context>
         </context-group>
@@ -6527,56 +6527,56 @@
       </trans-unit>
       <trans-unit id="f46d58f88983b5ed3c5905ab88db0041d654b9a4" datatype="html">
         <source> <x id="INTERPOLATION" equiv-text="&quot;\uFFFD0\uFFFD&quot;" /> </source>
-        <target> <x id="INTERPOLATION" equiv-text="&quot;\uFFFD0\uFFFD&quot;" /> </target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/achievements/achievements.component.js</context>
           <context context-type="linenumber">711</context>
         </context-group>
       </trans-unit>
       <trans-unit id="bed15b0ffd93fb4d4af1a34434f3e93771b99a2e" datatype="html">
         <source>Institution Name <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#106\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#106\uFFFD&quot;" /></source>
-        <target>اسم المؤسسة *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/achievements/achievements.component.js</context>
           <context context-type="linenumber">717</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ce3954146db2b86c22b5d69a4bcc41bb8924e2da" datatype="html">
         <source>In English</source>
-        <target>بالإنجليزية</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/achievements/achievements.component.js</context>
           <context context-type="linenumber">723</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7976b2ea6c14d5539a3cd3787b21a29526e3779d" datatype="html">
         <source>اسم الجهه <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#113\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#113\uFFFD&quot;" /></source>
-        <target>اسم الجهه *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/achievements/achievements.component.js</context>
           <context context-type="linenumber">729</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7e0f9cbc00ed83266741ed44250d0ab073c473e1" datatype="html">
         <source>بالعربية</source>
-        <target>بالعربية</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/achievements/achievements.component.js</context>
           <context context-type="linenumber">735</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2b4a8fa7d60264d5dd01120018a5da46c478d267" datatype="html">
         <source>Role <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#120\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#120\uFFFD&quot;" /></source>
-        <target>الدور *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/achievements/achievements.component.js</context>
           <context context-type="linenumber">741</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9b072387765d548bdc4298b57da3e464619bd0c9" datatype="html">
         <source>دورك فى الجهه <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#127\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#127\uFFFD&quot;" /></source>
-        <target>دورك فى الجهه *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/achievements/achievements.component.js</context>
           <context context-type="linenumber">753</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d7fb4907d84855ce477a818f0fd54d5dfd4255f5" datatype="html">
         <source>Membership level <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#154\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#154\uFFFD&quot;" /></source>
-        <target>مستوى العضوية *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/achievements/achievements.component.js</context>
           <context context-type="linenumber">783</context>
         </context-group>
@@ -6631,7 +6631,7 @@
       </trans-unit>
       <trans-unit id="5d288a0a4fd575e7b767b29d821575f387451351" datatype="html">
         <source> <x id="INTERPOLATION" equiv-text="&quot;\uFFFD0\uFFFD&quot;" /> </source>
-        <target> <x id="INTERPOLATION" equiv-text="&quot;\uFFFD0\uFFFD&quot;" /> </target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/training-courses/training-courses.component.js</context>
           <context context-type="linenumber">308</context>
         </context-group>
@@ -6654,63 +6654,63 @@
       </trans-unit>
       <trans-unit id="82f9ede2ec363b66170b88d47429e992fa58cf3f" datatype="html">
         <source> <x id="INTERPOLATION" equiv-text="&quot;\uFFFD0\uFFFD&quot;" /> </source>
-        <target> <x id="INTERPOLATION" equiv-text="&quot;\uFFFD0\uFFFD&quot;" /> </target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/education/education.component.js</context>
           <context context-type="linenumber">384</context>
         </context-group>
       </trans-unit>
       <trans-unit id="630954211af419827688a91342a377ec3cb1c0e2" datatype="html">
         <source>Specialization <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#53\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#53\uFFFD&quot;" /></source>
-        <target>التخصص *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/education/education.component.js</context>
           <context context-type="linenumber">420</context>
         </context-group>
       </trans-unit>
       <trans-unit id="883ca50c1a8119810c0af5c7e84359ffba4018e5" datatype="html">
         <source>Enter Specialization</source>
-        <target>أدخل التخصص</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/education/education.component.js</context>
           <context context-type="linenumber">426</context>
         </context-group>
       </trans-unit>
       <trans-unit id="039ad8f2b058f0ee26692c8f6a6813fa73cad2c3" datatype="html">
         <source>تخصص <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#60\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#60\uFFFD&quot;" /></source>
-        <target>تخصص *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/education/education.component.js</context>
           <context context-type="linenumber">432</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b4a5cda385f1cf23a81f63886bdaf394f153f4ef" datatype="html">
         <source>أدخل التخصص</source>
-        <target>أدخل التخصص</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/education/education.component.js</context>
           <context context-type="linenumber">438</context>
         </context-group>
       </trans-unit>
       <trans-unit id="93d84bfb09236056679ed89142b0ebde45508160" datatype="html">
         <source>University <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#67\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#67\uFFFD&quot;" /></source>
-        <target>الجامعة *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/education/education.component.js</context>
           <context context-type="linenumber">444</context>
         </context-group>
       </trans-unit>
       <trans-unit id="63203e62a5b806849f21c38003ea153671de7de9" datatype="html">
         <source>Enter University Name</source>
-        <target>أدخل اسم الجامعة</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/education/education.component.js</context>
           <context context-type="linenumber">450</context>
         </context-group>
       </trans-unit>
       <trans-unit id="a0ae7921d63dd667929ac77c64b22d6a16c7473c" datatype="html">
         <source>جامعة <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#74\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#74\uFFFD&quot;" /></source>
-        <target>جامعة *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/education/education.component.js</context>
           <context context-type="linenumber">456</context>
         </context-group>
       </trans-unit>
       <trans-unit id="de7fca88fcd5f2ca05d935d5f81e32a90d46a8da" datatype="html">
         <source>أدخل اسم الجامعة</source>
-        <target>أدخل اسم الجامعة</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/education/education.component.js</context>
           <context context-type="linenumber">462</context>
         </context-group>
@@ -6725,28 +6725,28 @@
       </trans-unit>
       <trans-unit id="4963938173508171641" datatype="html">
         <source>Emirate</source>
-        <target>الإمارة</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/experience/experience.component.js</context>
           <context context-type="linenumber">278</context>
         </context-group>
       </trans-unit>
       <trans-unit id="516176798986294299" datatype="html">
         <source>Country</source>
-        <target>الدولة</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/experience/experience.component.js</context>
           <context context-type="linenumber">279</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4553996117921122824" datatype="html">
         <source>Regional</source>
-        <target>إقليمي</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/experience/experience.component.js</context>
           <context context-type="linenumber">280</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3437679369074503203" datatype="html">
         <source>Global</source>
-        <target>عالمي</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/experience/experience.component.js</context>
           <context context-type="linenumber">281</context>
         </context-group>
@@ -6761,7 +6761,7 @@
       </trans-unit>
       <trans-unit id="6e9a03f9992fdb8f07e560b7bbdf73cd70b6b43f" datatype="html">
         <source> <x id="INTERPOLATION" equiv-text="&quot;\uFFFD0\uFFFD&quot;" /> </source>
-        <target> <x id="INTERPOLATION" equiv-text="&quot;\uFFFD0\uFFFD&quot;" /> </target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/experience/experience.component.js</context>
           <context context-type="linenumber">502</context>
         </context-group>
@@ -6776,21 +6776,21 @@
       </trans-unit>
       <trans-unit id="afb591e0392472696dd88360d1da8840e80ebeb7" datatype="html">
         <source>Organization Name <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#25\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#25\uFFFD&quot;" /></source>
-        <target>اسم المنظمة *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/experience/experience.component.js</context>
           <context context-type="linenumber">514</context>
         </context-group>
       </trans-unit>
       <trans-unit id="88456c4c55a6f8d7115fa01b9ae51c40a088e319" datatype="html">
         <source>المسمى الوظيفي <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#31\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#31\uFFFD&quot;" /></source>
-        <target>المسمى الوظيفي *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/experience/experience.component.js</context>
           <context context-type="linenumber">520</context>
         </context-group>
       </trans-unit>
       <trans-unit id="07b8ff3d766b91eb1c623f999ac2449cd9d2b5e3" datatype="html">
         <source>اسم الجهة <x id="START_TAG_SPAN" equiv-text="&quot;\uFFFD#37\uFFFD&quot;" />*<x id="CLOSE_TAG_SPAN" equiv-text="&quot;\uFFFD/#37\uFFFD&quot;" /></source>
-        <target>اسم الجهة *</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/registrant-profile/components/experience/experience.component.js</context>
           <context context-type="linenumber">526</context>
         </context-group>
@@ -6885,35 +6885,35 @@
       </trans-unit>
       <trans-unit id="d29638b3e2d4d463fd1c0b7ddcbea7581ce5632c" datatype="html">
         <source>Contributor</source>
-        <target>مساهم</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/project-ideas/project-ideas-list/project-ideas-list.component.js</context>
           <context context-type="linenumber">419</context>
         </context-group>
       </trans-unit>
       <trans-unit id="86022280b7836d1aff7fdc0182415b041ae3625c" datatype="html">
         <source>Draft</source>
-        <target>مسودة</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/project-ideas/project-ideas-list/project-ideas-list.component.js</context>
           <context context-type="linenumber">425</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f6b9a7afc28d929ed0721b0206bc15966c1ca570" datatype="html">
         <source>Pending Approval</source>
-        <target>في انتظار الموافقة</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/project-ideas/project-ideas-list/project-ideas-list.component.js</context>
           <context context-type="linenumber">431</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dd9f3264feed4935008861c15d81c947124e4ac3" datatype="html">
         <source>Published</source>
-        <target>منشور</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/project-ideas/project-ideas-list/project-ideas-list.component.js</context>
           <context context-type="linenumber">437</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1e33710c5be9f41171349275ff75d64c7e6d5909" datatype="html">
         <source>There is no matched idea!</source>
-        <target>لا توجد فكرة مطابقة!</target><context-group purpose="location">
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/project-ideas/project-ideas-list/project-ideas-list.component.js</context>
           <context context-type="linenumber">443</context>
         </context-group>
