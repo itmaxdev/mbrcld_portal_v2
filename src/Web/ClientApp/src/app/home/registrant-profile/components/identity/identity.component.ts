@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Subject } from 'rxjs'
-import { takeUntil } from 'rxjs/operators'
 import { ProfileFacade } from '../../../profile/common/profile-facade.service'
 import { IUserIdentityDetails } from '../../../profile/common/profile.models'
 import { requiredIf2 } from 'src/app/shared/validators'
@@ -38,8 +37,8 @@ export class RegistrantIdentityComponent implements OnInit, OnDestroy {
 
   constructor(
     private facade: ProfileFacade,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
+    public router: Router,
+    public activatedRoute: ActivatedRoute,
     private messageService: MessageService
   ) {}
 

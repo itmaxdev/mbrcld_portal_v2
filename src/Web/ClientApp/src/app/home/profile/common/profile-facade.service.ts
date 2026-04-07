@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { BehaviorSubject, Observable, Subject } from 'rxjs'
-import { first, tap, shareReplay } from 'rxjs/operators'
+import { first, tap, shareReplay, finalize } from 'rxjs/operators'
 import {
   IUserContactDetails,
   IUserGeneralInformation,
@@ -186,9 +186,11 @@ export class ProfileFacade {
       .pipe(
         tap((formProgress) => {
           this.progressBarSubject$.next(formProgress)
-          this.isLoadingProgress = false
           this.globalVariables.isProfilePercentageCompleted =
             formProgress.completionPercentage == 100
+        }),
+        finalize(() => {
+          this.isLoadingProgress = false
         })
       )
       .toPromise()
@@ -214,6 +216,8 @@ export class ProfileFacade {
           this.cachedProfile = profile
           this.profileSubject$.next(profile)
           this.setProfilePictureUrl(profile.profilePictureUrl)
+        }),
+        finalize(() => {
           this.isLoadingProfile = false
         })
       )
